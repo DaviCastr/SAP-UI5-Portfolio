@@ -2,7 +2,6 @@
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:template="sap.ui.core.Template"
     controllerName="davi.portfolio.controller.Projects"
     class="pf-view">
     <Page id="page" class="pf-page-scroll" enableScrolling="true" title="{i18n>nav.projects}">
@@ -55,21 +54,21 @@
 
                 <!-- Projetos -->
                 <HBox class="pf-grid pf-grid--projects" items="{path: 'content>/filteredProjects', length: 60}">
-                    <template:Fragment fragmentName="ProjectCard" type="sap.ui.core.Template"/>
+                    <core:Fragment fragmentName="davi.portfolio.fragment.ProjectCard" type="XML"/>
                 </HBox>
 
                 <!-- Estado vazio -->
                 <VBox
                     class="pf-empty"
                     visible="{= ${content>/filteredProjects} ? ${content>/filteredProjects}.length === 0 : false }">
-                    <Icon src="sap-icon://source-code" class="pf-text-xl pf-muted"/>
+                    <core:Icon src="sap-icon://source-code" class="pf-text-xl pf-muted"/>
                     <Text text="{i18n>projects.empty}"/>
                 </VBox>
 
                 <!-- GitHub -->
                 <VBox class="pf-card pf-stack pf-gap-3">
                     <HBox alignItems="Center" class="pf-gap-3">
-                        <Icon src="sap-icon://github" class="pf-text-s"/>
+                        <core:Icon src="sap-icon://github" class="pf-text-s"/>
                         <Title level="H2" class="pf-h3" text="{i18n>projects.syncTitle}"/>
                         <Text class="pf-small pf-muted" text="{path: 'content>/github/syncedAt', formatter: '.fDateTime'}"/>
                     </HBox>

@@ -25,7 +25,7 @@ export default class HomeController extends BaseController {
 
     /** Abre o cliente de e-mail com o endereco do portfolio. */
     public onEmailPress(): void {
-        this.openLink(`mailto:${this.content.profile.email}`, true);
+        this.openLink(`mailto:${this.content().profile.email}`, true);
     }
 
     /**
@@ -49,7 +49,7 @@ export default class HomeController extends BaseController {
 
     /** Abre o perfil do LinkedIn informado no JSON. */
     public onLinkedinPress(): void {
-        const linkedin = (this.content.profile.links ?? []).find((link) => link.id === "linkedin");
+        const linkedin = (this.content().profile.links ?? []).find((link) => link.id === "linkedin");
         this.openLink(linkedin?.url);
     }
 

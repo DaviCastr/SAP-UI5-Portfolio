@@ -30,10 +30,10 @@ export default class ExperienceController extends BaseController {
     private applyFilter(kind: string): void {
         const items: Experience[] =
             kind === "all"
-                ? this.content.experiences
-                : this.content.experiences.filter((item) => (item.kind ?? "job") === kind);
+                ? this.content().experiences
+                : this.content().experiences.filter((item) => (item.kind ?? "job") === kind);
 
-        this.getModel("content")?.setProperty("/filteredExperiences", items);
-        this.getModel("ui")?.setProperty("/experienceKind", kind);
+        this.model("content")?.setProperty("/filteredExperiences", items);
+        this.model("ui")?.setProperty("/experienceKind", kind);
     }
 }

@@ -2,7 +2,6 @@
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:template="sap.ui.core.Template"
     controllerName="davi.portfolio.controller.Education"
     class="pf-view">
     <Page id="page" class="pf-page-scroll" enableScrolling="true" title="{i18n>nav.education}">
@@ -20,7 +19,7 @@
                 <VBox class="pf-stack pf-gap-4" items="{content>/education}">
                     <HBox class="pf-tl-item" alignItems="Stretch">
                         <VBox class="pf-tl-item__marker">
-                            <Icon src="sap-icon://academic-cap" class="pf-text-s"/>
+                            <core:Icon src="sap-icon://academic-cap" class="pf-text-s"/>
                         </VBox>
 
                         <VBox class="pf-card pf-stack pf-gap-2 pf-grow-1">
@@ -52,7 +51,7 @@
                         <VBox class="pf-skill">
                             <HBox alignItems="Center" class="pf-gap-3">
                                 <HBox class="pf-skill__icon" alignItems="Center">
-                                    <Icon src="sap-icon://course" class="pf-text-lg"/>
+                                    <core:Icon src="sap-icon://course" class="pf-text-lg"/>
                                 </HBox>
                                 <Text class="pf-skill__name" text="{name}"/>
                             </HBox>
@@ -66,7 +65,7 @@
                 <VBox
                     class="pf-empty"
                     visible="{= ${content>/education} ? ${content>/education}.length === 0 : false }">
-                    <Icon src="sap-icon://academic-cap" class="pf-text-xl pf-muted"/>
+                    <core:Icon src="sap-icon://academic-cap" class="pf-text-xl pf-muted"/>
                     <Text text="{i18n>education.empty}"/>
                 </VBox>
 

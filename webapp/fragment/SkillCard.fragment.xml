@@ -2,7 +2,7 @@
     <VBox class="pf-skill">
         <HBox alignItems="Center" class="pf-gap-3">
             <HBox class="pf-skill__icon" alignItems="Center">
-                <Icon src="{path: 'icon', formatter: '.fIcon'}" class="pf-text-lg"/>
+                <core:Icon src="{path: 'icon', formatter: '.fIcon'}" class="pf-text-lg"/>
             </HBox>
             <Text class="pf-skill__name" text="{name}"/>
             <Text class="pf-skill__level" text="{path: 'level', formatter: '.fLevel'}"/>

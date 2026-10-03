@@ -3,7 +3,7 @@
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:html="http://www.w3.org/1999/xhtml"
-    controllerName="sap-ui5-portfolio.controller.About"
+    controllerName="davi.portfolio.controller.About"
     class="pf-view">
     <Page id="page" class="pf-page-scroll" enableScrolling="true" title="{i18n>nav.about}">
         <content>
@@ -17,7 +17,7 @@
                 </VBox>
 
                 <!-- Perfil + texto -->
-                <HBox class="pf-two-col" alignItems="Begin">
+                <HBox class="pf-two-col" alignItems="Start">
                     <VBox class="pf-stack pf-gap-4">
                         <HBox class="pf-stack pf-gap-3" items="{content>/profile/about}">
                             <Text class="pf-prose" text="{this>}"/>
@@ -43,23 +43,23 @@
                             <Text class="pf-muted pf-small" text="{content>/profile/role}"/>
                         </VBox>
 
-                        <html:hr class="pf-separator"/>
+                        <VBox class="pf-separator"/>
 
                         <VBox class="pf-stack--tight">
                             <HBox alignItems="Center" class="pf-contact-row">
-                                <Icon src="sap-icon://email" class="pf-text-s"/>
+                                <core:Icon src="sap-icon://email" class="pf-text-s"/>
                                 <Text text="{content>/profile/email}"/>
                             </HBox>
                             <HBox alignItems="Center" class="pf-contact-row">
-                                <Icon src="sap-icon://phone" class="pf-text-s"/>
+                                <core:Icon src="sap-icon://phone" class="pf-text-s"/>
                                 <Text text="{path: 'content>/profile/phone', formatter: '.fPhone'}"/>
                             </HBox>
                             <HBox alignItems="Center" class="pf-contact-row">
-                                <Icon src="sap-icon://map" class="pf-text-s"/>
+                                <core:Icon src="sap-icon://map" class="pf-text-s"/>
                                 <Text text="{content>/profile/location}"/>
                             </HBox>
                             <HBox alignItems="Center" class="pf-contact-row" visible="{= !!${content>/profile/birthday}}">
-                                <Icon src="sap-icon://birthday-cake" class="pf-text-s"/>
+                                <core:Icon src="sap-icon://birthday-cake" class="pf-text-s"/>
                                 <Text text="{path: 'content>/profile/birthday', formatter: '.fDate'}"/>
                             </HBox>
                         </VBox>
@@ -80,7 +80,7 @@
                     <Text class="pf-eyebrow" text="{i18n>about.languagesEyebrow}"/>
                     <HBox class="pf-grid pf-grid--languages" items="{content>/profile/languages}">
                         <HBox alignItems="Center" class="pf-pill">
-                            <Icon src="sap-icon://globe" class="pf-text-s pf-muted"/>
+                            <core:Icon src="sap-icon://globe" class="pf-text-s pf-muted"/>
                             <Text class="pf-small" text="{name}"/>
                             <Text class="pf-small pf-muted" text="{level}"/>
                         </HBox>

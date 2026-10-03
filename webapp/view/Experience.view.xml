@@ -2,7 +2,6 @@
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:template="sap.ui.core.Template"
     controllerName="davi.portfolio.controller.Experience"
     class="pf-view">
     <Page id="page" class="pf-page-scroll" enableScrolling="true" title="{i18n>nav.experience}">
@@ -45,7 +44,7 @@
                         press="onAllPress"/>
                     <Button
                         class="pf-filter"
-                        text="{i18n>experience.filter.role}"
+                        text="{i18n>experience.filter.job}"
                         type="{= ${ui>/experienceKind} === 'job' ? 'Emphasized' : 'Transparent' }"
                         press="onJobPress"/>
                     <Button
@@ -57,14 +56,14 @@
 
                 <!-- Linha do tempo -->
                 <VBox class="pf-timeline" items="{path: 'content>/filteredExperiences', length: 100}">
-                    <template:Fragment fragmentName="ExperienceItem" type="sap.ui.core.Template"/>
+                    <core:Fragment fragmentName="davi.portfolio.fragment.ExperienceItem" type="XML"/>
                 </VBox>
 
                 <!-- Estado vazio -->
                 <VBox
                     class="pf-empty"
                     visible="{= ${content>/filteredExperiences} ? ${content>/filteredExperiences}.length === 0 : false }">
-                    <Icon src="sap-icon://briefcase" class="pf-text-xl pf-muted"/>
+                    <core:Icon src="sap-icon://briefcase" class="pf-text-xl pf-muted"/>
                     <Text text="{i18n>experience.empty}"/>
                 </VBox>
 

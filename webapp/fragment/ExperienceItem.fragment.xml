@@ -22,7 +22,7 @@
             </HBox>
 
             <HBox alignItems="Center" class="pf-gap-2 pf-small pf-strong pf-chip pf-chip--primary">
-                <Icon src="sap-icon://calendar" class="pf-text-xs"/>
+                <core:Icon src="sap-icon://calendar" class="pf-text-xs"/>
                 <Text text="{path: 'period/from', formatter: '.fMonthYear'}"/>
                 <Text text="-"/>
                 <Text

@@ -16,6 +16,17 @@ framework:
 customConfiguration:
     ui5-tooling-transpile: &cfgTranspile
         debug: true
+        # OBRIGATORIO: converter classes ES para o padrao UI5 ".extend()".
+        # O UI5 cria componente/controller a partir dessa fabrica (chamada com
+        # "new" sobre uma funcao), e nao a partir de uma classe ES2015 nativa.
+        # Sem esta conversao o app morre com:
+        #   "Class constructor Component cannot be invoked without 'new'"
+        # e a tela fica presa no preloader.
+        # Por padrao o babel-plugin-transform-modules-ui5 so converte classes cujo
+        # nome contem "Controller" ou o arquivo termina em ".controller.ts", o que
+        # deixaria webapp/Component.ts (classe "Component") como classe nativa.
+        transformModulesToUI5:
+            autoConvertAllExtendClasses: true
     ui5-tooling-modules: &cfgModules
         debug: true
 

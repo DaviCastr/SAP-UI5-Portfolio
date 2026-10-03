@@ -2,7 +2,7 @@
     <VBox class="pf-project">
         <HBox alignItems="Center" class="pf-project__head">
             <HBox class="pf-project__icon" alignItems="Center">
-                <Icon src="{path: 'icon', formatter: '.fIcon'}" class="pf-text-lg"/>
+                <core:Icon src="{path: 'icon', formatter: '.fIcon'}" class="pf-text-lg"/>
             </HBox>
             <Text class="pf-project__name" text="{name}"/>
         </HBox>
@@ -21,19 +21,19 @@
 
         <HBox class="pf-project__foot">
             <HBox alignItems="Center" class="pf-gap-1 pf-muted pf-small" visible="{= !!${language}}">
-                <Icon src="sap-icon://terminal" class="pf-text-xs"/>
+                <core:Icon src="sap-icon://terminal" class="pf-text-xs"/>
                 <Text text="{language}"/>
             </HBox>
             <HBox alignItems="Center" class="pf-project__stat" visible="{= !!${stars}}">
-                <Icon src="sap-icon://star" class="pf-text-xs"/>
+                <core:Icon src="sap-icon://star" class="pf-text-xs"/>
                 <Text text="{stars}"/>
             </HBox>
             <HBox alignItems="Center" class="pf-project__stat" visible="{= !!${forks}}">
-                <Icon src="sap-icon://share" class="pf-text-xs"/>
+                <core:Icon src="sap-icon://share" class="pf-text-xs"/>
                 <Text text="{forks}"/>
             </HBox>
             <HBox alignItems="Center" class="pf-gap-1 pf-muted pf-small" visible="{= !!${updatedAt}}">
-                <Icon src="sap-icon://history" class="pf-text-xs"/>
+                <core:Icon src="sap-icon://history" class="pf-text-xs"/>
                 <Text text="{updatedAt}"/>
             </HBox>
         </HBox>

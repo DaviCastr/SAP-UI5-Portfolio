@@ -10,8 +10,15 @@ import Device from "sap/ui/Device";
  */
 export default {
     /** Model padrao de device (usado por bindings responsivos). */
-    createDeviceModel(): sap.ui.model.Model {
-        return new Device();
+    createDeviceModel(): JSONModel {
+        // No UI5 1.153 o modulo "sap/ui/Device" devolve o namespace estatico
+        // sap.ui.Device (system/support/media) e NAO um sap.ui.model.Model --
+        //entao ele nao pode ser registrado via setModel. O app expoe um retrato
+        // simples em JSON, suficiente para bindings device>/system/... .
+        return new JSONModel({
+            system: { ...Device.system },
+            support: { ...Device.support }
+        });
     },
 
     /** Estado global da interface. */
@@ -19,11 +26,7 @@ export default {
         return new JSONModel({
             busy: true,
             theme: "light",
-            locale: "pt",
-            availableLocales: [
-                { id: "pt", label: "Português" },
-                { id: "en", label: "English" }
-            ]
+            locale: "pt"
         });
     },
 

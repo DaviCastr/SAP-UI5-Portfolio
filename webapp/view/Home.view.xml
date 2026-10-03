@@ -2,7 +2,6 @@
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:template="sap.ui.core.Template"
     controllerName="davi.portfolio.controller.Home"
     class="pf-view">
     <Page id="page" class="pf-page-scroll" enableScrolling="true" title="{i18n>nav.home}">
@@ -18,7 +17,7 @@
                         alt="{content>/profile/name}"/>
                     <VBox class="pf-hero__content pf-gap-3">
                         <HBox alignItems="Center" class="pf-hero__badge">
-                            <Icon src="sap-icon://accept" class="pf-text-xs"/>
+                            <core:Icon src="sap-icon://accept" class="pf-text-xs"/>
                             <Text text="{i18n>hero.availability}"/>
                         </HBox>
 
@@ -47,15 +46,15 @@
 
                         <HBox class="pf-hero__meta">
                             <HBox alignItems="Center" class="pf-hero__meta-item">
-                                <Icon src="sap-icon://map" class="pf-text-xs"/>
+                                <core:Icon src="sap-icon://map" class="pf-text-xs"/>
                                 <Text text="{content>/profile/location}"/>
                             </HBox>
                             <HBox alignItems="Center" class="pf-hero__meta-item">
-                                <Icon src="sap-icon://email" class="pf-text-xs"/>
+                                <core:Icon src="sap-icon://email" class="pf-text-xs"/>
                                 <Text text="{content>/profile/email}"/>
                             </HBox>
                             <HBox alignItems="Center" class="pf-hero__meta-item">
-                                <Icon src="sap-icon://phone" class="pf-text-xs"/>
+                                <core:Icon src="sap-icon://phone" class="pf-text-xs"/>
                                 <Text text="{path: 'content>/profile/phone', formatter: '.fPhone'}"/>
                             </HBox>
                         </HBox>
@@ -97,7 +96,7 @@
                     </HBox>
 
                     <HBox class="pf-grid pf-grid--skills" items="{path: 'content>/focusSkills', length: 6}">
-                        <template:Fragment fragmentName="SkillCard" type="sap.ui.core.Template"/>
+                        <core:Fragment fragmentName="davi.portfolio.fragment.SkillCard" type="XML"/>
                     </HBox>
                 </VBox>
 
@@ -116,7 +115,7 @@
                     </HBox>
 
                     <HBox class="pf-grid pf-grid--projects" items="{path: 'content>/featuredProjects', length: 3}">
-                        <template:Fragment fragmentName="ProjectCard" type="sap.ui.core.Template"/>
+                        <core:Fragment fragmentName="davi.portfolio.fragment.ProjectCard" type="XML"/>
                     </HBox>
                 </VBox>
 
@@ -135,7 +134,7 @@
                     </HBox>
 
                     <HBox class="pf-grid pf-grid--certs" items="{path: 'content>/recentCertificates', length: 3}">
-                        <template:Fragment fragmentName="CertificateCard" type="sap.ui.core.Template"/>
+                        <core:Fragment fragmentName="davi.portfolio.fragment.CertificateCard" type="XML"/>
                     </HBox>
                 </VBox>
 

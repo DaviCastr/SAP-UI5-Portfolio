@@ -2,7 +2,6 @@
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:template="sap.ui.core.Template"
     controllerName="davi.portfolio.controller.Skills"
     class="pf-view">
     <Page id="page" class="pf-page-scroll" enableScrolling="true" title="{i18n>nav.skills}">
@@ -40,13 +39,13 @@
                 <VBox class="pf-stack pf-gap-6" items="{content>/skillsByCategory}">
                     <VBox class="pf-stack pf-gap-3">
                         <HBox alignItems="Center" class="pf-gap-3">
-                            <Icon src="sap-icon://group-2" class="pf-text-s pf-muted"/>
+                            <core:Icon src="sap-icon://group-2" class="pf-text-s pf-muted"/>
                             <Title level="H2" class="pf-h3" text="{category}"/>
                             <Text class="pf-pill pf-text-xs" text="{count}"/>
                         </HBox>
 
                         <HBox class="pf-grid pf-grid--skills" items="{items}">
-                            <template:Fragment fragmentName="SkillCard" type="sap.ui.core.Template"/>
+                            <core:Fragment fragmentName="davi.portfolio.fragment.SkillCard" type="XML"/>
                         </HBox>
                     </VBox>
                 </VBox>
@@ -55,7 +54,7 @@
                 <VBox
                     class="pf-empty"
                     visible="{= ${content>/skillsByCategory} ? ${content>/skillsByCategory}.length === 0 : false }">
-                    <Icon src="sap-icon://settings" class="pf-text-xl pf-muted"/>
+                    <core:Icon src="sap-icon://settings" class="pf-text-xl pf-muted"/>
                     <Text text="{i18n>skills.empty}"/>
                 </VBox>
 

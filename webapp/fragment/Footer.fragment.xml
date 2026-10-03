@@ -1,5 +1,5 @@
-<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml">
-    <html:footer class="pf-footer">
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <VBox class="pf-footer">
         <VBox class="pf-container pf-footer__inner">
             <HBox alignItems="Center" class="pf-row--between pf-row--wrap" width="100%">
 
@@ -16,30 +16,27 @@
                 </HBox>
 
                 <HBox alignItems="Center" class="pf-gap-4 pf-row--wrap">
+                    <!--
+                        Os itens sao adicionados em App.controller (publishUiOptions):
+                        sap.m.SegmentedButton usa "buttons" como defaultAggregation,
+                        entao um template XML filho nao e atribuido a agregacao "items".
+                    -->
                     <SegmentedButton
+                        id="themeToggle"
                         selectedKey="{ui>/theme}"
                         selectionChange="onThemeChange"
-                        class="pf-footer__toggle">
-                        <items>
-                            <SegmentedButtonItem key="light" text="{i18n>theme.light}"/>
-                            <SegmentedButtonItem key="dark" text="{i18n>theme.dark}"/>
-                        </items>
-                    </SegmentedButton>
+                        class="pf-footer__toggle"/>
 
                     <SegmentedButton
+                        id="localeToggle"
                         selectedKey="{ui>/locale}"
                         selectionChange="onLocaleChange"
-                        class="pf-footer__toggle">
-                        <items>
-                            <SegmentedButtonItem key="pt" text="{i18n>language.pt}"/>
-                            <SegmentedButtonItem key="en" text="{i18n>language.en}"/>
-                        </items>
-                    </SegmentedButton>
+                        class="pf-footer__toggle"/>
                 </HBox>
 
             </HBox>
 
-            <html:hr class="pf-separator pf-mt-4 pf-mb-0"/>
+            <VBox class="pf-separator pf-mt-4 pf-mb-0"/>
 
             <HBox alignItems="Center" class="pf-row--between pf-row--wrap" width="100%">
                 <HBox class="pf-row--wrap" items="{content>/footerLinks}">
@@ -55,5 +52,5 @@
                 <Text class="pf-footer__note" text="{i18n>footer.built}"/>
             </HBox>
         </VBox>
-    </html:footer>
+    </VBox>
 </core:FragmentDefinition>

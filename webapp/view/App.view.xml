@@ -1,15 +1,15 @@
 <mvc:View
     controllerName="davi.portfolio.controller.App"
     xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
     xmlns="sap.m"
     displayBlock="true">
     <FlexBox direction="Column" class="pf-app">
-        <include source="fragment/Topbar"/>
+        <core:Fragment fragmentName="davi.portfolio.fragment.Topbar" type="XML"/>
         <NavContainer
             id="appContainer"
             class="pf-app__content"
-            bindBusy="ui>/busy"
             busyIndicatorDelay="0"/>
-        <include source="fragment/Footer"/>
+        <core:Fragment fragmentName="davi.portfolio.fragment.Footer" type="XML"/>
     </FlexBox>
 </mvc:View>

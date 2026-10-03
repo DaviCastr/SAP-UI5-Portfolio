@@ -67,7 +67,24 @@ apontados em "Pendencias".
 - [x] `npm run lint` sem erros nem avisos.
 - [x] `npm run types` passa para app e ferramentas.
 - [x] 47 testes Vitest passando (metrics, localizer, viewData, validator, conteudo real).
+- [x] `npm run format:check` e `npm run content:check` sem pendencias.
 - [x] `README.md` com documentacao completa (inclusive como trocar a fonte de dados).
+
+### Runtime (validado no navegador)
+
+- [x] App sobe sem erro: container do component populado e splash removido, tanto em
+      `ui5 serve` quanto no `dist/` gerado por `npm run build`.
+- [x] Todas as rotas renderizam conteudo real: `#/`, `#/home`, `#/about`, `#/experience`,
+      `#/skills`, `#/projects`, `#/certificates`, `#/education`, `#/cv` e rota
+      inexistente (que cai na tela 404).
+- [x] Sem excecoes de JavaScript, sem asserts de setting desconhecido e sem 404 de
+      recurso da aplicacao.
+
+Conhecido e sem impacto: ao reaproveitar views em cache do router (`viewLevel`), o
+UI5 1.153 registra `[FUTURE FATAL] ... templateShareable ...`. E um aviso do proprio
+framework em operacao de clone: nao existe atributo XML para `templateShareable` em
+1.153 (o `XMLTemplateProcessor` nao conhece a propriedade), e o aviso nao impede a
+renderizacao nem a navegacao.
 
 ## Pendencias
 

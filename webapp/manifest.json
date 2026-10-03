@@ -99,6 +99,11 @@
           "target": "home"
         },
         {
+          "name": "homeAlias",
+          "pattern": "home",
+          "target": "home"
+        },
+        {
           "name": "about",
           "pattern": "about",
           "target": "about"
@@ -135,7 +140,7 @@
         },
         {
           "name": "notFound",
-          "pattern": "catchAll",
+          "pattern": ":notFoundRoute:",
           "target": "notFound"
         }
       ],

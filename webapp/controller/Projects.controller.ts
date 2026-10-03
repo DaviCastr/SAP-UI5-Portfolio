@@ -35,7 +35,7 @@ export default class ProjectsController extends BaseController {
 
     /** Abre o perfil publico no GitHub. */
     public onGitHubPress(): void {
-        const profileUrl = this.content.github?.profileUrl;
+        const profileUrl = this.content().github?.profileUrl;
         if (profileUrl) {
             this.openExternal(profileUrl);
         }
@@ -44,10 +44,10 @@ export default class ProjectsController extends BaseController {
     private applyFilter(tag: string): void {
         const items: Project[] =
             tag === "all"
-                ? this.content.projects
-                : this.content.projects.filter((project) => project.tags?.includes(tag));
+                ? this.content().projects
+                : this.content().projects.filter((project) => project.tags?.includes(tag));
 
-        this.getModel("content")?.setProperty("/filteredProjects", items);
-        this.getModel("ui")?.setProperty("/projectFilter", tag);
+        this.model("content")?.setProperty("/filteredProjects", items);
+        this.model("ui")?.setProperty("/projectFilter", tag);
     }
 }

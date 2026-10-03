@@ -1,4 +1,8 @@
 import type JSONModel from "sap/ui/model/json/JSONModel";
+import Log from "sap/base/Log";
+import ResourceModel from "sap/ui/model/resource/ResourceModel";
+import SegmentedButton from "sap/m/SegmentedButton";
+import SegmentedButtonItem from "sap/m/SegmentedButtonItem";
 import BaseController from "./BaseController";
 import { ContentService } from "../service/ContentService";
 import { browserFetcher, createDataSource, loadSourceConfig } from "../service/StaticJsonDataSource";
@@ -44,7 +48,7 @@ export default class AppController extends BaseController {
     public override onAfterRendering(): void {
         if (!this.routerStarted) {
             this.routerStarted = true;
-            this.owner.getRouter().initialize();
+            this.component().getRouter().initialize();
         }
     }
 
@@ -52,9 +56,9 @@ export default class AppController extends BaseController {
     private async loadPortfolio(): Promise<void> {
         const source = await loadSourceConfig(CONTENT_BASE_URL, browserFetcher);
         const dataSource = createDataSource(source, { baseUrl: CONTENT_BASE_URL, fetcher: browserFetcher });
-        const service = await ContentService.boot({ dataSource, locale: this.locale });
+        const service = await ContentService.boot({ dataSource, locale: this.locale() });
 
-        const contentModel = this.getModel("content") as JSONModel;
+        const contentModel = this.model("content") as JSONModel;
         const viewData = buildViewData(service);
 
         // Um unico setData: sobrescrever duas vezes apagaria o documento do
@@ -66,13 +70,53 @@ export default class AppController extends BaseController {
             footerLinks: normalizeLinks(viewData.footerLinks)
         });
 
-        this.owner.getRouter().attachRouteMatched((event) => {
-            const name = (event.getParameter("name") as string) ?? "";
-            this.getModel("ui")?.setProperty("/activeRoute", name);
-        });
+        this.component()
+            .getRouter()
+            .attachRouteMatched((event) => {
+                const name = (event.getParameter("name") as string) ?? "";
+                this.model("ui")?.setProperty("/activeRoute", name);
+            });
 
-        this.getModel("ui")?.setProperty("/busy", false);
+        await this.publishUiOptions();
+        this.model("ui")?.setProperty("/busy", false);
         this.hideSplash();
+    }
+
+    /**
+     * Publica as opcoes de tema e idioma dos SegmentedButton da rodape.
+     *
+     * Os rotulos vem do resource bundle (i18n) porque o model "ui" e um JSONModel
+     * e nao resolve chaves i18n sozinho. Os itens sao criados via API porque
+     * sap.m.SegmentedButton declara "buttons" como defaultAggregation e ignora
+     * templates XML na agregacao "items".
+     */
+    private async publishUiOptions(): Promise<void> {
+        const view = this.getView();
+        const i18n = view?.getModel("i18n") as ResourceModel | undefined;
+        // O manifest declara asyncSupport, entao o bundle pode chegar como Promise.
+        const bundle = await i18n?.getResourceBundle();
+        const text = (key: string): string => bundle?.getText(key) ?? key;
+
+        const fill = (id: string, options: { key: string; text: string }[]): void => {
+            const toggle = view?.byId(id) as SegmentedButton | undefined;
+            if (!toggle) {
+                Log.warning("SegmentedButton nao encontrado: " + id);
+                return;
+            }
+            toggle.removeAllItems();
+            options.forEach((option) => {
+                toggle.addItem(new SegmentedButtonItem({ key: option.key, text: option.text }));
+            });
+        };
+
+        fill("themeToggle", [
+            { key: "light", text: text("theme.light") },
+            { key: "dark", text: text("theme.dark") }
+        ]);
+        fill("localeToggle", [
+            { key: "pt", text: text("language.pt") },
+            { key: "en", text: text("language.en") }
+        ]);
     }
 
     /** Navega para a secao escolhida na barra superior. */
@@ -102,7 +146,7 @@ export default class AppController extends BaseController {
     public onThemeChange(event: sap.ui.base.Event<{ key: string }>): void {
         const key = (event.getParameter("key") as ThemeMode) ?? "light";
         ThemeService.apply(key);
-        this.getModel("ui")?.setProperty("/theme", key);
+        this.model("ui")?.setProperty("/theme", key);
     }
 
     /** Troca o idioma (recarrega pela URL ?lang=). */

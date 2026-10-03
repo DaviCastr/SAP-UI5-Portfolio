@@ -2,7 +2,6 @@
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:template="sap.ui.core.Template"
     controllerName="davi.portfolio.controller.Cv"
     class="pf-view pf-view--cv">
     <Page id="page" class="pf-page-scroll" enableScrolling="true" title="{i18n>nav.cv}">

@@ -34,7 +34,7 @@ export default class CertificatesController extends BaseController {
     }
 
     private applyFilter(filter: string): void {
-        let items: Certificate[] = this.content.certificates;
+        let items: Certificate[] = this.content().certificates;
 
         if (filter === "valid") {
             items = items.filter(
@@ -44,8 +44,8 @@ export default class CertificatesController extends BaseController {
             items = items.filter((certificate) => (certificate.issuedAt ?? "").startsWith(filter));
         }
 
-        this.getModel("content")?.setProperty("/filteredCertificates", items);
-        this.getModel("ui")?.setProperty("/certificateFilter", filter);
+        this.model("content")?.setProperty("/filteredCertificates", items);
+        this.model("ui")?.setProperty("/certificateFilter", filter);
     }
 
     private isExpired(expiresAt: string): boolean {

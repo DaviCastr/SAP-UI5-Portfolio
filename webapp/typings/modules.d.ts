@@ -29,6 +29,14 @@ declare module "sap/ui/core/mvc/Controller" {
     }
 }
 
+declare module "sap/m/SegmentedButton" {
+    export default class SegmentedButton extends sap.m.SegmentedButton {}
+}
+
+declare module "sap/m/SegmentedButtonItem" {
+    export default class SegmentedButtonItem extends sap.m.SegmentedButtonItem {}
+}
+
 declare module "sap/ui/model/json/JSONModel" {
     export default class JSONModel extends sap.ui.model.json.JSONModel {}
 }

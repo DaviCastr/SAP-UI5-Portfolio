@@ -32,7 +32,18 @@
         <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="images/favicon.svg" />
 
-        <base href="/SAP-UI5-Portfolio/" />
+        <!--
+        IMPORTANTE: nao use <base href="..."> aqui.
+
+        O <base> fixa a resolucao de TODAS as URLs relativas da pagina. Com
+        <base href="/SAP-UI5-Portfolio/">, abrir a app em http://localhost:8080/
+       /index.html faria o UI5 procurar manifest.json em /SAP-UI5-Portfolio/
+        (404) e a tela ficaria presa no preloader.
+
+        Sem <base>, o "./" do data-sap-ui-resourceroots e resolvido a partir da
+        propria pagina, e a app funciona tanto na raiz do servidor quanto em
+        subpasta (GitHub Pages: /SAP-UI5-Portfolio/).
+    -->
 
         <!--
         Bootstrap dinamico: o tema (claro/escuro) e aplicado ANTES do sap-ui-core carregar,
@@ -156,8 +167,48 @@
             data-sap-ui-component
             data-name="davi.portfolio"
             data-id="app"
-            data-settings='{ "id": "davi.portfolio", "componentName": "davi.portfolio", "async": true }'
+            data-settings='{ "id": "davi.portfolio" }'
             data-handle-validation="true"
         ></div>
+
+        <script>
+            // Rede de seguranca: se o component nao conseguir carregar (404, CDN
+            // bloqueado, erro de sintaxe no bundle), o splash some sozinho e o
+            // usuario ve a orientacao em vez de uma tela carregando para sempre.
+            // Só acusa falha quando NADA foi renderizado no container do component.
+            (function () {
+                var TIMEOUT = 20000;
+                var POLL = 500;
+                var container = document.querySelector("[data-sap-ui-component]");
+
+                var hide = function () {
+                    var splash = document.getElementById("pf-splash");
+                    if (splash && splash.parentNode) {
+                        splash.parentNode.removeChild(splash);
+                    }
+                };
+
+                var deadline = Date.now() + TIMEOUT;
+                var poll = function () {
+                    if (container && container.children.length > 0) {
+                        hide();
+                        return;
+                    }
+                    if (Date.now() >= deadline) {
+                        var splash = document.getElementById("pf-splash");
+                        if (splash && splash.parentNode) {
+                            splash.innerHTML =
+                                '<div class="pf-splash__name">Nao foi possivel iniciar a aplicacao</div>' +
+                                '<div class="pf-splash__role">Verifique o console do navegador (F12) para o erro detalhado.</div>' +
+                                '<div class="pf-splash__role">Confirme que index.html e manifest.json estao na mesma pasta e que o component "davi.portfolio" foi compilado.</div>';
+                        }
+                        return;
+                    }
+                    window.setTimeout(poll, POLL);
+                };
+
+                window.setTimeout(poll, POLL);
+            })();
+        </script>
     </body>
 </html>

@@ -17,7 +17,7 @@
 
             <!-- Navegacao: gerada a partir de content/sections.json -->
             <HBox class="pf-topbar__nav pf-scroll-x" items="{content>/navSections}">
-<Button
+                <Button
                     class="pf-topbar__btn"
                     type="{= ${route} === ${path: 'ui>/activeRoute'} ? 'Emphasized' : 'Transparent' }"
                     text="{nav}"
@@ -31,7 +31,7 @@
                 <Button
                     class="pf-hide-phone"
                     type="Emphasized"
-                    icon="action-download"
+                    icon="sap-icon://action-download"
                     text="{i18n>action.cv}"
                     press="onCvPress"/>
 
