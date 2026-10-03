@@ -1,0 +1,134 @@
+/* ==========================================================================
+ * print.css - Impressao do curriculo
+ *
+ * Carregado apenas em "@media print" (ver manifest.json -> resources.css).
+ * Objetivo: ao imprimir a aba "Curriculo" (ou usar "Salvar como PDF" do
+ * navegador), sair uma folha A4 limpa - sem menu, sem rodape e sem cores
+ * pesadas de fundo.
+ * ========================================================================== */
+
+@media print {
+    /* Reset de cores: preto sobre branco, como esperado em uma folha impressa. */
+    :root {
+        --pf-bg: #ffffff;
+        --pf-surface: #ffffff;
+        --pf-surface-sunken: #ffffff;
+        --pf-border: #d0d0d0;
+        --pf-border-strong: #a0a0a0;
+        --pf-text: #000000;
+        --pf-text-muted: #3c3c3c;
+        --pf-text-subtle: #5a5a5a;
+        --pf-primary: #000000;
+        --pf-shadow-1: none;
+        --pf-shadow-2: none;
+        --pf-shadow-3: none;
+    }
+
+    html,
+    body {
+        background: #fff !important;
+    }
+
+    /* Esconde tudo que nao faz parte do documento impresso. */
+    .pf-topbar,
+    .pf-footer,
+    .pf-filterbar,
+    .pf-cta,
+    .pf-issues,
+    .pf-empty,
+    .pf-view--cv .sapMPageHeader,
+    .pf-view--cv .sapMPageSubHeader {
+        display: none !important;
+    }
+
+    /* A folha ocupa a pagina inteira, sem areas de conteudo da UI5. */
+    .pf-app,
+    .pf-app__content,
+    .pf-app__content .sapMPage,
+    .pf-app__content .sapMPageContent,
+    .pf-view--cv .sapMPageContent,
+    .pf-view--cv .sapMPageContentScrollContainer {
+        display: block !important;
+        height: auto !important;
+        max-height: none !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: #fff !important;
+        border: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .pf-container {
+        max-width: none;
+        padding: 0;
+    }
+
+    .pf-page {
+        padding: 0;
+        gap: 12px;
+    }
+
+    /* Folha A4 com margem de pagina padrao. */
+    .pf-sheet {
+        display: block;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .pf-sheet__head {
+        padding-bottom: 10px;
+        border-bottom: 2px solid #000;
+    }
+
+    .pf-sheet__section {
+        margin-top: 14px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .pf-sheet__section-title {
+        color: #000;
+        border-bottom: 1px solid #d0d0d0;
+        padding-bottom: 2px;
+    }
+
+    .pf-sheet__metric {
+        background: #fff;
+        border: 1px solid #d0d0d0;
+    }
+
+    /* Evita que um item quebre entre duas paginas. */
+    .pf-sheet__metrics,
+    .pf-chips,
+    .pf-sheet__text,
+    .pf-sheet__item-title {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .pf-chip {
+        border: 1px solid #d0d0d0;
+        background: #fff;
+        color: #000;
+    }
+
+    /* Links mostram a URL real no PDF impresso. */
+    a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 9px;
+        color: #5a5a5a;
+    }
+
+    .pf-sheet a[href]::after {
+        content: "";
+    }
+
+    @page {
+        size: A4;
+        margin: 14mm;
+    }
+}

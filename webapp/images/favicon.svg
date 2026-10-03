@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+    <defs>
+        <linearGradient id="pfFav" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#07203a" />
+            <stop offset="100%" stop-color="#0070f2" />
+        </linearGradient>
+    </defs>
+    <rect width="64" height="64" rx="16" fill="url(#pfFav)" />
+    <circle cx="32" cy="26" r="10" fill="#ffffff" />
+    <path d="M14 54c0-11 8-17 18-17s18 6 18 17z" fill="#ffffff" />
+</svg>

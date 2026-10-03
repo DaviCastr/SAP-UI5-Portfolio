@@ -1,0 +1,51 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <HBox class="pf-topbar">
+        <HBox class="pf-container pf-topbar__row" alignItems="Center">
+
+            <!-- Marca -->
+            <HBox alignItems="Center" class="pf-gap-3">
+                <Image
+                    class="pf-topbar__brand-avatar"
+                    src="{content>/profile/avatar}"
+                    densityAware="false"
+                    alt="{content>/profile/name}"/>
+                <VBox class="sapUiVBoxTiny">
+                    <Text class="pf-topbar__brand-name" text="{content>/profile/name}"/>
+                    <Text class="pf-topbar__brand-role" text="{content>/profile/role}"/>
+                </VBox>
+            </HBox>
+
+            <!-- Navegacao: gerada a partir de content/sections.json -->
+            <HBox class="pf-topbar__nav pf-scroll-x" items="{content>/navSections}">
+<Button
+                    class="pf-topbar__btn"
+                    type="{= ${route} === ${path: 'ui>/activeRoute'} ? 'Emphasized' : 'Transparent' }"
+                    text="{nav}"
+                    icon="{path: 'icon', formatter: '.fIcon'}"
+                    iconDensityAware="false"
+                    press="onNavPress"/>
+            </HBox>
+
+            <!-- Acoes -->
+            <HBox alignItems="Center" class="pf-topbar__actions">
+                <Button
+                    class="pf-hide-phone"
+                    type="Emphasized"
+                    icon="action-download"
+                    text="{i18n>action.cv}"
+                    press="onCvPress"/>
+
+                <HBox class="pf-row--wrap" items="{content>/navLinks}">
+                    <Button
+                        type="Transparent"
+                        icon="{path: 'icon', formatter: '.fIcon'}"
+                        text="{text}"
+                        tooltip="{text}"
+                        iconDensityAware="false"
+                        press="onLinkPress"/>
+                </HBox>
+            </HBox>
+
+        </HBox>
+    </HBox>
+</core:FragmentDefinition>

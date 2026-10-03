@@ -1,0 +1,16 @@
+[
+  {
+    "id": "formacao-superior",
+    "institution": "Universidade",
+    "degree": {
+      "pt": "Bacharelado em Computacao",
+      "en": "Bachelor's degree in Computer Science"
+    },
+    "period": { "from": "2015-01", "to": "2019-12" },
+    "description": {
+      "pt": "Formacao em fundamentos de programacao, bancos de dados e redes.",
+      "en": "Study of programming fundamentals, databases and networking."
+    },
+    "kind": "education"
+  }
+]

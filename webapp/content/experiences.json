@@ -1,0 +1,55 @@
+[
+  {
+    "id": "davi-castro-tecnologia",
+    "company": "Davi Castro Tecnologia",
+    "role": {
+      "pt": "Desenvolvedor Full Stack / SAP Fiori",
+      "en": "Full Stack / SAP Fiori Developer"
+    },
+    "workplace": { "pt": "Remoto", "en": "Remote" },
+    "period": { "from": "2025-06", "to": null },
+    "summary": {
+      "pt": "Atuo como desenvolvedor em projetos de automacao e aplicacoes web, incluindo clientes de integracao com sistemas SAP.",
+      "en": "I work as a developer on automation and web application projects, including integrations with SAP systems."
+    },
+    "highlights": [
+      {
+        "pt": "Desenvolvimento de aplicacoes SAPUI5 e integracoes com servicos SAP.",
+        "en": "Development of SAPUI5 applications and integrations with SAP services."
+      },
+      {
+        "pt": "Automacao de processos e criacao de APIs e integracoes sob medida.",
+        "en": "Process automation and custom APIs and integrations."
+      }
+    ],
+    "stack": ["SAPUI5", "JavaScript", "Node.js", "ABAP", "REST"],
+    "modules": ["FI", "MM", "SD"],
+    "kind": "job"
+  },
+  {
+    "id": "portfolio-sapui5",
+    "company": "Projeto proprio",
+    "role": {
+      "pt": "Desenvolvedor",
+      "en": "Developer"
+    },
+    "workplace": { "pt": "Remoto", "en": "Remote" },
+    "period": { "from": "2026-06", "to": null },
+    "summary": {
+      "pt": "Portfolio profissional em SAPUI5 com TypeScript, dados em JSON e geracao automatica de PDF do curriculo.",
+      "en": "Professional portfolio in SAPUI5 with TypeScript, JSON data and automatic CV PDF generation."
+    },
+    "highlights": [
+      {
+        "pt": "Arquitetura MVC sem framework, com DataSource trocavel por uma API remota.",
+        "en": "MVC architecture without a framework, with a DataSource swappable for a remote API."
+      },
+      {
+        "pt": "Modo escuro, bilíngue (PT/EN) e layout responsivo.",
+        "en": "Dark mode, bilingual (PT/EN) and responsive layout."
+      }
+    ],
+    "stack": ["SAPUI5", "TypeScript", "Vite", "Vitest"],
+    "kind": "project"
+  }
+]

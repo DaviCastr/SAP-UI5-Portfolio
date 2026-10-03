@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" width="200" height="140" role="img" aria-label="Certificado">
+    <rect width="200" height="140" rx="8" fill="#eef1f4" />
+    <g fill="none" stroke="#9aa7b5" stroke-width="2">
+        <rect x="28" y="30" width="144" height="80" rx="6" />
+        <path d="M44 52h112M44 66h84M44 80h60" stroke-linecap="round" />
+    </g>
+    <circle cx="150" cy="92" r="16" fill="none" stroke="#0070f2" stroke-width="3" />
+    <path d="M143 92l5 5 10-11" fill="none" stroke="#0070f2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

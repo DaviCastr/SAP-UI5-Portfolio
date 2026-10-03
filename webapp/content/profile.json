@@ -1,0 +1,97 @@
+{
+  "id": "davi-castro",
+  "name": "Davi Castro",
+  "role": {
+    "pt": "Desenvolvedor SAP Fiori / ABAP",
+    "en": "SAP Fiori / ABAP Developer"
+  },
+  "headline": {
+    "pt": "Construindo Applications Fiori e automacoes para o ecossistema SAP",
+    "en": "Building Fiori applications and automations for the SAP ecosystem"
+  },
+  "summary": {
+    "pt": "Desenvolvedor com experiencia em Applications Fiori (SAPUI5), ABAP e integracoes no ecossistema SAP BTP. Entrego interfaces que traduzem processos criticos de negocio em telas simples, com atencao a desempenho, acessibilidade e manutencao.",
+    "en": "Developer experienced with Fiori applications (SAPUI5), ABAP and integrations across the SAP BTP ecosystem. I deliver interfaces that turn critical business processes into simple screens, with care for performance, accessibility and maintainability."
+  },
+  "about": [
+    {
+      "pt": "Desenvolvedor com experiencia em Applications Fiori (SAPUI5), ABAP e integracoes no ecossistema SAP BTP. Atuo na construcao de interfaces para processos de negocio, com foco em usabilidade, desempenho e codigo que outros devs conseguem manter.",
+      "en": "Developer experienced with Fiori applications (SAPUI5), ABAP and integrations across the SAP BTP ecosystem. I build interfaces for business processes with focus on usability, performance and code that other developers can maintain."
+    },
+    {
+      "pt": "Trabalho de ponta a ponta:levantamento com o time de negocio, modelagem dos dados, implementacao da aplicacao e publicacao. Gosto de transformar processos manuais em telas claras - e de medir o resultado depois.",
+      "en": "I work end to end: discovery with the business team, data modelling, application implementation and deployment. I enjoy turning manual processes into clear screens - and measuring the outcome afterwards."
+    },
+    {
+      "pt": "Mantencio projetos pessoais abertos para estudo e portfolio, incluindo este site, feito com SAPUI5 + TypeScript e dados em JSON.",
+      "en": "I keep open personal projects for study and portfolio purposes, including this website, built with SAPUI5 + TypeScript and JSON data."
+    }
+  ],
+  "avatar": "images/profile-placeholder.svg",
+  "availability": {
+    "pt": "Aberto a oportunidades e projetos",
+    "en": "Open to opportunities and projects"
+  },
+  "email": "davifgeo@gmail.com",
+  "phone": "5585988512382",
+  "birthday": "1996-12-15",
+  "location": {
+    "pt": "Fortaleza, CE",
+    "en": "Fortaleza, Brazil"
+  },
+  "languages": [
+    {
+      "id": "pt",
+      "name": { "pt": "Portugues", "en": "Portuguese" },
+      "level": { "pt": "Nativo", "en": "Native" }
+    },
+    {
+      "id": "en",
+      "name": { "pt": "Ingles", "en": "English" },
+      "level": { "pt": "Intermediario", "en": "Intermediate" }
+    },
+    {
+      "id": "es",
+      "name": { "pt": "Espanhol", "en": "Spanish" },
+      "level": { "pt": "Basico", "en": "Basic" }
+    }
+  ],
+  "links": [
+    {
+      "id": "linkedin",
+      "label": { "pt": "LinkedIn", "en": "LinkedIn" },
+      "url": "https://www.linkedin.com/in/davi-castr",
+      "icon": "linkedin",
+      "primary": true
+    },
+    {
+      "id": "github",
+      "label": { "pt": "GitHub", "en": "GitHub" },
+      "url": "https://github.com/DaviCastr",
+      "icon": "github",
+      "primary": true
+    },
+    {
+      "id": "sap-profile",
+      "label": { "pt": "SAP Community", "en": "SAP Community" },
+      "url": "https://profile.sap.com/u/DaviCastro",
+      "icon": "sap",
+      "primary": false
+    },
+    {
+      "id": "credly",
+      "label": { "pt": "Credly", "en": "Credly" },
+      "url": "https://www.credly.com/users/davi-castr/badges/credly",
+      "icon": "certification",
+      "primary": false
+    },
+    {
+      "id": "email",
+      "label": { "pt": "E-mail", "en": "Email" },
+      "url": "mailto:davifgeo@gmail.com",
+      "icon": "email",
+      "primary": false
+    }
+  ],
+  "focusSkills": ["fiori", "abap", "ui5", "btp", "node", "typescript", "integration", "sql"]
+}

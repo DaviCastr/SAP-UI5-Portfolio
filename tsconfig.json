@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "noImplicitAny": false,
+    "noImplicitOverride": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "useDefineForClassFields": false,
+    "types": ["@openui5/ts-types"],
+    "baseUrl": "./webapp",
+    "paths": {
+      "@/*": ["*"]
+    }
+  },
+  "include": ["webapp/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

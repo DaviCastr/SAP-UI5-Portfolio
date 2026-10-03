@@ -1,0 +1,477 @@
+/* ==========================================================================
+ * library.css - Biblioteca de layout e tipografia do portfolio
+ * Somente classes utilitarias e componentes genericos (sem regra de negocio).
+ * ========================================================================== */
+
+/* ---------------------------- Layout base ---------------------------- */
+
+.pf-app {
+    height: 100%;
+    background: var(--pf-bg);
+}
+
+.pf-container {
+    width: 100%;
+    max-width: var(--pf-container);
+    margin: 0 auto;
+    padding: 0 var(--pf-space-6);
+}
+
+.pf-container--narrow {
+    max-width: var(--pf-container-narrow);
+}
+
+.pf-page {
+    padding: var(--pf-space-8) 0 var(--pf-space-16);
+}
+
+.pf-page__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--pf-space-4);
+    margin-bottom: var(--pf-space-6);
+}
+
+.pf-page__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--pf-space-2);
+    font-size: var(--pf-font-xs);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pf-primary);
+}
+
+.pf-page__title {
+    margin: var(--pf-space-2) 0 var(--pf-space-1);
+    font-size: var(--pf-font-2xl);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--pf-text);
+}
+
+.pf-page__subtitle {
+    margin: 0;
+    max-width: 68ch;
+    font-size: var(--pf-font-md);
+    line-height: 1.6;
+    color: var(--pf-text-muted);
+}
+
+/* ---------------------------- Grid ---------------------------- */
+
+.pf-grid {
+    display: grid;
+    gap: var(--pf-space-4);
+}
+
+.pf-grid--metrics {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.pf-grid--cards {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.pf-grid--skills {
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+}
+
+.pf-grid--cert {
+    grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+}
+
+.pf-grid--about {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    align-items: start;
+}
+
+/* ---------------------------- Tipografia ---------------------------- */
+
+.pf-h1 {
+    margin: 0;
+    font-size: var(--pf-font-3xl);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+}
+
+.pf-h2 {
+    margin: 0;
+    font-size: var(--pf-font-xl);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.pf-h3 {
+    margin: 0;
+    font-size: var(--pf-font-lg);
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.pf-lead {
+    font-size: var(--pf-font-lg);
+    line-height: 1.55;
+    color: var(--pf-text-muted);
+}
+
+.pf-body {
+    font-size: var(--pf-font-md);
+    line-height: 1.7;
+    color: var(--pf-text);
+}
+
+.pf-body p {
+    margin: 0 0 var(--pf-space-3);
+}
+
+.pf-body p:last-child {
+    margin-bottom: 0;
+}
+
+.pf-muted {
+    color: var(--pf-text-muted);
+}
+
+.pf-subtle {
+    color: var(--pf-text-subtle);
+}
+
+.pf-small {
+    font-size: var(--pf-font-sm);
+}
+
+.pf-text-xs {
+    font-size: var(--pf-font-xs);
+}
+
+.pf-strong {
+    font-weight: 600;
+}
+
+.pf-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pf-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ---------------------------- Cards ---------------------------- */
+
+.pf-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pf-space-3);
+    padding: var(--pf-card-padding);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-lg);
+    background: var(--pf-surface);
+    box-shadow: var(--pf-shadow-1);
+    transition:
+        transform var(--pf-transition),
+        box-shadow var(--pf-transition),
+        border-color var(--pf-transition);
+}
+
+.pf-card--interactive {
+    cursor: pointer;
+}
+
+.pf-card--interactive:hover,
+.pf-card--interactive:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: var(--pf-shadow-2);
+    border-color: var(--pf-border-strong);
+}
+
+.pf-card--flat {
+    box-shadow: none;
+    background: transparent;
+}
+
+.pf-card--sunken {
+    background: var(--pf-surface-sunken);
+    box-shadow: none;
+}
+
+.pf-card__title {
+    margin: 0;
+    font-size: var(--pf-font-lg);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--pf-text);
+}
+
+.pf-card__subtitle {
+    margin: 0;
+    font-size: var(--pf-font-sm);
+    color: var(--pf-text-muted);
+}
+
+.pf-card__body {
+    font-size: var(--pf-font-md);
+    line-height: 1.65;
+    color: var(--pf-text-muted);
+}
+
+/* ---------------------------- Chips / tags ---------------------------- */
+
+.pf-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--pf-space-2);
+}
+
+.pf-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-pill);
+    background: var(--pf-surface);
+    color: var(--pf-text-muted);
+    font-size: var(--pf-font-xs);
+    font-weight: 600;
+    line-height: 1.6;
+    white-space: nowrap;
+}
+
+.pf-chip--primary {
+    border-color: transparent;
+    background: var(--pf-accent-soft);
+    color: var(--pf-primary);
+}
+
+.pf-chip--success {
+    border-color: transparent;
+    background: color-mix(in srgb, var(--pf-success) 14%, transparent);
+    color: var(--pf-success);
+}
+
+.pf-chip__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+/* ---------------------------- Avatar / logo ---------------------------- */
+
+.pf-avatar {
+    flex: 0 0 auto;
+    border-radius: var(--pf-radius-pill);
+    object-fit: cover;
+    background: var(--pf-surface);
+    box-shadow: var(--pf-shadow-1);
+}
+
+.pf-avatar--square {
+    border-radius: var(--pf-radius-sm);
+}
+
+.pf-logo {
+    flex: 0 0 auto;
+    height: 44px;
+    max-width: 120px;
+    object-fit: contain;
+    border-radius: var(--pf-radius-sm);
+    background: var(--pf-surface);
+    padding: 4px 8px;
+    border: 1px solid var(--pf-border);
+}
+
+/* ---------------------------- Divisores ---------------------------- */
+
+.pf-divider {
+    height: 1px;
+    border: 0;
+    margin: var(--pf-space-6) 0;
+    background: var(--pf-border);
+}
+
+.pf-divider--vertical {
+    width: 1px;
+    height: auto;
+    align-self: stretch;
+    margin: 0 var(--pf-space-4);
+}
+
+/* ---------------------------- Utilitarios ---------------------------- */
+
+.pf-stack {
+    display: flex;
+    flex-direction: column;
+}
+
+.pf-row {
+    display: flex;
+    align-items: center;
+}
+
+.pf-row--between {
+    justify-content: space-between;
+}
+
+.pf-row--wrap {
+    flex-wrap: wrap;
+}
+
+.pf-row--top {
+    align-items: flex-start;
+}
+
+.pf-gap-1 {
+    gap: var(--pf-space-1);
+}
+.pf-gap-2 {
+    gap: var(--pf-space-2);
+}
+.pf-gap-3 {
+    gap: var(--pf-space-3);
+}
+.pf-gap-4 {
+    gap: var(--pf-space-4);
+}
+.pf-gap-5 {
+    gap: var(--pf-space-5);
+}
+.pf-gap-6 {
+    gap: var(--pf-space-6);
+}
+
+.pf-mt-2 {
+    margin-top: var(--pf-space-2);
+}
+.pf-mt-3 {
+    margin-top: var(--pf-space-3);
+}
+.pf-mt-4 {
+    margin-top: var(--pf-space-4);
+}
+.pf-mt-6 {
+    margin-top: var(--pf-space-6);
+}
+.pf-mt-8 {
+    margin-top: var(--pf-space-8);
+}
+
+.pf-mb-0 {
+    margin-bottom: 0 !important;
+}
+.pf-mb-2 {
+    margin-bottom: var(--pf-space-2);
+}
+.pf-mb-3 {
+    margin-bottom: var(--pf-space-3);
+}
+.pf-mb-4 {
+    margin-bottom: var(--pf-space-4);
+}
+.pf-mb-6 {
+    margin-bottom: var(--pf-space-6);
+}
+
+.pf-flex-1 {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* Links */
+.pf-link {
+    color: var(--pf-primary);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--pf-transition);
+}
+
+.pf-link:hover {
+    border-bottom-color: currentColor;
+}
+
+/* ---------------------------- Ajustes de controles UI5 ---------------------------- */
+
+.sapUiBody .sapMTitle,
+.sapUiBody h1,
+.sapUiBody h2,
+.sapUiBody h3 {
+    color: var(--pf-text);
+}
+
+.sapUiBody .sapMListItem,
+.sapUiBody .sapMTableRow {
+    border-bottom-color: var(--pf-border);
+}
+
+.sapUiBody .sapMShellBar {
+    box-shadow: none;
+}
+
+/* Barra de rolagem discreta */
+.pf-scroll-x {
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+
+.pf-scroll-x::-webkit-scrollbar {
+    height: 6px;
+}
+
+.pf-scroll-x::-webkit-scrollbar-thumb {
+    background: var(--pf-border-strong);
+    border-radius: var(--pf-radius-pill);
+}
+
+/* ---------------------------- Responsivo ---------------------------- */
+
+@media (max-width: 1024px) {
+    .pf-grid--metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pf-grid--about {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 599px) {
+    .pf-container {
+        padding: 0 var(--pf-space-4);
+    }
+
+    .pf-page {
+        padding: var(--pf-space-5) 0 var(--pf-space-10);
+    }
+
+    .pf-h1 {
+        font-size: var(--pf-font-2xl);
+    }
+
+    .pf-page__title {
+        font-size: var(--pf-font-xl);
+    }
+
+    .pf-grid--metrics,
+    .pf-grid--cards,
+    .pf-grid--skills,
+    .pf-grid--cert {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .pf-card {
+        padding: var(--pf-space-5);
+        border-radius: var(--pf-radius-md);
+    }
+}

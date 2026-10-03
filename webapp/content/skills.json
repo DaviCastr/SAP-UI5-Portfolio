@@ -1,0 +1,130 @@
+[
+  {
+    "id": "fiori",
+    "name": "SAP Fiori Elements",
+    "category": "SAP",
+    "icon": "sap",
+    "level": 5,
+    "description": {
+      "pt": "List Report, Overview Page e Object Page com annotations e extensoes de controlador.",
+      "en": "List Report, Overview Page and Object Page with annotations and controller extensions."
+    },
+    "tags": ["SAP", "Fiori"],
+    "featured": true
+  },
+  {
+    "id": "abap",
+    "name": "ABAP",
+    "category": "SAP",
+    "icon": "sap",
+    "level": 5,
+    "description": {
+      "pt": "Desenvolvimento de reports, enhancement points e integracoes com APIs.",
+      "en": "Development of reports, enhancement points and API integrations."
+    },
+    "tags": ["SAP", "ABAP"],
+    "featured": true
+  },
+  {
+    "id": "btp",
+    "name": "SAP BTP",
+    "category": "SAP",
+    "icon": "sap",
+    "level": 4,
+    "description": {
+      "pt": "Cloud Foundry, Destination Service e integracao com servicos do BTP.",
+      "en": "Cloud Foundry, Destination Service and integration with BTP services."
+    },
+    "tags": ["SAP", "Cloud", "BTP"],
+    "featured": true
+  },
+  {
+    "id": "ui5",
+    "name": "SAPUI5 (freestyle)",
+    "category": "Front-end",
+    "icon": "mvc",
+    "level": 5,
+    "description": {
+      "pt": "Aplicacoes MVC, ViewModels, routing e uso de controls do sap.m.",
+      "en": "MVC applications, ViewModels, routing and sap.m controls."
+    },
+    "tags": ["SAP", "UI5", "Front-end"],
+    "featured": true
+  },
+  {
+    "id": "typescript",
+    "name": "TypeScript",
+    "category": "Front-end",
+    "icon": "javascript",
+    "level": 4,
+    "description": {
+      "pt": "Tipagem estrita em aplicacoes UI5 e codigo legivel em equipe.",
+      "en": "Strict typing in UI5 applications and team-friendly code."
+    },
+    "tags": ["Front-end", "TypeScript"],
+    "featured": true
+  },
+  {
+    "id": "node",
+    "name": "Node.js",
+    "category": "Back-end",
+    "icon": "server",
+    "level": 4,
+    "description": {
+      "pt": "APIs REST, integracoes e ferramentas de linha de comando.",
+      "en": "REST APIs, integrations and command-line tooling."
+    },
+    "tags": ["Back-end", "Node.js"],
+    "featured": true
+  },
+  {
+    "id": "sql",
+    "name": "SQL",
+    "category": "Banco de dados",
+    "icon": "database",
+    "level": 4,
+    "description": {
+      "pt": "Consultas em SAP HANA e bancos relacionais, com foco em desempenho.",
+      "en": "Queries on SAP HANA and relational databases, with a performance focus."
+    },
+    "tags": ["Banco de dados", "HANA"],
+    "featured": true
+  },
+  {
+    "id": "integration",
+    "name": "Integracao",
+    "category": "Back-end",
+    "icon": "link",
+    "level": 4,
+    "description": {
+      "pt": "APIs REST/OData, arquivos e integracao entre sistemas heterogeneos.",
+      "en": "REST/OData APIs, files and integration between heterogeneous systems."
+    },
+    "tags": ["Back-end", "Integracao"],
+    "featured": true
+  },
+  {
+    "id": "ui5-tooling",
+    "name": "UI5 Tooling",
+    "category": "Front-end",
+    "icon": "settings",
+    "level": 4,
+    "description": {
+      "pt": "Transpilacao de TypeScript, middleware e build de aplicacoes UI5.",
+      "en": "TypeScript transpilation, middleware and UI5 application build."
+    },
+    "tags": ["Front-end", "Build"]
+  },
+  {
+    "id": "git",
+    "name": "Git e GitHub Actions",
+    "category": "Ferramentas",
+    "icon": "git",
+    "level": 4,
+    "description": {
+      "pt": "Versionamento, code review e pipelines de publicacao automatica.",
+      "en": "Versioning, code review and automated publishing pipelines."
+    },
+    "tags": ["Ferramentas", "DevOps"]
+  }
+]

@@ -1,0 +1,50 @@
+{
+  "name": "sap-ui5-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfolio profissional em SAPUI5 + TypeScript de Davi Castro",
+  "keywords": [
+    "sapui5",
+    "typescript",
+    "portfolio",
+    "sap"
+  ],
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "ui5 serve --port 8080 --open index.html",
+    "start:ci": "ui5 serve --port 8080",
+    "build": "ui5 build --clean-dest",
+    "build:preview": "npm run build && npm run start:ci",
+    "types": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.tools.json",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{ts,js,json,css,html,md,yaml,yml}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,json,css,html,md,yaml,yml}\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "scrape:certificates": "tsx tools/credly/scrape.ts",
+    "sync:github": "tsx tools/github/sync.ts",
+    "cv:pdf": "tsx tools/cv/generate-pdf.ts",
+    "content:check": "tsx tools/shared/check-content.ts"
+  },
+  "devDependencies": {
+    "@openui5/ts-types": "1.153.0",
+    "@types/node": "^24.0.0",
+    "@types/pdfkit": "^0.17.6",
+    "@ui5/cli": "^4.0.70",
+    "@ui5/project": "^4.0.17",
+    "cheerio": "^1.2.0",
+    "eslint": "^9.0.0",
+    "pdfkit": "^0.20.2",
+    "prettier": "^3.3.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.0",
+    "typescript-eslint": "^8.71.0",
+    "ui5-tooling-modules": "^3.39.0",
+    "ui5-tooling-transpile": "^3.13.1",
+    "vitest": "^5.0.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

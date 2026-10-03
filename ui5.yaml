@@ -1,0 +1,45 @@
+specVersion: "3.0"
+metadata:
+    name: davi.portfolio
+type: application
+framework:
+    name: OpenUI5
+    version: "1.153.0"
+    libraries:
+        - name: sap.m
+        - name: sap.f
+        - name: sap.ui.core
+        - name: sap.ui.layout
+        - name: sap.ui.unified
+
+# Configuracao compartilhada entre a task (build) e o middleware (serve).
+customConfiguration:
+    ui5-tooling-transpile: &cfgTranspile
+        debug: true
+    ui5-tooling-modules: &cfgModules
+        debug: true
+
+builder:
+    customTasks:
+        # Transpila TypeScript -> JavaScript (ES5) durante o build.
+        - name: ui5-tooling-transpile-task
+          afterTask: replaceVersion
+          configuration:
+              <<: *cfgTranspile
+        # Resolve imports de pacotes npm (sap/*) e os registra como namespaces.
+        - name: ui5-tooling-modules-task
+          afterTask: replaceVersion
+          configuration:
+              <<: *cfgModules
+              addToNamespace: true
+
+server:
+    customMiddleware:
+        - name: ui5-tooling-transpile-middleware
+          afterMiddleware: compression
+          configuration:
+              <<: *cfgTranspile
+        - name: ui5-tooling-modules-middleware
+          afterMiddleware: compression
+          configuration:
+              <<: *cfgModules

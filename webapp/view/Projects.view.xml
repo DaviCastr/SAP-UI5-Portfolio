@@ -1,0 +1,90 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:template="sap.ui.core.Template"
+    controllerName="davi.portfolio.controller.Projects"
+    class="pf-view">
+    <Page id="page" class="pf-page-scroll" enableScrolling="true" title="{i18n>nav.projects}">
+        <content>
+            <VBox class="pf-container pf-page">
+
+                <!-- Cabecalho -->
+                <VBox class="pf-page__head">
+                    <Text class="pf-eyebrow" text="{i18n>projects.eyebrow}"/>
+                    <Title level="H1" class="pf-page__title" text="{i18n>projects.title}"/>
+                    <Text class="pf-lead" text="{i18n>projects.subtitle}"/>
+                </VBox>
+
+                <!-- Indicadores -->
+                <HBox class="pf-grid pf-grid--metrics">
+                    <VBox class="pf-metric">
+                        <Text class="pf-metric__value" text="{content>/metrics/projectCount}"/>
+                        <Text class="pf-metric__label" text="{i18n>metric.projects}"/>
+                    </VBox>
+                    <VBox class="pf-metric">
+                        <Text class="pf-metric__value" text="{content>/metrics/sapProjects}"/>
+                        <Text class="pf-metric__label" text="{i18n>metric.sapProjects}"/>
+                    </VBox>
+                    <VBox class="pf-metric">
+                        <Text class="pf-metric__value" text="{content>/metrics/githubStars}"/>
+                        <Text class="pf-metric__label" text="{i18n>metric.githubStars}"/>
+                    </VBox>
+                    <VBox class="pf-metric">
+                        <Text class="pf-metric__value" text="{content>/projectTagCount}"/>
+                        <Text class="pf-metric__label" text="{i18n>metric.tags}"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Filtros por tag -->
+                <HBox class="pf-filterbar">
+                    <Button
+                        class="pf-filter"
+                        text="{i18n>projects.filter.all}"
+                        type="{= ${ui>/projectFilter} === 'all' ? 'Emphasized' : 'Transparent' }"
+                        press="onAllPress"/>
+
+                    <HBox items="{content>/projectTags}">
+                        <Button
+                            class="pf-filter"
+                            text="{tag}"
+                            type="{= ${ui>/projectFilter} === ${tag} ? 'Emphasized' : 'Transparent' }"
+                            press="onTagPress"/>
+                    </HBox>
+                </HBox>
+
+                <!-- Projetos -->
+                <HBox class="pf-grid pf-grid--projects" items="{path: 'content>/filteredProjects', length: 60}">
+                    <template:Fragment fragmentName="ProjectCard" type="sap.ui.core.Template"/>
+                </HBox>
+
+                <!-- Estado vazio -->
+                <VBox
+                    class="pf-empty"
+                    visible="{= ${content>/filteredProjects} ? ${content>/filteredProjects}.length === 0 : false }">
+                    <Icon src="sap-icon://source-code" class="pf-text-xl pf-muted"/>
+                    <Text text="{i18n>projects.empty}"/>
+                </VBox>
+
+                <!-- GitHub -->
+                <VBox class="pf-card pf-stack pf-gap-3">
+                    <HBox alignItems="Center" class="pf-gap-3">
+                        <Icon src="sap-icon://github" class="pf-text-s"/>
+                        <Title level="H2" class="pf-h3" text="{i18n>projects.syncTitle}"/>
+                        <Text class="pf-small pf-muted" text="{path: 'content>/github/syncedAt', formatter: '.fDateTime'}"/>
+                    </HBox>
+                    <Text class="pf-small pf-muted" text="{i18n>projects.syncHint}"/>
+                    <HBox>
+                        <Button
+                            type="Emphasized"
+                            icon="sap-icon://github"
+                            text="{i18n>projects.profile}"
+                            press="onGitHubPress"
+                            visible="{= !!${content>/github/profileUrl}}"/>
+                    </HBox>
+                </VBox>
+
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

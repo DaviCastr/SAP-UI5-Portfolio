@@ -1,0 +1,38 @@
+[
+  {
+    "id": "sap-ui5-portfolio",
+    "name": "SAP-UI5-Portfolio",
+    "description": {
+      "pt": "Portfolio profissional em SAPUI5 + TypeScript, bilíngue, com modo escuro e dados totalmente em JSON.",
+      "en": "Professional portfolio in SAPUI5 + TypeScript, bilingual, with dark mode and fully JSON-driven content."
+    },
+    "repo": "https://github.com/DaviCastr/SAP-UI5-Portfolio",
+    "stack": ["SAPUI5", "TypeScript", "UI5 Tooling", "Vitest"],
+    "tags": ["SAP", "UI5", "TypeScript", "Portfolio"],
+    "featured": true,
+    "stars": 0,
+    "forks": 0,
+    "updatedAt": "2026-10-03"
+  },
+  {
+    "id": "cap-expense-manager",
+    "name": "CAP Expense Manager",
+    "description": {
+      "pt": "Aplicacao de controle de despesas seguindo arquitetura SAP CAP com separacao de camadas.",
+      "en": "Expense control application following the SAP CAP architecture with layered separation."
+    },
+    "stack": ["SAP CAP", "Node.js", "SQLite"],
+    "tags": ["SAP", "CAP", "Node.js"],
+    "featured": true
+  },
+  {
+    "id": "js-basics",
+    "name": "JavaScript Moderno",
+    "description": {
+      "pt": "Exercicios e anotacoes sobre JavaScript moderno: async/await, modulos e testes.",
+      "en": "Exercises and notes on modern JavaScript: async/await, modules and testing."
+    },
+    "stack": ["JavaScript", "Node.js"],
+    "tags": ["JavaScript", "Estudo"]
+  }
+]

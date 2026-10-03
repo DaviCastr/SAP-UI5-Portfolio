@@ -1,0 +1,142 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:template="sap.ui.core.Template"
+    controllerName="davi.portfolio.controller.Cv"
+    class="pf-view pf-view--cv">
+    <Page id="page" class="pf-page-scroll" enableScrolling="true" title="{i18n>nav.cv}">
+        <content>
+            <VBox class="pf-container pf-page">
+
+                <!-- Cabecalho -->
+                <HBox alignItems="Center" class="pf-row--between pf-row--wrap pf-gap-3">
+                    <VBox>
+                        <Text class="pf-eyebrow" text="{i18n>cv.eyebrow}"/>
+                        <Title level="H1" class="pf-page__title" text="{i18n>cv.title}"/>
+                        <Text class="pf-lead" text="{i18n>cv.subtitle}"/>
+                    </VBox>
+                    <HBox class="pf-gap-2">
+                        <Button
+                            type="Emphasized"
+                            icon="sap-icon://action-download"
+                            text="{i18n>action.downloadPdf}"
+                            press="onDownloadPress"/>
+                        <Button
+                            type="Transparent"
+                            icon="sap-icon://print"
+                            text="{i18n>action.print}"
+                            press="onPrintPress"/>
+                    </HBox>
+                </HBox>
+
+                <!-- Curriculo em A4 -->
+                <VBox class="pf-sheet">
+                    <!-- Cabecalho do curriculum -->
+                    <HBox class="pf-sheet__head" alignItems="Center">
+                        <Image
+                            class="pf-sheet__avatar"
+                            src="{content>/profile/avatar}"
+                            densityAware="false"
+                            alt="{content>/profile/name}"/>
+                        <VBox class="pf-grow-1 pf-gap-1">
+                            <Title level="H2" class="pf-sheet__name" text="{content>/profile/name}"/>
+                            <Text class="pf-sheet__role" text="{content>/profile/role}"/>
+                            <HBox class="pf-sheet__contacts">
+                                <Text text="{content>/profile/email}"/>
+                                <Text text="{path: 'content>/profile/phone', formatter: '.fPhone'}"/>
+                                <Text text="{content>/profile/location}"/>
+                            </HBox>
+                            <HBox class="pf-chips" items="{content>/navLinks}">
+                                <Text class="pf-chip" text="{text}"/>
+                            </HBox>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Resumo -->
+                    <VBox class="pf-sheet__section">
+                        <Text class="pf-sheet__section-title" text="{i18n>cv.summary}"/>
+                        <Text class="pf-sheet__text" text="{content>/profile/summary}"/>
+                    </VBox>
+
+                    <!-- Indicadores -->
+                    <HBox class="pf-sheet__metrics">
+                        <VBox class="pf-sheet__metric">
+                            <Text class="pf-sheet__metric-value" text="{content>/metrics/yearsOfExperience}"/>
+                            <Text class="pf-small pf-muted" text="{i18n>metric.years}"/>
+                        </VBox>
+                        <VBox class="pf-sheet__metric">
+                            <Text class="pf-sheet__metric-value" text="{content>/metrics/projectCount}"/>
+                            <Text class="pf-small pf-muted" text="{i18n>metric.projects}"/>
+                        </VBox>
+                        <VBox class="pf-sheet__metric">
+                            <Text class="pf-sheet__metric-value" text="{content>/metrics/certificateCount}"/>
+                            <Text class="pf-small pf-muted" text="{i18n>metric.certificates}"/>
+                        </VBox>
+                        <VBox class="pf-sheet__metric">
+                            <Text class="pf-sheet__metric-value" text="{content>/metrics/skillCount}"/>
+                            <Text class="pf-small pf-muted" text="{i18n>metric.skills}"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Experiencia -->
+                    <VBox class="pf-sheet__section">
+                        <Text class="pf-sheet__section-title" text="{i18n>nav.experience}"/>
+                        <VBox class="pf-stack pf-gap-3" items="{path: 'content>/experiences', length: 20}">
+                            <VBox>
+                                <HBox alignItems="Center" class="pf-row--between pf-gap-3">
+                                    <Text class="pf-sheet__item-title" text="{role}"/>
+                                    <Text class="pf-small pf-muted" text="{path: 'period', formatter: '.fPeriod'}"/>
+                                </HBox>
+                                <Text class="pf-small pf-muted" text="{company}"/>
+                                <Text class="pf-sheet__text" text="{summary}"/>
+                            </VBox>
+                        </VBox>
+                    </VBox>
+
+                    <!-- Competencias -->
+                    <VBox class="pf-sheet__section">
+                        <Text class="pf-sheet__section-title" text="{i18n>nav.skills}"/>
+                        <HBox class="pf-chips" items="{content>/metrics/stacks}">
+                            <Text class="pf-chip" text="{this>}"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Projetos -->
+                    <VBox class="pf-sheet__section">
+                        <Text class="pf-sheet__section-title" text="{i18n>nav.projects}"/>
+                        <VBox class="pf-stack pf-gap-3" items="{path: 'content>/featuredProjects', length: 8}">
+                            <VBox>
+                                <HBox alignItems="Center" class="pf-gap-2">
+                                    <Text class="pf-sheet__item-title" text="{name}"/>
+                                    <Text class="pf-small pf-muted" text="{description}"/>
+                                </HBox>
+                                <HBox class="pf-chips" items="{stack}">
+                                    <Text class="pf-chip" text="{this>}"/>
+                                </HBox>
+                            </VBox>
+                        </VBox>
+                    </VBox>
+
+                    <!-- Formacao -->
+                    <VBox class="pf-sheet__section">
+                        <Text class="pf-sheet__section-title" text="{i18n>nav.education}"/>
+                        <VBox class="pf-stack pf-gap-2" items="{content>/education}">
+                            <HBox alignItems="Center" class="pf-row--between pf-gap-3">
+                                <Text class="pf-sheet__item-title" text="{degree}"/>
+                                <Text class="pf-small pf-muted" text="{institution}"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+
+                    <!-- Rodape -->
+                    <HBox class="pf-sheet__foot">
+                        <Text class="pf-small pf-muted" text="{i18n>cv.generated}"/>
+                        <Text class="pf-small pf-muted" text="{path: 'content>/meta/updatedAt', formatter: '.fDateTime'}"/>
+                    </HBox>
+                </VBox>
+
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

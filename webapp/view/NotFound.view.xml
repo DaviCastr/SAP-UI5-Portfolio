@@ -1,0 +1,28 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    class="pf-view">
+    <Page id="page" class="pf-page-scroll" enableScrolling="true" title="{i18n>nav.notFound}">
+        <content>
+            <VBox class="pf-container pf-page pf-center">
+                <VBox class="pf-stack pf-gap-3 pf-center" alignItems="Center">
+                    <Text class="pf-notfound__code" text="404"/>
+                    <Title level="H1" class="pf-page__title" text="{i18n>notFound.title}"/>
+                    <Text class="pf-lead pf-center" text="{i18n>notFound.text}"/>
+                    <HBox class="pf-gap-2">
+                        <Button
+                            type="Emphasized"
+                            icon="sap-icon://home"
+                            text="{i18n>action.goHome}"
+                            press="onHomePress"/>
+                        <Button
+                            type="Transparent"
+                            icon="sap-icon://email"
+                            text="{i18n>action.contact}"
+                            press="onContactPress"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

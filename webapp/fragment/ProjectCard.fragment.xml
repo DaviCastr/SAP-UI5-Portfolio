@@ -1,0 +1,56 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <VBox class="pf-project">
+        <HBox alignItems="Center" class="pf-project__head">
+            <HBox class="pf-project__icon" alignItems="Center">
+                <Icon src="{path: 'icon', formatter: '.fIcon'}" class="pf-text-lg"/>
+            </HBox>
+            <Text class="pf-project__name" text="{name}"/>
+        </HBox>
+
+        <Text class="pf-project__desc" text="{description}"/>
+
+        <HBox class="pf-chips" items="{stack}">
+            <Text class="pf-chip" text="{this>}"/>
+        </HBox>
+
+        <VBox class="pf-gap-1" visible="{= !!${highlights} &amp;&amp; ${highlights}.length > 0}">
+            <HBox items="{highlights}">
+                <Text class="pf-bullet pf-small pf-muted" text="{this>}"/>
+            </HBox>
+        </VBox>
+
+        <HBox class="pf-project__foot">
+            <HBox alignItems="Center" class="pf-gap-1 pf-muted pf-small" visible="{= !!${language}}">
+                <Icon src="sap-icon://terminal" class="pf-text-xs"/>
+                <Text text="{language}"/>
+            </HBox>
+            <HBox alignItems="Center" class="pf-project__stat" visible="{= !!${stars}}">
+                <Icon src="sap-icon://star" class="pf-text-xs"/>
+                <Text text="{stars}"/>
+            </HBox>
+            <HBox alignItems="Center" class="pf-project__stat" visible="{= !!${forks}}">
+                <Icon src="sap-icon://share" class="pf-text-xs"/>
+                <Text text="{forks}"/>
+            </HBox>
+            <HBox alignItems="Center" class="pf-gap-1 pf-muted pf-small" visible="{= !!${updatedAt}}">
+                <Icon src="sap-icon://history" class="pf-text-xs"/>
+                <Text text="{updatedAt}"/>
+            </HBox>
+        </HBox>
+
+        <HBox class="pf-gap-2">
+            <Button
+                type="Transparent"
+                icon="sap-icon://sys-repo"
+                text="{i18n>project.repository}"
+                press="onRepoPress"
+                visible="{= !!${repo}}"/>
+            <Button
+                type="Transparent"
+                icon="sap-icon://link"
+                text="{i18n>project.website}"
+                press="onUrlPress"
+                visible="{= !!${url}}"/>
+        </HBox>
+    </VBox>
+</core:FragmentDefinition>
