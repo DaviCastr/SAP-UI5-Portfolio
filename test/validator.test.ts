@@ -160,4 +160,44 @@ describe("validateContent", () => {
         expect(found).toContain("sections[0].route");
         expect(found).toContain("sections[1].enabled");
     });
+
+    it("aceita repositorios sincronizados do GitHub", () => {
+        const content = buildContent({
+            github: {
+                login: "DaviCastr",
+                profileUrl: "https://github.com/DaviCastr",
+                repos: [
+                    {
+                        name: "SAP-UI5-Portfolio",
+                        url: "https://github.com/DaviCastr/SAP-UI5-Portfolio",
+                        language: "TypeScript",
+                        stars: 3,
+                        pushedAt: "2026-10"
+                    }
+                ]
+            }
+        });
+
+        expect(paths(content)).toEqual([]);
+    });
+
+    it("rejeita repositorio sem nome, com URL errada ou data invalida", () => {
+        const content = buildContent({
+            github: {
+                login: "DaviCastr",
+                profileUrl: "https://github.com/DaviCastr",
+                repos: [
+                    { name: "", url: "" },
+                    { name: "b", url: "https://gitlab.com/DaviCastr/b" },
+                    { name: "c", url: "https://github.com/DaviCastr/c", pushedAt: "outubro" }
+                ]
+            }
+        });
+
+        const found = paths(content);
+        expect(found).toContain("github.repos[0].name");
+        expect(found).toContain("github.repos[0].url");
+        expect(found).toContain("github.repos[1].url");
+        expect(found).toContain("github.repos[2].pushedAt");
+    });
 });

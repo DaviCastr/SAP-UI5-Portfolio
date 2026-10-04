@@ -9,13 +9,13 @@
 
         <Text class="pf-project__desc" text="{description}"/>
 
-        <HBox class="pf-chips" items="{path: 'stack', templateShareable: true}">
-            <Text class="pf-chip" text="{this>}"/>
+        <HBox class="pf-chips" items="{path: 'stackItems', templateShareable: true}">
+            <core:Fragment fragmentName="davi.portfolio.fragment.Chip" type="XML"/>
         </HBox>
 
-        <VBox class="pf-gap-1" visible="{= !!${highlights} &amp;&amp; ${highlights}.length > 0}">
-            <HBox items="{path: 'highlights', templateShareable: true}">
-                <Text class="pf-bullet pf-small pf-muted" text="{this>}"/>
+        <VBox class="pf-gap-1" visible="{= !!${highlightsItems} &amp;&amp; ${highlightsItems}.length > 0}">
+            <HBox items="{path: 'highlightsItems', templateShareable: true}">
+                <Text class="pf-bullet pf-small pf-muted" text="{label}"/>
             </HBox>
         </VBox>
 

@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <!--
+        Chip de lista.
+
+        O item precisa ser um objeto com `label`: em uma agregacao do UI5 1.153 o
+        binding `{this>}` de uma string chega vazio na Text, e a chip aparecia
+        como uma pilula sem texto. O ContentService transforma as listas de
+        string do JSON em `{ label }` (ver `withChipItems`).
+    -->
+    <Text class="pf-chip" text="{label}"/>
+</core:FragmentDefinition>

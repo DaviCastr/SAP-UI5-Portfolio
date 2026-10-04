@@ -1,4 +1,4 @@
-import type { PortfolioContent } from "./types";
+import type { ChipItem, PortfolioContent } from "./types";
 
 /** Numeros exibidos nas telas, sempre calculados a partir do JSON. */
 export interface PortfolioMetrics {
@@ -30,6 +30,13 @@ export interface PortfolioMetrics {
     moduleCount: number;
     /** Tecnologias mais citadas. */
     stacks: string[];
+    /**
+     * `stacks` como `{ label }`, para os chips do CV.
+     *
+     * A view nao consegue renderizar uma lista de strings em agregacao
+     * (`{this>}` chega vazio no UI5 1.153), entao as chips usam este campo.
+     */
+    stacksItems: ChipItem[];
     /** Total de tecnologias distintas citadas. */
     stackCount: number;
 }
@@ -153,6 +160,8 @@ export function computeMetrics(content: PortfolioContent, now: Date = new Date()
     const isSapProject = (project: PortfolioContent["projects"][number]): boolean =>
         (project.tags ?? []).some((tag) => SAP_TAGS.includes(tag.toLowerCase()));
 
+    const stacks = topStacks(content, 12);
+
     return {
         monthsOfExperience,
         yearsOfExperience: Math.floor(monthsOfExperience / 12),
@@ -168,7 +177,8 @@ export function computeMetrics(content: PortfolioContent, now: Date = new Date()
         skillCount: content.skills.length,
         advancedSkills: content.skills.filter((item) => (item.level ?? 0) >= 4).length,
         moduleCount: new Set(content.experiences.flatMap((item) => item.modules ?? []).filter(Boolean)).size,
-        stacks: topStacks(content, 12),
+        stacks,
+        stacksItems: stacks.map((label) => ({ label })),
         stackCount: countStacks(content)
     };
 }

@@ -19,8 +19,8 @@
                 <!-- Perfil + texto -->
                 <HBox class="pf-two-col" alignItems="Start">
                     <VBox class="pf-stack pf-gap-4">
-                        <HBox class="pf-stack pf-gap-3" items="{path: '/profile/about', templateShareable: true}">
-                            <Text class="pf-prose" text="{this>}"/>
+                        <HBox class="pf-stack pf-gap-3" items="{path: '/profile/aboutItems', templateShareable: true}">
+                            <Text class="pf-prose" text="{label}"/>
                         </HBox>
 
                         <VBox class="pf-card pf-stack pf-gap-3">

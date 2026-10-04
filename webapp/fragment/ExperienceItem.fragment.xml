@@ -36,20 +36,20 @@
         <Text class="pf-card__body" text="{summary}"/>
 
         <!-- Principais atuacoes -->
-        <VBox class="pf-stack pf-gap-2" visible="{= !!${highlights} &amp;&amp; ${highlights}.length > 0}">
-            <HBox items="{path: 'highlights', templateShareable: true}">
-                <Text class="pf-bullet pf-small pf-muted" text="{this>}"/>
+        <VBox class="pf-stack pf-gap-2" visible="{= !!${highlightsItems} &amp;&amp; ${highlightsItems}.length > 0}">
+            <HBox items="{path: 'highlightsItems', templateShareable: true}">
+                <Text class="pf-bullet pf-small pf-muted" text="{label}"/>
             </HBox>
         </VBox>
 
         <!-- Modulos SAP -->
-        <HBox class="pf-chips" items="{path: 'modules', templateShareable: true}" visible="{= !!${modules} &amp;&amp; ${modules}.length > 0}">
-            <Text class="pf-chip" text="{this>}"/>
+        <HBox class="pf-chips" items="{path: 'modulesItems', templateShareable: true}" visible="{= !!${modulesItems} &amp;&amp; ${modulesItems}.length > 0}">
+            <core:Fragment fragmentName="davi.portfolio.fragment.Chip" type="XML"/>
         </HBox>
 
         <!-- Stack tecnica -->
-        <HBox class="pf-chips" items="{path: 'stack', templateShareable: true}" visible="{= !!${stack} &amp;&amp; ${stack}.length > 0}">
-            <Text class="pf-chip" text="{this>}"/>
+        <HBox class="pf-chips" items="{path: 'stackItems', templateShareable: true}" visible="{= !!${stackItems} &amp;&amp; ${stackItems}.length > 0}">
+            <core:Fragment fragmentName="davi.portfolio.fragment.Chip" type="XML"/>
         </HBox>
     </VBox>
 </core:FragmentDefinition>

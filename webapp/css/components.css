@@ -294,6 +294,11 @@
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 }
 
+/* Repositorios do GitHub: cards mais estreitos, porque o conteudo e curto. */
+.pf-grid--repos {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
 /* ------------------------------ Cartao generico ------------------------------ */
 
 .pf-card {
@@ -845,6 +850,78 @@
     gap: 4px;
 }
 
+/* ------------------------------ Repositorios ------------------------------ */
+
+/* Mesma mecânica do certificado: `role="link"` (no DOM via BaseController)
+   marca o card como clicavel e ganha foco visivel. */
+.pf-repo[role="link"] {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pf-repo[role="link"]:focus-visible {
+    outline: 2px solid var(--pf-primary);
+    outline-offset: 3px;
+}
+
+.pf-repo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pf-space-3);
+    height: 100%;
+    padding: var(--pf-card-padding);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-lg);
+    background: var(--pf-surface);
+    box-shadow: var(--pf-shadow-1);
+    transition:
+        transform var(--pf-transition),
+        box-shadow var(--pf-transition),
+        border-color var(--pf-transition);
+}
+
+.pf-repo:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--pf-primary) 45%, var(--pf-border));
+    box-shadow: var(--pf-shadow-2);
+}
+
+.pf-repo__head {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--pf-space-3);
+}
+
+.pf-repo__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 auto;
+    border-radius: var(--pf-radius-sm);
+    background: var(--pf-surface-sunken);
+    color: var(--pf-primary);
+}
+
+/* Nome de repositorio e identificador: `word-break` porque tem underscore e
+   barra, que nao quebram sozinhos e estourariam o card. */
+.pf-repo__name {
+    margin: 0;
+    font-size: var(--pf-font-sm);
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--pf-text);
+    overflow-wrap: anywhere;
+}
+
+.pf-repo__desc {
+    flex: 1 1 auto;
+    font-size: var(--pf-font-sm);
+    line-height: 1.6;
+    color: var(--pf-text-muted);
+}
+
 /* ------------------------------ Certificados ------------------------------ */
 
 /* Card com `role="link"` (aplicado no DOM pelo BaseController) = clicavel. */
@@ -1298,15 +1375,36 @@
 
     .pf-grid--skills,
     .pf-grid--projects,
-    .pf-grid--languages {
+    .pf-grid--languages,
+    .pf-grid--repos {
         grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     }
 
-    /* Menu com rolagem horizontal em vez de quebrar em varias linhas. */
+    /*
+     * Abas em linha propria.
+     *
+     * Com marca, abas e acoes na mesma linha, as abas recebiam so 24px de
+     * largura a 360px (6 abas, 4 cortadas) e viravam um slider de 1 item. Com a
+     * linha quebrando, a navegacao ocupa 100% da largura e rola na horizontal,
+     * que e o que o ExpenseManager faz com `wrap="Wrap"` nos HBox dele.
+     */
+    .pf-topbar__row {
+        flex-wrap: wrap;
+        row-gap: var(--pf-space-2);
+    }
+
     .pf-topbar__nav {
-        max-width: 100%;
+        order: 3;
+        flex: 1 0 100%;
+        justify-content: flex-start;
+        margin: 0;
         overflow-x: auto;
         scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .pf-topbar__actions {
+        margin-left: auto;
     }
 
     .pf-topbar__nav::-webkit-scrollbar {
@@ -1347,7 +1445,8 @@
     .pf-grid--skills,
     .pf-grid--projects,
     .pf-grid--certs,
-    .pf-grid--languages {
+    .pf-grid--languages,
+    .pf-grid--repos {
         grid-template-columns: minmax(0, 1fr);
     }
 
@@ -1365,5 +1464,23 @@
 
     .pf-hide-phone {
         display: none !important;
+    }
+
+    /*
+     * As seis abas nao cabem em 360px com rotulo e icone. Em vez de esconder o
+     * rotulo (que e o que identifica a aba), a faixa fica mais densa e rola na
+     * horizontal: cabem ~4 abas visiveis e as demais ficam a um toque.
+     */
+    .pf-topbar__nav {
+        padding: 2px;
+        gap: 0;
+    }
+
+    .pf-topbar__btn .sapMBtnInner {
+        padding: 0 0.5rem;
+    }
+
+    .pf-topbar__btn .sapMBtnContent {
+        font-size: var(--pf-font-sm);
     }
 }

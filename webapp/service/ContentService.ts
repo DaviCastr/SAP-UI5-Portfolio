@@ -1,7 +1,14 @@
 import type { DataSource } from "./DataSource";
-import { localize } from "./Localizer";
+import { localize, localizeText } from "./Localizer";
 import { computeMetrics, type PortfolioMetrics } from "./metrics";
-import type { ContentIssue, ContentLocale, PortfolioContent, SectionDefinition } from "./types";
+import type {
+    ChipItem,
+    ContentIssue,
+    ContentLocale,
+    LocalizedText,
+    PortfolioContent,
+    SectionDefinition
+} from "./types";
 import { validateContent } from "./validator";
 
 /** Conteudo vazio usado quando a carga falha (a tela mostra aviso em vez de quebrar). */
@@ -38,6 +45,53 @@ export interface ContentServiceOptions {
 }
 
 /**
+ * Prepara as listas de chips (tags, stacks, modulos, highlights, topicos).
+ *
+ * O JSON e a fonte da verdade e guarda strings, mas a view precisa de objetos:
+ * em uma agregacao do UI5 1.153 o binding `{this>}` de uma string chega vazio
+ * na Text, e a chip aparecia como uma pilula sem texto. Convertendo para
+ * `{ label }`, o mesmo padrao que ja funciona nos filtros, resolve.
+ *
+ * As listas originais sao preservadas: quem faz logica (filtros, metricas,
+ * gerador do CV) continua lendo `string[]`.
+ */
+function withChipItems(content: PortfolioContent, locale: string): PortfolioContent {
+    const chips = (values: readonly (string | LocalizedText)[] | undefined): ChipItem[] =>
+        (values ?? [])
+            .map((value) => localizeText(value, locale))
+            .filter(Boolean)
+            .map((label) => ({ label }));
+
+    return {
+        ...content,
+        profile: { ...content.profile, aboutItems: chips(content.profile.about) },
+        experiences: content.experiences.map((item) => ({
+            ...item,
+            highlightsItems: chips(item.highlights),
+            stackItems: chips(item.stack),
+            modulesItems: chips(item.modules)
+        })),
+        skills: content.skills.map((item) => ({ ...item, tagItems: chips(item.tags) })),
+        projects: content.projects.map((project) => ({
+            ...project,
+            tagItems: chips(project.tags),
+            stackItems: chips(project.stack),
+            highlightsItems: chips(project.highlights)
+        })),
+        education: content.education.map((item) => ({ ...item, tagItems: chips(item.tags) })),
+        github: content.github
+            ? {
+                  ...content.github,
+                  repos: (content.github.repos ?? []).map((repo) => ({
+                      ...repo,
+                      topicItems: chips(repo.topics)
+                  }))
+              }
+            : content.github
+    };
+}
+
+/**
  * Ponto unico de acesso ao conteudo do portfolio.
  *
  * Responsabilidades:
@@ -65,7 +119,7 @@ export class ContentService {
         try {
             const raw = await dataSource.load();
             const issues = validateContent(raw);
-            const localized = localize(raw, locale) as PortfolioContent;
+            const localized = withChipItems(localize(raw, locale) as PortfolioContent, locale);
 
             ContentService.instance = new ContentService(raw, localized, issues, locale);
             return ContentService.instance;

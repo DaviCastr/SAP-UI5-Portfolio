@@ -116,6 +116,21 @@
     --sapLinkVisitedColor: var(--pf-primary);
     --sapLinkSubtleColor: var(--pf-primary);
 
+    /*
+     * Botoes "Text"/"Transparent" (abas da navegacao, links de acao, links do
+     * rodape) e o SegmentedButton do tema sao os controles que o usuario nota
+     * mais: sem estes tokens eles ficam no #4DB1FF do tema.
+     */
+    --sapButton_TextColor: var(--pf-primary);
+    --sapButton_Hover_TextColor: var(--pf-primary-hover);
+    --sapButton_Active_TextColor: var(--pf-primary);
+    --sapButton_Transparent_TextColor: var(--pf-primary);
+    --sapButton_Transparent_Hover_TextColor: var(--pf-primary-hover);
+    /* A borda cinza-azulada (#3A4A5A no dark) tambem vem da library. */
+    --sapButton_Ghost_BorderColor: var(--pf-border-strong);
+    --sapButton_Transparent_BorderColor: transparent;
+    --sapContent_FocusColor: var(--pf-primary);
+
     --sapTextColor: var(--pf-text);
     --sapTitleTextColor: var(--pf-text);
     --sapBackgroundColor: var(--pf-bg);
@@ -148,6 +163,122 @@
 body.sapUiBody,
 body.sapUiBodyBackground {
     background-color: var(--pf-bg);
+}
+
+/* ==========================================================================
+ * Patch dos controles que o token sozinho nao alcanca
+ *
+ * No tema Horizon a cor do texto dos botoes "Text"/"Transparent" e a cor de
+ * fundo do "Emphasized" estao fixas em `.sapMBtnInner` e nos spans internos
+ * (`.sapMBtnContent`, `bdi`), e nao em `--sapButton_TextColor` /
+ * `--sapButtonEmphasizedBackground`. Por isso, mudando so o token, as abas da
+ * navegacao, os links de acao e o botao ativo continuavam em #4DB1FF e #0070F2.
+ *
+ * Aqui o controle e pintado direto no elemento, que e o unico jeito de vencer.
+ * Os seletores usam `.sapUiBody` para ter especificidade maior que a library.
+ * ========================================================================== */
+
+/* Botao ativo da aba: fundo verde-petroleo, sem o gradiente do tema.
+ * A classe real do UI5 1.153 e `sapMBtnEmphasized` (confirmado no DOM:
+ * `sapMBtnInner ... sapMBtnText sapMBtnIconFirst sapMBtnEmphasized`). */
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized {
+    background: var(--pf-primary) !important;
+    border-color: var(--pf-primary) !important;
+    background-image: none !important;
+}
+
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized:hover,
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized.sapMBtnActive {
+    background: var(--pf-primary-hover) !important;
+    border-color: var(--pf-primary-hover) !important;
+}
+
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized bdi,
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized .sapMBtnIcon {
+    color: var(--pf-on-primary) !important;
+}
+
+/* Botoes de link: abas da navegacao, acoes da barra e links do rodape. */
+.sapUiBody .sapMBtnInner.sapMBtnText,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent,
+.sapUiBody .sapMBtnInner.sapMBtnGhost,
+.sapUiBody .sapMBtnInner.sapMBtnLite {
+    color: var(--pf-primary) !important;
+}
+
+/* Botao de link nao tem borda; a da library (#3A4A5A no dark) so aparecia como
+ * um retangulo azulado ao redor do rotulo. */
+.sapUiBody .sapMBtnInner.sapMBtnText,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent,
+.sapUiBody .sapMBtnInner.sapMBtnLite {
+    border-color: transparent !important;
+}
+
+.sapUiBody .sapMBtnInner.sapMBtnText > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnGhost > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnLite > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnText bdi,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent bdi,
+.sapUiBody .sapMBtnInner.sapMBtnGhost bdi,
+.sapUiBody .sapMBtnInner.sapMBtnLite bdi,
+.sapUiBody .sapMBtnInner.sapMBtnText .sapMBtnIcon,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent .sapMBtnIcon,
+.sapUiBody .sapMBtnInner.sapMBtnGhost .sapMBtnIcon,
+.sapUiBody .sapMBtnInner.sapMBtnLite .sapMBtnIcon {
+    color: var(--pf-primary) !important;
+}
+
+.sapUiBody .sapMBtnInner.sapMBtnText:hover,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent:hover,
+.sapUiBody .sapMBtnInner.sapMBtnGhost:hover,
+.sapUiBody .sapMBtnInner.sapMBtnLite:hover {
+    background: var(--pf-primary-soft) !important;
+    border-color: transparent !important;
+}
+
+.sapUiBody .sapMBtnInner.sapMBtnText:hover > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent:hover > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnGhost:hover > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnLite:hover > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnText:hover bdi,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent:hover bdi,
+.sapUiBody .sapMBtnInner.sapMBtnGhost:hover bdi,
+.sapUiBody .sapMBtnInner.sapMBtnLite:hover bdi {
+    color: var(--pf-primary-hover) !important;
+}
+
+/* sap.m.Link (nenhum binding usa hoje, mas qualquer `href` futuro entra na
+ * identidade sem precisar de CSS novo). */
+.sapUiBody a.sapMLink,
+.sapUiBody a.sapMLink:hover,
+.sapUiBody a.sapMLink:active {
+    color: var(--pf-primary) !important;
+}
+
+/* Toggle de tema: item nao selecionado em texto neutro, selecionado na cor da
+ * marca. O selecionado real e `li.sapMSegBBtnSel[aria-selected="true"]` e o
+ * fundo/borda azuis (#EDF5FF / #0064D9) vem do wrapper, nao do texto. */
+.sapUiBody .sapMSegBBtnInner {
+    color: var(--pf-text-muted) !important;
+}
+
+/* So o item selecionado tem borda; a do nao selecionado era a cinza-azulada. */
+.sapUiBody .sapMSegBBtnInnerWrapper,
+.sapUiBody .sapMSegBBtnInner {
+    border-color: transparent !important;
+}
+
+.sapUiBody li.sapMSegBBtnSel > .sapMSegBBtnInnerWrapper,
+.sapUiBody li.sapMSegBBtnSel .sapMSegBBtnInner {
+    background: var(--pf-primary-soft) !important;
+    border-color: var(--pf-primary) !important;
+}
+
+.sapUiBody li.sapMSegBBtnSel > .sapMSegBBtnInnerWrapper .sapMSegBBtnInner {
+    color: var(--pf-primary) !important;
+    font-weight: 600;
 }
 
 /* Paleta escura: verdes profundo e menta, com ambar para os destaques. */

@@ -1,4 +1,4 @@
-import type { GitHubInfo, Project } from "../../webapp/service/types";
+import type { GitHubInfo, GitHubRepo, Project } from "../../webapp/service/types";
 import { readContentFile, readFlag, run, writeContentFile } from "../shared/nodeContent";
 
 /**
@@ -8,10 +8,12 @@ import { readContentFile, readFlag, run, writeContentFile } from "../shared/node
  *   npm run sync:github
  *   npm run sync:github -- --user=DaviCastr --token=$GITHUB_TOKEN
  *
- * Faz duas coisas:
- *   1. grava webapp/content/github.json (perfil, ultima sincronizacao, repos);
+ * Faz tres coisas:
+ *   1. grava webapp/content/github.json (perfil, ultima sincronizacao e a lista
+ *      de repositorios, que e o que a aba de Projetos renderiza);
  *   2. atualiza estrelas/forks/linguagem dos itens de webapp/content/projects.json
- *      cujo campo "repo" aponte para um repositorio do usuario.
+ *      cujo campo "repo" aponte para um repositorio do usuario;
+ *   3. mantem `repoCount` igual ao tamanho da lista gravada.
  *
  * Sem token usa 60 requisicoes/hora da API publica - suficiente para uso local.
  */
@@ -78,6 +80,37 @@ function toDate(iso: string | undefined): string | undefined {
     return iso ? iso.slice(0, 10) : undefined;
 }
 
+/** Ultimo push no formato YYYY-MM, que e o formato dos cards da aba Projetos. */
+function toMonth(iso: string | undefined): string | undefined {
+    return iso ? iso.slice(0, 7) : undefined;
+}
+
+/** Texto opcional: string vazia vira undefined para nao inflar o JSON. */
+function optional(value: string | undefined): string | undefined {
+    const text = value?.trim();
+    return text ? text : undefined;
+}
+
+/**
+ * Converte um repositorio da API no formato do portfolio.
+ *
+ * `homepage` so e aceito com http(s): o GitHub aceita valor livre nesse campo e
+ * um "javascript:..." ali viraria um link clicavel no card.
+ */
+function toRepo(repo: GhRepo): GitHubRepo {
+    return {
+        name: repo.name,
+        url: repo.html_url,
+        description: optional(repo.description),
+        language: optional(repo.language),
+        stars: repo.stargazers_count,
+        forks: repo.forks_count,
+        topics: repo.topics?.length ? repo.topics : undefined,
+        pushedAt: toMonth(repo.pushed_at),
+        homepage: /^https?:\/\//i.test(repo.homepage ?? "") ? repo.homepage : undefined
+    };
+}
+
 async function main(): Promise<void> {
     const token = readFlag("token") ?? process.env.GITHUB_TOKEN;
     const userArg = readFlag("user");
@@ -101,7 +134,8 @@ async function main(): Promise<void> {
         login: profile.login,
         profileUrl: profile.html_url,
         syncedAt: new Date().toISOString(),
-        repoCount: ownRepos.length
+        repoCount: ownRepos.length,
+        repos: ownRepos.map(toRepo)
     };
     await writeContentFile("github.json", github);
 
@@ -128,7 +162,9 @@ async function main(): Promise<void> {
 
     await writeContentFile("projects.json", merged);
 
-    console.log("gravado webapp/content/github.json:", github);
+    console.log(
+        `gravado webapp/content/github.json: ${github.repoCount} repositorio(s), perfil ${github.profileUrl}`
+    );
     console.log(`projetos atualizados: ${updated}/${projects.length}`);
     if (projects.length - updated > 0) {
         console.log("  (os demais nao apontam para repos do usuario - nada a fazer)");

@@ -50,6 +50,44 @@ export interface Course {
     url?: string;
 }
 
+/**
+ * Chip de tag/topico no formato que a view consegue renderizar.
+ *
+ * O JSON guarda listas de strings, mas no UI5 1.153 `{this>}` em uma agregacao
+ * de strings resolve vazio. O ContentService converte para `{ label }`.
+ */
+export interface ChipItem {
+    label: string;
+}
+
+/**
+ * Repositorio publico do GitHub, sincronizado por "npm run sync:github".
+ *
+ * A diferenca para `Project` e a origem: um `Project` e escrito a mao e conta a
+ * historia do trabalho; um `GitHubRepo` e o que existe de fato na conta e nao
+ * tem traducao propria (a descricao e o texto do proprio repositorio).
+ */
+export interface GitHubRepo {
+    /** Nome do repositorio, como no GitHub ("SAP-UI5-Portfolio"). */
+    name: string;
+    /** Pagina publica do repositorio. */
+    url: string;
+    /** Descricao do repositorio, quando o autor escreveu uma. */
+    description?: string;
+    /** Linguagem principal segundo o GitHub. */
+    language?: string;
+    stars?: number;
+    forks?: number;
+    /** Topics do repositorio. */
+    topics?: string[];
+    /** Topics como `{ label }`, para os chips da view (ver `Project.tagItems`). */
+    topicItems?: ChipItem[];
+    /** YYYY-MM do ultimo push. */
+    pushedAt?: string;
+    /** Site declarado no campo "website" do repositorio. */
+    homepage?: string;
+}
+
 /** Dados do GitHub usados na aba de projetos (preenchidos pelo sync). */
 export interface GitHubInfo {
     /** Login do usuario. */
@@ -60,6 +98,8 @@ export interface GitHubInfo {
     syncedAt?: string;
     /** Total de repositorios publicos sincronizados. */
     repoCount?: number;
+    /** Repositorios proprios, sem fork e sem arquivado. */
+    repos?: GitHubRepo[];
 }
 
 /** Bloco principal do portfolio: quem e o Davi. */
@@ -74,6 +114,8 @@ export interface Profile {
     summary: LocalizedText;
     /** Biografia completa: um item por paragrafo (pagina "Sobre"). */
     about: LocalizedText[];
+    /** `about` como `{ label }`, para a view (ver `ChipItem`). */
+    aboutItems?: ChipItem[];
     /** Caminho da foto (relativo a webapp/). */
     avatar: string;
     /** Texto do selo "disponivel para novos projetos". */
@@ -117,6 +159,10 @@ export interface Experience {
     stack: string[];
     /** Modulos SAP atuados (MM, SD, FI...). */
     modules?: string[];
+    /** Copies de `highlights`/`stack`/`modules` como `{ label }` (ver `ChipItem`). */
+    highlightsItems?: ChipItem[];
+    stackItems?: ChipItem[];
+    modulesItems?: ChipItem[];
     /** Marca a experiencia como projeto (aparece no filtro "Projetos"). */
     kind?: "job" | "project";
     /** Destaque na home. */
@@ -136,6 +182,8 @@ export interface Skill {
     description?: LocalizedText;
     /** Tags livres (ex.: "Fiori", "Cloud", "Integracao"). */
     tags?: string[];
+    /** `tags` como `{ label }`, para os chips da view (ver `ChipItem`). */
+    tagItems?: ChipItem[];
     featured?: boolean;
 }
 
@@ -152,6 +200,17 @@ export interface Project {
     repo?: string;
     stack: string[];
     tags: string[];
+    /**
+     * Tags no formato de objeto, para os chips da view.
+     *
+     * O JSON guarda `string[]`, mas no UI5 1.153 `{this>}` em uma agregacao de
+     * strings resolve vazio (a chip saia sem texto). O ContentService preenche
+     * este campo com `{ label }`, o mesmo formato ja usado nos filtros.
+     */
+    tagItems?: ChipItem[];
+    /** Copias de `stack` e `highlights` como `{ label }` (ver `ChipItem`). */
+    stackItems?: ChipItem[];
+    highlightsItems?: ChipItem[];
     period?: Period;
     highlights?: LocalizedText[];
     /** Aparece na home. */
@@ -197,6 +256,8 @@ export interface Education {
     kind?: "education" | "monitor" | "course";
     /** Disciplinas, concentraoes ou palavras-chave. */
     tags?: string[];
+    /** `tags` como `{ label }`, para os chips da view (ver `ChipItem`). */
+    tagItems?: ChipItem[];
 }
 
 /** Definicao de uma secao do portfolio (registro de navegacao). */

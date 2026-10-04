@@ -65,6 +65,45 @@
                     <Text text="{i18n>projects.empty}"/>
                 </VBox>
 
+                <!-- Repositorios do GitHub (raspados por npm run sync:github) -->
+                <VBox
+                    class="pf-stack pf-gap-4"
+                    visible="{= ${content>/github/repos} ? ${content>/github/repos}.length > 0 : false }">
+                    <VBox class="pf-page__head">
+                        <Text class="pf-eyebrow" text="{i18n>projects.reposEyebrow}"/>
+                        <Title level="H2" class="pf-h2" text="{i18n>projects.reposTitle}"/>
+                        <Text class="pf-lead" text="{i18n>projects.reposSubtitle}"/>
+                    </VBox>
+
+                    <!-- Filtro por linguagem -->
+                    <HBox class="pf-filterbar">
+                        <Button
+                            class="pf-filter"
+                            text="{i18n>projects.reposFilterAll}"
+                            type="{= ${ui>/repoLanguageFilter} === 'all' ? 'Emphasized' : 'Transparent' }"
+                            press="onAllReposPress"/>
+
+                        <HBox items="{path: '/repoLanguages', templateShareable: true}">
+                            <Button
+                                class="pf-filter"
+                                text="{label}"
+                                type="{= ${ui>/repoLanguageFilter} === ${language} ? 'Emphasized' : 'Transparent' }"
+                                press="onRepoLanguagePress"/>
+                        </HBox>
+                    </HBox>
+
+                    <HBox class="pf-grid pf-grid--repos" items="{path: '/filteredRepos', length: 60, templateShareable: true}">
+                        <core:Fragment fragmentName="davi.portfolio.fragment.RepoCard" type="XML"/>
+                    </HBox>
+
+                    <VBox
+                        class="pf-empty"
+                        visible="{= !!${content>/filteredRepos} ? ${content>/filteredRepos}.length === 0 : false }">
+                        <core:Icon src="sap-icon://folder" class="pf-text-xl pf-muted"/>
+                        <Text text="{i18n>projects.reposEmpty}"/>
+                    </VBox>
+                </VBox>
+
                 <!-- GitHub -->
                 <VBox class="pf-card pf-stack pf-gap-3">
                     <HBox alignItems="Center" class="pf-gap-3">

@@ -96,8 +96,8 @@
                     <!-- Competencias -->
                     <VBox class="pf-sheet__section">
                         <Text class="pf-sheet__section-title" text="{i18n>nav.skills}"/>
-                        <HBox class="pf-chips" items="{path: '/metrics/stacks', templateShareable: true}">
-                            <Text class="pf-chip" text="{this>}"/>
+                        <HBox class="pf-chips" items="{path: '/metrics/stacksItems', templateShareable: true}">
+                            <core:Fragment fragmentName="davi.portfolio.fragment.Chip" type="XML"/>
                         </HBox>
                     </VBox>
 
@@ -110,8 +110,8 @@
                                     <Text class="pf-sheet__item-title" text="{name}"/>
                                     <Text class="pf-small pf-muted" text="{description}"/>
                                 </HBox>
-                                <HBox class="pf-chips" items="{path: 'stack', templateShareable: true}">
-                                    <Text class="pf-chip" text="{this>}"/>
+                                <HBox class="pf-chips" items="{path: 'stackItems', templateShareable: true}">
+                                    <core:Fragment fragmentName="davi.portfolio.fragment.Chip" type="XML"/>
                                 </HBox>
                             </VBox>
                         </VBox>

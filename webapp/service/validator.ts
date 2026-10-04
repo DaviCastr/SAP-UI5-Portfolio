@@ -166,5 +166,20 @@ export function validateContent(content: Partial<PortfolioContent>): ContentIssu
         }
     });
 
+    // Repositorios sincronizados do GitHub: sao gravados por ferramenta, mas um
+    // sync com --user errado ainda passa pelo validador.
+    (content.github?.repos ?? []).forEach((item, index) => {
+        const path = `github.repos[${index}]`;
+        if (!item?.name) {
+            issues.push(issue(`${path}.name`, "informe o nome do repositorio"));
+        }
+        if (!item?.url || !/^https:\/\/github\.com\/[^/]+\/[^/]+$/.test(item.url)) {
+            issues.push(issue(`${path}.url`, "a URL deve ser https://github.com/usuario/repositorio"));
+        }
+        if (item?.pushedAt && !MONTH_PERIOD.test(item.pushedAt)) {
+            issues.push(issue(`${path}.pushedAt`, "use o formato YYYY-MM (ex.: 2025-07)"));
+        }
+    });
+
     return issues;
 }

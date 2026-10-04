@@ -74,11 +74,11 @@ export default abstract class BaseController extends Controller {
     }
 
     /**
-     * Torna os cartoes clicaveis (`.pf-cert`) sem precisar de um botao dentro
-     * deles.
+     * Torna os cartoes clicaveis (`.pf-cert` por padrao) sem precisar de um
+     * botao dentro deles.
      *
      * Um unico listener delegado no container da view cuida de todos os cartoes:
-     *delegar (em vez de um handler por card) mantem o fragmento declarativo e
+     * delegar (em vez de um handler por card) mantem o fragmento declarativo e
      * funciona igual na home e na galeria, que usam o mesmo fragmento. Como o
      * card nao carrega a URL no DOM, ela e resolvida pelo contexto de binding do
      * controle - o `id` do elemento DOM de um controle UI5 e o proprio id dele.
@@ -96,6 +96,17 @@ export default abstract class BaseController extends Controller {
     }
 
     /**
+     * Seletor dos cartoes clicaveis desta view.
+     *
+     * A URL vem sempre do campo "url" do contexto de binding, entao e so isso que
+     * muda de um cartao para outro. As views que nao tem cartao clicavel
+     * sobrescrevem com ":not(.pf-anything)".
+     */
+    protected clickableCards(): string {
+        return ".pf-cert";
+    }
+
+    /**
      * Elemento DOM da view.
      *
      * `getDomRef()` existe em `sap.ui.core.mvc.View` desde sempre, mas o
@@ -108,8 +119,8 @@ export default abstract class BaseController extends Controller {
         return view?.getDomRef?.() ?? null;
     }
 
-    /** URL da credencial a partir do elemento DOM do card. */
-    private certificateUrl(card: HTMLElement | null): string {
+    /** URL externa a partir do elemento DOM de um cartao clicavel. */
+    private cardUrl(card: HTMLElement | null): string {
         const control = card?.id ? sap.ui.getCore().byId(card.id) : null;
         const url = control?.getBindingContext()?.getProperty("url");
 
@@ -118,11 +129,11 @@ export default abstract class BaseController extends Controller {
 
     /**
      * `role`/`tabindex` sao espelhados no DOM a cada render porque os cartoes
-     * nascem e morrem com os filtros (e nem toda credencial tem URL).
+     * nascem e morrem com os filtros (e nem todo cartao tem URL).
      */
     private syncCardAccessibility(root: HTMLElement | null): void {
-        root?.querySelectorAll<HTMLElement>(".pf-cert").forEach((card) => {
-            if (this.certificateUrl(card)) {
+        root?.querySelectorAll<HTMLElement>(this.clickableCards()).forEach((card) => {
+            if (this.cardUrl(card)) {
                 card.setAttribute("role", "link");
                 card.setAttribute("tabindex", "0");
             } else {
@@ -132,9 +143,9 @@ export default abstract class BaseController extends Controller {
         });
     }
 
-    /** Abre a credencial a partir do card, seja por clique, Enter ou Space. */
+    /** Abre o destino a partir do cartao, seja por clique, Enter ou Space. */
     private openCard(card: HTMLElement | null, event: Event): void {
-        const url = this.certificateUrl(card);
+        const url = this.cardUrl(card);
 
         if (!url) {
             return;
@@ -152,7 +163,7 @@ export default abstract class BaseController extends Controller {
             return;
         }
 
-        this.openCard(target?.closest<HTMLElement>(".pf-cert") ?? null, event);
+        this.openCard(target?.closest<HTMLElement>(this.clickableCards()) ?? null, event);
     };
 
     private readonly handleCardKeydown = (event: KeyboardEvent): void => {
@@ -160,7 +171,10 @@ export default abstract class BaseController extends Controller {
             return;
         }
 
-        this.openCard((event.target as HTMLElement | null)?.closest<HTMLElement>(".pf-cert") ?? null, event);
+        this.openCard(
+            (event.target as HTMLElement | null)?.closest<HTMLElement>(this.clickableCards()) ?? null,
+            event
+        );
     };
 
     /** Vai para uma rota declarada no manifest.json. */

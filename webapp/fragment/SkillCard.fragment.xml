@@ -16,8 +16,8 @@
 
         <Text class="pf-skill__desc" text="{description}" visible="{= !!${description}}"/>
 
-        <HBox class="pf-chips" items="{path: 'tags', templateShareable: true}" visible="{= !!${tags} &amp;&amp; ${tags}.length > 0}">
-            <Text class="pf-chip" text="{this>}"/>
+        <HBox class="pf-chips" items="{path: 'tagItems', templateShareable: true}" visible="{= !!${tagItems} &amp;&amp; ${tagItems}.length > 0}">
+            <core:Fragment fragmentName="davi.portfolio.fragment.Chip" type="XML"/>
         </HBox>
     </VBox>
 </core:FragmentDefinition>

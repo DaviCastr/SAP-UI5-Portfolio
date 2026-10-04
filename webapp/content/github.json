@@ -1,6 +1,481 @@
 {
   "login": "DaviCastr",
   "profileUrl": "https://github.com/DaviCastr",
-  "syncedAt": "2026-10-03T03:54:45.688Z",
-  "repoCount": 54
+  "syncedAt": "2026-10-04T18:56:32.692Z",
+  "repoCount": 54,
+  "repos": [
+    {
+      "name": "SAP-UI5-Portfolio",
+      "url": "https://github.com/DaviCastr/SAP-UI5-Portfolio",
+      "description": "My personal portfolio",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-10"
+    },
+    {
+      "name": "SAP-CAP-ExpenseManager",
+      "url": "https://github.com/DaviCastr/SAP-CAP-ExpenseManager",
+      "description": "Projeto pessoal - Gestor de Gasto em CAP com Typescript e MvC",
+      "language": "TypeScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-09"
+    },
+    {
+      "name": "SAP-MDK-ExpenseManager",
+      "url": "https://github.com/DaviCastr/SAP-MDK-ExpenseManager",
+      "description": "SAP-MDK-ExpenseManager",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-09"
+    },
+    {
+      "name": "SAP-UI5-ExpenseManager",
+      "url": "https://github.com/DaviCastr/SAP-UI5-ExpenseManager",
+      "description": "Expensa Manager UI5 Freestyle",
+      "language": "TypeScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-09"
+    },
+    {
+      "name": "SAP-UI5-Three-Clues-Game",
+      "url": "https://github.com/DaviCastr/SAP-UI5-Three-Clues-Game",
+      "description": "Jogo das três pistas",
+      "language": "TypeScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-09"
+    },
+    {
+      "name": "SAP-CAP-GestorDeGastos",
+      "url": "https://github.com/DaviCastr/SAP-CAP-GestorDeGastos",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-04"
+    },
+    {
+      "name": "SAP-MDK-Maps",
+      "url": "https://github.com/DaviCastr/SAP-MDK-Maps",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-02"
+    },
+    {
+      "name": "SAP-MDK-PetStore",
+      "url": "https://github.com/DaviCastr/SAP-MDK-PetStore",
+      "description": "Consumo de api rest",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-02"
+    },
+    {
+      "name": "SAP-MDK-NotificationPush",
+      "url": "https://github.com/DaviCastr/SAP-MDK-NotificationPush",
+      "description": "Uso de notificação",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-02"
+    },
+    {
+      "name": "SAP-MDK-I18n-L10n",
+      "url": "https://github.com/DaviCastr/SAP-MDK-I18n-L10n",
+      "description": "Utilização Internalização e localização",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-02"
+    },
+    {
+      "name": "SAP-MDK-DeepLink",
+      "url": "https://github.com/DaviCastr/SAP-MDK-DeepLink",
+      "description": "Navegar para outros aplicativos com MDK",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-02"
+    },
+    {
+      "name": "SAP-MDK-Annotations",
+      "url": "https://github.com/DaviCastr/SAP-MDK-Annotations",
+      "description": "SAP-MDK utilizadno annotações odata de fiori elements assim como o fiori elements gera telas",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-02"
+    },
+    {
+      "name": "SAP-MDK-Styling",
+      "url": "https://github.com/DaviCastr/SAP-MDK-Styling",
+      "description": "SAP MDK Style Modify Basic",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-02"
+    },
+    {
+      "name": "SAP-MDK-ErrorArchive",
+      "url": "https://github.com/DaviCastr/SAP-MDK-ErrorArchive",
+      "description": "Trantamento de erro em sincronização",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-02"
+    },
+    {
+      "name": "SAP-MDK-DemoApp",
+      "url": "https://github.com/DaviCastr/SAP-MDK-DemoApp",
+      "description": "Aplicativo construido passo a passo com MDK",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-02"
+    },
+    {
+      "name": "SAP-MDK-FirstApp",
+      "url": "https://github.com/DaviCastr/SAP-MDK-FirstApp",
+      "description": "Primerio projeto desenvolvido em Mobile Developement Kit",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-02"
+    },
+    {
+      "name": "SAP-RAP-UploadFileWithActionUsingAbstractParameter",
+      "url": "https://github.com/DaviCastr/SAP-RAP-UploadFileWithActionUsingAbstractParameter",
+      "description": "Exemplo de upload de arquivo utilizando ação abstrata",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-01"
+    },
+    {
+      "name": "SAP-RAP-Viagem",
+      "url": "https://github.com/DaviCastr/SAP-RAP-Viagem",
+      "description": "Pequeno treinamento para SAP RAP",
+      "language": "ABAP",
+      "stars": 3,
+      "forks": 0,
+      "pushedAt": "2026-01"
+    },
+    {
+      "name": "SAP-CAP-Finance",
+      "url": "https://github.com/DaviCastr/SAP-CAP-Finance",
+      "description": "CAP Finance",
+      "language": "HTML",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-11"
+    },
+    {
+      "name": "SAP-CPI-ErrorHandlingWithOpenAITrello",
+      "url": "https://github.com/DaviCastr/SAP-CPI-ErrorHandlingWithOpenAITrello",
+      "description": "Error handling with OpenAI and Trello",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-10"
+    },
+    {
+      "name": "SAP-UI5-QualityTests",
+      "url": "https://github.com/DaviCastr/SAP-UI5-QualityTests",
+      "description": "Unit tests and OPA5 tests",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-10"
+    },
+    {
+      "name": "SAP-UI5-CustomLibrary",
+      "url": "https://github.com/DaviCastr/SAP-UI5-CustomLibrary",
+      "description": "A Custom Library to import into ABAP to use in any projects",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-10"
+    },
+    {
+      "name": "SAP-UI5-FullScreenAPP",
+      "url": "https://github.com/DaviCastr/SAP-UI5-FullScreenAPP",
+      "description": "A FullScreen APP Freestyle",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-10"
+    },
+    {
+      "name": "SAP-UI5-ExtendStandardControl",
+      "url": "https://github.com/DaviCastr/SAP-UI5-ExtendStandardControl",
+      "description": "Extend a Standard Button control to add a custom event",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-10"
+    },
+    {
+      "name": "SAP-UI5-CustomControl",
+      "url": "https://github.com/DaviCastr/SAP-UI5-CustomControl",
+      "description": "A Custom Control to add to a Page Fiori Freestyle",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-10"
+    },
+    {
+      "name": "SAP-UI5-ListDetailApp",
+      "url": "https://github.com/DaviCastr/SAP-UI5-ListDetailApp",
+      "description": "A Fresstyle List Detail App utilizaing flexlayout",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-10"
+    },
+    {
+      "name": "SAP-UI5-CustomersFlight",
+      "url": "https://github.com/DaviCastr/SAP-UI5-CustomersFlight",
+      "description": "Customers Flight UI5 Frestyle App",
+      "language": "TypeScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-10"
+    },
+    {
+      "name": "SAP-UI5-HelloWorldCICD",
+      "url": "https://github.com/DaviCastr/SAP-UI5-HelloWorldCICD",
+      "description": "Hello Wolrd",
+      "language": "TypeScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-10"
+    },
+    {
+      "name": "SAP-ABAP-SalesOrder",
+      "url": "https://github.com/DaviCastr/SAP-ABAP-SalesOrder",
+      "description": "SAP Getaway Sales-Order",
+      "language": "ABAP",
+      "stars": 1,
+      "forks": 0,
+      "pushedAt": "2025-10"
+    },
+    {
+      "name": "SAP-UI5-SalesOrderExtension",
+      "url": "https://github.com/DaviCastr/SAP-UI5-SalesOrderExtension",
+      "description": "App Sales Order With Extension",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-10"
+    },
+    {
+      "name": "SAP-UI5-SalesOrder",
+      "url": "https://github.com/DaviCastr/SAP-UI5-SalesOrder",
+      "description": "Projects UI5 Freestyle for SalesOrder APP",
+      "language": "TypeScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-10"
+    },
+    {
+      "name": "SAP-ABAP-SalesMonitorExtension",
+      "url": "https://github.com/DaviCastr/SAP-ABAP-SalesMonitorExtension",
+      "description": "Service Getaway and objects ABAP",
+      "language": "ABAP",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-10"
+    },
+    {
+      "name": "SAP-ABAP-SalesMonitor",
+      "url": "https://github.com/DaviCastr/SAP-ABAP-SalesMonitor",
+      "description": "Monitor de vendas com SAP Getaway",
+      "language": "ABAP",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-10"
+    },
+    {
+      "name": "SAP-UI5-CustomerRegistration",
+      "url": "https://github.com/DaviCastr/SAP-UI5-CustomerRegistration",
+      "description": "Registro de clientes",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-10"
+    },
+    {
+      "name": "SAP-UI5-CustomerRegistrationExtension",
+      "url": "https://github.com/DaviCastr/SAP-UI5-CustomerRegistrationExtension",
+      "description": "Project Extension of app Customer Registration",
+      "language": "HTML",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-10"
+    },
+    {
+      "name": "SAP-UI5-AirlineMasterDetail",
+      "url": "https://github.com/DaviCastr/SAP-UI5-AirlineMasterDetail",
+      "description": "Projeto SAP UI5 frestyle utilizando JS e TS",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-10"
+    },
+    {
+      "name": "SAP-UI5-Airline-SimpleWorklist",
+      "url": "https://github.com/DaviCastr/SAP-UI5-Airline-SimpleWorklist",
+      "description": "Simple Worklist APP generated",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-10"
+    },
+    {
+      "name": "SAP-CAP-SalesOrder-MVC-Ts",
+      "url": "https://github.com/DaviCastr/SAP-CAP-SalesOrder-MVC-Ts",
+      "description": "Desenvolvimento CAP para ordens de vendas utilizando typescript",
+      "language": "TypeScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-09"
+    },
+    {
+      "name": "SAP-CAP-Lab2Cash",
+      "url": "https://github.com/DaviCastr/SAP-CAP-Lab2Cash",
+      "description": "Projeto Lab2Cash",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-07"
+    },
+    {
+      "name": "SAP-RAP-UploadFileWithSectionExtension",
+      "url": "https://github.com/DaviCastr/SAP-RAP-UploadFileWithSectionExtension",
+      "description": "App com upload de arquivos utilizando extensão se sessão em object page",
+      "language": "JavaScript",
+      "stars": 1,
+      "forks": 0,
+      "pushedAt": "2025-05"
+    },
+    {
+      "name": "SAP-RAP-SimpleLogApplication",
+      "url": "https://github.com/DaviCastr/SAP-RAP-SimpleLogApplication",
+      "description": "Simples Log aplication with SAP RAP",
+      "language": "ABAP CDS",
+      "stars": 2,
+      "forks": 0,
+      "pushedAt": "2025-03"
+    },
+    {
+      "name": "SAP-BuildApps-SocialMediaActions",
+      "url": "https://github.com/DaviCastr/SAP-BuildApps-SocialMediaActions",
+      "description": "Projeto feito com SAP Build APPS e Backend SAP Build",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-02"
+    },
+    {
+      "name": "SAP-BuildApps-ShoppingCart",
+      "url": "https://github.com/DaviCastr/SAP-BuildApps-ShoppingCart",
+      "description": "Projeto desenvolvido com SAP Build APPS, CAP, SAP Build Process Automation",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2025-02"
+    },
+    {
+      "name": "SAP-CAP-MyAppWithHanaDB",
+      "url": "https://github.com/DaviCastr/SAP-CAP-MyAppWithHanaDB",
+      "description": "Primeiro protótipo feito com desenvolvimento CAP usando banco de dados hana integrado.",
+      "language": "CAP CDS",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2024-10"
+    },
+    {
+      "name": "SAP-CAP-RiskManagement",
+      "url": "https://github.com/DaviCastr/SAP-CAP-RiskManagement",
+      "description": "Reporsitory for RiskManagement CAP Project",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2024-10"
+    },
+    {
+      "name": "DaviCastr",
+      "url": "https://github.com/DaviCastr/DaviCastr",
+      "description": "Olá eu sou Davi Castro",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2024-10"
+    },
+    {
+      "name": "SAP-ProcessAutomation-SalesOrderWithAgentExcel",
+      "url": "https://github.com/DaviCastr/SAP-ProcessAutomation-SalesOrderWithAgentExcel",
+      "stars": 1,
+      "forks": 0,
+      "pushedAt": "2024-10"
+    },
+    {
+      "name": "SAP-CAP-DevelopmentLearningJourney",
+      "url": "https://github.com/DaviCastr/SAP-CAP-DevelopmentLearningJourney",
+      "language": "CAP CDS",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2024-09"
+    },
+    {
+      "name": "ContinuosIntegrationAndDelivery",
+      "url": "https://github.com/DaviCastr/ContinuosIntegrationAndDelivery",
+      "description": "Teste de job sap",
+      "language": "HTML",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2024-09"
+    },
+    {
+      "name": "SAP-BuildAPPs-Automations",
+      "url": "https://github.com/DaviCastr/SAP-BuildAPPs-Automations",
+      "description": "Aplicativos SAP Build e Automações",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2024-09"
+    },
+    {
+      "name": "SAP-RAP-UploadFileWithAnnotations",
+      "url": "https://github.com/DaviCastr/SAP-RAP-UploadFileWithAnnotations",
+      "language": "ABAP CDS",
+      "stars": 2,
+      "forks": 0,
+      "pushedAt": "2023-10"
+    },
+    {
+      "name": "BatePapoTempoReal-With-PHP-AJAX-MYSQL",
+      "url": "https://github.com/DaviCastr/BatePapoTempoReal-With-PHP-AJAX-MYSQL",
+      "description": "Um bate papo que funciona em tempo real inicio de uma mini rede social",
+      "language": "CSS",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2023-10"
+    },
+    {
+      "name": "MYPPLIFE",
+      "url": "https://github.com/DaviCastr/MYPPLIFE",
+      "description": "Diario",
+      "language": "PHP",
+      "stars": 0,
+      "forks": 0,
+      "topics": ["ajax", "css", "js", "mysql", "php"],
+      "pushedAt": "2023-10"
+    },
+    {
+      "name": "ChatDosEstagiarios",
+      "url": "https://github.com/DaviCastr/ChatDosEstagiarios",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2023-10",
+      "homepage": "https://chat-dos-estagiarios.vercel.app"
+    }
+  ]
 }

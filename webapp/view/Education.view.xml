@@ -37,8 +37,8 @@
 
                             <Text class="pf-card__body" text="{description}"/>
 
-                            <HBox class="pf-chips" items="{path: 'tags', templateShareable: true}">
-                                <Text class="pf-chip" text="{this>}"/>
+                            <HBox class="pf-chips" items="{path: 'tagItems', templateShareable: true}">
+                                <core:Fragment fragmentName="davi.portfolio.fragment.Chip" type="XML"/>
                             </HBox>
                         </VBox>
                     </HBox>
