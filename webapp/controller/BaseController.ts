@@ -107,9 +107,4 @@ export default abstract class BaseController extends Controller {
         uiModel?.setProperty("/theme", next);
         return next;
     }
-
-    /** Troca o idioma (recarrega a app pela URL ?lang=). */
-    protected switchLocale(locale: ContentLocale): void {
-        LocaleService.switchTo(locale);
-    }
 }

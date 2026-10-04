@@ -8,7 +8,7 @@ import { ContentService } from "../service/ContentService";
 import { browserFetcher, createDataSource, loadSourceConfig } from "../service/StaticJsonDataSource";
 import { ThemeService, type ThemeMode } from "../service/ThemeService";
 import { buildViewData } from "../service/viewData";
-import type { ContentLocale, ExternalLink, SectionDefinition } from "../service/types";
+import type { ExternalLink, SectionDefinition } from "../service/types";
 
 /** Pasta base dos arquivos JSON do portfolio (relativa a webapp/). */
 const CONTENT_BASE_URL = "content";
@@ -83,12 +83,20 @@ export default class AppController extends BaseController {
     }
 
     /**
-     * Publica as opcoes de tema e idioma dos SegmentedButton da rodape.
+     * Publica as opcoes de tema do SegmentedButton do rodape.
      *
      * Os rotulos vem do resource bundle (i18n) porque o model "ui" e um JSONModel
      * e nao resolve chaves i18n sozinho. Os itens sao criados via API porque
      * sap.m.SegmentedButton declara "buttons" como defaultAggregation e ignora
      * templates XML na agregacao "items".
+     *
+     * O selectedKey NAO vai por binding: em two-way o SegmentedButton grava de
+     * volta no model durante o boot e sobrescreve o mode aplicado pelo
+     * Component com string vazia (a pagina ficava escura com "Light" marcado), e
+     * o one-way (:=) quebra o boot de fragment no UI5 1.153.
+     *
+     * O idioma nao aparece aqui: quem decide e o i18n do UI5 (idioma do
+     * navegador), com ?lang= na URL como override explicito.
      */
     private async publishUiOptions(): Promise<void> {
         const view = this.getView();
@@ -113,10 +121,11 @@ export default class AppController extends BaseController {
             { key: "light", text: text("theme.light") },
             { key: "dark", text: text("theme.dark") }
         ]);
-        fill("localeToggle", [
-            { key: "pt", text: text("language.pt") },
-            { key: "en", text: text("language.en") }
-        ]);
+
+        // Alinha o toggle com o tema ja aplicado pelo Component (evita o "piscar"
+        // em "Light" quando o sistema prefere dark).
+        const themeToggle = view?.byId("themeToggle") as SegmentedButton | undefined;
+        themeToggle?.setSelectedKey(ThemeService.getMode());
     }
 
     /** Navega para a secao escolhida na barra superior. */
@@ -139,20 +148,21 @@ export default class AppController extends BaseController {
     }
 
     // ------------------------------------------------------------------
-    // Tema e idioma
+    // Tema
     // ------------------------------------------------------------------
 
-    /** Alterna claro/escuro pelo SegmentedButton do rodape. */
-    public onThemeChange(event: sap.ui.base.Event<{ key: string }>): void {
-        const key = (event.getParameter("key") as ThemeMode) ?? "light";
+    /**
+     * Alterna claro/escuro pelo SegmentedButton do rodape.
+     *
+     * A key vem do proprio controle: no UI5 1.153 o selectionChange do
+     * sap.m.SegmentedButton e disparado sem parametros, entao usar
+     * event.getParameter("key") cairia sempre no fallback.
+     */
+    public onThemeChange(event: sap.ui.base.Event): void {
+        const key =
+            ((event.getSource() as SegmentedButton | undefined)?.getSelectedKey() as ThemeMode) ?? "light";
         ThemeService.apply(key);
         this.model("ui")?.setProperty("/theme", key);
-    }
-
-    /** Troca o idioma (recarrega pela URL ?lang=). */
-    public onLocaleChange(event: sap.ui.base.Event<{ key: string }>): void {
-        const key = event.getParameter("key") as ContentLocale;
-        this.switchLocale(key);
     }
 
     /** Remove a tela de carregamento exibida pelo index.html. */

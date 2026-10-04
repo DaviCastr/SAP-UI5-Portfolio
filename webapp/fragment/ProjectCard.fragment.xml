@@ -9,12 +9,12 @@
 
         <Text class="pf-project__desc" text="{description}"/>
 
-        <HBox class="pf-chips" items="{stack}">
+        <HBox class="pf-chips" items="{path: 'stack', templateShareable: true}">
             <Text class="pf-chip" text="{this>}"/>
         </HBox>
 
         <VBox class="pf-gap-1" visible="{= !!${highlights} &amp;&amp; ${highlights}.length > 0}">
-            <HBox items="{highlights}">
+            <HBox items="{path: 'highlights', templateShareable: true}">
                 <Text class="pf-bullet pf-small pf-muted" text="{this>}"/>
             </HBox>
         </VBox>

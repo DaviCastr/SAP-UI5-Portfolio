@@ -16,7 +16,7 @@
             </HBox>
 
             <!-- Navegacao: gerada a partir de content/sections.json -->
-            <HBox class="pf-topbar__nav pf-scroll-x" items="{content>/navSections}">
+            <HBox class="pf-topbar__nav pf-scroll-x" items="{path: '/navSections', templateShareable: true}">
                 <Button
                     class="pf-topbar__btn"
                     type="{= ${route} === ${path: 'ui>/activeRoute'} ? 'Emphasized' : 'Transparent' }"
@@ -35,7 +35,7 @@
                     text="{i18n>action.cv}"
                     press="onCvPress"/>
 
-                <HBox class="pf-row--wrap" items="{content>/navLinks}">
+                <HBox class="pf-row--wrap" items="{path: '/navLinks', templateShareable: true}">
                     <Button
                         type="Transparent"
                         icon="{path: 'icon', formatter: '.fIcon'}"

@@ -37,18 +37,18 @@
 
         <!-- Principais atuacoes -->
         <VBox class="pf-stack pf-gap-2" visible="{= !!${highlights} &amp;&amp; ${highlights}.length > 0}">
-            <HBox items="{highlights}">
+            <HBox items="{path: 'highlights', templateShareable: true}">
                 <Text class="pf-bullet pf-small pf-muted" text="{this>}"/>
             </HBox>
         </VBox>
 
         <!-- Modulos SAP -->
-        <HBox class="pf-chips" items="{modules}" visible="{= !!${modules} &amp;&amp; ${modules}.length > 0}">
+        <HBox class="pf-chips" items="{path: 'modules', templateShareable: true}" visible="{= !!${modules} &amp;&amp; ${modules}.length > 0}">
             <Text class="pf-chip" text="{this>}"/>
         </HBox>
 
         <!-- Stack tecnica -->
-        <HBox class="pf-chips" items="{stack}" visible="{= !!${stack} &amp;&amp; ${stack}.length > 0}">
+        <HBox class="pf-chips" items="{path: 'stack', templateShareable: true}" visible="{= !!${stack} &amp;&amp; ${stack}.length > 0}">
             <Text class="pf-chip" text="{this>}"/>
         </HBox>
     </VBox>

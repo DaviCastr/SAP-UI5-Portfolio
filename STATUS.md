@@ -70,29 +70,59 @@ apontados em "Pendencias".
 - [x] `npm run format:check` e `npm run content:check` sem pendencias.
 - [x] `README.md` com documentacao completa (inclusive como trocar a fonte de dados).
 
-### Runtime (validado no navegador)
+### Runtime (validado no navegador em 03/10/2026)
 
-- [x] App sobe sem erro: container do component populado e splash removido, tanto em
-      `ui5 serve` quanto no `dist/` gerado por `npm run build`.
-- [x] Todas as rotas renderizam conteudo real: `#/`, `#/home`, `#/about`, `#/experience`,
-      `#/skills`, `#/projects`, `#/certificates`, `#/education`, `#/cv` e rota
-      inexistente (que cai na tela 404).
-- [x] Sem excecoes de JavaScript, sem asserts de setting desconhecido e sem 404 de
-      recurso da aplicacao.
+- [x] App sobe sem erro no `ui5 serve`: shell completo (topbar, container de rotas,
+      footer), splash removido e **0 erros relevantes no console**.
+- [x] Layout correto: `.pf-app` com 758px de altura, area de conteudo com 473px, hero
+      visivel (topo em 105px), footer em 586px e `scrollTop = 0` na navegacao.
+- [x] Tema claro/escuro sincronizado em `Theming`, model `ui>/theme`, atributo
+      `data-theme`, `<html>`, fundo do app e `localStorage` - validado com clique real
+      (dark inicial -> light -> dark) e persistido apos reload.
+- [x] Idioma automatico por navegador (`<html lang="en">` no headless en-US), sem
+      toggle PT/EN na interface.
+- [x] Os 6 botoes do menu funcionam com clique real e cada rota renderiza conteudo
+      (`#/about`, `#/experience`, `#/skills`, `#/projects`, `#/certificates`,
+      `#/education`), sem erro de console; rota inexistente cai na tela 404.
+- [x] Imagens carregam: avatar em `images/profile.png` (800x800) e as 18 credenciais
+      do Credly.
+- [x] Impressao do `#/cv`: `print.css` libera a altura/overflow do scroller do
+      `sap.m.Page` e o "Salvar como PDF" gera 1 pagina util (1,4 MB) em vez de folha
+      em branco.
+- [x] `npm run types`, `npm run lint`, `npm test` (47 testes), `npm run content:check`,
+      `npm run format:check` e `npm run build` sem pendencias.
 
-Conhecido e sem impacto: ao reaproveitar views em cache do router (`viewLevel`), o
-UI5 1.153 registra `[FUTURE FATAL] ... templateShareable ...`. E um aviso do proprio
-framework em operacao de clone: nao existe atributo XML para `templateShareable` em
-1.153 (o `XMLTemplateProcessor` nao conhece a propriedade), e o aviso nao impede a
-renderizacao nem a navegacao.
+### Correcao: bindings de template em agregacoes (causa raiz)
+
+Sintoma: as agregacoes criavam a quantidade correta de controles, mas todas as
+instancias nasciam **sem binding context** - `getBindingContext()` era `null` - e por
+iss menu, cards, filtros e links saiam vazios (a home tinha 6 botoes mudos e nenhum
+card).
+
+Causa raiz: **o prefixo de model em binding de agregacao** (`items="{path:
+'content>/navSections'}"`). No UI5 1.153 ele resolve os dados (o `ListBinding` reportava
+`length: 6`) mas o contexto nao e repassado para os itens do template. Bindings de
+propriedade com o mesmo prefixo (`{content>/profile/name}`) funcionam; so nas
+agregacoes o contexto se perde. Reproduzido isoladamente em um `VBox` criado em JS:
+com `path: 'content>/navSections'` os itens ficam sem contexto; com `path:
+'/navSections'` + model como model padrao, o mesmo binding traz os textos corretamente.
+
+Correcao aplicada:
+
+- `Component.ts` registra o model de conteudo **duas vezes**: com nome (`content`, para
+  os bindings de propriedade) e como model padrao (para as agregacoes).
+- Os 23 bindings de agregacao dos XMLs passaram a usar path sem prefixo
+  (`items="{path: '/navSections', templateShareable: true}"`).
+- `templateShareable: true` foi normalizado em todas as agregacoes: e o valor
+  recomendado pelo framework para templates reutilizados e elimina o aviso
+  `[FUTURE FATAL]`; nao era a causa dos templates vazios.
+- Regra learned: **em agregacao use sempre o model padrao e path sem prefixo.**
 
 ## Pendencias
 
 ### Conteudo (precisa do usuario)
 
-- [ ] **Foto real**: hoje `webapp/images/profile-placeholder.svg` e um placeholder.
-      Salve a foto como `webapp/images/profile.png` e aponte `profile.json -> avatar`
-      para esse caminho (ou sobrescreva o placeholder).
+- [x] **Foto real**: `profile.json -> avatar` aponta para `images/profile.png`.
 - [ ] **Dados de exemplo**: `experiences.json`, `skills.json`, `projects.json` e
       `education.json` foram criados como scaffolding (2 experiences, 10 skills,
       3 projetos, 1 formacao com instituicao generica). Revisar e substituir pelo

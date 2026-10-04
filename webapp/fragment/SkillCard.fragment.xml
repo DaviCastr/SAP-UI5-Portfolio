@@ -16,7 +16,7 @@
 
         <Text class="pf-skill__desc" text="{description}" visible="{= !!${description}}"/>
 
-        <HBox class="pf-chips" items="{tags}" visible="{= !!${tags} &amp;&amp; ${tags}.length > 0}">
+        <HBox class="pf-chips" items="{path: 'tags', templateShareable: true}" visible="{= !!${tags} &amp;&amp; ${tags}.length > 0}">
             <Text class="pf-chip" text="{this>}"/>
         </HBox>
     </VBox>

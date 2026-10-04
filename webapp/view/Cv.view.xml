@@ -46,7 +46,7 @@
                                 <Text text="{path: 'content>/profile/phone', formatter: '.fPhone'}"/>
                                 <Text text="{content>/profile/location}"/>
                             </HBox>
-                            <HBox class="pf-chips" items="{content>/navLinks}">
+                            <HBox class="pf-chips" items="{path: '/navLinks', templateShareable: true}">
                                 <Text class="pf-chip" text="{text}"/>
                             </HBox>
                         </VBox>
@@ -81,7 +81,7 @@
                     <!-- Experiencia -->
                     <VBox class="pf-sheet__section">
                         <Text class="pf-sheet__section-title" text="{i18n>nav.experience}"/>
-                        <VBox class="pf-stack pf-gap-3" items="{path: 'content>/experiences', length: 20}">
+                        <VBox class="pf-stack pf-gap-3" items="{path: '/experiences', length: 20, templateShareable: true}">
                             <VBox>
                                 <HBox alignItems="Center" class="pf-row--between pf-gap-3">
                                     <Text class="pf-sheet__item-title" text="{role}"/>
@@ -96,7 +96,7 @@
                     <!-- Competencias -->
                     <VBox class="pf-sheet__section">
                         <Text class="pf-sheet__section-title" text="{i18n>nav.skills}"/>
-                        <HBox class="pf-chips" items="{content>/metrics/stacks}">
+                        <HBox class="pf-chips" items="{path: '/metrics/stacks', templateShareable: true}">
                             <Text class="pf-chip" text="{this>}"/>
                         </HBox>
                     </VBox>
@@ -104,13 +104,13 @@
                     <!-- Projetos -->
                     <VBox class="pf-sheet__section">
                         <Text class="pf-sheet__section-title" text="{i18n>nav.projects}"/>
-                        <VBox class="pf-stack pf-gap-3" items="{path: 'content>/featuredProjects', length: 8}">
+                        <VBox class="pf-stack pf-gap-3" items="{path: '/featuredProjects', length: 8, templateShareable: true}">
                             <VBox>
                                 <HBox alignItems="Center" class="pf-gap-2">
                                     <Text class="pf-sheet__item-title" text="{name}"/>
                                     <Text class="pf-small pf-muted" text="{description}"/>
                                 </HBox>
-                                <HBox class="pf-chips" items="{stack}">
+                                <HBox class="pf-chips" items="{path: 'stack', templateShareable: true}">
                                     <Text class="pf-chip" text="{this>}"/>
                                 </HBox>
                             </VBox>
@@ -120,7 +120,7 @@
                     <!-- Formacao -->
                     <VBox class="pf-sheet__section">
                         <Text class="pf-sheet__section-title" text="{i18n>nav.education}"/>
-                        <VBox class="pf-stack pf-gap-2" items="{content>/education}">
+                        <VBox class="pf-stack pf-gap-2" items="{path: '/education', templateShareable: true}">
                             <HBox alignItems="Center" class="pf-row--between pf-gap-3">
                                 <Text class="pf-sheet__item-title" text="{degree}"/>
                                 <Text class="pf-small pf-muted" text="{institution}"/>

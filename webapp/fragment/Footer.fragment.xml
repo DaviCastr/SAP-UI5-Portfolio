@@ -17,20 +17,19 @@
 
                 <HBox alignItems="Center" class="pf-gap-4 pf-row--wrap">
                     <!--
-                        Os itens sao adicionados em App.controller (publishUiOptions):
-                        sap.m.SegmentedButton usa "buttons" como defaultAggregation,
-                        entao um template XML filho nao e atribuido a agregacao "items".
+                        Os itens e o selectedKey sao definidos em App.controller
+                        (publishUiOptions): o sap.m.SegmentedButton declara "buttons"
+                        como defaultAggregation (ignora template XML em "items") e
+                        o binding de selectedKey em two-way sobrescrevia o model
+                        "ui" com string vazia no boot. One-way (:=) nao serve aqui:
+                        quebra o boot de fragment no UI5 1.153.
+
+                        So o tema tem toggle: o idioma segue o do navegador (i18n do
+                        UI5) e pode ser fixado por ?lang= na URL.
                     -->
                     <SegmentedButton
                         id="themeToggle"
-                        selectedKey="{ui>/theme}"
                         selectionChange="onThemeChange"
-                        class="pf-footer__toggle"/>
-
-                    <SegmentedButton
-                        id="localeToggle"
-                        selectedKey="{ui>/locale}"
-                        selectionChange="onLocaleChange"
                         class="pf-footer__toggle"/>
                 </HBox>
 
@@ -39,7 +38,7 @@
             <VBox class="pf-separator pf-mt-4 pf-mb-0"/>
 
             <HBox alignItems="Center" class="pf-row--between pf-row--wrap" width="100%">
-                <HBox class="pf-row--wrap" items="{content>/footerLinks}">
+                <HBox class="pf-row--wrap" items="{path: '/footerLinks', templateShareable: true}">
                     <Button
                         type="Transparent"
                         icon="{path: 'icon', formatter: '.fIcon'}"

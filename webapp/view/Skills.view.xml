@@ -36,7 +36,7 @@
                 </HBox>
 
                 <!-- Competencias por categoria -->
-                <VBox class="pf-stack pf-gap-6" items="{content>/skillsByCategory}">
+                <VBox class="pf-stack pf-gap-6" items="{path: '/skillsByCategory', templateShareable: true}">
                     <VBox class="pf-stack pf-gap-3">
                         <HBox alignItems="Center" class="pf-gap-3">
                             <core:Icon src="sap-icon://group-2" class="pf-text-s pf-muted"/>
@@ -44,7 +44,7 @@
                             <Text class="pf-pill pf-text-xs" text="{count}"/>
                         </HBox>
 
-                        <HBox class="pf-grid pf-grid--skills" items="{items}">
+                        <HBox class="pf-grid pf-grid--skills" items="{path: 'items', templateShareable: true}">
                             <core:Fragment fragmentName="davi.portfolio.fragment.SkillCard" type="XML"/>
                         </HBox>
                     </VBox>

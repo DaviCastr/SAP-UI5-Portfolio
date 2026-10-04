@@ -43,7 +43,7 @@
                         type="{= ${ui>/projectFilter} === 'all' ? 'Emphasized' : 'Transparent' }"
                         press="onAllPress"/>
 
-                    <HBox items="{content>/projectTags}">
+                    <HBox items="{path: '/projectTags', templateShareable: true}">
                         <Button
                             class="pf-filter"
                             text="{tag}"
@@ -53,7 +53,7 @@
                 </HBox>
 
                 <!-- Projetos -->
-                <HBox class="pf-grid pf-grid--projects" items="{path: 'content>/filteredProjects', length: 60}">
+                <HBox class="pf-grid pf-grid--projects" items="{path: '/filteredProjects', length: 60, templateShareable: true}">
                     <core:Fragment fragmentName="davi.portfolio.fragment.ProjectCard" type="XML"/>
                 </HBox>
 

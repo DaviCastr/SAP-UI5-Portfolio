@@ -95,7 +95,7 @@
                             press="onSkillsPress"/>
                     </HBox>
 
-                    <HBox class="pf-grid pf-grid--skills" items="{path: 'content>/focusSkills', length: 6}">
+                    <HBox class="pf-grid pf-grid--skills" items="{path: '/focusSkills', length: 6, templateShareable: true}">
                         <core:Fragment fragmentName="davi.portfolio.fragment.SkillCard" type="XML"/>
                     </HBox>
                 </VBox>
@@ -114,7 +114,7 @@
                             press="onProjectsPress"/>
                     </HBox>
 
-                    <HBox class="pf-grid pf-grid--projects" items="{path: 'content>/featuredProjects', length: 3}">
+                    <HBox class="pf-grid pf-grid--projects" items="{path: '/featuredProjects', length: 3, templateShareable: true}">
                         <core:Fragment fragmentName="davi.portfolio.fragment.ProjectCard" type="XML"/>
                     </HBox>
                 </VBox>
@@ -133,7 +133,7 @@
                             press="onCertificatesPress"/>
                     </HBox>
 
-                    <HBox class="pf-grid pf-grid--certs" items="{path: 'content>/recentCertificates', length: 3}">
+                    <HBox class="pf-grid pf-grid--certs" items="{path: '/recentCertificates', length: 3, templateShareable: true}">
                         <core:Fragment fragmentName="davi.portfolio.fragment.CertificateCard" type="XML"/>
                     </HBox>
                 </VBox>

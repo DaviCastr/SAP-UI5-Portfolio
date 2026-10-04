@@ -9,21 +9,81 @@
 /* ------------------------------ Tokens locais ------------------------------ */
 
 .pf-app {
+    /*
+     * Shell de altura fixa: a coluna ocupa a viewport e o NavContainer rola
+     * internamente (padrao do sap.m.NavContainer).
+     *
+     * A altura usa unidades de viewport de proposito: `height: 100%` encadeado
+     * ate o #app-uiarea nao resolve (o sapUiXMLView intermediario fica com
+     * altura implicita) e o meio da tela colapsava para 0.
+     *
+     * Depende de renderType="Bare" no App.view.xml: sem ele o FlexBox cria um
+     * sap.m.FlexItem em volta do NavContainer, esse wrapper nao recebe o
+     * `flex: 1 1 0` abaixo e a area de conteudo continua com height:0.
+     */
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 100vh;
     background: var(--pf-bg);
     color: var(--pf-text);
 }
 
 .pf-app__content {
-    flex: 1 1 auto;
+    /* `1 1 0` + height:0: o espaco livre da coluna vai inteiro para o conteudo. */
+    flex: 1 1 0;
+    height: 0;
     min-height: 0;
+    background: transparent;
 }
 
+/*
+ * Barra de rolagem da area de conteudo: discreta, sem "trilho" e sem borda,
+ * para nao competir visualmente com o conteudo.
+ *
+ * O scroller real criado pelo sap.m.Page e o `.sapUiScrollDelegate` (o Page
+ * coloca `sapMPageEnableScrolling` nele); o CSS do UI5 deixa a barra com 15px
+ * e cinza chumbo, que e o que aparece "feio" na home.
+ */
+.pf-app__content,
 .pf-app__content .sapMPage,
-.pf-app__content .sapMPageContent {
+.pf-app__content .sapMPageContentWrapper,
+.pf-app__content .sapMPageContent,
+.pf-app__content .sapUiScrollDelegate {
+    scrollbar-width: thin;
+    scrollbar-color: var(--pf-border-strong) transparent;
+}
+
+.pf-app__content::-webkit-scrollbar,
+.pf-app__content .sapMPage::-webkit-scrollbar,
+.pf-app__content .sapMPageContentWrapper::-webkit-scrollbar,
+.pf-app__content .sapMPageContent::-webkit-scrollbar,
+.pf-app__content .sapUiScrollDelegate::-webkit-scrollbar {
+    width: 8px;
+}
+
+.pf-app__content::-webkit-scrollbar-track,
+.pf-app__content .sapMPage::-webkit-scrollbar-track,
+.pf-app__content .sapMPageContentWrapper::-webkit-scrollbar-track,
+.pf-app__content .sapMPageContent::-webkit-scrollbar-track,
+.pf-app__content .sapUiScrollDelegate::-webkit-scrollbar-track {
     background: transparent;
+}
+
+.pf-app__content::-webkit-scrollbar-thumb,
+.pf-app__content .sapMPage::-webkit-scrollbar-thumb,
+.pf-app__content .sapMPageContentWrapper::-webkit-scrollbar-thumb,
+.pf-app__content .sapMPageContent::-webkit-scrollbar-thumb,
+.pf-app__content .sapUiScrollDelegate::-webkit-scrollbar-thumb {
+    background: var(--pf-border-strong);
+    border-radius: var(--pf-radius-pill);
+}
+
+.pf-app__content::-webkit-scrollbar-thumb:hover,
+.pf-app__content .sapMPage::-webkit-scrollbar-thumb:hover,
+.pf-app__content .sapMPageContentWrapper::-webkit-scrollbar-thumb:hover,
+.pf-app__content .sapMPageContent::-webkit-scrollbar-thumb:hover,
+.pf-app__content .sapUiScrollDelegate::-webkit-scrollbar-thumb:hover {
+    background: var(--pf-text-muted);
 }
 
 /* ------------------------------ Tipografia ------------------------------ */

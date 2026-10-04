@@ -16,7 +16,7 @@
                 </VBox>
 
                 <!-- Formacao academica -->
-                <VBox class="pf-stack pf-gap-4" items="{content>/education}">
+                <VBox class="pf-stack pf-gap-4" items="{path: '/education', templateShareable: true}">
                     <HBox class="pf-tl-item" alignItems="Stretch">
                         <VBox class="pf-tl-item__marker">
                             <core:Icon src="sap-icon://academic-cap" class="pf-text-s"/>
@@ -37,7 +37,7 @@
 
                             <Text class="pf-card__body" text="{description}"/>
 
-                            <HBox class="pf-chips" items="{tags}">
+                            <HBox class="pf-chips" items="{path: 'tags', templateShareable: true}">
                                 <Text class="pf-chip" text="{this>}"/>
                             </HBox>
                         </VBox>
@@ -47,7 +47,7 @@
                 <!-- Cursos livres -->
                 <VBox class="pf-stack pf-gap-3" visible="{= !!${content>/courses} &amp;&amp; ${content>/courses}.length > 0}">
                     <Text class="pf-eyebrow" text="{i18n>education.coursesEyebrow}"/>
-                    <HBox class="pf-grid pf-grid--skills" items="{content>/courses}">
+                    <HBox class="pf-grid pf-grid--skills" items="{path: '/courses', templateShareable: true}">
                         <VBox class="pf-skill">
                             <HBox alignItems="Center" class="pf-gap-3">
                                 <HBox class="pf-skill__icon" alignItems="Center">

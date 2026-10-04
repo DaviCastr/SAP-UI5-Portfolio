@@ -43,7 +43,7 @@
                         type="{= ${ui>/certificateFilter} === 'all' ? 'Emphasized' : 'Transparent' }"
                         press="onAllPress"/>
 
-                    <HBox class="pf-filterbar__years" items="{content>/certificateYears}">
+                    <HBox class="pf-filterbar__years" items="{path: '/certificateYears', templateShareable: true}">
                         <Button
                             class="pf-filter"
                             text="{year}"
@@ -59,7 +59,7 @@
                 </HBox>
 
                 <!-- Certificacoes -->
-                <HBox class="pf-grid pf-grid--certs" items="{path: 'content>/filteredCertificates', length: 60}">
+                <HBox class="pf-grid pf-grid--certs" items="{path: '/filteredCertificates', length: 60, templateShareable: true}">
                     <core:Fragment fragmentName="davi.portfolio.fragment.CertificateCard" type="XML"/>
                 </HBox>
 

@@ -4,11 +4,23 @@
     xmlns:core="sap.ui.core"
     xmlns="sap.m"
     displayBlock="true">
-    <FlexBox direction="Column" class="pf-app">
+    <!--
+        renderType="Bare" remove o sap.m.FlexItem que o FlexBox criaria em volta
+        de cada item: sem isso o NavContainer fica dentro de um wrapper que nao
+        recebe o `flex: 1 1 auto` e a area de conteudo colapsa para height:0.
+    -->
+    <FlexBox direction="Column" class="pf-app" renderType="Bare">
         <core:Fragment fragmentName="davi.portfolio.fragment.Topbar" type="XML"/>
+        <!--
+            autoFocus="false": desde 1.153 o NavContainer foca o primeiro elemento
+            focavel da Page ao navegar. Como a barra superior vive fora da Page,
+            o foco caia no botao "View resume" e o navegador rolava a pagina
+            inteira, escondendo o conteudo inicial.
+        -->
         <NavContainer
             id="appContainer"
             class="pf-app__content"
+            autoFocus="false"
             busyIndicatorDelay="0"/>
         <core:Fragment fragmentName="davi.portfolio.fragment.Footer" type="XML"/>
     </FlexBox>

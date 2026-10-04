@@ -55,7 +55,7 @@
                 </HBox>
 
                 <!-- Linha do tempo -->
-                <VBox class="pf-timeline" items="{path: 'content>/filteredExperiences', length: 100}">
+                <VBox class="pf-timeline" items="{path: '/filteredExperiences', length: 100, templateShareable: true}">
                     <core:Fragment fragmentName="davi.portfolio.fragment.ExperienceItem" type="XML"/>
                 </VBox>
 
