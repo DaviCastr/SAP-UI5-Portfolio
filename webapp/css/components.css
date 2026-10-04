@@ -453,6 +453,66 @@
     flex: 0 0 auto;
 }
 
+/* ==========================================================================
+ * Base responsiva
+ *
+ * Ajustes que valem em qualquer largura, porque corrigem o comportamento padrao
+ * dos controles do UI5 e nao um tamanho especifico:
+ *
+ * 1. `sap.m.Title` e `sap.m.Text` nascem com `white-space: nowrap`. O titulo do
+ *    hero ("Building Fiori application...") ficava com a largura do texto
+ *    (~969px) e empurrava o layout inteiro para fora da viewport em tablet e
+ *    celular - o conteúdo era cortado sem barra de rolagem.
+ * 2. Itens de flex do UI5 nascem com `min-width: auto`, ou seja, não encolhem
+ *    abaixo do próprio conteúdo. Sem `min-width: 0` um título longo estoura o
+ *    cartão em vez de quebrar linha.
+ * 3. Listas de chips, metadados e filtros nascem com `sapMFlexBoxWrapNoWrap` e
+ *    precisam quebrar linha em telas estreitas.
+ * ========================================================================== */
+
+.pf-view .sapMTitle,
+.pf-view .sapMText {
+    white-space: normal;
+}
+
+/* Título longo deve quebrar, nunca empurrar o cartão para fora. */
+.pf-view .sapMTitle,
+.pf-view .sapMText {
+    overflow-wrap: break-word;
+}
+
+.pf-hero__content,
+.pf-cert,
+.pf-cert__body,
+.pf-cert__media > *,
+.pf-project,
+.pf-project__head,
+.pf-card,
+.pf-stack,
+.pf-two-col > * {
+    min-width: 0;
+}
+
+.pf-chips,
+.pf-filterbar,
+.pf-filterbar__years,
+.pf-project__foot,
+.pf-hero__actions,
+.pf-row--wrap {
+    flex-wrap: wrap !important;
+}
+
+/*
+ * A barra de filtros tem um HBox interno para os anos que nem sempre recebe
+ * uma classe `pf-*` (o `items` do XML fica direto nele). Sem isso ele nascia
+ * com `sapMFlexBoxWrapNoWrap` e os botoes de ano estouravam a largura da tela.
+ */
+.pf-filterbar > .sapMHBox,
+.pf-filterbar > .sapMVBox {
+    flex-wrap: wrap !important;
+    min-width: 0;
+}
+
 /* ------------------------------ Hero ------------------------------ */
 
 .pf-hero {
@@ -812,13 +872,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 148px;
+    height: 152px;
     padding: var(--pf-space-4);
+    overflow: hidden;
     border-bottom: 1px solid var(--pf-border);
     background: var(--pf-surface-sunken);
 }
 
+/*
+ * O sap.m.Image nao renderiza a <img> direto: ele cria um div intermediario
+ * (`sapMFlexItem`) com altura `auto`. Com o pai em `auto`, o `max-height: 100%`
+ * da <img> nao resolve - o badge quadrado do Credly (2048x2048) sao renderizado
+ * na largura do cartao (356px em tela de 390px) e invade o titulo logo abaixo.
+ * Dar altura definida ao intermediario faz o `max-height` da imagem valer.
+ */
+.pf-cert__media > .sapMFlexItem,
+.pf-cert__media > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-width: 0;
+}
+
 .pf-cert__image {
+    display: block;
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
@@ -1118,6 +1196,19 @@
     color: var(--pf-text-subtle);
 }
 
+.pf-footer__cta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.pf-footer__contact {
+    font-size: var(--pf-font-sm);
+    color: var(--pf-primary);
+    overflow-wrap: anywhere;
+}
+
 /* ------------------------------ Responsivo ------------------------------ */
 
 @media (max-width: 1199px) {
@@ -1132,6 +1223,11 @@
 
     .pf-two-col {
         grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* Cartões mais largos quando a coluna já não cabe inteira. */
+    .pf-grid--projects {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     }
 }
 
@@ -1151,6 +1247,23 @@
     }
 
     .pf-topbar__brand-role {
+        display: none;
+    }
+
+    .pf-grid--skills,
+    .pf-grid--projects,
+    .pf-grid--languages {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+
+    /* Menu com rolagem horizontal em vez de quebrar em varias linhas. */
+    .pf-topbar__nav {
+        max-width: 100%;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .pf-topbar__nav::-webkit-scrollbar {
         display: none;
     }
 }
@@ -1182,6 +1295,20 @@
 
     .pf-sheet {
         padding: var(--pf-space-6);
+    }
+
+    /* Uma coluna por linha: 340px de cartao nao cabem em 390px com folga. */
+    .pf-grid--metrics,
+    .pf-grid--skills,
+    .pf-grid--projects,
+    .pf-grid--certs,
+    .pf-grid--languages {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* Badge maior relativemente, ja que o cartao ocupa a largura toda. */
+    .pf-cert__media {
+        height: 168px;
     }
 
     .pf-hide-phone {

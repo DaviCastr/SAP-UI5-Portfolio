@@ -3,17 +3,16 @@
         <VBox class="pf-container pf-footer__inner">
             <HBox alignItems="Center" class="pf-row--between pf-row--wrap" width="100%">
 
-                <HBox alignItems="Center" class="pf-gap-3">
-                    <Image
-                        class="pf-topbar__brand-avatar"
-                        src="{content>/profile/avatar}"
-                        densityAware="false"
-                        alt="{content>/profile/name}"/>
-                    <VBox class="sapUiVBoxTiny">
-                        <Text class="pf-strong" text="{content>/profile/name}"/>
-                        <Text class="pf-text-xs pf-muted" text="{content>/profile/role}"/>
-                    </VBox>
-                </HBox>
+                <!--
+                    O rodape nao repete nome, cargo nem foto: no topo e no hero
+                    ja aparecem, e tres copias do mesmo bloco só competem entre
+                    si. Aqui vai o convite de contato, que e o que o leitor
+                    procura no fim da pagina.
+                -->
+                <VBox class="pf-footer__cta">
+                    <Text class="pf-strong" text="{i18n>cta.title}"/>
+                    <Text class="pf-footer__contact" text="{content>/profile/email}"/>
+                </VBox>
 
                 <HBox alignItems="Center" class="pf-gap-4 pf-row--wrap">
                     <!--

@@ -92,6 +92,36 @@ apontados em "Pendencias".
 - [x] `npm run types`, `npm run lint`, `npm test` (47 testes), `npm run content:check`,
       `npm run format:check` e `npm run build` sem pendencias.
 
+### Layout e responsividade (validado por medicao no DOM)
+
+Medido em 360, 390, 768, 1024 e 1440px nas 8 rotas: `scrollWidth` igual a largura da
+viewport e **nenhum elemento mais largo que a tela** (topbar e rodape inclusos).
+
+- [x] **Titulo do hero nao estourava a tela.** `sap.m.Title`/`sap.m.Text` nascem com
+      `white-space: nowrap`, entao o `<h1>` do hero ficava com 969px de largura e
+      empurrava o layout para fora da viewport em tablet e celular (conteudo cortado,
+      sem barra de rolagem). `.pf-view .sapMTitle, .pf-view .sapMText` agora quebram
+      linha, com `overflow-wrap: break-word`.
+- [x] **Itens de flex encolhem.** Itens do UI5 nascem com `min-width: auto`;
+      `min-width: 0` foi aplicado nos containers com texto (hero, cartoes, grade de
+      duas colunas) para o texto quebrar dentro do cartao em vez de estoura-lo.
+- [x] **Barra de filtros quebra linha.** O HBox dos anos de `pf-filterbar` nao tem
+      classe `pf-*` e nascia com `sapMFlexBoxWrapNoWrap`: os botoos de ano davam
+      474px dentro de 390px. Agora `.pf-filterbar > .sapMHBox/.sapMVBox` quebra linha
+      (o mesmo vale para chips, metadados de projeto e acoes do hero).
+- [x] **Certificado: titulo sobre a imagem (18 de 18 cards).** O `sap.m.Image` nao
+      renderiza a `<img>` direto, cria um div intermediario com altura `auto`; com o
+      pai em `auto` o `max-height: 100%` da imagem nao resolve e o badge quadrado do
+      Credly (2048x2048) era desenhado na largura do cartao (356px em tela de 390px),
+      invadindo o titulo. Agora o intermediario recebe `height: 100%` e a midia tem
+      `overflow: hidden`: **0 de 18 cards** com sobreposicao em 1440/1024/768/390px.
+- [x] ** Grades responsivas:** colunas de projeto/qualificacao ajustam em 1199px,
+      uma coluna por linha abaixo de 600px e o menu passa a rolar na horizontal em
+      vez de quebrar em varias linhas abaixo de 900px.
+- [x] **Menos redundancia:** o rodape nao repete mais nome, cargo e foto (a terceira
+      copia na pagina, alem do topo e do hero). No lugar do bloco de identidade vem o
+      convite de contato com o e-mail. O nome agora aparece no topo e no curriculo.
+
 ### Correcao: bindings de template em agregacoes (causa raiz)
 
 Sintoma: as agregacoes criavam a quantidade correta de controles, mas todas as
