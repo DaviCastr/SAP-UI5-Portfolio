@@ -21,11 +21,11 @@
 
         <HBox class="pf-project__foot">
             <HBox alignItems="Center" class="pf-gap-1 pf-muted pf-small" visible="{= !!${language}}">
-                <core:Icon src="sap-icon://terminal" class="pf-text-xs"/>
+                <core:Icon src="sap-icon://source-code" class="pf-text-xs"/>
                 <Text text="{language}"/>
             </HBox>
             <HBox alignItems="Center" class="pf-project__stat" visible="{= !!${stars}}">
-                <core:Icon src="sap-icon://star" class="pf-text-xs"/>
+                <core:Icon src="sap-icon://favorite" class="pf-text-xs"/>
                 <Text text="{stars}"/>
             </HBox>
             <HBox alignItems="Center" class="pf-project__stat" visible="{= !!${forks}}">
@@ -41,13 +41,13 @@
         <HBox class="pf-gap-2">
             <Button
                 type="Transparent"
-                icon="sap-icon://sys-repo"
+                icon="sap-icon://folder"
                 text="{i18n>project.repository}"
                 press="onRepoPress"
                 visible="{= !!${repo}}"/>
             <Button
                 type="Transparent"
-                icon="sap-icon://link"
+                icon="sap-icon://world"
                 text="{i18n>project.website}"
                 press="onUrlPress"
                 visible="{= !!${url}}"/>

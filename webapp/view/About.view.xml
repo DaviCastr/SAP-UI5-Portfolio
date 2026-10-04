@@ -59,7 +59,7 @@
                                 <Text text="{content>/profile/location}"/>
                             </HBox>
                             <HBox alignItems="Center" class="pf-contact-row" visible="{= !!${content>/profile/birthday}}">
-                                <core:Icon src="sap-icon://birthday-cake" class="pf-text-s"/>
+                                <core:Icon src="sap-icon://calendar" class="pf-text-s"/>
                                 <Text text="{path: 'content>/profile/birthday', formatter: '.fDate'}"/>
                             </HBox>
                         </VBox>

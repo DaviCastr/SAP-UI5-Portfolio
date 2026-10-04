@@ -3,7 +3,7 @@
     "id": "fiori",
     "name": "SAP Fiori Elements",
     "category": "SAP",
-    "icon": "sap",
+    "icon": "instance",
     "level": 5,
     "description": {
       "pt": "List Report, Overview Page e Object Page com annotations e extensoes de controlador.",
@@ -16,7 +16,7 @@
     "id": "abap",
     "name": "ABAP",
     "category": "SAP",
-    "icon": "sap",
+    "icon": "instance",
     "level": 5,
     "description": {
       "pt": "Desenvolvimento de reports, enhancement points e integracoes com APIs.",
@@ -29,7 +29,7 @@
     "id": "btp",
     "name": "SAP BTP",
     "category": "SAP",
-    "icon": "sap",
+    "icon": "instance",
     "level": 4,
     "description": {
       "pt": "Cloud Foundry, Destination Service e integracao com servicos do BTP.",
@@ -42,7 +42,7 @@
     "id": "ui5",
     "name": "SAPUI5 (freestyle)",
     "category": "Front-end",
-    "icon": "mvc",
+    "icon": "grid",
     "level": 5,
     "description": {
       "pt": "Aplicacoes MVC, ViewModels, routing e uso de controls do sap.m.",
@@ -55,7 +55,7 @@
     "id": "typescript",
     "name": "TypeScript",
     "category": "Front-end",
-    "icon": "javascript",
+    "icon": "source-code",
     "level": 4,
     "description": {
       "pt": "Tipagem estrita em aplicacoes UI5 e codigo legivel em equipe.",
@@ -68,7 +68,7 @@
     "id": "node",
     "name": "Node.js",
     "category": "Back-end",
-    "icon": "server",
+    "icon": "cloud",
     "level": 4,
     "description": {
       "pt": "APIs REST, integracoes e ferramentas de linha de comando.",
@@ -94,7 +94,7 @@
     "id": "integration",
     "name": "Integracao",
     "category": "Back-end",
-    "icon": "link",
+    "icon": "world",
     "level": 4,
     "description": {
       "pt": "APIs REST/OData, arquivos e integracao entre sistemas heterogeneos.",
@@ -119,7 +119,7 @@
     "id": "git",
     "name": "Git e GitHub Actions",
     "category": "Ferramentas",
-    "icon": "git",
+    "icon": "log",
     "level": 4,
     "description": {
       "pt": "Versionamento, code review e pipelines de publicacao automatica.",

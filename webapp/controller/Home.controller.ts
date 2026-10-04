@@ -43,10 +43,6 @@ export default class HomeController extends BaseController {
         this.openLink(this.sourceContext(event)?.getProperty("url"));
     }
 
-    public onCertificatePress(event: sap.ui.base.Event): void {
-        this.openLink(this.sourceContext(event)?.getProperty("url"));
-    }
-
     /** Abre o perfil do LinkedIn informado no JSON. */
     public onLinkedinPress(): void {
         const linkedin = (this.content().profile.links ?? []).find((link) => link.id === "linkedin");

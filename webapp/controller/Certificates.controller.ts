@@ -28,11 +28,6 @@ export default class CertificatesController extends BaseController {
         this.applyFilter(year);
     }
 
-    /** Abre a credencial no site que a emitiu. */
-    public onCertificatePress(event: sap.ui.base.Event): void {
-        this.openExternal((this.sourceContext(event)?.getProperty("url") ?? "") as string);
-    }
-
     private applyFilter(filter: string): void {
         let items: Certificate[] = this.content().certificates;
 

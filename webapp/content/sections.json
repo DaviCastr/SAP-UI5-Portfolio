@@ -12,7 +12,7 @@
   {
     "id": "about",
     "nav": { "pt": "Sobre", "en": "About" },
-    "icon": "person",
+    "icon": "employee",
     "route": "about",
     "order": 2,
     "enabled": true,
@@ -22,7 +22,7 @@
   {
     "id": "experience",
     "nav": { "pt": "Experiencia", "en": "Experience" },
-    "icon": "briefcase",
+    "icon": "suitcase",
     "route": "experience",
     "order": 3,
     "enabled": true,
@@ -52,7 +52,7 @@
   {
     "id": "certificates",
     "nav": { "pt": "Certificacoes", "en": "Certificates" },
-    "icon": "certification",
+    "icon": "verified",
     "route": "certificates",
     "order": 6,
     "enabled": true,
@@ -62,7 +62,7 @@
   {
     "id": "education",
     "nav": { "pt": "Formacao", "en": "Education" },
-    "icon": "academic-cap",
+    "icon": "education",
     "route": "education",
     "order": 7,
     "enabled": true,
@@ -72,7 +72,7 @@
   {
     "id": "cv",
     "nav": { "pt": "Curriculo", "en": "Resume" },
-    "icon": "action-download",
+    "icon": "download",
     "route": "cv",
     "order": 8,
     "enabled": true,

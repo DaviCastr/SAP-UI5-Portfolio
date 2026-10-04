@@ -1,41 +1,53 @@
 /* ==========================================================================
  * tokens.css - Design tokens do portfolio
- * Base: variaveis do proprio tema UI5 (sap_horizon / sap_horizon_dark),
- *       o que garante que TODO o layout acompanhe a paleta ativa,
- *       inclusive no modo escuro, sem nenhum "if" de tema em JS/CSS.
+ *
+ * A identidade visual e custom (verde-petroleo + ambar) e nao vem do tema
+ * padrao do UI5. O caminho e:
+ *
+ *   1. `:root` define a paleta literal em `--pf-*`.
+ *   2. Os tokens do design system do UI5 (`--sap*`) sao sobrescritos para
+ *      apontar para os `--pf-*`. Com isso os controles nativos - Button
+ *      Emphasized, Link, SegmentedButton, Text, List - passam a usar a mesma
+ *      paleta, sem nenhum "if" de tema em JS.
+ *
+ * `html[data-theme="dark"]` redefine a paleta escura; o ThemeService mantem o
+ * atributo em sincronia com o tema UI5 ativo (`sap_horizon` / `sap_horizon_dark`).
  * ========================================================================== */
 
 :root {
     /* ---------- Marca ---------- */
-    --pf-primary: var(--sapButtonEmphasizedBackground, #0070f2);
-    --pf-primary-hover: var(--sapButtonEmphasizedHoverBackground, #0053ba);
-    --pf-on-primary: var(--sapButtonEmphasizedColor, #ffffff);
+    --pf-primary: #0e7c6b;
+    --pf-primary-hover: #0a6355;
+    --pf-primary-soft: #e2f2ef;
+    --pf-on-primary: #ffffff;
+    --pf-accent: #b45309;
+    --pf-accent-soft: #fdf0dc;
 
     /* ---------- Superficies ---------- */
-    --pf-bg: var(--sapBackgroundColor, #f4f6f8);
-    --pf-surface: var(--sapGroup_ContentBackground, #ffffff);
-    --pf-surface-2: var(--sapListItemBackground, #ffffff);
-    --pf-surface-sunken: var(--sapShellBackground, #eef1f4);
+    --pf-bg: #f6f5f2;
+    --pf-surface: #ffffff;
+    --pf-surface-2: #ffffff;
+    --pf-surface-sunken: #eceae5;
 
     /* ---------- Bordas ---------- */
-    --pf-border: rgba(28, 43, 58, 0.12);
-    --pf-border-strong: rgba(28, 43, 58, 0.24);
+    --pf-border: rgba(27, 26, 23, 0.12);
+    --pf-border-strong: rgba(27, 26, 23, 0.22);
 
     /* ---------- Texto ---------- */
-    --pf-text: var(--sapTextColor, #1c2b3a);
+    --pf-text: #1b1a17;
     --pf-text-muted: color-mix(in srgb, var(--pf-text) 62%, transparent);
     --pf-text-subtle: color-mix(in srgb, var(--pf-text) 44%, transparent);
     --pf-text-inverse: #ffffff;
 
     /* ---------- Estados ---------- */
-    --pf-success: #30914c;
-    --pf-warning: #e9730c;
-    --pf-critical: #bb0000;
-    --pf-info: #0a6ed1;
+    --pf-success: #2f7d4f;
+    --pf-warning: #b45309;
+    --pf-critical: #b3261e;
+    --pf-info: #0e7c6b;
 
     /* ---------- Gradientes ---------- */
-    --pf-hero-gradient: linear-gradient(135deg, #07203a 0%, #0a3f77 48%, #0070f2 100%);
-    --pf-hero-gradient-hover: linear-gradient(135deg, #05192e 0%, #093668 48%, #0a7bf5 100%);
+    --pf-hero-gradient: linear-gradient(135deg, #062b26 0%, #0a4a3f 46%, #0e7c6b 100%);
+    --pf-hero-gradient-hover: linear-gradient(135deg, #041d1a 0%, #083c33 46%, #0a6a5b 100%);
     --pf-accent-soft: color-mix(in srgb, var(--pf-primary) 12%, transparent);
     --pf-accent-softer: color-mix(in srgb, var(--pf-primary) 6%, transparent);
 
@@ -48,9 +60,9 @@
     --pf-radius-pill: 999px;
 
     /* ---------- Sombras ---------- */
-    --pf-shadow-1: 0 1px 2px rgba(9, 30, 66, 0.08), 0 1px 3px rgba(9, 30, 66, 0.06);
-    --pf-shadow-2: 0 4px 10px rgba(9, 30, 66, 0.09), 0 1px 3px rgba(9, 30, 66, 0.05);
-    --pf-shadow-3: 0 14px 32px rgba(9, 30, 66, 0.14);
+    --pf-shadow-1: 0 1px 2px rgba(6, 43, 38, 0.07), 0 1px 3px rgba(6, 43, 38, 0.05);
+    --pf-shadow-2: 0 4px 12px rgba(6, 43, 38, 0.09), 0 2px 4px rgba(6, 43, 38, 0.05);
+    --pf-shadow-3: 0 16px 36px rgba(6, 43, 38, 0.16);
 
     /* ---------- Espacamento ---------- */
     --pf-space-1: 4px;
@@ -82,17 +94,91 @@
     /* ---------- Movimento ---------- */
     --pf-transition: 160ms cubic-bezier(0.2, 0, 0.15, 1);
     --pf-transition-slow: 320ms cubic-bezier(0.2, 0, 0.15, 1);
+
+    /* ======================================================================
+     * Ponte para o design system do UI5
+     *
+     * Sem estes overrides, todo Button Emphasized, Link e SegmentedButton
+     * continuaria no azul #0070f2 do tema, e a pagina pareceria um formulario
+     * SAP em vez de um portfolio.
+     * ====================================================================== */
+    --sapButtonEmphasizedBackground: var(--pf-primary);
+    --sapButtonEmphasizedHoverBackground: var(--pf-primary-hover);
+    --sapButtonEmphasizedPressedBackground: var(--pf-primary-hover);
+    --sapButtonEmphasizedBorderColor: var(--pf-primary);
+    --sapButtonEmphasizedHoverBorderColor: var(--pf-primary-hover);
+    --sapButtonEmphasizedPressedBorderColor: var(--pf-primary-hover);
+    --sapButtonEmphasizedColor: var(--pf-on-primary);
+    --sapButtonEmphasizedFontWeight: 600;
+
+    --sapLinkColor: var(--pf-primary);
+    --sapLinkHoverColor: var(--pf-primary-hover);
+    --sapLinkVisitedColor: var(--pf-primary);
+    --sapLinkSubtleColor: var(--pf-primary);
+
+    --sapTextColor: var(--pf-text);
+    --sapTitleTextColor: var(--pf-text);
+    --sapBackgroundColor: var(--pf-bg);
+    --sapShellBackground: var(--pf-bg);
+    --sapGroup_ContentBackground: var(--pf-surface);
+    --sapListItemBackground: var(--pf-surface);
+    --sapListItemBorderColor: var(--pf-border);
+    --sapTileBackground: var(--pf-surface-sunken);
+    --sapFieldBackground: var(--pf-surface);
+
+    --sapSegmentedButtonBackground: var(--pf-surface-sunken);
+    --sapSegmentedButtonTextColor: var(--pf-text-muted);
+    --sapSegmentedButtonSelectedBackground: var(--pf-surface);
+    --sapSegmentedButtonSelectedTextColor: var(--pf-primary);
+    --sapSegmentedButtonSelectedBorderColor: var(--pf-border-strong);
+
+    --sapHighlightColor: var(--pf-primary);
+    --sapPositiveColor: var(--pf-success);
+    --sapWarningColor: var(--pf-warning);
+    --sapNegativeColor: var(--pf-critical);
+    --sapInformationColor: var(--pf-info);
+    --sapIndicationColor: var(--pf-accent);
 }
 
-/* Ajustes finos para o tema escuro: sombras mais suaves e superficies
-   levemente elevadas, mantendo a mesma identidade visual. */
+/* A library do sap.m escreve `background-color` com cor fixa em `.sapUiBody`
+ * (por exemplo #f5f6f7 no sap_horizon claro). Como seletor de classe tem
+ * especificidade maior que o `body` do index.html, o override precisa repetir a
+ * classe para vencer - e nao adianta apenas declarar `--sapBackgroundColor`,
+ * porque a library nao consome essa variavel nessa regra. */
+body.sapUiBody,
+body.sapUiBodyBackground {
+    background-color: var(--pf-bg);
+}
+
+/* Paleta escura: verdes profundo e menta, com ambar para os destaques. */
 html[data-theme="dark"] {
-    --pf-border: rgba(255, 255, 255, 0.14);
-    --pf-border-strong: rgba(255, 255, 255, 0.26);
-    --pf-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4);
-    --pf-shadow-2: 0 4px 12px rgba(0, 0, 0, 0.45);
-    --pf-shadow-3: 0 16px 36px rgba(0, 0, 0, 0.55);
-    --pf-hero-gradient: linear-gradient(135deg, #04101d 0%, #072a4e 48%, #004a99 100%);
-    --pf-hero-gradient-hover: linear-gradient(135deg, #061625 0%, #0a3c6c 48%, #0060c4 100%);
-    --pf-surface-sunken: #1a2029;
+    --pf-primary: #34d3b4;
+    --pf-primary-hover: #5ee0c6;
+    --pf-primary-soft: #10322c;
+    --pf-on-primary: #04231e;
+    --pf-accent: #fbbf24;
+    --pf-accent-soft: #33270c;
+
+    --pf-bg: #0c1412;
+    --pf-surface: #131c19;
+    --pf-surface-2: #131c19;
+    --pf-surface-sunken: #0a110f;
+
+    --pf-border: rgba(233, 246, 241, 0.12);
+    --pf-border-strong: rgba(233, 246, 241, 0.24);
+
+    --pf-text: #e6f2ee;
+    --pf-text-inverse: #04231e;
+
+    --pf-success: #5fd39a;
+    --pf-warning: #fbbf24;
+    --pf-critical: #ff8a80;
+    --pf-info: #34d3b4;
+
+    --pf-hero-gradient: linear-gradient(135deg, #04120f 0%, #0a2f28 48%, #0d5c4e 100%);
+    --pf-hero-gradient-hover: linear-gradient(135deg, #061a16 0%, #0c3a31 48%, #0f6e5d 100%);
+
+    --pf-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.45);
+    --pf-shadow-2: 0 4px 14px rgba(0, 0, 0, 0.5);
+    --pf-shadow-3: 0 18px 40px rgba(0, 0, 0, 0.6);
 }

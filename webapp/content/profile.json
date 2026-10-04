@@ -61,28 +61,28 @@
       "id": "linkedin",
       "label": { "pt": "LinkedIn", "en": "LinkedIn" },
       "url": "https://www.linkedin.com/in/davi-castr",
-      "icon": "linkedin",
+      "icon": "business-card",
       "primary": true
     },
     {
       "id": "github",
       "label": { "pt": "GitHub", "en": "GitHub" },
       "url": "https://github.com/DaviCastr",
-      "icon": "github",
+      "icon": "source-code",
       "primary": true
     },
     {
       "id": "sap-profile",
       "label": { "pt": "SAP Community", "en": "SAP Community" },
       "url": "https://profile.sap.com/u/DaviCastro",
-      "icon": "sap",
+      "icon": "instance",
       "primary": false
     },
     {
       "id": "credly",
       "label": { "pt": "Credly", "en": "Credly" },
       "url": "https://www.credly.com/users/davi-castr/badges/credly",
-      "icon": "certification",
+      "icon": "verified",
       "primary": false
     },
     {

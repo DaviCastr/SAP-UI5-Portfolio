@@ -86,15 +86,28 @@ export const sharedFormatters = {
         return text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text;
     },
 
-    /** (85988512382) -> "+55 (85) 98851-2382" */
+    /**
+     * Telefone brasileiro em formato de leitura: "+55 (85) 988512382".
+     *
+     * O numero do JSON vem so com digitos (13 com o 55 do pais, 11 sem), e o
+     * hifen foi removido de proposito: em tela pequena o celular ocupa menos
+     * espaco e continua legivel.
+     */
     phone(value: string): string {
         const digits = (value ?? "").replace(/\D/g, "");
+
+        if (digits.length === 13 && digits.startsWith("55")) {
+            return `+55 (${digits.slice(2, 4)}) ${digits.slice(4)}`;
+        }
+
         if (digits.length === 11) {
-            return `+55 (${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+            return `+55 (${digits.slice(0, 2)}) ${digits.slice(2)}`;
         }
+
         if (digits.length === 10) {
-            return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+            return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
         }
+
         return value ?? "";
     },
 

@@ -10,7 +10,9 @@
             content="Portfolio de Davi Castro - Consultor SAP ABAP, SAP Fiori, SAPUI5, RAP, CAP e SAP BTP."
         />
         <meta name="author" content="Davi Castro" />
-        <meta name="theme-color" content="#0070f2" />
+        <!-- Cor da barra do navegador no mobile: a paleta do portfolio, nao o azul SAP. -->
+        <meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#0c1412" media="(prefers-color-scheme: dark)" />
 
         <!-- OpenGraph / Twitter: definem o card de pré-visualização ao compartilhar o link -->
         <meta property="og:type" content="website" />
@@ -97,8 +99,13 @@
             }
             body {
                 margin: 0;
-                background: #f4f6f8;
+                /* tokens.css e a fonte da verdade da paleta; o fallback cobre
+                 * a janela antes de o UI5 injetar o CSS do componente. */
+                background: var(--pf-bg, #f6f5f2);
                 font-family: "72", "Segoe UI", Arial, sans-serif;
+            }
+            html[data-theme="dark"] body {
+                background: var(--pf-bg, #0c1412);
             }
 
             /* Splash exibido enquanto o UI5 carrega o conteudo */
@@ -110,7 +117,9 @@
                 align-items: center;
                 justify-content: center;
                 gap: 20px;
-                background: linear-gradient(135deg, #0a2540 0%, #0b4a8f 50%, #0070f2 100%);
+                background:
+                    radial-gradient(120% 90% at 82% 12%, rgba(245, 158, 11, 0.22) 0%, transparent 55%),
+                    linear-gradient(135deg, #062b26 0%, #0a4a3f 48%, #0e7c6b 100%);
                 color: #fff;
                 z-index: 999;
                 transition: opacity 0.35s ease;

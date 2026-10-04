@@ -18,7 +18,7 @@
                     <HBox class="pf-gap-2">
                         <Button
                             type="Emphasized"
-                            icon="sap-icon://action-download"
+                            icon="sap-icon://download"
                             text="{i18n>action.downloadPdf}"
                             press="onDownloadPress"/>
                         <Button

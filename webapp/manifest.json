@@ -13,7 +13,7 @@
     },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
-    "backgroundColor": "#f4f6f8"
+    "backgroundColor": "#f6f5f2"
   },
   "sap.ui": {
     "technology": "UI5",

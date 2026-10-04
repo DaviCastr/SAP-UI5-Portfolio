@@ -68,7 +68,7 @@
                 <!-- GitHub -->
                 <VBox class="pf-card pf-stack pf-gap-3">
                     <HBox alignItems="Center" class="pf-gap-3">
-                        <core:Icon src="sap-icon://github" class="pf-text-s"/>
+                        <core:Icon src="sap-icon://source-code" class="pf-text-s"/>
                         <Title level="H2" class="pf-h3" text="{i18n>projects.syncTitle}"/>
                         <Text class="pf-small pf-muted" text="{path: 'content>/github/syncedAt', formatter: '.fDateTime'}"/>
                     </HBox>
@@ -76,7 +76,7 @@
                     <HBox>
                         <Button
                             type="Emphasized"
-                            icon="sap-icon://github"
+                            icon="sap-icon://source-code"
                             text="{i18n>projects.profile}"
                             press="onGitHubPress"
                             visible="{= !!${content>/github/profileUrl}}"/>

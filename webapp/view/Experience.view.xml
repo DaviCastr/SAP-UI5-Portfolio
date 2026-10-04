@@ -63,7 +63,7 @@
                 <VBox
                     class="pf-empty"
                     visible="{= ${content>/filteredExperiences} ? ${content>/filteredExperiences}.length === 0 : false }">
-                    <core:Icon src="sap-icon://briefcase" class="pf-text-xl pf-muted"/>
+                    <core:Icon src="sap-icon://suitcase" class="pf-text-xl pf-muted"/>
                     <Text text="{i18n>experience.empty}"/>
                 </VBox>
 

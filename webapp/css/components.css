@@ -847,7 +847,19 @@
 
 /* ------------------------------ Certificados ------------------------------ */
 
+/* Card com `role="link"` (aplicado no DOM pelo BaseController) = clicavel. */
+.pf-cert[role="link"] {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pf-cert[role="link"]:focus-visible {
+    outline: 2px solid var(--pf-primary);
+    outline-offset: 3px;
+}
+
 .pf-cert {
+    position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -865,40 +877,47 @@
 .pf-cert:hover {
     transform: translateY(-3px);
     border-color: color-mix(in srgb, var(--pf-primary) 45%, var(--pf-border));
-    box-shadow: var(--pf-shadow-2);
+    box-shadow: var(--pf-shadow-3);
 }
 
+/*
+ * Area da imagem: quadrada e "full bleed" (sem padding interno), com a mesma
+ * borda e o mesmo raio do card. A altura vem de `aspect-ratio` em vez de um
+ * px fixo, entao o badge do Credly (2048x2048, quadrado) ocupa 100% da largura
+ * e 100% da altura da area, e o layout continua correto em qualquer largura.
+ */
 .pf-cert__media {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 152px;
-    padding: var(--pf-space-4);
+    aspect-ratio: 1 / 1;
+    padding: 0;
     overflow: hidden;
-    border-bottom: 1px solid var(--pf-border);
+    border: 1px solid var(--pf-border);
+    border-bottom: none;
+    border-radius: calc(var(--pf-radius-lg) - 1px) calc(var(--pf-radius-lg) - 1px) 0 0;
     background: var(--pf-surface-sunken);
 }
 
 /*
  * O sap.m.Image nao renderiza a <img> direto: ele cria um div intermediario
- * (`sapMFlexItem`) com altura `auto`. Com o pai em `auto`, o `max-height: 100%`
- * da <img> nao resolve - o badge quadrado do Credly (2048x2048) sao renderizado
- * na largura do cartao (356px em tela de 390px) e invade o titulo logo abaixo.
- * Dar altura definida ao intermediario faz o `max-height` da imagem valer.
+ * (`sapMFlexItem`). Sem forcar `height: 100%` nesse intermediario, a <img>
+ * fica com `max-height` sem referencia e invade o texto logo abaixo.
  */
 .pf-cert__media > .sapMFlexItem,
 .pf-cert__media > div {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
     height: 100%;
     min-width: 0;
 }
 
 .pf-cert__image {
     display: block;
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
 }
 
@@ -909,6 +928,33 @@
     gap: 6px;
     color: var(--pf-text-muted);
     text-align: center;
+}
+
+/* Afordancia de "abre em nova aba", no lugar do botao removido. */
+.pf-cert__corner {
+    position: absolute;
+    top: var(--pf-space-3);
+    right: var(--pf-space-3);
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-pill);
+    background: color-mix(in srgb, var(--pf-surface) 88%, transparent);
+    color: var(--pf-primary);
+    opacity: 0;
+    transform: translate(-4px, -4px);
+    transition:
+        opacity var(--pf-transition),
+        transform var(--pf-transition);
+}
+
+.pf-cert:hover .pf-cert__corner,
+.pf-cert:focus-visible .pf-cert__corner,
+.pf-cert:focus-within .pf-cert__corner {
+    opacity: 1;
+    transform: translate(0, 0);
 }
 
 .pf-cert__body {
@@ -1298,7 +1344,6 @@
     }
 
     /* Uma coluna por linha: 340px de cartao nao cabem em 390px com folga. */
-    .pf-grid--metrics,
     .pf-grid--skills,
     .pf-grid--projects,
     .pf-grid--certs,
@@ -1306,9 +1351,16 @@
         grid-template-columns: minmax(0, 1fr);
     }
 
-    /* Badge maior relativemente, ja que o cartao ocupa a largura toda. */
-    .pf-cert__media {
-        height: 168px;
+    /*
+     * As metricas sao curtas (numero + rotulo), entao duas colunas continuam
+     * legiveis a 360px e evitam uma coluna de 4 cartoes empilhados.
+     */
+    .pf-grid--metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pf-metric {
+        padding: var(--pf-space-4);
     }
 
     .pf-hide-phone {

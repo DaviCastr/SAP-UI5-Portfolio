@@ -15,6 +15,9 @@ import { sharedFormatters } from "./formatters";
  * cuida apenas do que e especifico da sua tela.
  */
 export default abstract class BaseController extends Controller {
+    /** Views ja instrumentadas, para nao duplicar listeners delegated. */
+    private readonly boundRoots = new WeakSet<HTMLElement>();
+
     // Formatadores usados nas views (ver XML: formatter=".fMonthYear")
     public readonly fMonthYear = sharedFormatters.monthYear;
     public readonly fPeriod = sharedFormatters.period;
@@ -69,6 +72,96 @@ export default abstract class BaseController extends Controller {
     protected locale(): ContentLocale {
         return LocaleService.getActive();
     }
+
+    /**
+     * Torna os cartoes clicaveis (`.pf-cert`) sem precisar de um botao dentro
+     * deles.
+     *
+     * Um unico listener delegado no container da view cuida de todos os cartoes:
+     *delegar (em vez de um handler por card) mantem o fragmento declarativo e
+     * funciona igual na home e na galeria, que usam o mesmo fragmento. Como o
+     * card nao carrega a URL no DOM, ela e resolvida pelo contexto de binding do
+     * controle - o `id` do elemento DOM de um controle UI5 e o proprio id dele.
+     */
+    public override onAfterRendering(): void {
+        const root = this.viewRoot();
+
+        if (root && !this.boundRoots.has(root)) {
+            this.boundRoots.add(root);
+            root.addEventListener("click", this.handleCardActivate);
+            root.addEventListener("keydown", this.handleCardKeydown);
+        }
+
+        this.syncCardAccessibility(root);
+    }
+
+    /**
+     * Elemento DOM da view.
+     *
+     * `getDomRef()` existe em `sap.ui.core.mvc.View` desde sempre, mas o
+     * `@openui5/ts-types` so o declara no mixin `DeclarativeSupport` - por isso
+     * o cast estrutural abaixo, em vez de `any`.
+     */
+    private viewRoot(): HTMLElement | null {
+        const view = this.getView() as unknown as { getDomRef?(): HTMLElement | null } | undefined;
+
+        return view?.getDomRef?.() ?? null;
+    }
+
+    /** URL da credencial a partir do elemento DOM do card. */
+    private certificateUrl(card: HTMLElement | null): string {
+        const control = card?.id ? sap.ui.getCore().byId(card.id) : null;
+        const url = control?.getBindingContext()?.getProperty("url");
+
+        return typeof url === "string" ? url : "";
+    }
+
+    /**
+     * `role`/`tabindex` sao espelhados no DOM a cada render porque os cartoes
+     * nascem e morrem com os filtros (e nem toda credencial tem URL).
+     */
+    private syncCardAccessibility(root: HTMLElement | null): void {
+        root?.querySelectorAll<HTMLElement>(".pf-cert").forEach((card) => {
+            if (this.certificateUrl(card)) {
+                card.setAttribute("role", "link");
+                card.setAttribute("tabindex", "0");
+            } else {
+                card.removeAttribute("role");
+                card.removeAttribute("tabindex");
+            }
+        });
+    }
+
+    /** Abre a credencial a partir do card, seja por clique, Enter ou Space. */
+    private openCard(card: HTMLElement | null, event: Event): void {
+        const url = this.certificateUrl(card);
+
+        if (!url) {
+            return;
+        }
+
+        event.preventDefault();
+        this.openExternal(url);
+    }
+
+    private readonly handleCardActivate = (event: Event): void => {
+        const target = event.target as HTMLElement | null;
+
+        // Link/botao dentro do card continua sendo acao propria dele.
+        if (target?.closest("a, button")) {
+            return;
+        }
+
+        this.openCard(target?.closest<HTMLElement>(".pf-cert") ?? null, event);
+    };
+
+    private readonly handleCardKeydown = (event: KeyboardEvent): void => {
+        if (event.key !== "Enter" && event.key !== " ") {
+            return;
+        }
+
+        this.openCard((event.target as HTMLElement | null)?.closest<HTMLElement>(".pf-cert") ?? null, event);
+    };
 
     /** Vai para uma rota declarada no manifest.json. */
     protected navigate(route: string): void {

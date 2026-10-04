@@ -67,7 +67,7 @@
                 <VBox
                     class="pf-empty"
                     visible="{= ${content>/filteredCertificates} ? ${content>/filteredCertificates}.length === 0 : false }">
-                    <core:Icon src="sap-icon://certification" class="pf-text-xl pf-muted"/>
+                    <core:Icon src="sap-icon://verified" class="pf-text-xl pf-muted"/>
                     <Text text="{i18n>certificates.empty}"/>
                 </VBox>
 

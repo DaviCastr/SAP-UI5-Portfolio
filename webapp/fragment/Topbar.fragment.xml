@@ -31,7 +31,7 @@
                 <Button
                     class="pf-hide-phone"
                     type="Emphasized"
-                    icon="sap-icon://action-download"
+                    icon="sap-icon://download"
                     text="{i18n>action.cv}"
                     press="onCvPress"/>
 

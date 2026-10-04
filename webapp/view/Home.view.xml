@@ -29,7 +29,7 @@
                         <HBox class="pf-hero__actions">
                             <Button
                                 type="Emphasized"
-                                icon="sap-icon://action-download"
+                                icon="sap-icon://download"
                                 text="{i18n>action.cv}"
                                 press="onCvPress"/>
                             <Button
@@ -39,7 +39,7 @@
                                 press="onEmailPress"/>
                             <Button
                                 type="Ghost"
-                                icon="sap-icon://linkedin"
+                                icon="sap-icon://business-card"
                                 text="{i18n>action.linkedin}"
                                 press="onLinkedinPress"/>
                         </HBox>
@@ -90,7 +90,7 @@
                         </VBox>
                         <Button
                             type="Transparent"
-                            icon="sap-icon://navigation-right"
+                            icon="sap-icon://arrow-right"
                             text="{i18n>action.viewAll}"
                             press="onSkillsPress"/>
                     </HBox>
@@ -109,7 +109,7 @@
                         </VBox>
                         <Button
                             type="Transparent"
-                            icon="sap-icon://navigation-right"
+                            icon="sap-icon://arrow-right"
                             text="{i18n>action.viewAll}"
                             press="onProjectsPress"/>
                     </HBox>
@@ -128,7 +128,7 @@
                         </VBox>
                         <Button
                             type="Transparent"
-                            icon="sap-icon://navigation-right"
+                            icon="sap-icon://arrow-right"
                             text="{i18n>action.viewAll}"
                             press="onCertificatesPress"/>
                     </HBox>
@@ -152,7 +152,7 @@
                             press="onEmailPress"/>
                         <Button
                             type="Ghost"
-                            icon="sap-icon://action-download"
+                            icon="sap-icon://download"
                             text="{i18n>action.downloadCv}"
                             press="onDownloadCvPress"/>
                     </HBox>
