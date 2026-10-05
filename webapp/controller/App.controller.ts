@@ -13,6 +13,9 @@ import type { ExternalLink, SectionDefinition } from "../service/types";
 /** Pasta base dos arquivos JSON do portfolio (relativa a webapp/). */
 const CONTENT_BASE_URL = "content";
 
+/** Rota inicial: e a unica que nao mostra a barra de secao. */
+const HOME_ROUTE = "home";
+
 /** Link externo normalizado para exibicao na navegacao e no rodape. */
 interface NavLink extends ExternalLink {
     text: string;
@@ -36,8 +39,39 @@ function normalizeLinks(links: ExternalLink[]): NavLink[] {
 export default class AppController extends BaseController {
     private routerStarted = false;
 
+    /** Route -> rotulo ja traduzido, usado na barra fixa de secao. */
+    private sectionTitles: Record<string, string> = {};
+
+    /**
+     * Abaixo desta largura as abas da barra mostram so o icone.
+     *
+     * Medido: marca + 7 abas com rotulo + acoes precisam de 1077px, entao em
+     * 1024px (e em 900px) a linha estourava a viewport e os botoes saiam da tela.
+     * Em modo icone a mesma barra cabe a partir de ~700px, com folga.
+     */
+    private static readonly COMPACT_QUERY = "(max-width: 1199px)";
+
+    private readonly compactMedia = window.matchMedia(AppController.COMPACT_QUERY);
+
     // onInit e onAfterRendering sao ganchos de ciclo de vida do UI5.
     public override onInit(): void {
+        this.applyCompactNav();
+        this.compactMedia.addEventListener("change", this.applyCompactNav);
+
+        /*
+         * O listener entra aqui, e nao depois do JSON: o router so inicializa no
+         * onAfterRendering, entao a rota inicial (home) ainda nao foi resolvida
+         * quando este ponto roda - e ela precisa entrar no historico junto com
+         * as demais.
+         */
+        this.component()
+            .getRouter()
+            .attachRouteMatched((event) => {
+                const name = (event.getParameter("name") as string) ?? "";
+                this.model("ui")?.setProperty("/activeRoute", name);
+                this.syncSectionTitle(name);
+            });
+
         void this.loadPortfolio();
     }
 
@@ -50,6 +84,34 @@ export default class AppController extends BaseController {
             this.routerStarted = true;
             this.component().getRouter().initialize();
         }
+    }
+
+    /**
+     * Publica no model "ui" se a barra esta em modo compacto (so icone).
+     *
+     * A media query e o unico jeito de o UI5 saber a largura real da janela: o
+     * `sap.ui.Device` so distingue phone/tablet e nao acompanha o resize.
+     */
+    private readonly applyCompactNav = (): void => {
+        this.model("ui")?.setProperty("/compactNav", this.compactMedia.matches);
+    };
+
+    /**
+     * Titulo mostrado na barra fixa abaixo do topo.
+     *
+     * Na home o titulo fica vazio de proposito: ali o hero ja mostra o nome e a
+     * faixa seria ruido. Como o texto e o que decide a visibilidade, o valor
+     * vazio e o que esconde a barra.
+     */
+    private syncSectionTitle(route: string): void {
+        const title = route === HOME_ROUTE ? "" : (this.sectionTitles[route] ?? "");
+        this.model("ui")?.setProperty("/currentSectionTitle", title);
+    }
+
+    /** Rota que o router resolviu por ultimo (inicializa em home). */
+    private activeRoute(): string {
+        const current = (this.model("ui") as JSONModel | undefined)?.getProperty("/activeRoute");
+        return typeof current === "string" && current ? current : HOME_ROUTE;
     }
 
     /** Carrega, valida, traduz e publica o conteudo no model. */
@@ -70,12 +132,18 @@ export default class AppController extends BaseController {
             footerLinks: normalizeLinks(viewData.footerLinks)
         });
 
-        this.component()
-            .getRouter()
-            .attachRouteMatched((event) => {
-                const name = (event.getParameter("name") as string) ?? "";
-                this.model("ui")?.setProperty("/activeRoute", name);
-            });
+        // A barra fixa abaixo do topo repete o nome da aba atual. Monta o indice
+        // com TODAS as secoes ativas (o CV nao aparece na navegacao, mas tem
+        // titulo) a partir das secoes JA traduzidas do ContentService.
+        // `nav` continua tipado como LocalizedText, mas em tempo de execucao ja e
+        // uma string traduzida - o String() so satisfaz o compilador.
+        this.sectionTitles = Object.fromEntries(
+            service.activeSections.map((section) => [section.route, String(section.nav ?? "")])
+        );
+
+        // A rota inicial e resolvida antes do JSON chegar, entao o titulo dela foi
+        // sincronizado com o indice ainda vazio. Repete agora que ele existe.
+        this.syncSectionTitle(this.activeRoute());
 
         await this.publishUiOptions();
         this.model("ui")?.setProperty("/busy", false);

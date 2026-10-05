@@ -71,4 +71,20 @@ describe("localize", () => {
         const source = { level: 5, featured: true, expiresAt: null };
         expect(localize(source, "pt")).toEqual(source);
     });
+
+    it("preserva objeto de periodo: 'to' nao e lido como idioma", () => {
+        const source = { period: { from: "2016-01", to: "2018-12" } };
+        expect(localize(source, "pt")).toEqual(source);
+        expect(localize(source, "en")).toEqual(source);
+    });
+
+it("preserva 'id' de dado em vez de lê-lo como idioma", () => {
+const source = { id: "sap-ui5" };
+expect(localize(source, "en")).toEqual(source);
+});
+
+it("preserva 'id' ao mesmo tempo que traduz o texto vizinho", () => {
+const source = { id: "sap-ui5", tag: { pt: "UI5", en: "UI5" } };
+expect(localize(source, "en")).toEqual({ id: "sap-ui5", tag: "UI5" });
+});
 });

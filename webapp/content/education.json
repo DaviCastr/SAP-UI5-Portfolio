@@ -1,16 +1,33 @@
 [
   {
+    "id": "tecnico-informatica-paulo-petrola",
+    "institution": "Escola Estadual de Educacao Profissional Paulo Petrola",
+    "degree": {
+      "pt": "Curso Tecnico Profissionalizante em Informatica",
+      "en": "Vocational Technical Course in IT"
+    },
+    "period": { "from": "2016-01", "to": "2018-12" },
+    "description": {
+      "pt": "Ensino medio com curso tecnico profissionalizante em informatica (3 anos, com diploma). Atuacao em manutencao de computadores e desenvolvimento de sistemas desktop e web.",
+      "en": "High school with a three-year vocational IT course (diploma). Worked on computer maintenance and developing desktop and web systems."
+    },
+    "kind": "education",
+    "tags": ["PHP", "HTML", "CSS", "JavaScript", "MySQL", "Manutencao de computadores"]
+  },
+  {
     "id": "formacao-superior",
-    "institution": "Universidade",
+    "institution": "Universidade Estacio de Sa",
     "degree": {
       "pt": "Bacharelado em Computacao",
       "en": "Bachelor's degree in Computer Science"
     },
-    "period": { "from": "2015-01", "to": "2019-12" },
+    "period": { "from": "2019-01", "to": "2022-12" },
     "description": {
-      "pt": "Formacao em fundamentos de programacao, bancos de dados e redes.",
-      "en": "Study of programming fundamentals, databases and networking."
+      "pt": "Formacao em fundamentos de programacao, bancos de dados, redes e engenharia de software.",
+      "en": "Study of programming fundamentals, databases, networking and software engineering."
     },
-    "kind": "education"
+    "kind": "education",
+    "url": "documents/bacharelado-computacao.pdf",
+    "tags": ["Algoritmos", "Banco de dados", "Redes", "Engenharia de software"]
   }
 ]

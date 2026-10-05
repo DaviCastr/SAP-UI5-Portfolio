@@ -4,7 +4,7 @@
     xmlns:mvc="sap.ui.core.mvc"
     controllerName="davi.portfolio.controller.Home"
     class="pf-view">
-    <Page id="page" class="pf-page-scroll" enableScrolling="true" title="{i18n>nav.home}">
+    <Page id="page" class="pf-page-scroll" enableScrolling="true" showHeader="false">
         <content>
             <VBox class="pf-container pf-page">
 
@@ -100,25 +100,6 @@
                     </HBox>
                 </VBox>
 
-                <!-- Projetos em destaque -->
-                <VBox class="pf-stack pf-gap-4">
-                    <HBox alignItems="Center" class="pf-row--between pf-row--wrap pf-gap-3">
-                        <VBox>
-                            <Text class="pf-eyebrow" text="{i18n>home.projectsEyebrow}"/>
-                            <Title level="H2" class="pf-h2" text="{i18n>home.projectsTitle}"/>
-                        </VBox>
-                        <Button
-                            type="Transparent"
-                            icon="sap-icon://arrow-right"
-                            text="{i18n>action.viewAll}"
-                            press="onProjectsPress"/>
-                    </HBox>
-
-                    <HBox class="pf-grid pf-grid--projects" items="{path: '/featuredProjects', length: 3, templateShareable: true}">
-                        <core:Fragment fragmentName="davi.portfolio.fragment.ProjectCard" type="XML"/>
-                    </HBox>
-                </VBox>
-
                 <!-- Certificacoes recentes -->
                 <VBox class="pf-stack pf-gap-4">
                     <HBox alignItems="Center" class="pf-row--between pf-row--wrap pf-gap-3">
@@ -135,6 +116,54 @@
 
                     <HBox class="pf-grid pf-grid--certs" items="{path: '/recentCertificates', length: 3, templateShareable: true}">
                         <core:Fragment fragmentName="davi.portfolio.fragment.CertificateCard" type="XML"/>
+                    </HBox>
+                </VBox>
+
+                <!--
+                    Projetos escritos a mao (projects.json): contam a historia de
+                    cada trabalho. Sao exibidos em ordem cronologica (mais recentes
+                    primeiro).
+                -->
+                <VBox class="pf-stack pf-gap-4">
+                    <HBox alignItems="Center" class="pf-row--between pf-row--wrap pf-gap-3">
+                        <VBox>
+                            <Text class="pf-eyebrow" text="{i18n>home.projectsRecentEyebrow}"/>
+                            <Title level="H2" class="pf-h2" text="{i18n>home.projectsRecentTitle}"/>
+                        </VBox>
+                        <Button
+                            type="Transparent"
+                            icon="sap-icon://arrow-right"
+                            text="{i18n>action.viewAll}"
+                            press="onProjectsPress"/>
+                    </HBox>
+
+                    <HBox
+                        class="pf-grid pf-grid--projects"
+                        items="{path: '/recentProjects', length: 3, templateShareable: true}">
+                        <core:Fragment fragmentName="davi.portfolio.fragment.ProjectCard" type="XML"/>
+                    </HBox>
+                </VBox>
+
+                <!--
+                    Repositorios do GitHub: o retrato real da conta, sincronizado
+                    por "npm run sync:github", do push mais recente para o mais
+                    antigo.
+                -->
+                <VBox class="pf-stack pf-gap-4" visible="{= !!${content>/recentRepos} &amp;&amp; ${content>/recentRepos}.length > 0 }">
+                    <HBox alignItems="Center" class="pf-row--between pf-row--wrap pf-gap-3">
+                        <VBox>
+                            <Text class="pf-eyebrow" text="{i18n>home.reposEyebrow}"/>
+                            <Title level="H2" class="pf-h2" text="{i18n>home.reposTitle}"/>
+                        </VBox>
+                        <Button
+                            type="Transparent"
+                            icon="sap-icon://arrow-right"
+                            text="{i18n>action.viewAll}"
+                            press="onProjectsPress"/>
+                    </HBox>
+
+                    <HBox class="pf-grid pf-grid--repos" items="{path: '/recentRepos', length: 3, templateShareable: true}">
+                        <core:Fragment fragmentName="davi.portfolio.fragment.RepoCard" type="XML"/>
                     </HBox>
                 </VBox>
 

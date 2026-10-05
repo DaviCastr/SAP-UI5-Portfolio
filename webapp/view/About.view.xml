@@ -5,7 +5,7 @@
     xmlns:html="http://www.w3.org/1999/xhtml"
     controllerName="davi.portfolio.controller.About"
     class="pf-view">
-    <Page id="page" class="pf-page-scroll" enableScrolling="true" title="{i18n>nav.about}">
+    <Page id="page" class="pf-page-scroll" enableScrolling="true" showHeader="false">
         <content>
             <VBox class="pf-container pf-page">
 

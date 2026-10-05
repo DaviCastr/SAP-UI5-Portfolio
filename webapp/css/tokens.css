@@ -199,11 +199,17 @@ body.sapUiBodyBackground {
     color: var(--pf-on-primary) !important;
 }
 
-/* Botoes de link: abas da navegacao, acoes da barra e links do rodape. */
-.sapUiBody .sapMBtnInner.sapMBtnText,
-.sapUiBody .sapMBtnInner.sapMBtnTransparent,
-.sapUiBody .sapMBtnInner.sapMBtnGhost,
-.sapUiBody .sapMBtnInner.sapMBtnLite {
+/*
+ * Botoes de link: abas da navegacao, acoes da barra e links do rodape.
+ *
+ * O `:not(.sapMBtnEmphasized)` e obrigatorio: no Horizon o botao de destaque
+ * tambem carrega `sapMBtnText`, e como as duas regras tinham a mesma
+ * especificidade, a do link (verde) vencia e o rotulo ficava verde sobre verde.
+ */
+.sapUiBody .sapMBtnInner.sapMBtnText:not(.sapMBtnEmphasized),
+.sapUiBody .sapMBtnInner.sapMBtnTransparent:not(.sapMBtnEmphasized),
+.sapUiBody .sapMBtnInner.sapMBtnGhost:not(.sapMBtnEmphasized),
+.sapUiBody .sapMBtnInner.sapMBtnLite:not(.sapMBtnEmphasized) {
     color: var(--pf-primary) !important;
 }
 
@@ -215,38 +221,57 @@ body.sapUiBodyBackground {
     border-color: transparent !important;
 }
 
-.sapUiBody .sapMBtnInner.sapMBtnText > .sapMBtnContent,
-.sapUiBody .sapMBtnInner.sapMBtnTransparent > .sapMBtnContent,
-.sapUiBody .sapMBtnInner.sapMBtnGhost > .sapMBtnContent,
-.sapUiBody .sapMBtnInner.sapMBtnLite > .sapMBtnContent,
-.sapUiBody .sapMBtnInner.sapMBtnText bdi,
-.sapUiBody .sapMBtnInner.sapMBtnTransparent bdi,
-.sapUiBody .sapMBtnInner.sapMBtnGhost bdi,
-.sapUiBody .sapMBtnInner.sapMBtnLite bdi,
-.sapUiBody .sapMBtnInner.sapMBtnText .sapMBtnIcon,
-.sapUiBody .sapMBtnInner.sapMBtnTransparent .sapMBtnIcon,
-.sapUiBody .sapMBtnInner.sapMBtnGhost .sapMBtnIcon,
-.sapUiBody .sapMBtnInner.sapMBtnLite .sapMBtnIcon {
+.sapUiBody .sapMBtnInner.sapMBtnText:not(.sapMBtnEmphasized) > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent:not(.sapMBtnEmphasized) > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnGhost:not(.sapMBtnEmphasized) > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnLite:not(.sapMBtnEmphasized) > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnText:not(.sapMBtnEmphasized) bdi,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent:not(.sapMBtnEmphasized) bdi,
+.sapUiBody .sapMBtnInner.sapMBtnGhost:not(.sapMBtnEmphasized) bdi,
+.sapUiBody .sapMBtnInner.sapMBtnLite:not(.sapMBtnEmphasized) bdi,
+.sapUiBody .sapMBtnInner.sapMBtnText:not(.sapMBtnEmphasized) .sapMBtnIcon,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent:not(.sapMBtnEmphasized) .sapMBtnIcon,
+.sapUiBody .sapMBtnInner.sapMBtnGhost:not(.sapMBtnEmphasized) .sapMBtnIcon,
+.sapUiBody .sapMBtnInner.sapMBtnLite:not(.sapMBtnEmphasized) .sapMBtnIcon {
     color: var(--pf-primary) !important;
 }
 
-.sapUiBody .sapMBtnInner.sapMBtnText:hover,
-.sapUiBody .sapMBtnInner.sapMBtnTransparent:hover,
-.sapUiBody .sapMBtnInner.sapMBtnGhost:hover,
-.sapUiBody .sapMBtnInner.sapMBtnLite:hover {
+/*
+ * O texto do botao de destaque vem DEPOIS das regras de link de proposito: as
+ * duas tem a mesma especificidade e o que vale e a ultima. Sem esta ordem, o
+ * rotulo e o icone ficam verdes sobre o fundo verde e so aparecem no hover.
+ */
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized,
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized bdi,
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized .sapMBtnIcon {
+    color: var(--pf-on-primary) !important;
+}
+
+.sapUiBody .sapMBtnInner.sapMBtnText:not(.sapMBtnEmphasized):hover,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent:not(.sapMBtnEmphasized):hover,
+.sapUiBody .sapMBtnInner.sapMBtnGhost:not(.sapMBtnEmphasized):hover,
+.sapUiBody .sapMBtnInner.sapMBtnLite:not(.sapMBtnEmphasized):hover {
     background: var(--pf-primary-soft) !important;
     border-color: transparent !important;
 }
 
-.sapUiBody .sapMBtnInner.sapMBtnText:hover > .sapMBtnContent,
-.sapUiBody .sapMBtnInner.sapMBtnTransparent:hover > .sapMBtnContent,
-.sapUiBody .sapMBtnInner.sapMBtnGhost:hover > .sapMBtnContent,
-.sapUiBody .sapMBtnInner.sapMBtnLite:hover > .sapMBtnContent,
-.sapUiBody .sapMBtnInner.sapMBtnText:hover bdi,
-.sapUiBody .sapMBtnInner.sapMBtnTransparent:hover bdi,
-.sapUiBody .sapMBtnInner.sapMBtnGhost:hover bdi,
-.sapUiBody .sapMBtnInner.sapMBtnLite:hover bdi {
+.sapUiBody .sapMBtnInner.sapMBtnText:not(.sapMBtnEmphasized):hover > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent:not(.sapMBtnEmphasized):hover > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnGhost:not(.sapMBtnEmphasized):hover > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnLite:not(.sapMBtnEmphasized):hover > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnText:not(.sapMBtnEmphasized):hover bdi,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent:not(.sapMBtnEmphasized):hover bdi,
+.sapUiBody .sapMBtnInner.sapMBtnGhost:not(.sapMBtnEmphasized):hover bdi,
+.sapUiBody .sapMBtnInner.sapMBtnLite:not(.sapMBtnEmphasized):hover bdi {
     color: var(--pf-primary-hover) !important;
+}
+
+/* O hover do destaque clareia o fundo, mas o rotulo continua claro. */
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized:hover > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized:hover bdi,
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized:hover .sapMBtnIcon {
+    color: var(--pf-on-primary) !important;
 }
 
 /* sap.m.Link (nenhum binding usa hoje, mas qualquer `href` futuro entra na

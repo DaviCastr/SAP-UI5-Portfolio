@@ -4,30 +4,16 @@
     xmlns:mvc="sap.ui.core.mvc"
     controllerName="davi.portfolio.controller.Cv"
     class="pf-view pf-view--cv">
-    <Page id="page" class="pf-page-scroll" enableScrolling="true" title="{i18n>nav.cv}">
+    <Page id="page" class="pf-page-scroll" enableScrolling="true" showHeader="false">
         <content>
             <VBox class="pf-container pf-page">
 
-                <!-- Cabecalho -->
-                <HBox alignItems="Center" class="pf-row--between pf-row--wrap pf-gap-3">
-                    <VBox>
-                        <Text class="pf-eyebrow" text="{i18n>cv.eyebrow}"/>
-                        <Title level="H1" class="pf-page__title" text="{i18n>cv.title}"/>
-                        <Text class="pf-lead" text="{i18n>cv.subtitle}"/>
-                    </VBox>
-                    <HBox class="pf-gap-2">
-                        <Button
-                            type="Emphasized"
-                            icon="sap-icon://download"
-                            text="{i18n>action.downloadPdf}"
-                            press="onDownloadPress"/>
-                        <Button
-                            type="Transparent"
-                            icon="sap-icon://print"
-                            text="{i18n>action.print}"
-                            press="onPrintPress"/>
-                    </HBox>
-                </HBox>
+                <!-- Cabecalho. Download e impressao ficam na barra de secao (App.view.xml). -->
+                <VBox>
+                    <Text class="pf-eyebrow" text="{i18n>cv.eyebrow}"/>
+                    <Title level="H1" class="pf-page__title" text="{i18n>cv.title}"/>
+                    <Text class="pf-lead" text="{i18n>cv.subtitle}"/>
+                </VBox>
 
                 <!-- Curriculo em A4 -->
                 <VBox class="pf-sheet">

@@ -2,7 +2,7 @@
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
     class="pf-view">
-    <Page id="page" class="pf-page-scroll" enableScrolling="true" title="{i18n>nav.notFound}">
+    <Page id="page" class="pf-page-scroll" enableScrolling="true" showHeader="false">
         <content>
             <VBox class="pf-container pf-page pf-center">
                 <VBox class="pf-stack pf-gap-3 pf-center" alignItems="Center">

@@ -4,7 +4,7 @@
     xmlns:mvc="sap.ui.core.mvc"
     controllerName="davi.portfolio.controller.Education"
     class="pf-view">
-    <Page id="page" class="pf-page-scroll" enableScrolling="true" title="{i18n>nav.education}">
+    <Page id="page" class="pf-page-scroll" enableScrolling="true" showHeader="false">
         <content>
             <VBox class="pf-container pf-page">
 
@@ -39,6 +39,20 @@
 
                             <HBox class="pf-chips" items="{path: 'tagItems', templateShareable: true}">
                                 <core:Fragment fragmentName="davi.portfolio.fragment.Chip" type="XML"/>
+                            </HBox>
+
+                            <!--
+                                Documento da formacao (ex.: diploma em PDF). O botao
+                                fica escondido quando o item nao tem `url`.
+                            -->
+                            <HBox class="pf-row--wrap">
+                                <Button
+                                    class="pf-btn pf-btn--secondary"
+                                    icon="sap-icon://attachment"
+                                    text="{i18n>education.document}"
+                                    type="Transparent"
+                                    visible="{= !!${url}}"
+                                    press="onDocumentPress"/>
                             </HBox>
                         </VBox>
                     </HBox>

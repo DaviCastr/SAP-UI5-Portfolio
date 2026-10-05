@@ -6,7 +6,7 @@
     "route": "home",
     "order": 1,
     "enabled": true,
-    "showInNav": false,
+    "showInNav": true,
     "dataFile": "profile.json"
   },
   {

@@ -1,6 +1,14 @@
 import type { ContentService } from "./ContentService";
 import type { PortfolioMetrics } from "./metrics";
-import type { Certificate, Experience, ExternalLink, Project, SectionDefinition, Skill } from "./types";
+import type {
+    Certificate,
+    Experience,
+    ExternalLink,
+    GitHubRepo,
+    Project,
+    SectionDefinition,
+    Skill
+} from "./types";
 
 /** Competencias agrupadas por categoria (usado na aba Skills). */
 export interface SkillGroup {
@@ -38,6 +46,18 @@ export interface PortfolioViewData {
     focusSkills: Skill[];
     recentExperiences: Experience[];
     featuredProjects: Project[];
+    /**
+     * Repositorios do GitHub que entraram na home, do push mais recente para o
+     * mais antigo. A home mostra o retrato real da conta (o que existe de fato
+     * no GitHub, com link para o repositorio) em vez dos projetos escritos a
+     * mao em `projects.json`, que contam a historia de cada trabalho.
+     */
+    recentRepos: GitHubRepo[];
+    /**
+     * Projetos escritos a mao (projects.json), mais recentes, para exibir na
+     * Home como "Work you can open" (historias de trabalho reais).
+     */
+    recentProjects: Project[];
     recentCertificates: Certificate[];
     skillsByCategory: SkillGroup[];
     skillCategories: TagGroup[];
@@ -96,6 +116,49 @@ export function countCertificateYears(certificates: Certificate[]): YearGroup[] 
         .map(([year, count]) => ({ year, count }));
 }
 
+/**
+ * Repositorios do GitHub, do push mais recente para o mais antigo.
+ *
+ * O `pushedAt` do sync e "YYYY-MM", que ordena igual a data ISO em ordem
+ * alfabetica; o nome desempate para a lista nao mudar de posicao entre um
+ * build e outro quando varios repositorios foram empurrados no mesmo mes.
+ */
+export function mostRecentRepos(repos: GitHubRepo[], limit: number): GitHubRepo[] {
+    return [...repos]
+        .sort((a, b) => (b.pushedAt ?? "").localeCompare(a.pushedAt ?? "") || a.name.localeCompare(b.name))
+        .slice(0, limit);
+}
+
+/**
+ * Projetos mais recentes por data de fim.
+ *
+ * Prioriza `endDate` (desc), depois `startDate` (desc) e por fim o nome, para
+ * ter uma ordem deterministica.
+ */
+export function mostRecentProjects(projects: Project[], limit: number): Project[] {
+    return [...projects]
+        .sort((a, b) => {
+            const endA = a.period?.to ?? "";
+            const endB = b.period?.to ?? "";
+            const end = endB.localeCompare(endA);
+
+            if (end !== 0) {
+                return end;
+            }
+
+            const startA = a.period?.from ?? "";
+            const startB = b.period?.from ?? "";
+            const start = startB.localeCompare(startA);
+
+            if (start !== 0) {
+                return start;
+            }
+
+            return a.name.localeCompare(b.name);
+        })
+        .slice(0, limit);
+}
+
 /** Monta o pacote completo de dados derivados para as views. */
 export function buildViewData(service: ContentService): PortfolioViewData {
     const content = service.content;
@@ -117,6 +180,8 @@ export function buildViewData(service: ContentService): PortfolioViewData {
         focusSkills: service.focusSkills.slice(0, 8),
         recentExperiences: content.experiences.filter((item) => item.kind !== "project").slice(0, 3),
         featuredProjects: service.featuredProjects.slice(0, 6),
+        recentProjects: mostRecentProjects(content.projects, 3),
+        recentRepos: mostRecentRepos(content.github?.repos ?? [], 3),
         recentCertificates: service.featuredCertificates.slice(0, 6),
         skillsByCategory,
         skillCategories,

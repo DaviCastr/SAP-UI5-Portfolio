@@ -206,6 +206,25 @@ export default abstract class BaseController extends Controller {
         this.openExternal(url);
     }
 
+    /**
+     * PDF e impressao do curriculo.
+     *
+     * Ficam aqui, e nao no Cv.controller, porque os botoes sao renderizados pela
+     * barra de secao (App.view.xml) - o controller do CV nao e o dono da UI deles.
+     */
+    /** Caminho do PDF gerado por `npm run cv:pdf` a partir do mesmo JSON. */
+    public static readonly PDF_URL = "cv/davi-castro-cv.pdf";
+
+    /** Abre/baixa o PDF ja gerado. */
+    public onDownloadPress(): void {
+        window.open(BaseController.PDF_URL, "_blank");
+    }
+
+    /** Imprime a pagina (o CSS de impressao remove menus e ajusta para A4). */
+    public onPrintPress(): void {
+        window.print();
+    }
+
     /** Alterna claro/escuro e mantem o model "ui" sincronizado. */
     protected toggleTheme(): ThemeMode {
         const uiModel = this.model("ui");

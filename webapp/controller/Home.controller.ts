@@ -7,6 +7,19 @@ import BaseController from "./BaseController";
  * apenas os atalhos de navegacao e o download do PDF do curriculo.
  */
 export default class HomeController extends BaseController {
+    /**
+     * O card de repositorio e clicavel e abre a pagina do repositorio no GitHub.
+     * A delegacao fica no controller da view: sem o override, so a aba de
+     * Projetos teria o card clicavel e os cards da home seriam apenas texto.
+     *
+     * Na Home tambem ha cartoes de Certificados (fragmento CertificateCard),
+     * que tambem tem campo "url". Por isso o seletor engloba repositorios e
+     * certificados.
+     */
+    protected override clickableCards(): string {
+        return ".pf-repo, .pf-cert";
+    }
+
     public onCvPress(): void {
         this.navigate("cv");
     }

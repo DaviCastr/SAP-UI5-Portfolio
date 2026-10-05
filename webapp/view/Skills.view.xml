@@ -4,7 +4,7 @@
     xmlns:mvc="sap.ui.core.mvc"
     controllerName="davi.portfolio.controller.Skills"
     class="pf-view">
-    <Page id="page" class="pf-page-scroll" enableScrolling="true" title="{i18n>nav.skills}">
+    <Page id="page" class="pf-page-scroll" enableScrolling="true" showHeader="false">
         <content>
             <VBox class="pf-container pf-page">
 

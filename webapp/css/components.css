@@ -170,8 +170,22 @@
 
 /* ------------------------------ Layout ------------------------------ */
 
-.pf-page {
-    padding: var(--pf-space-10) 0 var(--pf-space-12);
+/*
+ * Espacamento vertical da pagina.
+ *
+ * O seletor precisa de `.pf-container` junto: as views usam `pf-container pf-page`
+ * e o `.pf-container` define `padding: 0 var(--pf-space-6)`. Com `.pf-page`
+ * sozinho as duas regras tinham a mesma especificidade e, como `.pf-container`
+ * vem depois no arquivo, o padding vertical era zerado - o conteudo encostava
+ * no topo da pagina e no fim dela.
+ *
+ * O padding lateral e reescrito aqui (e nao deixado para o `.pf-container`)
+ * porque esta regra e mais especifica: se usassemos o atalho de 3 valores, o `0`
+ * do meio apagaria tambem o respiro lateral e o texto encostaria nas bordas da
+ * tela no celular e no tablet.
+ */
+.pf-container.pf-page {
+    padding: var(--pf-space-10) var(--pf-space-6) var(--pf-space-12);
     gap: var(--pf-space-10);
 }
 
@@ -408,12 +422,40 @@
     backdrop-filter: saturate(180%) blur(12px);
 }
 
+/*
+ * Tres colunas: marca | abas | acoes.
+ *
+ * Com flex, a largura da marca (196px) e a das acoes (298px) sao diferentes e
+ * `margin: 0 auto` centralizava as abas 51px a esquerda do meio. As colunas
+ * `1fr auto 1fr` dao a mesma sobra dos dois lados, entao as abas ficam
+ * exatamente no centro, qualquer que seja o tamanho do texto da marca.
+ */
 .pf-topbar__row {
-    display: flex;
+    display: grid;
+    /*
+     * `minmax(0, 1fr)` em vez de `1fr`: em `1fr` (= minmax(auto, 1fr)) o
+     * min-content da marca ou dos acoes consegue esticar a coluna e empurrar a
+     * navegacao para fora do centro. Com o minimo em 0 as duas colunas laterais
+     * dividem o espaco restante por igual e a navegacao fica no meio da tela.
+     */
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
     gap: var(--pf-space-4);
     min-height: var(--pf-nav-height);
     padding: var(--pf-space-2) 0;
+}
+
+/* A marca pode encolher: o nome e o cargo sao truncados, nunca empurram o centro. */
+.pf-topbar__brand {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.pf-topbar__brand-name,
+.pf-topbar__brand-role {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .pf-topbar__brand-avatar {
@@ -456,6 +498,43 @@
     align-items: center;
     gap: var(--pf-space-1);
     flex: 0 0 auto;
+    justify-self: end;
+}
+
+/* --------------------------- Barra da secao --------------------------- */
+
+/*
+ * Repete o titulo da aba atual abaixo da barra fixa. Fica como linha propria do
+ * shell (fora do NavContainer), entao nunca cobre o conteudo e dispensa
+ * compensacao de margin-top - o proprio espacamento da barra faz esse papel.
+ *
+ * E uma faixa de orientacao, nao um segundo cabecalho: por isso nao repete a
+ * altura da barra de navegacao. Sem `min-height`, a altura vem do conteudo
+ * (titulo + botoes) e sobra cerca de 30px em relacao a barra de 64px.
+ */
+.pf-sectionbar {
+    display: flex;
+    align-items: center;
+    gap: var(--pf-space-3);
+    min-height: 0;
+    padding: var(--pf-space-2) 0;
+    border-bottom: 1px solid var(--pf-border);
+    background: var(--pf-surface);
+}
+
+.pf-sectionbar__title {
+    font-size: var(--pf-font-lg);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--pf-text);
+}
+
+/* Acoes da secao (PDF/Print no CV): encostadas na direita da barra. */
+.pf-sectionbar__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--pf-space-2);
+    margin-left: auto;
 }
 
 /* ==========================================================================
@@ -574,6 +653,7 @@
     font-size: var(--pf-font-xs);
     font-weight: 600;
     letter-spacing: 0.04em;
+    color: #fff;
 }
 
 .pf-hero__title {
@@ -625,8 +705,38 @@
     color: rgba(255, 255, 255, 0.86);
 }
 
-.pf-hero__meta-item .sapIcon {
-    color: rgba(255, 255, 255, 0.7);
+.pf-hero,
+.pf-hero .sapMText,
+.pf-hero .sapMTitle,
+.pf-hero .sapUiIcon,
+.pf-hero .sapMBtnContent,
+.pf-hero .sapMBtnIcon {
+    color: #fff;
+}
+
+.pf-hero__title {
+    color: #fff;
+}
+
+.pf-hero__role {
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.pf-hero__summary {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.pf-hero__badge,
+.pf-hero__badge > *,
+.pf-hero__badge .sapMText,
+.pf-hero__badge .sapUiIcon {
+    color: #fff;
+}
+
+.pf-hero__meta-item,
+.pf-hero__meta-item .sapMText,
+.pf-hero__meta-item .sapUiIcon {
+    color: #fff;
 }
 
 /* ------------------------------ Metricas ------------------------------ */
@@ -995,7 +1105,20 @@
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+    /*
+     * Os PNGs do Credly (2048x2048, RGBA) vem com cantos arredondados
+     * desenhados nos QUATRO cantos: a base tem 43px (2,1%) de alpha 0. O
+     * `border-radius` do container resolve o topo, mas embaixo essa faixa
+     * transparente deixa ver o fundo e o certificado parece ter o canto
+     * arredondado embaixo tambem.
+     *
+     * Grow de 3,5% ancorado no topo empurra essa faixa para fora da area
+     * visivel (o `overflow: hidden` do container corta), e sobra a borda reta
+     * da arte. O topo nao e afetado: ele ja e recortado pelo raio do container.
+     */
+    transform: scale(1.035);
+    transform-origin: top center;
 }
 
 .pf-cert__fallback {
@@ -1298,31 +1421,137 @@
 /* ------------------------------ Footer ------------------------------ */
 
 .pf-footer {
-    margin-top: var(--pf-space-12);
-    padding: var(--pf-space-8) 0;
+    padding: var(--pf-space-3) 0;
     border-top: 1px solid var(--pf-border);
     background: var(--pf-surface);
 }
 
+/*
+ * Botao do rodape (e botao do topo).
+ *
+ * O UI5 em modo Compact desenha o fundo do botao no `.sapMBtnInner` com
+ * `height: var(--sapElement_Compact_Height)` (26px), mas o botao tem
+ * `height: 2rem` (32px) e `padding: 3px 0`: o fundo de hover ficava com uma
+ * faixa menor que o botao. Aqui a altura e fixa e o padding vertical some, de
+ * modo que o inner ocupa o botao inteiro. O arredondamento e forcado no botao e
+ * no inner para os dois raios baterem, e o anel de foco e tratado logo abaixo.
+ */
+.pf-footer .sapMBtn,
+.pf-topbar .sapMBtn {
+    padding-top: 0;
+    padding-bottom: 0;
+    /*
+     * O arredondamento precisa bater no botao E no inner. Se so o inner for
+     * pill, o canto do botao (que ainda usa o raio padrao do UI5) aparece como
+     * um "bico" ao redor do fundo de hover/active - era o que aparecia no
+     * clique das abas e do botao "View resume".
+     */
+    border-radius: var(--pf-radius-pill);
+}
+
+.pf-footer .sapMBtn {
+    height: 28px;
+}
+
+.pf-footer .sapMBtnInner,
+.pf-topbar .sapMBtnInner {
+    height: 100%;
+    align-items: center;
+    border: none;
+    border-radius: var(--pf-radius-pill);
+}
+
+.pf-footer .sapMBtn:active .sapMBtnInner,
+.pf-topbar .sapMBtn:active .sapMBtnInner {
+    border: none;
+}
+
+.pf-footer .sapMBtn:focus,
+.pf-topbar .sapMBtn:focus {
+    outline: none;
+}
+
+/*
+ * Anel de foco do UI5 1.153 - a "bordinha" do clique.
+ *
+ * O anel NAO e um elemento: `.sapMBtnFocusBorder` nao existe mais nessa versao.
+ * Ele e um `::before` pintado pelo tema em
+ *
+ *   html.sap-desktop .sapMBtn:focus > .sapMFocusable:not(.sapMBadgeIndicator)::before
+ *   { border: 2px solid <foco>; border-radius: 0.375rem }
+ *
+ * Dois problemas para nos: ele responde a `:focus` (e nao a `:focus-visible`), o
+ * que fazia o clique do mouse tambem desenhar a moldura; e o raio vem fixo em
+ * 0.375rem (6px), sem herdar o raio do botao - num botao redondo de 999px a
+ * moldura saia como um retangulo solto dentro da pilula.
+ *
+ * Medido via CDP durante o clique real: `border: 2px solid rgb(52,211,180)` com
+ * `border-radius: 6px` no `.sapMBtnInner` das abas e do "View resume".
+ *
+ * O `:focus` e o `:focus-visible` entram de proposito: a regra do tema tem
+ * especificidade (0,5,2) e ganha o empate da nossa regra porque o
+ * `library.css` e reinserido no fim do head quando o tema e aplicado. Como o
+ * `:focus-visible` do teclado tambem casa com `:focus`, a segunda regra (mais
+ * abaixo no arquivo) restaura o anel sem depender de ordem de cascata.
+ */
+html .pf-app .pf-footer .sapMBtn:focus > .sapMBtnInner::before,
+html .pf-app .pf-topbar .sapMBtn:focus > .sapMBtnInner::before {
+    content: none;
+}
+
+html .pf-app .pf-footer .sapMBtn:focus-visible > .sapMBtnInner::before,
+html .pf-app .pf-topbar .sapMBtn:focus-visible > .sapMBtnInner::before {
+    content: "";
+    border-radius: var(--pf-radius-pill);
+}
+
+/*
+ * Rodape em uma linha so.
+ *
+ * Antes eram tres blocos (CTA, separador, links) com 32px de padding em cima e
+ * embaixo: 168px de altura no desktop e 250px no celular, comecando em uma
+ * pagina que ja nao tem muito conteudo. Espremer para uma linha devolve ~90px
+ * de altura util para o scroll.
+ */
 .pf-footer__inner {
     display: flex;
     flex-direction: column;
-    gap: var(--pf-space-4);
+    gap: var(--pf-space-3);
+}
+
+.pf-footer__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--pf-space-3) var(--pf-space-4);
 }
 
 .pf-footer__toggle {
     border-radius: var(--pf-radius-pill);
 }
 
-.pf-footer__note {
-    font-size: var(--pf-font-xs);
-    color: var(--pf-text-subtle);
+/*
+ * Link do rodape: icone + rotulo no desktop. Em tela estreita o rotulo some e
+ * sobra o icone (o nome continua no title e no texto invisivel do botao),
+ * porque cinco rotulos em tela estreita quebravam o rodape em quatro linhas e
+ * empurravam o conteudo para cima.
+ *
+ * O rotulo vive em `.sapMBtnContent`. Cuidado com `.sapMBtnText`: no UI5 1.153
+ * essa classe fica no proprio `.sapMBtnInner`, e nao num span de texto - usar
+ * ela aqui escondia o botao inteiro (largura 0) e tirava o `display: flex` do
+ * inner, fazendo o fundo de hover encurtar.
+ */
+@media (max-width: 767px) {
+    .pf-footer__links .sapMBtnContent {
+        display: none;
+    }
 }
 
 .pf-footer__cta {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    align-items: baseline;
+    gap: var(--pf-space-2);
     min-width: 0;
 }
 
@@ -1354,7 +1583,28 @@
     }
 }
 
-@media (max-width: 899px) {
+/*
+ * Abas so com icone desde 1199px (o limite esta no App.controller, via
+ * `matchMedia`, porque o binding do rotulo depende do JS).
+ *
+ * A partir de 768px marca, abas e acoes ainda cabem na mesma linha: com icone a
+ * barra inteira mede ~700px. Abaixo disso a linha quebra e a navegacao ocupa a
+ * largura toda - o `overflow-x` fica so como rede de seguranca para fontes de
+ * icone muito grandes; na pratica nao ha truncamento.
+ */
+@media (max-width: 767px) {
+    /*
+     * Respiro lateral nas telas estreitas. `.pf-container.pf-page` e mais
+     * especifica que `.pf-container`, entao o padding de 3 valores do bloco
+     * base precisa ser reescrito aqui tambem - senao o `0` do meio volta a
+     * colar o conteudo nas bordas.
+     */
+    .pf-container,
+    .pf-container.pf-page {
+        padding-left: var(--pf-space-4);
+        padding-right: var(--pf-space-4);
+    }
+
     .pf-hero {
         flex-direction: column;
         align-items: flex-start;
@@ -1381,14 +1631,14 @@
     }
 
     /*
-     * Abas em linha propria.
-     *
-     * Com marca, abas e acoes na mesma linha, as abas recebiam so 24px de
-     * largura a 360px (6 abas, 4 cortadas) e viravam um slider de 1 item. Com a
-     * linha quebrando, a navegacao ocupa 100% da largura e rola na horizontal,
-     * que e o que o ExpenseManager faz com `wrap="Wrap"` nos HBox dele.
+     * A partir de 768px marca, abas e acoes ainda cabem na mesma linha: com icone
+     * a barra inteira mede ~700px. Abaixo disso a navegacao desce para a linha
+     * propria - e o grid volta a flex, porque `order`/`flex` nao valem em grid.
+     * O `overflow-x` da faixa fica so como rede de seguranca para fontes de
+     * icone muito grandes; na pratica nao ha truncamento.
      */
     .pf-topbar__row {
+        display: flex;
         flex-wrap: wrap;
         row-gap: var(--pf-space-2);
     }
@@ -1396,8 +1646,8 @@
     .pf-topbar__nav {
         order: 3;
         flex: 1 0 100%;
-        justify-content: flex-start;
-        margin: 0;
+        justify-content: center;
+        margin: 0 0 var(--pf-space-1) 0;
         overflow-x: auto;
         scrollbar-width: none;
         -webkit-overflow-scrolling: touch;
@@ -1417,6 +1667,10 @@
         padding: 0 var(--pf-space-4);
     }
 
+    .pf-sectionbar__title {
+        font-size: var(--pf-font-lg);
+    }
+
     .pf-hero {
         padding: var(--pf-space-6);
         border-radius: var(--pf-radius-lg);
@@ -1428,8 +1682,8 @@
         border-width: 3px;
     }
 
-    .pf-page {
-        padding: var(--pf-space-6) 0 var(--pf-space-10);
+    .pf-container.pf-page {
+        padding: var(--pf-space-6) var(--pf-space-4) var(--pf-space-10);
         gap: var(--pf-space-8);
     }
 
@@ -1467,6 +1721,31 @@
     }
 
     /*
+     * No celular o botao de CV aparece com rotulo, mas os links de redes
+     * sociais ficam so com icone: e o que faz a acao caber na linha ao lado da
+     * marca sem truncar o nome. Antes o botao de CV era que sumia.
+     *
+     * `flex: 0 0 auto` nos dois lados e obrigatorio: sem isso o flex encolhe os
+     * botoes de rede social a 0px quando a linha aperta, e eles somem.
+     */
+    /*
+     * O rotulo esta em `.sapMBtnContent`. `.sapMBtnText` nao serve: no UI5
+     * 1.153 ela marca o `.sapMBtnInner` inteiro e o botao inteiro sumia.
+     */
+    .pf-topbar__social .sapMBtnContent {
+        display: none;
+    }
+
+    .pf-topbar__social .sapMBtnInner {
+        padding: 0 0.5rem;
+    }
+
+    .pf-topbar__actions,
+    .pf-topbar__social .sapMBtn {
+        flex: 0 0 auto;
+    }
+
+    /*
      * As seis abas nao cabem em 360px com rotulo e icone. Em vez de esconder o
      * rotulo (que e o que identifica a aba), a faixa fica mais densa e rola na
      * horizontal: cabem ~4 abas visiveis e as demais ficam a um toque.
@@ -1474,6 +1753,7 @@
     .pf-topbar__nav {
         padding: 2px;
         gap: 0;
+        margin-bottom: var(--pf-space-1);
     }
 
     .pf-topbar__btn .sapMBtnInner {

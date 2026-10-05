@@ -43,6 +43,7 @@ interface CredlyBadge {
         summary?: string;
         entities?: { entity?: { name?: string } }[];
     };
+    vanity_slug?: string;
 }
 
 interface CredlyResponse {
@@ -66,6 +67,31 @@ function readCategory(title: string): string {
         return "Certification";
     }
     return "Course";
+}
+
+/**
+ * URL publica da credencial no Credly.
+ *
+ * Preferimos o **UUID da badge** (`/badges/{id}`): e a unica URL que abre a
+ * credencial *no nome de quem recebeu* - as demais (`/badges/{vanity_slug}` ou
+ * `/org/{org}/badge/{slug}`) caem na pagina generica do curso, sem o titulo nem
+ * o nome do titular.
+ *
+ * O `vanity_slug` nao serve como fallback confiavel: o Credly trunca o valor em
+ * 50 caracteres, o que gerava URLs quebradas (`...-record-of-achievem`). O id
+ * sempre existe, por isso e a unica fonte usada aqui.
+ */
+function readBadgeUrl(badge: CredlyBadge): string | undefined {
+    if (badge.id) {
+        return `https://www.credly.com/badges/${badge.id}`;
+    }
+
+    const templateUrl = badge.badge_template?.url;
+    if (templateUrl && /^https:\/\/www\.credly\.com\/org\//.test(templateUrl)) {
+        return templateUrl.replace(/\/org\/[^/]+\/badge\//, "/badges/");
+    }
+
+    return templateUrl;
 }
 
 /** Titulo seguro para usar como nome de arquivo. */
@@ -150,7 +176,7 @@ async function main(): Promise<void> {
             issuer: readIssuer(badge),
             issuedAt: badge.issued_at_date ?? "",
             expiresAt: badge.expires_at_date || null,
-            url: badge.badge_template?.url,
+            url: readBadgeUrl(badge),
             image: before?.image ?? (await resolveImage(badge, downloadImages)),
             source: "credly",
             category: readCategory(title),

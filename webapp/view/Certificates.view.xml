@@ -4,7 +4,7 @@
     xmlns:mvc="sap.ui.core.mvc"
     controllerName="davi.portfolio.controller.Certificates"
     class="pf-view">
-    <Page id="page" class="pf-page-scroll" enableScrolling="true" title="{i18n>nav.certificates}">
+    <Page id="page" class="pf-page-scroll" enableScrolling="true" showHeader="false">
         <content>
             <VBox class="pf-container pf-page">
 

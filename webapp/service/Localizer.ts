@@ -4,6 +4,17 @@ import { DEFAULT_LOCALE } from "./LocaleResolver";
 /** Chave que indica "objeto traduzido" em vez de "objeto de dados". */
 const LOCALE_KEY_PATTERN = /^[a-z]{2}(_[A-Z]{2})?$/;
 
+/**
+ * Campos de dados que casam com o padrao de idioma, mas nunca sao idioma.
+ *
+ * `to` e `id` sao as duas palavras de 2 letras usadas no portfolio como campo de
+ * dado (`period.to`, `id` de skills/certificados). Sem esta lista, um
+ * `{ from: "2016-01", to: "2018-12" }` era lido como mapa de traducao e virava
+ * a string `"2016-01"` - o que fazia `period/from` e `period/to` colapsarem
+ * para `undefined` na hora de renderizar o chip de datas.
+ */
+const RESERVED_DATA_KEYS = new Set(["to", "id"]);
+
 /** Ex.: "pt-BR" -> ["pt-BR", "pt"]. */
 function buildCandidateChain(locale: string, fallbackLocale: string): string[] {
     const language = locale.split(/[-_]/)[0].toLowerCase();
@@ -23,7 +34,9 @@ function isLocalizedMap(value: unknown): value is Record<string, string> {
     }
 
     const allStrings = entries.every(([, item]) => typeof item === "string");
-    const hasLocaleKey = entries.some(([key]) => LOCALE_KEY_PATTERN.test(key));
+    const hasLocaleKey = entries.some(
+        ([key]) => LOCALE_KEY_PATTERN.test(key) && !RESERVED_DATA_KEYS.has(key)
+    );
     return allStrings && hasLocaleKey;
 }
 

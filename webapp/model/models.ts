@@ -26,7 +26,15 @@ export default {
         return new JSONModel({
             busy: true,
             theme: "light",
-            locale: "pt"
+            locale: "pt",
+            /**
+             * Abas da barra so com icone. Com rotulo as sete abas nao cabem em
+             * telas estreitas e o overflow escondia botoes; o `matchMedia` no
+             * App.controller mantem este flag em dia com o resize.
+             */
+            compactNav: false,
+            /** Titulo da secao atual, mostrado na barra fixa abaixo do topo. */
+            currentSectionTitle: ""
         });
     },
 

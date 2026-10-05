@@ -42,6 +42,17 @@
     }
 
     /*
+     * O NavContainer do UI5 mantem a view anterior no DOM, apenas marcada com
+     * `aria-hidden="true"`. O reset de `display: block` abaixo (necessario para
+     * achatar o scroller da view ativa) ressuscitava essa view antiga e ela
+     * saia impressa junto com o curriculo - o "PDF" tinha 4 paginas, das quais
+     * quase metade era conteudo de outra aba.
+     */
+    .pf-app__content .sapUiView[aria-hidden="true"] {
+        display: none !important;
+    }
+
+    /*
      * A folha ocupa a pagina inteira, sem areas de conteudo da UI5.
      *
      * `.sapUiScrollDelegate` precisa estar na lista: e o container que o

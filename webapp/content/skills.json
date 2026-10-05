@@ -126,5 +126,65 @@
       "en": "Versioning, code review and automated publishing pipelines."
     },
     "tags": ["Ferramentas", "DevOps"]
+  },
+  {
+    "id": "communication",
+    "name": "Comunicação",
+    "category": "Soft Skills",
+    "icon": "discussion",
+    "level": 5,
+    "description": {
+      "pt": "Comunicação clara e objetiva com negocio e time tecnico.",
+      "en": "Clear and objective communication with business and technical teams."
+    },
+    "tags": ["Soft Skills"]
+  },
+  {
+    "id": "problem-solving",
+    "name": "Resolução de Problemas",
+    "category": "Soft Skills",
+    "icon": "thinking",
+    "level": 5,
+    "description": {
+      "pt": "Analise crítica, troubleshooting e entrega de solucoes praticas.",
+      "en": "Critical analysis, troubleshooting and practical solutions."
+    },
+    "tags": ["Soft Skills"]
+  },
+  {
+    "id": "leadership",
+    "name": "Liderança e Mentoria",
+    "category": "Soft Skills",
+    "icon": "manager",
+    "level": 4,
+    "description": {
+      "pt": "Orientação de desenvolvedores, boas praticas e revisao de codigo.",
+      "en": "Developer mentoring, best practices and code review guidance."
+    },
+    "tags": ["Soft Skills"]
+  },
+  {
+    "id": "organization",
+    "name": "Organização e Planejamento",
+    "category": "Soft Skills",
+    "icon": "appointment",
+    "level": 4,
+    "description": {
+      "pt": "Priorizacao, gerenciamento de escopo e cumprimento de prazos.",
+      "en": "Prioritization, scope management and timely delivery."
+    },
+    "tags": ["Soft Skills"]
+  },
+  {
+    "id": "teamwork",
+    "name": "Colaboração e Trabalho em Equipe",
+    "category": "Soft Skills",
+    "icon": "group",
+    "level": 5,
+    "description": {
+      "pt": "Proatividade, empatia e foco em resultados coletivos.",
+      "en": "Proactivity, empathy and focus on collective outcomes."
+    },
+    "tags": ["Soft Skills"]
   }
 ]
