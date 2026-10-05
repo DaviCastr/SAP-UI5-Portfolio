@@ -1,13 +1,14 @@
 {
   "login": "DaviCastr",
   "profileUrl": "https://github.com/DaviCastr",
-  "syncedAt": "2026-10-04T18:56:32.692Z",
+  "syncedAt": "2026-10-05T19:32:44.268Z",
   "repoCount": 54,
   "repos": [
     {
       "name": "SAP-UI5-Portfolio",
       "url": "https://github.com/DaviCastr/SAP-UI5-Portfolio",
       "description": "My personal portfolio",
+      "language": "TypeScript",
       "stars": 0,
       "forks": 0,
       "pushedAt": "2026-10"
@@ -465,7 +466,13 @@
       "language": "PHP",
       "stars": 0,
       "forks": 0,
-      "topics": ["ajax", "css", "js", "mysql", "php"],
+      "topics": [
+        "ajax",
+        "css",
+        "js",
+        "mysql",
+        "php"
+      ],
       "pushedAt": "2023-10"
     },
     {

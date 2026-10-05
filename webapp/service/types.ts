@@ -172,9 +172,21 @@ export interface Experience {
 /** Competencia tecnica com nivel de 1 a 5. */
 export interface Skill {
     id: string;
-    name: string;
-    /** Agrupamento usado como titulo de card. */
-    category: string;
+    /**
+     * Nome da competencia.
+     *
+     * Aceita `{ pt, en }` porque soft skills como "Resolução de Problemas" nao
+     * fazem sentido em ingles so com o nome em portugues - no curriculum isso
+     * aparecia traduzido na descricao e nao no titulo. Nomes proprios
+     * ("TypeScript", "SQL") podem seguir como string simples.
+     */
+    name: LocalizedText;
+    /**
+     * Agrupamento usado como titulo de card.
+     *
+     * Traduzivel pelo mesmo motivo de `name` ("Banco de dados" / "Databases").
+     */
+    category: LocalizedText;
     /** Nome do icone SAP UI5. */
     icon?: string;
     /** 1 = iniciante ... 5 = especialista. */

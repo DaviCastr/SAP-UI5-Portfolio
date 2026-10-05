@@ -15,7 +15,12 @@
                     <Text class="pf-lead" text="{i18n>education.subtitle}"/>
                 </VBox>
 
-                <!-- Formacao academica -->
+                <!--
+                    Formacao academica.
+                    A lista vem de "/education" (viewData), ja ordenada da mais
+                    recente para a mais antiga - "/education" do content model
+                    mantem a ordem do JSON.
+                -->
                 <VBox class="pf-stack pf-gap-4" items="{path: '/education', templateShareable: true}">
                     <HBox class="pf-tl-item" alignItems="Stretch">
                         <VBox class="pf-tl-item__marker">

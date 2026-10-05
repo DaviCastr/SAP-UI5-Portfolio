@@ -3,30 +3,44 @@
  *
  * Carregado apenas em "@media print" (ver manifest.json -> resources.css).
  * Objetivo: ao imprimir a aba "Curriculo" (ou usar "Salvar como PDF" do
- * navegador), sair uma folha A4 limpa - sem menu, sem rodape e sem cores
- * pesadas de fundo.
+ * navegador), sair uma folha A4 limpa - sem menu e sem o rodape do site - mas
+ * RESPETANDO O TEMA ATIVO (claro ou escuro).
+ *
+ * A paleta NAO e sobrescrita aqui: `tokens.css` ja define `:root` (claro) e
+ * `html[data-theme="dark"]` (escuro), e o ThemeService mantem esse atributo em
+ * sincronia. Reescrever as variaveis no print descartaria a escolha do usuario
+ * e sairia sempre preto sobre branco. O que se remove sao apenas as sombras e
+ * os efeitos de tela (gradientes decorativos), que nao fazem sentido no papel.
  * ========================================================================== */
 
 @media print {
-    /* Reset de cores: preto sobre branco, como esperado em uma folha impressa. */
+    /* Sombras nao existem no papel; as cores, sim. */
     :root {
-        --pf-bg: #ffffff;
-        --pf-surface: #ffffff;
-        --pf-surface-sunken: #ffffff;
-        --pf-border: #d0d0d0;
-        --pf-border-strong: #a0a0a0;
-        --pf-text: #000000;
-        --pf-text-muted: #3c3c3c;
-        --pf-text-subtle: #5a5a5a;
-        --pf-primary: #000000;
         --pf-shadow-1: none;
         --pf-shadow-2: none;
         --pf-shadow-3: none;
     }
 
+    /*
+     * Sem isto o navegador descarta fundos coloridos por padrao e o tema
+     * escuro saia com fundo preto, mas chips/realces claros - ou seja, meio
+     * tema, e o texto claro ficava quase invisivel. "exact" mantem o que a
+     * tela mostra.
+     */
+    html,
+    body,
+    .pf-sheet,
+    .pf-chip,
+    .pf-sheet__metric,
+    .pf-sheet__section-title,
+    .pf-sheet__head {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
     html,
     body {
-        background: #fff !important;
+        background: var(--pf-bg) !important;
     }
 
     /* Esconde tudo que nao faz parte do documento impresso. */
@@ -59,6 +73,11 @@
      * sap.m.Page cria com `height` fixa + `overflow:auto`. Sem o reset ele
      * "esconde" o documento na impressao e a folha sai praticamente em branco.
      */
+    /*
+     * `background` aqui e o mesmo em todos: `transparent`. Forcar uma cor
+     * chapada quebraria o fundo do tema. O que se precisa e remover o fundo
+     * branco de componentes do UI5 (o container transparente em vez disso).
+     */
     .pf-app,
     .pf-app__content,
     .pf-app__content .sapMNavItem,
@@ -76,7 +95,7 @@
         overflow: visible !important;
         padding: 0 !important;
         margin: 0 !important;
-        background: #fff !important;
+        background: transparent !important;
         border: 0 !important;
         box-shadow: none !important;
     }
@@ -98,11 +117,31 @@
         border: 0;
         border-radius: 0;
         box-shadow: none;
+
+        /*
+         * O navegador quebra a ultima folha mesmo sem `page-break-after`: um
+         * bloco alto com `break-inside: avoid` nos filhos empurra o resto e sai
+         * um folio em branco no fim. O `.pf-sheet` nao pode quebrar aqui.
+         */
+        page-break-inside: auto;
+        break-inside: auto;
+        orphans: 2;
+        widows: 2;
+    }
+
+    /* Ultimo bloco da folha nao deve gerar uma quebra "para" a proxima pagina. */
+    .pf-sheet > :last-child,
+    .pf-sheet__section:last-child,
+    .pf-sheet__section:last-child > :last-child {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+        page-break-after: auto;
+        break-after: auto;
     }
 
     .pf-sheet__head {
         padding-bottom: 10px;
-        border-bottom: 2px solid #000;
+        border-bottom: 2px solid var(--pf-primary);
     }
 
     .pf-sheet__section {
@@ -112,14 +151,14 @@
     }
 
     .pf-sheet__section-title {
-        color: #000;
-        border-bottom: 1px solid #d0d0d0;
+        color: var(--pf-primary);
+        border-bottom: 1px solid var(--pf-border-strong);
         padding-bottom: 2px;
     }
 
     .pf-sheet__metric {
-        background: #fff;
-        border: 1px solid #d0d0d0;
+        background: var(--pf-surface);
+        border: 1px solid var(--pf-border);
     }
 
     /* Evita que um item quebre entre duas paginas. */
@@ -132,16 +171,16 @@
     }
 
     .pf-chip {
-        border: 1px solid #d0d0d0;
-        background: #fff;
-        color: #000;
+        border: 1px solid var(--pf-border-strong);
+        background: var(--pf-primary-soft);
+        color: var(--pf-text);
     }
 
     /* Links mostram a URL real no PDF impresso. */
     a[href]::after {
         content: " (" attr(href) ")";
         font-size: 9px;
-        color: #5a5a5a;
+        color: var(--pf-text-muted);
     }
 
     .pf-sheet a[href]::after {

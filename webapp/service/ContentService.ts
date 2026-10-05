@@ -1,6 +1,7 @@
 import type { DataSource } from "./DataSource";
 import { localize, localizeText } from "./Localizer";
 import { computeMetrics, type PortfolioMetrics } from "./metrics";
+import { sortEducationByRecency } from "./ordering";
 import type {
     ChipItem,
     ContentIssue,
@@ -117,9 +118,27 @@ export class ContentService {
         const { dataSource, locale } = options;
 
         try {
+            // Somente os JSONs versionados. As certificacoes e os repositorios
+            // sao atualizados pelo workflow `.github/workflows/sync-content.yml`,
+            // no deploy - e nao por uma chamada do browser.
+            //
+            // A tentativa anterior de buscar ao vivo foi removida de proposito: o
+            // `credly.com` nao envia cabecalho de CORS, entao dependia de um proxy
+            // publico que abortava a requisicao, e o boot esperava esse proxy
+            // terminar - a tela ficava travada antes de aparecer qualquer coisa.
             const raw = await dataSource.load();
+
             const issues = validateContent(raw);
             const localized = withChipItems(localize(raw, locale) as PortfolioContent, locale);
+
+            // A formacao e a unica lista cuja ordem de leitura nao pode ser a do
+            // JSON: em `education.json` ela esta em ordem cronologica (a mais
+            // antiga primeiro, como se escreve uma linha do tempo), mas quem
+            // consulta quer o contrario - o mais recente primeiro. Aplicado aqui,
+            // e nao na view, para que aba, curriculum e PDF mostrem a mesma
+            // ordem sem cada um ter de lembrar de ordenar.
+            localized.education = sortEducationByRecency(localized.education);
+            raw.education = sortEducationByRecency(raw.education);
 
             ContentService.instance = new ContentService(raw, localized, issues, locale);
             return ContentService.instance;

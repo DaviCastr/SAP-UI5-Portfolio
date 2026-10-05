@@ -118,7 +118,10 @@ export default class AppController extends BaseController {
     private async loadPortfolio(): Promise<void> {
         const source = await loadSourceConfig(CONTENT_BASE_URL, browserFetcher);
         const dataSource = createDataSource(source, { baseUrl: CONTENT_BASE_URL, fetcher: browserFetcher });
-        const service = await ContentService.boot({ dataSource, locale: this.locale() });
+        const service = await ContentService.boot({
+            dataSource,
+            locale: this.locale()
+        });
 
         const contentModel = this.model("content") as JSONModel;
         const viewData = buildViewData(service);

@@ -1,4 +1,6 @@
 import type { ContentService } from "./ContentService";
+import { localizeText } from "./Localizer";
+import { isSapCertified, orderCertificates } from "./liveSources";
 import type { PortfolioMetrics } from "./metrics";
 import type {
     Certificate,
@@ -9,6 +11,29 @@ import type {
     SectionDefinition,
     Skill
 } from "./types";
+
+/**
+ * Separa soft skills das demais.
+ *
+ * Hoje o dado que distingue uma soft skill e a `category` ("Soft Skills"), e
+ * nao um campo dedicado: `skills.json` agrupa por categoria desde o inicio e a
+ * aba Skills usa esse agrupamento como titulo de card. A comparacao ignora
+ * maiusculas e acentos para que "Soft Skills", "soft skills" e "Soft skills"
+ * caiam no mesmo grupo.
+ */
+export function isSoftSkill(skill: Skill): boolean {
+    // `category` pode ser `{ pt, en }`: o nome do grupo e o mesmo nos dois
+    // idiomas, mas o objeto nao tem `.normalize`. Comparar o texto ja traduzido
+    // cobre os dois casos, porque `viewData` so recebe conteudo localizado.
+    const category = localizeText(skill.category, "en");
+
+    return category
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim()
+        .startsWith("soft skill");
+}
 
 /** Competencias agrupadas por categoria (usado na aba Skills). */
 export interface SkillGroup {
@@ -59,6 +84,23 @@ export interface PortfolioViewData {
      */
     recentProjects: Project[];
     recentCertificates: Certificate[];
+    /**
+     * Soft skills (categoria "Soft Skills") e as demais, separadamente - e o
+     * que permite mostrar comportamento e ferramenta em blocos distintos no
+     * curriculum.
+     */
+    softSkills: Skill[];
+    hardSkills: Skill[];
+    /**
+     * Certificacoes do curriculum: **apenas as "SAP Certified"**, da mais
+     * recente para a mais antiga (ver `orderCertificates`).
+     *
+     * O portfolio mostra as 18 no total, mas o curriculum e uma folha de triagem:
+     * as 3 "SAP Certified" sao o diferencial, e as 15 conclusoes de curso curto
+     * ("Records of Achievement") so ocupariam espaco e empurrariam o resto para
+     * uma segunda pagina. Elas continuam acessiveis na aba Certificacoes.
+     */
+    cvCertificates: Certificate[];
     skillsByCategory: SkillGroup[];
     skillCategories: TagGroup[];
     projectTags: TagGroup[];
@@ -74,9 +116,13 @@ export function groupSkillsByCategory(skills: Skill[]): SkillGroup[] {
     const groups = new Map<string, Skill[]>();
 
     skills.forEach((skill) => {
-        const current = groups.get(skill.category) ?? [];
+        // O nome da categoria pode ser `{ pt, en }`; o agrupamento happens sobre
+        // o texto ja traduzido, senao "Banco de dados" e "Databases" virariam
+        // dois cards diferentes no modo ingles.
+        const category = localizeText(skill.category, "en");
+        const current = groups.get(category) ?? [];
         current.push(skill);
-        groups.set(skill.category, current);
+        groups.set(category, current);
     });
 
     return [...groups.entries()].map(([category, items]) => ({
@@ -183,6 +229,9 @@ export function buildViewData(service: ContentService): PortfolioViewData {
         recentProjects: mostRecentProjects(content.projects, 3),
         recentRepos: mostRecentRepos(content.github?.repos ?? [], 3),
         recentCertificates: service.featuredCertificates.slice(0, 6),
+        softSkills: content.skills.filter(isSoftSkill),
+        hardSkills: content.skills.filter((skill) => !isSoftSkill(skill)),
+        cvCertificates: orderCertificates(content.certificates.filter((item) => isSapCertified(item.title))),
         skillsByCategory,
         skillCategories,
         projectTags,

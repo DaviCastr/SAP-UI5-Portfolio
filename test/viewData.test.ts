@@ -1,10 +1,32 @@
 import { describe, expect, it } from "vitest";
-import { countCertificateYears, countTags, groupSkillsByCategory } from "../webapp/service/viewData";
+import { countCertificateYears, countTags, groupSkillsByCategory, isSoftSkill } from "../webapp/service/viewData";
 import type { Certificate, Skill } from "../webapp/service/types";
 
 function skill(id: string, category: string): Skill {
     return { id, name: id, category, level: 3 };
 }
+
+describe("isSoftSkill", () => {
+    it("reconhece a categoria Soft Skills", () => {
+        expect(isSoftSkill(skill("a", "Soft Skills"))).toBe(true);
+    });
+
+    it("ignora maiusculas, minusculas e acentos", () => {
+        expect(isSoftSkill(skill("a", "soft skills"))).toBe(true);
+        expect(isSoftSkill(skill("b", "SOFT SKILLS"))).toBe(true);
+        expect(isSoftSkill(skill("c", "Söft Skills"))).toBe(true);
+    });
+
+    it("aceita categoria que comeca com o nome do grupo", () => {
+        expect(isSoftSkill(skill("a", "Soft skills & comunicacao"))).toBe(true);
+    });
+
+    it("nao confunde com outras categorias", () => {
+        expect(isSoftSkill(skill("a", "Front-end"))).toBe(false);
+        expect(isSoftSkill(skill("b", "Hard Skills"))).toBe(false);
+        expect(isSoftSkill(skill("c", "Backend"))).toBe(false);
+    });
+});
 
 describe("groupSkillsByCategory", () => {
     it("agrupa e conta as skills de cada categoria", () => {

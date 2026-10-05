@@ -65,6 +65,20 @@ export const sharedFormatters = {
         return `${Math.max(0, Math.min(100, ((value ?? 0) / 5) * 100))}%`;
     },
 
+    /**
+     * Classe CSS do titulo de uma certificacao no curriculum.
+     *
+     * `featured` marca as credenciais que valem destaque (no portfolio, as 3
+     * "SAP Certified"); as demais sao "Records of Achievement" de curso curto e
+     * ficam em linha menor para caber todas sem ocupar a pagina inteira.
+     *
+     * Devolve so as classes que o curriculum usa, para nao colidir com as do
+     * `sap.m` - um `class` escrito por expression substitui todo o atributo.
+     */
+    certTitleClass(featured: boolean | undefined): string {
+        return featured ? "pf-sheet__item-title" : "pf-small";
+    },
+
     /** true quando a credencial ainda esta vigente. */
     valid(expiresAt: string | null | undefined): boolean {
         return !isExpired(expiresAt);

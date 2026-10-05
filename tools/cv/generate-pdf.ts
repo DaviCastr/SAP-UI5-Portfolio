@@ -2,7 +2,11 @@ import { createWriteStream } from "node:fs";
 import { mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import PDFDocument from "pdfkit";
+import { localizeText } from "../../webapp/service/Localizer";
 import { loadLocalizedContent, readFlag, REPO_ROOT, run } from "../shared/nodeContent";
+import { isSapCertified, orderCertificates } from "../../webapp/service/liveSources";
+import { sortEducationByRecency } from "../../webapp/service/ordering";
+import { isSoftSkill } from "../../webapp/service/viewData";
 import type {
     Certificate,
     ContentLocale,
@@ -37,6 +41,8 @@ interface Labels {
     courses: string;
     certificates: string;
     skills: string;
+    softSkills: string;
+    otherCertificates: string;
     highlights: string;
     stack: string;
     present: string;
@@ -53,6 +59,8 @@ const LABELS: Record<ContentLocale, Labels> = {
         courses: "Cursos",
         certificates: "Certificacoes",
         skills: "Conhecimentos",
+        softSkills: "Competencias comportamentais",
+        otherCertificates: "demais conclusoes",
         highlights: "Destaques",
         stack: "Tecnologias",
         present: "atual",
@@ -67,6 +75,8 @@ const LABELS: Record<ContentLocale, Labels> = {
         courses: "Courses",
         certificates: "Certifications",
         skills: "Skills",
+        softSkills: "Soft skills",
+        otherCertificates: "other completions",
         highlights: "Highlights",
         stack: "Tech",
         present: "present",
@@ -120,7 +130,10 @@ function formatPhone(value: string): string {
 function skillsByCategory(skills: Skill[]): Map<string, Skill[]> {
     const groups = new Map<string, Skill[]>();
     skills.forEach((skill) => {
-        groups.set(skill.category, [...(groups.get(skill.category) ?? []), skill]);
+        // `category` pode ser `{ pt, en }`; o conteudo ja vem localizado de
+        // `loadLocalizedContent`, mas o tipo permite os dois.
+        const category = localizeText(skill.category, "en");
+        groups.set(category, [...(groups.get(category) ?? []), skill]);
     });
     groups.forEach((items) => items.sort((a, b) => b.level - a.level));
     return new Map([...groups.entries()].sort((a, b) => a[0].localeCompare(b[0])));
@@ -274,7 +287,11 @@ async function main(): Promise<void> {
     }
 
     // ---------------------------------------------------------------- formacao
-    const education: Education[] = content.education.filter((item) => item.kind !== "course");
+    // Mesma ordem da tela: da mais recente para a mais antiga (ver
+    // `sortEducationByRecency`).
+    const education: Education[] = sortEducationByRecency(
+        content.education.filter((item) => item.kind !== "course")
+    );
     if (education.length > 0) {
         heading(labels.education);
         education.forEach((item) => {
@@ -295,9 +312,13 @@ async function main(): Promise<void> {
     }
 
     // ----------------------------------------------------------- certificacoes
-    const certified: Certificate[] = content.certificates.filter((item) => /certified/i.test(item.title));
-    const others = content.certificates.length - certified.length;
-    if (content.certificates.length > 0) {
+    // Apenas as "SAP Certified", pelo mesmo motivo da tela (ver
+    // `cvCertificates` em viewData.ts): as 15 conclusoes de curso curto sao o
+    // que empurra o documento para uma segunda pagina e nao mudam a leitura.
+    const certified: Certificate[] = orderCertificates(content.certificates).filter((item) =>
+        isSapCertified(item.title)
+    );
+    if (certified.length > 0) {
         heading(labels.certificates);
         certified.forEach((item) => {
             doc.font("Helvetica")
@@ -309,20 +330,13 @@ async function main(): Promise<void> {
                 });
             doc.moveDown(0.1);
         });
-        if (others > 0) {
-            doc.moveDown(0.2);
-            doc.font("Helvetica-Oblique")
-                .fontSize(8.5)
-                .fillColor(MUTED)
-                .text(
-                    `+ ${others} ${locale === "pt" ? "conclusoes e Records of Achievement" : "completions and Records of Achievement"}`,
-                    { indent: 10 }
-                );
-        }
     }
 
     // ----------------------------------------------------------------- skills
-    const groups = skillsByCategory(content.skills);
+    // Conhecimentos tecnicos e competencias comportamental em blocos separados:
+    // misturar os dois no mesmo paragrafo faz o curriculum mais longo e
+    // esconde o que e ferramenta e o que e comportamento.
+    const groups = skillsByCategory(content.skills.filter((skill) => !isSoftSkill(skill)));
     if (groups.size > 0) {
         heading(labels.skills);
         groups.forEach((skills, category) => {
@@ -336,19 +350,96 @@ async function main(): Promise<void> {
         });
     }
 
-    // ------------------------------------------------------------- rodape paginas
-    const range = doc.bufferedPageRange();
-    for (let index = 0; index < range.count; index += 1) {
-        doc.switchToPage(range.start + index);
+    const soft = content.skills.filter(isSoftSkill);
+    if (soft.length > 0) {
+        heading(labels.softSkills);
+        // Nome e descricao: no curriculum impresso a soft skill sem descricao
+        // vira so uma palavra, e nao diz nada. A descricao e o que mostra como
+        // a competencia se manifesta.
+        soft.forEach((skill) => {
+            const nome = localizeText(skill.name, locale);
+            const descricao = skill.description ? localizeText(skill.description, locale) : "";
+            const nivel = skill.level ? ` (${skill.level}/5)` : "";
+
+            doc.font("Helvetica-Bold").fontSize(8.5).fillColor(TEXT).text(`${nome}${nivel}`, {
+                indent: 10,
+                continued: true
+            });
+            if (descricao) {
+                doc
+                    .font("Helvetica")
+                    .fontSize(8.5)
+                    .fillColor(MUTED)
+                    .text(` - ${descricao}`, { indent: 10 });
+            }
+            doc.moveDown(0.15);
+        });
+        doc.moveDown(0.2);
+    }
+
+    /*
+     * O pdfkit Nao materializa as paginas seguintes enquanto o texto esta sendo
+     * escrito: `bufferedPageRange()` devolvia `count: 1` mesmo com o documento
+     * ja em duas paginas, entao o rodape saia em "Pagina 1/1" e a ultima pagina
+     * ficava praticamente vazia - aparecia um folio em branco so com o rodape.
+     *
+     * A solucao e escrever o rodape como ultimo passo de cada pagina, no
+     * callback `pageAdded` disparado pelo pdfkit quando uma nova pagina comeca.
+     * Ele e chamado com a pagina *nova* ja ativa, entao o rodape da pagina que
+     * acabou vai em `previousPage()`; a ultima recebe o total no `endPage`.
+     */
+    /*
+     * Rodape por pagina.
+     *
+     * `bufferedPageRange()` nao serve aqui: no pdfkit 0.20 ele devolve
+     * `count: 1` enquanto o texto ainda esta sendo escrito, porque as paginas
+     * so sao materializadas no `end()`. Por isso o total impresso saia "1/1" num
+     * documento de duas paginas.
+     *
+     * A saida e escrever o rodape de cada pagina no instante em que ela termina,
+     * dentro do `pageAdded` da proxima. Dois cuidados:
+     *   - a primeira pagina ja existe quando o construtor de `PDFDocument`
+     *     retorna, antes deste `on`, entao a contagem comeca em 1;
+     *   - o rodape fica *abaixo* de `page.maxY()`, e escrever la faria o pdfkit
+     *     criar outra pagina - o que dispara `pageAdded` de novo, em laco
+     *     infinito. Por isso o `maxY` e estendido temporariamente.
+     */
+    let totalPages = 1;
+
+    const writeFooter = (posicao: number, total: number): void => {
         const bottom = doc.page.height - 28;
+        const marginOriginal = doc.page.margins.bottom;
+
+        /*
+         * `page.maxY()` e `height - margins.bottom`, e o rodape fica logo abaixo
+         * dele. Escrever nessa faixa faz o pdfkit ver "sem espaco" e abrir outra
+         * pagina - que dispara `pageAdded` de novo, em laco infinito (o gerador
+         * chegou a produzir 674 paginas). Zerar a margem inferior durante a
+         * escrita resolve: o rodape fica dentro da area util.
+         */
+        doc.page.margins.bottom = 0;
+
         doc.font("Helvetica")
             .fontSize(8)
             .fillColor(MUTED)
-            .text(`${labels.page} ${index + 1}/${range.count}`, doc.page.margins.left, bottom, {
+            .text(`${labels.page} ${posicao}/${total}`, doc.page.margins.left, bottom, {
                 align: "center",
-                width: doc.page.width - doc.page.margins.left - doc.page.margins.right
+                width: doc.page.width - doc.page.margins.left - doc.page.margins.right,
+                lineBreak: false
             });
-    }
+
+        doc.page.margins.bottom = marginOriginal;
+    };
+
+    doc.on("pageAdded", () => {
+        totalPages += 1;
+        // `totalPages` agora e o numero da pagina que acabou de ser criada; a
+        // anterior (totalPages - 1) ja pode receber o rodape. Ainda nao se sabe
+        // quantas virao, entao o total e escrito apenas na ultima pagina.
+        writeFooter(totalPages - 1, totalPages - 1);
+    });
+
+    writeFooter(totalPages, totalPages);
 
     doc.end();
     await new Promise<void>((resolvePromise) => stream.on("finish", () => resolvePromise()));

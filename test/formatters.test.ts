@@ -1,7 +1,28 @@
 import { describe, expect, it } from "vitest";
 import sharedFormatters from "../webapp/controller/formatters";
 
-const { phone, certImage, summary } = sharedFormatters;
+const { phone, certImage, summary, certTitleClass } = sharedFormatters;
+
+describe("certTitleClass", () => {
+    it("destaca a credencial marcada como featured", () => {
+        expect(certTitleClass(true)).toBe("pf-sheet__item-title");
+    });
+
+    it("usa a linha menor nas demais, para caberem todas no curriculum", () => {
+        expect(certTitleClass(false)).toBe("pf-small");
+    });
+
+    it("trata dado ausente como nao destacado", () => {
+        expect(certTitleClass(undefined)).toBe("pf-small");
+    });
+
+    it("devolve so as classes do portfolio, sem prepender as do sap.m", () => {
+        // Um `class` escrito por expression substitui o atributo inteiro; se o
+        // formatter devolvesse as classes do `sap.m`, o `Text` perderia o layout.
+        expect(certTitleClass(true).split(" ")).toEqual(["pf-sheet__item-title"]);
+        expect(certTitleClass(false).split(" ")).toEqual(["pf-small"]);
+    });
+});
 
 describe("phone", () => {
     it("formata o numero do portfolio como o esperado", () => {

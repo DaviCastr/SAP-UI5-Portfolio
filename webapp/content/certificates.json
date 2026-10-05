@@ -120,6 +120,18 @@
     "featured": false
   },
   {
+    "id": "36a32c68-884c-4366-93bc-5f14c0ca26c6",
+    "title": "Creating Applications and Extensions using SAP Build Code - Record of Achievement",
+    "issuer": "SAP",
+    "issuedAt": "2024-07-28",
+    "expiresAt": null,
+    "url": "https://www.credly.com/badges/36a32c68-884c-4366-93bc-5f14c0ca26c6",
+    "image": "https://images.credly.com/images/4b37b444-be60-41ec-a979-b61a3fc92217/image.png",
+    "source": "credly",
+    "category": "Achievement",
+    "featured": false
+  },
+  {
     "id": "3e40f13d-fa93-40af-bb5d-c55c8a2020ba",
     "title": "Exploring SAP Business Technology Platform - Record of Achievement",
     "issuer": "SAP",
@@ -127,18 +139,6 @@
     "expiresAt": "2026-09-24",
     "url": "https://www.credly.com/badges/3e40f13d-fa93-40af-bb5d-c55c8a2020ba",
     "image": "https://images.credly.com/images/2b0a7f5f-8e61-4bef-af74-9cb52c667325/blob",
-    "source": "credly",
-    "category": "Achievement",
-    "featured": false
-  },
-  {
-    "id": "264a7266-d8d4-4fec-8e34-e8e50199cc1b",
-    "title": "Getting Started with Web Development - Record of Achievement",
-    "issuer": "SAP",
-    "issuedAt": "2024-07-28",
-    "expiresAt": null,
-    "url": "https://www.credly.com/badges/264a7266-d8d4-4fec-8e34-e8e50199cc1b",
-    "image": "https://images.credly.com/images/5aecc43c-eba2-4348-9e72-f59bb721cd10/image.png",
     "source": "credly",
     "category": "Achievement",
     "featured": false
@@ -156,13 +156,13 @@
     "featured": false
   },
   {
-    "id": "36a32c68-884c-4366-93bc-5f14c0ca26c6",
-    "title": "Creating Applications and Extensions using SAP Build Code - Record of Achievement",
+    "id": "264a7266-d8d4-4fec-8e34-e8e50199cc1b",
+    "title": "Getting Started with Web Development - Record of Achievement",
     "issuer": "SAP",
     "issuedAt": "2024-07-28",
     "expiresAt": null,
-    "url": "https://www.credly.com/badges/36a32c68-884c-4366-93bc-5f14c0ca26c6",
-    "image": "https://images.credly.com/images/4b37b444-be60-41ec-a979-b61a3fc92217/image.png",
+    "url": "https://www.credly.com/badges/264a7266-d8d4-4fec-8e34-e8e50199cc1b",
+    "image": "https://images.credly.com/images/5aecc43c-eba2-4348-9e72-f59bb721cd10/image.png",
     "source": "credly",
     "category": "Achievement",
     "featured": false

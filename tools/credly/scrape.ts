@@ -2,6 +2,12 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import type { Certificate } from "../../webapp/service/types";
 import {
+    CREDLY_BADGES_URL,
+    mapCredlyBadges,
+    type CredlyBadge,
+    type CredlyResponse
+} from "../../webapp/service/liveSources";
+import {
     CONTENT_DIR,
     IMAGES_DIR,
     hasFlag,
@@ -22,77 +28,11 @@ import {
  * O arquivo gerado e webapp/content/certificates.json. Entradas cadastradas a
  * mao (source = "manual") sao preservadas, e as badges do Credly sao atualizadas
  * sem perder a ordem de destaque definida no JSON.
- */
-
-/** Endereco publico de badges de um usuario do Credly. */
-const CREDLY_BADGES_URL = "https://www.credly.com/users/";
-
-/** Campos usados do payload do Credly (Badgr). */
-interface CredlyBadge {
-    id: string;
-    issued_at_date?: string;
-    expires_at_date?: string;
-    issued_to?: string;
-    badge_template?: {
-        name?: string;
-        url?: string;
-        image_url?: string;
-        vanity_slug?: string;
-    };
-    issuer?: {
-        summary?: string;
-        entities?: { entity?: { name?: string } }[];
-    };
-    vanity_slug?: string;
-}
-
-interface CredlyResponse {
-    data?: CredlyBadge[];
-}
-
-/** Emissor mais legivel: prefere o nome da organizacao ao texto "issued by X". */
-function readIssuer(badge: CredlyBadge): string {
-    const organization = badge.issuer?.entities?.find((item) => item.entity?.name)?.entity?.name;
-    const summary = badge.issuer?.summary ?? "";
-    const cleaned = summary.replace(/^issued by\s+/i, "").trim();
-    return organization ?? (cleaned || "Credly");
-}
-
-/** "SAP Certified - ..." vira categoria "Certification". */
-function readCategory(title: string): string {
-    if (/record of achievement/i.test(title)) {
-        return "Achievement";
-    }
-    if (/certified|certification/i.test(title)) {
-        return "Certification";
-    }
-    return "Course";
-}
-
-/**
- * URL publica da credencial no Credly.
  *
- * Preferimos o **UUID da badge** (`/badges/{id}`): e a unica URL que abre a
- * credencial *no nome de quem recebeu* - as demais (`/badges/{vanity_slug}` ou
- * `/org/{org}/badge/{slug}`) caem na pagina generica do curso, sem o titulo nem
- * o nome do titular.
- *
- * O `vanity_slug` nao serve como fallback confiavel: o Credly trunca o valor em
- * 50 caracteres, o que gerava URLs quebradas (`...-record-of-achievem`). O id
- * sempre existe, por isso e a unica fonte usada aqui.
+ * O mapeamento do payload fica em `webapp/service/liveSources.ts`, compartilhado
+ * com o app - e o mesmo codigo que roda no browser quando o portfolio tenta
+ * buscar as certificacoes ao vivo.
  */
-function readBadgeUrl(badge: CredlyBadge): string | undefined {
-    if (badge.id) {
-        return `https://www.credly.com/badges/${badge.id}`;
-    }
-
-    const templateUrl = badge.badge_template?.url;
-    if (templateUrl && /^https:\/\/www\.credly\.com\/org\//.test(templateUrl)) {
-        return templateUrl.replace(/\/org\/[^/]+\/badge\//, "/badges/");
-    }
-
-    return templateUrl;
-}
 
 /** Titulo seguro para usar como nome de arquivo. */
 function slugify(value: string): string {
@@ -158,41 +98,33 @@ async function main(): Promise<void> {
     console.log(`${badges.length} badge(s) encontrada(s).`);
 
     const existing = await readContentFile<Certificate[]>("certificates.json", []);
-    const manual = existing.filter((item) => item.source !== "credly");
-    const previous = new Map(existing.map((item) => [item.id, item]));
 
-    const synced: Certificate[] = [];
-    for (const badge of badges) {
-        const title = badge.badge_template?.name;
-        if (!title) {
-            console.warn(`  ! badge ${badge.id} sem nome - ignorada`);
-            continue;
+    // O mapeamento e compartilhado com o app, mas aqui a imagem ainda precisa ser
+    // baixada: no browser ela fica como URL remoto. Por isso o payload e
+    // higienizado antes de ir para o mapeador.
+    const data = await Promise.all(
+        badges.map(async (badge) => ({
+            ...badge,
+            badge_template: {
+                ...badge.badge_template,
+                image_url: await resolveImage(badge, downloadImages)
+            }
+        }))
+    );
+    const forMapping: CredlyResponse = { data };
+
+    for (const badge of data) {
+        if (!badge.badge_template?.name) {
+            console.warn(`  ! badge ${badge.id || "(sem id)"} sem nome - ignorada`);
         }
-
-        const before = previous.get(badge.id);
-        const certificate: Certificate = {
-            id: badge.id,
-            title,
-            issuer: readIssuer(badge),
-            issuedAt: badge.issued_at_date ?? "",
-            expiresAt: badge.expires_at_date || null,
-            url: readBadgeUrl(badge),
-            image: before?.image ?? (await resolveImage(badge, downloadImages)),
-            source: "credly",
-            category: readCategory(title),
-            // Destaque automatico para as certificacoes (exames), nao para RoA.
-            featured: before?.featured ?? /certified/i.test(title)
-        };
-
-        synced.push(certificate);
     }
 
-    synced.sort((a, b) => b.issuedAt.localeCompare(a.issuedAt));
-    const merged = [...manual, ...synced];
+    const merged = mapCredlyBadges(forMapping, existing);
     const filePath = await writeContentFile("certificates.json", merged);
 
+    const manual = merged.filter((item) => item.source !== "credly").length;
     console.log(`gravado ${filePath}`);
-    console.log(`  ${synced.length} do Credly + ${manual.length} manuais = ${merged.length}`);
+    console.log(`  ${merged.length - manual} do Credly + ${manual} manuais = ${merged.length}`);
     console.log(
         `  imagens: ${downloadImages ? "baixadas para webapp/images/certificates" : "URLs remotas (use --download-images para baixar)"}`
     );

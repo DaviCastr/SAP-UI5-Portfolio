@@ -33,7 +33,14 @@
                                 <Text text="{content>/profile/location}"/>
                             </HBox>
                             <HBox class="pf-chips" items="{path: '/navLinks', templateShareable: true}">
-                                <Text class="pf-chip" text="{text}"/>
+                                <!-- <Button class="pf-chip" text="{text}"/> -->
+                                <Button
+                                    type="Transparent"
+                                    icon="{path: 'icon', formatter: '.fIcon'}"
+                                    text="{text}"
+                                    tooltip="{text}"
+                                    iconDensityAware="false"
+                                    press="onLinkPress"/>
                             </HBox>
                         </VBox>
                     </HBox>
@@ -79,11 +86,23 @@
                         </VBox>
                     </VBox>
 
-                    <!-- Competencias -->
+                    <!--
+                        Competencias: ferramentas e comportamento em blocos
+                        separados. `metrics/stacksItems` sao as stacks de todos os
+                        projetos; `/softSkills` vem da categoria "Soft Skills" de
+                        skills.json (ver isSoftSkill em viewData.ts).
+                    -->
                     <VBox class="pf-sheet__section">
                         <Text class="pf-sheet__section-title" text="{i18n>nav.skills}"/>
                         <HBox class="pf-chips" items="{path: '/metrics/stacksItems', templateShareable: true}">
                             <core:Fragment fragmentName="davi.portfolio.fragment.Chip" type="XML"/>
+                        </HBox>
+                    </VBox>
+
+                    <VBox class="pf-sheet__section" visible="{= !!${/softSkills} &amp;&amp; ${/softSkills}.length > 0}">
+                        <Text class="pf-sheet__section-title" text="{i18n>cv.softSkills}"/>
+                        <HBox class="pf-chips" items="{path: '/softSkills', templateShareable: true}">
+                            <Text class="pf-chip" text="{name}"/>
                         </HBox>
                     </VBox>
 
@@ -110,6 +129,32 @@
                             <HBox alignItems="Center" class="pf-row--between pf-gap-3">
                                 <Text class="pf-sheet__item-title" text="{degree}"/>
                                 <Text class="pf-small pf-muted" text="{institution}"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+
+                    <!--
+                        Certificacoes: apenas as "SAP Certified".
+
+                        `/cvCertificates` ja vem filtrado por `isSapCertified` em
+                        `viewData.buildViewData` e ordenado por
+                        `orderCertificates`, entao a aba nao repete o filtro.
+                        Todas as 18 continuam na aba "Certificacoes" do portfolio
+                        (`/filteredCertificates`).
+
+                        O icone, o emissor e o destaque vem de `featured`, que
+                        agora vale para todas as itens desta lista.
+                    -->
+                    <VBox class="pf-sheet__section" visible="{= !!${/cvCertificates} &amp;&amp; ${/cvCertificates}.length > 0 }">
+                        <Text class="pf-sheet__section-title" text="{i18n>cv.sapCertifications}"/>
+                        <VBox class="pf-stack pf-gap-2" items="{path: '/cvCertificates', templateShareable: true}">
+                            <HBox alignItems="Center" class="pf-row--between pf-gap-3">
+                                <HBox alignItems="Center" class="pf-gap-2 pf-grow-1">
+                                    <core:Icon src="sap-icon://verified" visible="{= !!${featured}}" class="pf-text-s"/>
+                                    <Text class="{path: 'featured', formatter: '.fCertTitleClass'}" text="{title}"/>
+                                    <Text class="pf-small pf-muted" text="{issuer}" visible="{= !!${featured} &amp;&amp; !!${issuer}}"/>
+                                </HBox>
+                                <Text class="pf-small pf-muted" text="{path: 'issuedAt', formatter: '.fDate'}"/>
                             </HBox>
                         </VBox>
                     </VBox>

@@ -1,0 +1,74 @@
+name: Sync external data
+
+# Mantem webapp/content/certificates.json e github.json atualizados.
+#
+# Este workflow e o UNICO atualizador dos dois. Uma versao anterior do app
+# tentava buscar os dados ao vivo no navegador, mas o `credly.com` nao envia
+# cabecalho de CORS: dependia de um proxy publico que abortava a requisicao, e
+# o boot esperava esse proxy terminar - a tela ficava travada antes de aparecer.
+# Sem proxy publico nao ha como buscar o Credly do browser; a alternativa seria
+# um backend proprio. Ate la, o JSON versionado + este workflow resolvem.
+
+on:
+  schedule:
+    # Todo dia as 06:00 UTC (03:00 no Brasil). O GitHub agenda cron em UTC.
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      # Mudou o codigo do scraper ou o formato do dado: regerar faz sentido.
+      - "tools/credly/**"
+      - "tools/github/**"
+      - "webapp/service/liveSources.ts"
+      - ".github/workflows/sync-content.yml"
+
+permissions:
+  contents: write
+
+# Nunca dois sync em paralelo: ambos escrevem nos mesmos JSONs.
+concurrency:
+  group: sync-content
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Sem token a API do GitHub libera 60 requisicoes/hora por IP - e o
+      # suficiente para dois GETs, mas o token evita o limite quando varios
+      # repositorios compartilham o mesmo IP de runner.
+      - name: Sync GitHub data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run sync:github
+
+      - name: Scrape Credly certificates
+        run: npm run scrape:certificates
+
+      - name: Commit updated content
+        run: |
+          if git diff --quiet -- webapp/content; then
+            echo "Nada mudou: os JSONs ja estavam atualizados."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add webapp/content
+          git commit -m "chore(content): sincroniza certificacoes e repositorios [skip ci]"
+          # O token do workflow precisa de permissao de escrita para branch
+          # protegida; sem isso o job falha em vez de so avisar.
+          git push || echo "::warning::nao foi possivel enviar o commit (branch protegida?)"
