@@ -34,9 +34,9 @@
                                     <Text class="pf-tl-item__company" text="{institution}"/>
                                 </VBox>
                                 <HBox alignItems="Center" class="pf-gap-2 pf-small pf-strong pf-chip pf-chip--primary">
-                                    <Text text="{path: 'period/from', formatter: '.fMonthYear'}"/>
+                                    <Text text="{path: 'period/from', formatter: '.formatter.monthYear'}"/>
                                     <Text text="-"/>
-                                    <Text text="{path: 'period/to', formatter: '.fMonthYear'}"/>
+                                    <Text text="{path: 'period/to', formatter: '.formatter.monthYear'}"/>
                                 </HBox>
                             </HBox>
 
@@ -75,7 +75,7 @@
                                 <Text class="pf-skill__name" text="{name}"/>
                             </HBox>
                             <Text class="pf-skill__desc" text="{issuer}" visible="{= !!${issuer}}"/>
-                            <Text class="pf-small pf-muted" text="{path: 'issuedAt', formatter: '.fDate'}" visible="{= !!${issuedAt}}"/>
+                            <Text class="pf-small pf-muted" text="{path: 'issuedAt', formatter: '.formatter.date'}" visible="{= !!${issuedAt}}"/>
                         </VBox>
                     </HBox>
                 </VBox>

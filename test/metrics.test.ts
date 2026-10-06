@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { computeMetrics, countStacks, topStacks, totalMonthsOfExperience } from "../webapp/service/metrics";
-import type { Experience } from "../webapp/service/types";
+import {
+    computeMetrics,
+    countStacks,
+    topStacks,
+    totalMonthsOfExperience
+} from "../webapp/model/content/metrics";
+import type { Experience } from "../webapp/model/types";
 import { buildContent } from "./helpers/content";
 
 /** Cria uma experiencia com apenas o periodo (o resto nao afecta a metrica). */

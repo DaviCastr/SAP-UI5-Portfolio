@@ -9,7 +9,7 @@
         <HBox class="pf-cert__media">
             <Image
                 class="pf-cert__image"
-                src="{path: 'image', formatter: '.fCertImage'}"
+                src="{path: 'image', formatter: '.formatter.certImage'}"
                 densityAware="false"
                 alt="{title}"
                 visible="{= !!${image}}"/>
@@ -22,11 +22,11 @@
         <VBox class="pf-cert__body">
             <HBox alignItems="Center" class="pf-cert__meta">
                 <core:Icon src="sap-icon://calendar" class="pf-text-xs pf-muted"/>
-                <Text class="pf-small pf-muted" text="{path: 'issuedAt', formatter: '.fDate'}"/>
+                <Text class="pf-small pf-muted" text="{path: 'issuedAt', formatter: '.formatter.date'}"/>
                 <Text
                     class="pf-chip pf-chip--warn"
                     text="{i18n>certificate.expired}"
-                    visible="{path: 'expiresAt', formatter: '.fExpired'}"/>
+                    visible="{path: 'expiresAt', formatter: '.formatter.expired'}"/>
             </HBox>
             <Text class="pf-cert__issuer" text="{issuer}"/>
             <Text class="pf-cert__title" text="{title}"/>

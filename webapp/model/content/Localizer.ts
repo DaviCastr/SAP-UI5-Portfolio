@@ -1,5 +1,5 @@
-import type { LocalizedText } from "./types";
-import { DEFAULT_LOCALE } from "./LocaleResolver";
+import type { LocalizedText } from "../types";
+import { DEFAULT_LOCALE } from "../../util/LocaleResolver";
 
 /** Chave que indica "objeto traduzido" em vez de "objeto de dados". */
 const LOCALE_KEY_PATTERN = /^[a-z]{2}(_[A-Z]{2})?$/;

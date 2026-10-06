@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { sortEducationByRecency, sortProjectsByRecency } from "../webapp/service/ordering";
-import type { Education, Project } from "../webapp/service/types";
+import { sortEducationByRecency, sortProjectsByRecency } from "../webapp/model/content/ordering";
+import type { Education, Project } from "../webapp/model/types";
 
 function education(id: string, from: string, to: string | null): Education {
     return {

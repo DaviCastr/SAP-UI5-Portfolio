@@ -1,5 +1,5 @@
-import { resolveLocale } from "./LocaleResolver";
-import type { ContentLocale } from "./types";
+import { DEFAULT_LOCALE, resolveLocale } from "./LocaleResolver";
+import type { ContentLocale } from "../model/types";
 
 /**
  * Idioma ativo do portfolio.
@@ -12,6 +12,10 @@ import type { ContentLocale } from "./types";
 export class LocaleService {
     /** Idioma ativo (query string > navegador > padrao). */
     static getActive(): ContentLocale {
+        // Fora do navegador (testes, scripts Node) nao ha URL nem navigator.
+        if (typeof window === "undefined") {
+            return DEFAULT_LOCALE;
+        }
         return resolveLocale(window.location.search, navigator.language);
     }
 }

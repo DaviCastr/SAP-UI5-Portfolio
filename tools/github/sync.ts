@@ -1,4 +1,4 @@
-import type { GitHubInfo, Project } from "../../webapp/service/types";
+import type { GitHubInfo, Project } from "../../webapp/model/types";
 import {
     GITHUB_API,
     mapGitHubInfo,
@@ -6,7 +6,7 @@ import {
     toDate,
     type GhRepo,
     type GhUser
-} from "../../webapp/service/liveSources";
+} from "../../webapp/model/data/liveSources";
 import { readContentFile, readFlag, run, writeContentFile } from "../shared/nodeContent";
 
 /**
@@ -25,7 +25,7 @@ import { readContentFile, readFlag, run, writeContentFile } from "../shared/node
  *
  * Sem token usa 60 requisicoes/hora da API publica - suficiente para uso local.
  *
- * O mapeamento do payload fica em `webapp/service/liveSources.ts`, o mesmo
+ * O mapeamento do payload fica em `webapp/model/data/liveSources.ts`, o mesmo
  * codigo que o app usa quando busca os repositorios ao vivo no browser.
  */
 

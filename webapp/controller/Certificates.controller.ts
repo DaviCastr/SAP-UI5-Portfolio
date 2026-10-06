@@ -1,51 +1,34 @@
 import BaseController from "./BaseController";
-import type { Certificate } from "../service/types";
+import { ALL, filterCertificates } from "../model/content/filters";
 
-/**
- * Controller da galeria de certificacoes.
- *
- * As credenciais vem do JSON (gerado pela ferramenta `npm run scrape:certificates`),
- * que tambem sabe de onde veio cada uma - por isso o filtro por ano e por validade.
- */
+/** Galeria de certificacoes com filtro por ano e por validade. */
 export default class CertificatesController extends BaseController {
     public override onInit(): void {
-        this.applyFilter("all");
+        this.applyFilter(ALL);
     }
 
-    /** Todas as credenciais. */
+    /** Cada cartao abre a credencial oficial (Credly). */
+    protected override clickableCards(): string {
+        return ".pf-cert";
+    }
+
     public onAllPress(): void {
-        this.applyFilter("all");
+        this.applyFilter(ALL);
     }
 
-    /** Apenas credenciais ainda vigentes. */
     public onValidPress(): void {
         this.applyFilter("valid");
     }
 
-    /** Credenciais emitidas em determinado ano. */
     public onYearPress(event: sap.ui.base.Event): void {
-        const year = (this.sourceContext(event)?.getProperty("year") ?? "all") as string;
-        this.applyFilter(year);
+        this.applyFilter(this.sourceProperty(event, "year") ?? ALL);
     }
 
     private applyFilter(filter: string): void {
-        let items: Certificate[] = this.content().certificates;
-
-        if (filter === "valid") {
-            items = items.filter(
-                (certificate) => certificate.expiresAt && !this.isExpired(certificate.expiresAt)
-            );
-        } else if (filter !== "all") {
-            items = items.filter((certificate) => (certificate.issuedAt ?? "").startsWith(filter));
-        }
-
-        this.model("content")?.setProperty("/filteredCertificates", items);
+        this.model("content")?.setProperty(
+            "/filteredCertificates",
+            filterCertificates(this.content().certificates, filter)
+        );
         this.model("ui")?.setProperty("/certificateFilter", filter);
-    }
-
-    private isExpired(expiresAt: string): boolean {
-        const today = new Date();
-        today.setHours(23, 59, 59, 999);
-        return new Date(expiresAt).getTime() < today.getTime();
     }
 }

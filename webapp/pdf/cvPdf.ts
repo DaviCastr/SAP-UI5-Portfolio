@@ -1,9 +1,10 @@
 import { jsPDF } from "jspdf";
-import { localizeText } from "./Localizer";
-import { isSapCertified, orderCertificates } from "./liveSources";
-import { sortEducationByRecency, sortProjectsByRecency } from "./ordering";
-import { isSoftSkill } from "./viewData";
-import type { ContentLocale, Period, PortfolioContent, Skill } from "./types";
+import { formatMonthYear } from "../model/dates";
+import { localizeText } from "../model/content/Localizer";
+import { isSapCertified, orderCertificates } from "../model/data/liveSources";
+import { sortEducationByRecency, sortProjectsByRecency } from "../model/content/ordering";
+import { isSoftSkill } from "../model/content/viewData";
+import type { ContentLocale, Period, PortfolioContent, Skill } from "../model/types";
 
 /**
  * Gerador do PDF do curriculo.
@@ -108,21 +109,12 @@ const LABELS: Record<ContentLocale, Labels> = {
     }
 };
 
-const MONTHS: Record<ContentLocale, string[]> = {
-    pt: ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"],
-    en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-};
-
-/** "2021-03" -> "mar 2021"; "2021-03-15" -> "mar 2021"; outro formato passa direto. */
+/** "2021-03" ou "2021-03-15" -> "mar/2021" (mesmo texto do site, ver model/dates.ts). */
 export function formatCvMonth(value: string | null | undefined, locale: ContentLocale): string {
-    const match = /^(\d{4})-(\d{2})/.exec(value ?? "");
-    if (!match) {
-        return value ?? "";
-    }
-    return `${MONTHS[locale][Number(match[2]) - 1]} ${match[1]}`;
+    return value ? formatMonthYear(value, locale) : "";
 }
 
-/** Periodo "mar 2021 – atual". */
+/** Periodo "mar/2021 – atual". */
 export function formatCvPeriod(period: Period | undefined, locale: ContentLocale): string {
     if (!period?.from) {
         return "";

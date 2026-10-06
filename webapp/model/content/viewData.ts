@@ -1,6 +1,6 @@
 import type { ContentService } from "./ContentService";
 import { localizeText } from "./Localizer";
-import { isSapCertified, orderCertificates } from "./liveSources";
+import { isSapCertified, orderCertificates } from "../data/liveSources";
 import { sortProjectsByRecency } from "./ordering";
 import type { PortfolioMetrics } from "./metrics";
 import type {
@@ -11,7 +11,7 @@ import type {
     Project,
     SectionDefinition,
     Skill
-} from "./types";
+} from "../types";
 
 /**
  * Separa soft skills das demais.
@@ -57,6 +57,14 @@ export interface YearGroup {
     count: number;
 }
 
+/** Link com o rotulo ja resolvido (`text`), como a Topbar/Footer exibem. */
+export type NavLink = ExternalLink & { text: string };
+
+/** Garante um rotulo: `label` traduzido ou, sem ele, o `id` ("github"). */
+export function toNavLink(link: ExternalLink): NavLink {
+    return { ...link, text: link.label ? String(link.label) : link.id };
+}
+
 /**
  * Derivacoes usadas pelas telas.
  *
@@ -66,8 +74,8 @@ export interface YearGroup {
 export interface PortfolioViewData {
     metrics: PortfolioMetrics;
     navSections: SectionDefinition[];
-    navLinks: ExternalLink[];
-    footerLinks: ExternalLink[];
+    navLinks: NavLink[];
+    footerLinks: NavLink[];
     issues: { path: string; message: string }[];
     focusSkills: Skill[];
     /** Chips de tecnologia do hero (`profile.stackHighlights`). */
@@ -202,8 +210,8 @@ export function buildViewData(service: ContentService): PortfolioViewData {
     return {
         metrics: service.metrics,
         navSections: service.navSections,
-        navLinks: links.filter((link) => link.primary),
-        footerLinks: links,
+        navLinks: links.filter((link) => link.primary).map(toNavLink),
+        footerLinks: links.map(toNavLink),
         issues: service.issues.map((issue) => ({ path: issue.path, message: issue.message })),
         focusSkills: service.focusSkills.slice(0, 8),
         heroStack: (content.profile.stackHighlights ?? []).map((label) => ({ label })),

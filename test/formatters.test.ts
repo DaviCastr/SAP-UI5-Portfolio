@@ -1,26 +1,43 @@
 import { describe, expect, it } from "vitest";
-import sharedFormatters from "../webapp/controller/formatters";
+import formatter from "../webapp/model/formatter";
 
-const { phone, certImage, summary, certTitleClass } = sharedFormatters;
+const { phone, certImage, summary, certShort, shortUrl, joinDot, count, period } = formatter;
 
-describe("certTitleClass", () => {
-    it("destaca a credencial marcada como featured", () => {
-        expect(certTitleClass(true)).toBe("pf-sheet__item-title");
+describe("textos curtos", () => {
+    it("tira o prefixo 'SAP Certified -' do titulo", () => {
+        expect(certShort("SAP Certified - Back-End Developer - ABAP Cloud")).toBe(
+            "Back-End Developer - ABAP Cloud"
+        );
+        expect(certShort("Learning the Basics of SAP Fiori")).toBe("Learning the Basics of SAP Fiori");
     });
 
-    it("usa a linha menor nas demais, para caberem todas no curriculum", () => {
-        expect(certTitleClass(false)).toBe("pf-small");
+    it("encurta URLs para exibicao", () => {
+        expect(shortUrl("https://www.linkedin.com/in/davi-castr/")).toBe("linkedin.com/in/davi-castr");
+        expect(shortUrl(undefined)).toBe("");
     });
 
-    it("trata dado ausente como nao destacado", () => {
-        expect(certTitleClass(undefined)).toBe("pf-small");
+    it("junta partes com ponto medio, ignorando vazias", () => {
+        expect(joinDot("Consultor", undefined, "Accenture")).toBe("Consultor · Accenture");
+        expect(joinDot("", null)).toBe("");
     });
 
-    it("devolve so as classes do portfolio, sem prepender as do sap.m", () => {
-        // Um `class` escrito por expression substitui o atributo inteiro; se o
-        // formatter devolvesse as classes do `sap.m`, o `Text` perderia o layout.
-        expect(certTitleClass(true).split(" ")).toEqual(["pf-sheet__item-title"]);
-        expect(certTitleClass(false).split(" ")).toEqual(["pf-small"]);
+    it("mostra a contagem so quando ha itens", () => {
+        expect(count("Mostrar todos", 45)).toBe("Mostrar todos (45)");
+        expect(count("Mostrar todos", 0)).toBe("Mostrar todos");
+    });
+});
+
+describe("period", () => {
+    it("usa o rotulo do i18n quando o periodo esta em aberto", () => {
+        expect(period({ from: "2024-09", to: null }, "Present")).toMatch(/2024 – Present$/);
+    });
+
+    it("formata inicio e fim", () => {
+        expect(period({ from: "2019-02", to: "2024-06" }, "atual")).toMatch(/2019 – .*2024$/);
+    });
+
+    it("devolve vazio sem inicio", () => {
+        expect(period(undefined)).toBe("");
     });
 });
 

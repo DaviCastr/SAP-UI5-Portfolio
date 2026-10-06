@@ -1,4 +1,4 @@
-import type { ContentLocale } from "./types";
+import type { ContentLocale } from "../model/types";
 
 /**
  * Aba de pre-visualizacao do PDF do curriculo.

@@ -1,4 +1,4 @@
-import type { DataSource } from "./DataSource";
+import type { DataSource } from "../data/DataSource";
 import { localize, localizeText } from "./Localizer";
 import { computeMetrics, type PortfolioMetrics } from "./metrics";
 import { sortEducationByRecency, sortProjectsByRecency } from "./ordering";
@@ -9,7 +9,7 @@ import type {
     LocalizedText,
     PortfolioContent,
     SectionDefinition
-} from "./types";
+} from "../types";
 import { validateContent } from "./validator";
 
 /** Conteudo vazio usado quando a carga falha (a tela mostra aviso em vez de quebrar). */
@@ -189,10 +189,6 @@ export class ContentService {
 
     get issues(): ContentIssue[] {
         return this.validationIssues;
-    }
-
-    get hasIssues(): boolean {
-        return this.issues.length > 0;
     }
 
     get metrics(): PortfolioMetrics {

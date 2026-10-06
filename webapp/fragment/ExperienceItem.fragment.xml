@@ -23,10 +23,10 @@
 
             <HBox alignItems="Center" class="pf-gap-2 pf-small pf-strong pf-chip pf-chip--primary">
                 <core:Icon src="sap-icon://calendar" class="pf-text-xs"/>
-                <Text text="{path: 'period/from', formatter: '.fMonthYear'}"/>
+                <Text text="{path: 'period/from', formatter: '.formatter.monthYear'}"/>
                 <Text text="-"/>
                 <Text
-                    text="{path: 'period/to', formatter: '.fMonthYear'}"
+                    text="{path: 'period/to', formatter: '.formatter.monthYear'}"
                     visible="{= !!${period/to}}"/>
                 <Text text="{i18n>period.current}" visible="{= !${period/to}}"/>
             </HBox>

@@ -1,4 +1,4 @@
-import type { ContentIssue, PortfolioContent } from "./types";
+import type { ContentIssue, PortfolioContent } from "../types";
 
 const MONTH_PERIOD = /^\d{4}-(0[1-9]|1[0-2])$/;
 const FULL_DATE = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;

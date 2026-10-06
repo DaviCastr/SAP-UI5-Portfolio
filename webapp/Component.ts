@@ -1,8 +1,8 @@
 import UIComponent from "sap/ui/core/UIComponent";
 import type JSONModel from "sap/ui/model/json/JSONModel";
 import models from "./model/models";
-import { LocaleService } from "./service/LocaleService";
-import { ThemeService } from "./service/ThemeService";
+import { LocaleService } from "./util/LocaleService";
+import { ThemeService } from "./util/ThemeService";
 
 /**
  * Componente raiz do portfolio.

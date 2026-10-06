@@ -52,7 +52,7 @@ builder:
               <<: *cfgTranspile
         # Resolve imports de pacotes npm (sap/*) e os registra como namespaces.
         # Depois da transpilacao: so assim os imports npm dos .ts ja convertidos
-        # (ex.: "jspdf" em service/cvPdf) sao reescritos para o namespace.
+        # (ex.: "jspdf" em pdf/cvPdf) sao reescritos para o namespace.
         - name: ui5-tooling-modules-task
           afterTask: ui5-tooling-transpile-task
           configuration:

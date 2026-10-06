@@ -1,5 +1,5 @@
 import type { DataSource, DataSourceOptions, JsonFetcher } from "./DataSource";
-import type { PortfolioContent } from "./types";
+import type { PortfolioContent } from "../types";
 
 /** Arquivos que compoem o portfolio. */
 export const CONTENT_FILES = {

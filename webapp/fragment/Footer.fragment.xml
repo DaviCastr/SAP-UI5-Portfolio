@@ -34,7 +34,7 @@
                 <HBox class="pf-row--wrap pf-footer__links" items="{path: '/footerLinks', templateShareable: true}">
                     <Button
                         type="Transparent"
-                        icon="{path: 'icon', formatter: '.fIcon'}"
+                        icon="{path: 'icon', formatter: '.formatter.icon'}"
                         text="{text}"
                         tooltip="{text}"
                         iconDensityAware="false"

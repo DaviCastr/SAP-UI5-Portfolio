@@ -1,11 +1,13 @@
-import type { ContentLocale, Period } from "./types";
+import type { ContentLocale } from "./types";
+
+/**
+ * Datas do portfolio em texto ("2024-09" -> "set/2024"), sem depender de UI5
+ * nem do idioma ativo: o formatter das views e o gerador do PDF usam as mesmas.
+ */
 
 const MONTHS_PT = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
 
 const MONTHS_EN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-/** Rotulo usado quando o periodo ainda esta em andamento (chave i18n da view). */
-export const PERIOD_CURRENT_KEY = "period.current";
 
 function months(locale: ContentLocale): string[] {
     return locale === "en" ? MONTHS_EN : MONTHS_PT;
@@ -13,7 +15,7 @@ function months(locale: ContentLocale): string[] {
 
 /** Converte "2024-09" em { year, month }. */
 function splitPeriod(value: string): { year: number; month: number } | null {
-    const match = /^(\d{4})-(\d{2})$/.exec(value ?? "");
+    const match = /^(\d{4})-(\d{2})/.exec(value ?? "");
     if (!match) {
         return null;
     }
@@ -47,33 +49,6 @@ export function formatDate(value: string, locale: ContentLocale): string {
     return locale === "en"
         ? `${months(locale)[Number(month) - 1]} ${Number(day)}, ${year}`
         : `${day}/${month}/${year}`;
-}
-
-/** Ano de uma data completa ("2025-09-01" -> "2025"). */
-export function yearOf(value: string): string {
-    return (value ?? "").slice(0, 4);
-}
-
-/**
- * Formata um periodo.
- * Quando o periodo esta aberto (`to: null`), devolve `currentKey` como marcador
- * para que a view aplique o texto traduzido de "Atual" / "Present".
- */
-export function formatPeriod(
-    period: Period | undefined,
-    locale: ContentLocale,
-    currentKey: string = PERIOD_CURRENT_KEY
-): string {
-    if (!period?.from) {
-        return "";
-    }
-
-    const from = formatMonthYear(period.from, locale);
-    if (!period.to) {
-        return `${from} - ${currentKey}`;
-    }
-
-    return `${from} - ${formatMonthYear(period.to, locale)}`;
 }
 
 /** Uma credencial esta vencida? */

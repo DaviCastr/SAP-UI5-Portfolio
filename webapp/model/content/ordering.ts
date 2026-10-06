@@ -1,4 +1,4 @@
-import type { Education, Project } from "./types";
+import type { Education, Project } from "../types";
 
 /**
  * Regras de ordenacao de listas que mais de um consumidor precisa conhecer.

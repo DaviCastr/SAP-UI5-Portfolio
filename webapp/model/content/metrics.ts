@@ -1,4 +1,4 @@
-import type { ChipItem, PortfolioContent } from "./types";
+import type { ChipItem, PortfolioContent } from "../types";
 
 /** Numeros exibidos nas telas, sempre calculados a partir do JSON. */
 export interface PortfolioMetrics {

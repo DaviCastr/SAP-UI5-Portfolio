@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { countCertificateYears, countTags, groupSkillsByCategory, isSoftSkill } from "../webapp/service/viewData";
-import type { Certificate, Skill } from "../webapp/service/types";
+import { countCertificateYears, countTags, groupSkillsByCategory, isSoftSkill } from "../webapp/model/content/viewData";
+import type { Certificate, Skill } from "../webapp/model/types";
 
 function skill(id: string, category: string): Skill {
     return { id, name: id, category, level: 3 };

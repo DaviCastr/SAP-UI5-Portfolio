@@ -11,8 +11,8 @@ import {
     toDate,
     toMonth,
     toRepo
-} from "../webapp/service/liveSources";
-import type { Certificate } from "../webapp/service/types";
+} from "../webapp/model/data/liveSources";
+import type { Certificate } from "../webapp/model/types";
 
 /** Badge do Credly com os campos minimos usados pelo mapeamento. */
 function badge(id: string, name: string, extra: Record<string, unknown> = {}) {

@@ -100,7 +100,7 @@
                         <Button
                             type="Ghost"
                             icon="sap-icon://expand-group"
-                            text="{parts: ['i18n>projects.reposShowAll', 'content>/hiddenRepoCount'], formatter: '.fCount'}"
+                            text="{parts: ['i18n>projects.reposShowAll', 'content>/hiddenRepoCount'], formatter: '.formatter.count'}"
                             press="onShowAllReposPress"/>
                     </HBox>
 
@@ -117,7 +117,7 @@
                     <HBox alignItems="Center" class="pf-gap-3">
                         <core:Icon src="sap-icon://source-code" class="pf-text-s"/>
                         <Title level="H2" class="pf-h3" text="{i18n>projects.syncTitle}"/>
-                        <Text class="pf-small pf-muted" text="{path: 'content>/github/syncedAt', formatter: '.fDateTime'}"/>
+                        <Text class="pf-small pf-muted" text="{path: 'content>/github/syncedAt', formatter: '.formatter.dateTime'}"/>
                     </HBox>
                     <Text class="pf-small pf-muted" text="{i18n>projects.syncHint}"/>
                     <HBox>

@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, extname, resolve } from "node:path";
-import { buildCvPdf, type CvPdfImage } from "../../webapp/service/cvPdf";
-import type { ContentLocale } from "../../webapp/service/types";
+import { buildCvPdf, type CvPdfImage } from "../../webapp/pdf/cvPdf";
+import type { ContentLocale } from "../../webapp/model/types";
 import { loadLocalizedContent, readFlag, REPO_ROOT, run } from "../shared/nodeContent";
 
 /**
@@ -11,7 +11,7 @@ import { loadLocalizedContent, readFlag, REPO_ROOT, run } from "../shared/nodeCo
  *   npm run cv:pdf
  *   npm run cv:pdf -- --lang=en --out=dist/cv.pdf
  *
- * O layout vive em `webapp/service/cvPdf.ts` e e o mesmo usado pelo botao
+ * O layout vive em `webapp/pdf/cvPdf.ts` e e o mesmo usado pelo botao
  * "Baixar PDF" do site (que gera o arquivo na hora, no navegador). Este script
  * so carrega o conteudo/foto do disco e grava o resultado - o arquivo estatico
  * serve de alternativa caso a geracao no navegador falhe.

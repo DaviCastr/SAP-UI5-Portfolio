@@ -27,7 +27,7 @@
                     type="{= ${route} === ${path: 'ui>/activeRoute'} ? 'Emphasized' : 'Transparent' }"
                     text="{= ${ui>/compactNav} ? '' : ${nav} }"
                     tooltip="{nav}"
-                    icon="{path: 'icon', formatter: '.fIcon'}"
+                    icon="{path: 'icon', formatter: '.formatter.icon'}"
                     iconDensityAware="false"
                     press="onNavPress"/>
             </HBox>
@@ -51,7 +51,7 @@
                 <HBox class="pf-row--wrap pf-topbar__social" items="{path: '/navLinks', templateShareable: true}">
                     <Button
                         type="Transparent"
-                        icon="{path: 'icon', formatter: '.fIcon'}"
+                        icon="{path: 'icon', formatter: '.formatter.icon'}"
                         text="{text}"
                         tooltip="{text}"
                         iconDensityAware="false"

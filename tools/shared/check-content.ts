@@ -1,6 +1,6 @@
-import { validateContent } from "../../webapp/service/validator";
+import { validateContent } from "../../webapp/model/content/validator";
 import { loadContentService, readFlag, run } from "./nodeContent";
-import type { ContentLocale } from "../../webapp/service/types";
+import type { ContentLocale } from "../../webapp/model/types";
 
 /**
  * Valida os JSONs do portfolio e falha (exit 1) se houver problemas.

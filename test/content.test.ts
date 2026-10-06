@@ -1,10 +1,10 @@
 import { access } from "node:fs/promises";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { isSapCertified } from "../webapp/service/liveSources";
-import type { Education } from "../webapp/service/types";
-import { validateContent } from "../webapp/service/validator";
-import { isSoftSkill } from "../webapp/service/viewData";
+import { isSapCertified } from "../webapp/model/data/liveSources";
+import type { Education } from "../webapp/model/types";
+import { validateContent } from "../webapp/model/content/validator";
+import { isSoftSkill } from "../webapp/model/content/viewData";
 import { loadContentService, loadRawContent, readContentFile, REPO_ROOT } from "../tools/shared/nodeContent";
 
 /**

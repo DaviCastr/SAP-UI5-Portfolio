@@ -1,8 +1,8 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
-import { ContentService } from "../../webapp/service/ContentService";
-import { StaticJsonDataSource } from "../../webapp/service/StaticJsonDataSource";
-import type { ContentLocale, PortfolioContent } from "../../webapp/service/types";
+import { ContentService } from "../../webapp/model/content/ContentService";
+import { StaticJsonDataSource } from "../../webapp/model/data/StaticJsonDataSource";
+import type { ContentLocale, PortfolioContent } from "../../webapp/model/types";
 
 /**
  * Raiz do repositorio (a pasta que contem package.json).

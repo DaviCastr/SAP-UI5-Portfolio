@@ -15,7 +15,7 @@
                 <Text class="pf-repo__name" text="{name}"/>
                 <HBox alignItems="Center" class="pf-gap-1 pf-muted pf-small" visible="{= !!${pushedAt}}">
                     <core:Icon src="sap-icon://history" class="pf-text-xs"/>
-                    <Text text="{path: 'pushedAt', formatter: '.fMonthYear'}"/>
+                    <Text text="{path: 'pushedAt', formatter: '.formatter.monthYear'}"/>
                 </HBox>
             </VBox>
         </HBox>

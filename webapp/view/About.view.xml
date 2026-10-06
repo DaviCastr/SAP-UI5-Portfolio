@@ -52,7 +52,7 @@
                             </HBox>
                             <HBox alignItems="Center" class="pf-contact-row">
                                 <core:Icon src="sap-icon://phone" class="pf-text-s"/>
-                                <Text text="{path: 'content>/profile/phone', formatter: '.fPhone'}"/>
+                                <Text text="{path: 'content>/profile/phone', formatter: '.formatter.phone'}"/>
                             </HBox>
                             <HBox alignItems="Center" class="pf-contact-row">
                                 <core:Icon src="sap-icon://map" class="pf-text-s"/>
@@ -60,14 +60,14 @@
                             </HBox>
                             <HBox alignItems="Center" class="pf-contact-row" visible="{= !!${content>/profile/birthday}}">
                                 <core:Icon src="sap-icon://calendar" class="pf-text-s"/>
-                                <Text text="{path: 'content>/profile/birthday', formatter: '.fDate'}"/>
+                                <Text text="{path: 'content>/profile/birthday', formatter: '.formatter.date'}"/>
                             </HBox>
                         </VBox>
 
                         <HBox class="pf-chips" items="{path: '/footerLinks', templateShareable: true}" visible="{= !!${content>/footerLinks} &amp;&amp; ${content>/footerLinks}.length > 0}">
                             <Button
                                 type="Transparent"
-                                icon="{path: 'icon', formatter: '.fIcon'}"
+                                icon="{path: 'icon', formatter: '.formatter.icon'}"
                                 text="{text}"
                                 press="onLinkPress"
                                 visible="{= !!${url}}"/>

@@ -2,16 +2,16 @@
     <VBox class="pf-skill">
         <HBox alignItems="Center" class="pf-gap-3">
             <HBox class="pf-skill__icon" alignItems="Center">
-                <core:Icon src="{path: 'icon', formatter: '.fIcon'}" class="pf-text-lg"/>
+                <core:Icon src="{path: 'icon', formatter: '.formatter.icon'}" class="pf-text-lg"/>
             </HBox>
             <Text class="pf-skill__name" text="{name}"/>
-            <Text class="pf-skill__level" text="{path: 'level', formatter: '.fLevel'}"/>
+            <Text class="pf-skill__level" text="{path: 'level', formatter: '.formatter.level'}"/>
         </HBox>
 
         <HBox class="pf-skill__bar">
             <HBox
                 class="pf-skill__bar-fill"
-                width="{path: 'level', formatter: '.fLevelPercent'}"/>
+                width="{path: 'level', formatter: '.formatter.levelPercent'}"/>
         </HBox>
 
         <Text class="pf-skill__desc" text="{description}" visible="{= !!${description}}"/>

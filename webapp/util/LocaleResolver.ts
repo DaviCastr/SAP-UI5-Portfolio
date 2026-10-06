@@ -1,4 +1,4 @@
-import type { ContentLocale } from "./types";
+import type { ContentLocale } from "../model/types";
 
 /** Idiomas suportados pelo portfolio. */
 export const SUPPORTED_LOCALES: ContentLocale[] = ["pt", "en"];

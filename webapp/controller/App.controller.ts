@@ -1,84 +1,55 @@
-import type JSONModel from "sap/ui/model/json/JSONModel";
 import Log from "sap/base/Log";
-import ResourceModel from "sap/ui/model/resource/ResourceModel";
 import SegmentedButton from "sap/m/SegmentedButton";
 import SegmentedButtonItem from "sap/m/SegmentedButtonItem";
+import type ResourceModel from "sap/ui/model/resource/ResourceModel";
 import BaseController from "./BaseController";
-import { ContentService } from "../service/ContentService";
-import { browserFetcher, createDataSource, loadSourceConfig } from "../service/StaticJsonDataSource";
-import { ThemeService, type ThemeMode } from "../service/ThemeService";
-import { buildViewData } from "../service/viewData";
-import type { ExternalLink, SectionDefinition } from "../service/types";
+import { loadPortfolio } from "../model/content/ContentLoader";
+import type { SectionDefinition } from "../model/types";
+import { ThemeService, type ThemeMode } from "../util/ThemeService";
 
-/** Pasta base dos arquivos JSON do portfolio (relativa a webapp/). */
-const CONTENT_BASE_URL = "content";
-
-/** Rota inicial: e a unica que nao mostra a barra de secao. */
+/** Rota inicial: a unica sem a barra de secao (o hero ja mostra o contexto). */
 const HOME_ROUTE = "home";
 
-/** Link externo normalizado para exibicao na navegacao e no rodape. */
-interface NavLink extends ExternalLink {
-    text: string;
-    isMail: boolean;
-}
-
-/** Garante rotulo e detecta e-mails (mailto) para abrir differently. */
-function normalizeLinks(links: ExternalLink[]): NavLink[] {
-    return links.map((link) => {
-        const text = link.label ? String(link.label) : link.id;
-        return { ...link, text, isMail: link.url.startsWith("mailto:") };
-    });
-}
+/**
+ * Abaixo desta largura as abas da barra mostram so o icone: marca + 7 abas com
+ * rotulo + acoes precisam de ~1077px e estouravam a viewport.
+ */
+const COMPACT_NAV_QUERY = "(max-width: 1199px)";
 
 /**
- * Controller da view raiz (App.view.xml).
+ * Controller do shell (App.view.xml): topo, barra de secao, rodape e router.
  *
- * Ele carrega o portfolio (JSON) uma unica vez, publica no model "content" e
- * so entao libera a navegacao - garantindo que nenhuma tela ja apareca vazia.
+ * Fluxo de inicializacao:
+ *   1. onInit: escuta as rotas e dispara o carregamento do conteudo;
+ *   2. onAfterRendering: inicia o router (o NavContainer ja existe);
+ *   3. conteudo carregado: publica no model "content", preenche o tema do
+ *      rodape e remove o splash do index.html.
  */
 export default class AppController extends BaseController {
     private routerStarted = false;
 
-    /** Route -> rotulo ja traduzido, usado na barra fixa de secao. */
+    /** route -> titulo traduzido, para a barra de secao. */
     private sectionTitles: Record<string, string> = {};
 
-    /**
-     * Abaixo desta largura as abas da barra mostram so o icone.
-     *
-     * Medido: marca + 7 abas com rotulo + acoes precisam de 1077px, entao em
-     * 1024px (e em 900px) a linha estourava a viewport e os botoes saiam da tela.
-     * Em modo icone a mesma barra cabe a partir de ~700px, com folga.
-     */
-    private static readonly COMPACT_QUERY = "(max-width: 1199px)";
+    private readonly compactMedia = window.matchMedia(COMPACT_NAV_QUERY);
 
-    private readonly compactMedia = window.matchMedia(AppController.COMPACT_QUERY);
-
-    // onInit e onAfterRendering sao ganchos de ciclo de vida do UI5.
     public override onInit(): void {
         this.applyCompactNav();
         this.compactMedia.addEventListener("change", this.applyCompactNav);
 
-        /*
-         * O listener entra aqui, e nao depois do JSON: o router so inicializa no
-         * onAfterRendering, entao a rota inicial (home) ainda nao foi resolvida
-         * quando este ponto roda - e ela precisa entrar no historico junto com
-         * as demais.
-         */
+        // Antes do router iniciar: a rota inicial tambem precisa passar por aqui.
         this.component()
             .getRouter()
             .attachRouteMatched((event) => {
-                const name = (event.getParameter("name") as string) ?? "";
-                this.model("ui")?.setProperty("/activeRoute", name);
-                this.syncSectionTitle(name);
+                const route = (event.getParameter("name") as string) ?? "";
+                this.model("ui")?.setProperty("/activeRoute", route);
+                this.syncSectionTitle(route);
             });
 
-        void this.loadPortfolio();
+        void this.start();
     }
 
-    /**
-     * O router so pode iniciar depois que o NavContainer foi criado, ou seja,
-     * depois do primeiro rendering da view raiz.
-     */
+    /** O router so pode iniciar depois que o NavContainer da view raiz existe. */
     public override onAfterRendering(): void {
         if (!this.routerStarted) {
             this.routerStarted = true;
@@ -86,164 +57,89 @@ export default class AppController extends BaseController {
         }
     }
 
-    /**
-     * Publica no model "ui" se a barra esta em modo compacto (so icone).
-     *
-     * A media query e o unico jeito de o UI5 saber a largura real da janela: o
-     * `sap.ui.Device` so distingue phone/tablet e nao acompanha o resize.
-     */
-    private readonly applyCompactNav = (): void => {
-        this.model("ui")?.setProperty("/compactNav", this.compactMedia.matches);
-    };
+    // ------------------------------------------------------------- handlers
 
-    /**
-     * Titulo mostrado na barra fixa abaixo do topo.
-     *
-     * Na home o titulo fica vazio de proposito: ali o hero ja mostra o nome e a
-     * faixa seria ruido. Como o texto e o que decide a visibilidade, o valor
-     * vazio e o que esconde a barra.
-     */
-    private syncSectionTitle(route: string): void {
-        const title = route === HOME_ROUTE ? "" : (this.sectionTitles[route] ?? "");
-        this.model("ui")?.setProperty("/currentSectionTitle", title);
-    }
-
-    /** Rota que o router resolviu por ultimo (inicializa em home). */
-    private activeRoute(): string {
-        const current = (this.model("ui") as JSONModel | undefined)?.getProperty("/activeRoute");
-        return typeof current === "string" && current ? current : HOME_ROUTE;
-    }
-
-    /** Carrega, valida, traduz e publica o conteudo no model. */
-    private async loadPortfolio(): Promise<void> {
-        const source = await loadSourceConfig(CONTENT_BASE_URL, browserFetcher);
-        const dataSource = createDataSource(source, { baseUrl: CONTENT_BASE_URL, fetcher: browserFetcher });
-        const service = await ContentService.boot({
-            dataSource,
-            locale: this.locale()
-        });
-
-        const contentModel = this.model("content") as JSONModel;
-        const viewData = buildViewData(service);
-
-        // Um unico setData: sobrescrever duas vezes apagaria o documento do
-        // portfolio (perfil, experiencias...) e deixaria apenas as derivacoes.
-        contentModel.setData({
-            ...service.content,
-            ...viewData,
-            navLinks: normalizeLinks(viewData.navLinks),
-            footerLinks: normalizeLinks(viewData.footerLinks)
-        });
-
-        // A barra fixa abaixo do topo repete o nome da aba atual. Monta o indice
-        // com TODAS as secoes ativas (o CV nao aparece na navegacao, mas tem
-        // titulo) a partir das secoes JA traduzidas do ContentService.
-        // `nav` continua tipado como LocalizedText, mas em tempo de execucao ja e
-        // uma string traduzida - o String() so satisfaz o compilador.
-        this.sectionTitles = Object.fromEntries(
-            service.activeSections.map((section) => [section.route, String(section.nav ?? "")])
-        );
-
-        // A rota inicial e resolvida antes do JSON chegar, entao o titulo dela foi
-        // sincronizado com o indice ainda vazio. Repete agora que ele existe.
-        this.syncSectionTitle(this.activeRoute());
-
-        await this.publishUiOptions();
-        this.model("ui")?.setProperty("/busy", false);
-        this.hideSplash();
-    }
-
-    /**
-     * Publica as opcoes de tema do SegmentedButton do rodape.
-     *
-     * Os rotulos vem do resource bundle (i18n) porque o model "ui" e um JSONModel
-     * e nao resolve chaves i18n sozinho. Os itens sao criados via API porque
-     * sap.m.SegmentedButton declara "buttons" como defaultAggregation e ignora
-     * templates XML na agregacao "items".
-     *
-     * O selectedKey NAO vai por binding: em two-way o SegmentedButton grava de
-     * volta no model durante o boot e sobrescreve o mode aplicado pelo
-     * Component com string vazia (a pagina ficava escura com "Light" marcado), e
-     * o one-way (:=) quebra o boot de fragment no UI5 1.153.
-     *
-     * O idioma nao aparece aqui: quem decide e o i18n do UI5 (idioma do
-     * navegador), com ?lang= na URL como override explicito.
-     */
-    private async publishUiOptions(): Promise<void> {
-        const view = this.getView();
-        const i18n = view?.getModel("i18n") as ResourceModel | undefined;
-        // O manifest declara asyncSupport, entao o bundle pode chegar como Promise.
-        const bundle = await i18n?.getResourceBundle();
-        const text = (key: string): string => bundle?.getText(key) ?? key;
-
-        const fill = (id: string, options: { key: string; text: string }[]): void => {
-            const toggle = view?.byId(id) as SegmentedButton | undefined;
-            if (!toggle) {
-                Log.warning("SegmentedButton nao encontrado: " + id);
-                return;
-            }
-            toggle.removeAllItems();
-            options.forEach((option) => {
-                toggle.addItem(new SegmentedButtonItem({ key: option.key, text: option.text }));
-            });
-        };
-
-        fill("themeToggle", [
-            { key: "light", text: text("theme.light") },
-            { key: "dark", text: text("theme.dark") }
-        ]);
-
-        // Alinha o toggle com o tema ja aplicado pelo Component (evita o "piscar"
-        // em "Light" quando o sistema prefere dark).
-        const themeToggle = view?.byId("themeToggle") as SegmentedButton | undefined;
-        themeToggle?.setSelectedKey(ThemeService.getMode());
-    }
-
-    /** Navega para a secao escolhida na barra superior. */
+    /** Aba da barra superior. */
     public onNavPress(event: sap.ui.base.Event): void {
-        const route = this.sourceContext(event)?.getProperty("route") as SectionDefinition["route"];
+        const route = this.sourceProperty<SectionDefinition["route"]>(event, "route");
         if (route) {
             this.navigate(route);
         }
     }
 
-    /** Abre um link externo (ou o cliente de e-mail) a partir da barra/rodape. */
-    public onLinkPress(event: sap.ui.base.Event): void {
-        const context = this.sourceContext(event);
-        this.openLink(context?.getProperty("url"), context?.getProperty("isMail"));
-    }
-
-    /** Botao "curriculo" da barra superior. */
-    public onCvPress(): void {
-        this.navigate("cv");
-    }
-
-    // ------------------------------------------------------------------
-    // Tema
-    // ------------------------------------------------------------------
-
     /**
-     * Alterna claro/escuro pelo SegmentedButton do rodape.
-     *
-     * A key vem do proprio controle: no UI5 1.153 o selectionChange do
-     * sap.m.SegmentedButton e disparado sem parametros, entao usar
-     * event.getParameter("key") cairia sempre no fallback.
+     * Tema claro/escuro (SegmentedButton do rodape). A key vem do controle: no
+     * UI5 1.153 o selectionChange chega sem parametros.
      */
     public onThemeChange(event: sap.ui.base.Event): void {
-        const key =
-            ((event.getSource() as SegmentedButton | undefined)?.getSelectedKey() as ThemeMode) ?? "light";
-        ThemeService.apply(key);
-        this.model("ui")?.setProperty("/theme", key);
+        const mode =
+            ((event.getSource() as SegmentedButton | undefined)?.getSelectedKey() as ThemeMode) || "light";
+        ThemeService.apply(mode);
+        this.model("ui")?.setProperty("/theme", mode);
     }
 
-    /** Remove a tela de carregamento exibida pelo index.html. */
-    private hideSplash(): void {
-        const splash = document.getElementById("pf-splash");
-        if (!splash) {
+    // ------------------------------------------------------------- interno
+
+    /** Carrega o conteudo e libera a interface. */
+    private async start(): Promise<void> {
+        const { modelData, sectionTitles } = await loadPortfolio(this.locale());
+
+        this.model("content")?.setData(modelData);
+        this.sectionTitles = sectionTitles;
+        // A rota inicial foi resolvida antes do conteudo: refaz o titulo dela.
+        this.syncSectionTitle(this.activeRoute());
+
+        await this.fillThemeToggle();
+        this.model("ui")?.setProperty("/busy", false);
+        this.hideSplash();
+    }
+
+    /** Publica no model "ui" se a barra esta em modo compacto (so icones). */
+    private readonly applyCompactNav = (): void => {
+        this.model("ui")?.setProperty("/compactNav", this.compactMedia.matches);
+    };
+
+    /** Titulo da barra de secao; vazio na home (e o vazio que esconde a barra). */
+    private syncSectionTitle(route: string): void {
+        const title = route === HOME_ROUTE ? "" : (this.sectionTitles[route] ?? "");
+        this.model("ui")?.setProperty("/currentSectionTitle", title);
+    }
+
+    private activeRoute(): string {
+        const route = this.model("ui")?.getProperty("/activeRoute");
+        return typeof route === "string" && route ? route : HOME_ROUTE;
+    }
+
+    /**
+     * Opcoes "Claro/Escuro" do rodape.
+     *
+     * Criadas via API porque o SegmentedButton ignora template XML em `items`,
+     * e o selectedKey e setado direto: em two-way binding o controle gravava
+     * string vazia no model durante o boot e o tema voltava para claro.
+     */
+    private async fillThemeToggle(): Promise<void> {
+        const view = this.getView();
+        const toggle = view?.byId("themeToggle") as SegmentedButton | undefined;
+        if (!toggle) {
+            Log.warning("SegmentedButton 'themeToggle' nao encontrado");
             return;
         }
+        // O manifest declara asyncSupport: o bundle pode chegar como Promise.
+        const bundle = await (view?.getModel("i18n") as ResourceModel | undefined)?.getResourceBundle();
+        const text = (key: string): string => bundle?.getText(key) ?? key;
 
-        splash.classList.add("is-hidden");
-        window.setTimeout(() => splash.remove(), 400);
+        toggle.removeAllItems();
+        toggle.addItem(new SegmentedButtonItem({ key: "light", text: text("theme.light") }));
+        toggle.addItem(new SegmentedButtonItem({ key: "dark", text: text("theme.dark") }));
+        toggle.setSelectedKey(ThemeService.getMode());
+    }
+
+    /** Remove o splash do index.html com um fade curto. */
+    private hideSplash(): void {
+        const splash = document.getElementById("pf-splash");
+        if (splash) {
+            splash.classList.add("is-hidden");
+            window.setTimeout(() => splash.remove(), 400);
+        }
     }
 }

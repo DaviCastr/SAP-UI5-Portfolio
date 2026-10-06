@@ -1,12 +1,12 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
-import type { Certificate } from "../../webapp/service/types";
+import type { Certificate } from "../../webapp/model/types";
 import {
     CREDLY_BADGES_URL,
     mapCredlyBadges,
     type CredlyBadge,
     type CredlyResponse
-} from "../../webapp/service/liveSources";
+} from "../../webapp/model/data/liveSources";
 import {
     CONTENT_DIR,
     IMAGES_DIR,
@@ -29,7 +29,7 @@ import {
  * mao (source = "manual") sao preservadas, e as badges do Credly sao atualizadas
  * sem perder a ordem de destaque definida no JSON.
  *
- * O mapeamento do payload fica em `webapp/service/liveSources.ts`, compartilhado
+ * O mapeamento do payload fica em `webapp/model/data/liveSources.ts`, compartilhado
  * com o app - e o mesmo codigo que roda no browser quando o portfolio tenta
  * buscar as certificacoes ao vivo.
  */

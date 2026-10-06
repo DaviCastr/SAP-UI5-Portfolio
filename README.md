@@ -55,39 +55,56 @@ O app abre em <http://localhost:8080/index.html>.
 
 ## Estrutura do projeto
 
+MVC no padrao do UI5: **view** (XML) so declara, **controller** so liga a view ao
+model, e toda regra fica em **model** - em TypeScript puro, sem controles UI5, testavel
+com Vitest e reaproveitada pelos scripts Node.
+
 ```text
 webapp/
-  Component.ts            # cria os models (device, ui, content) e inicia router/idioma/tema
-  index.html              # bootstrap do UI5 (tema, idioma, splash, SEO)
-  manifest.json           # models, rotas, i18n, CSS
-  content/                # <- DADOS do portfolio (um arquivo por secao)
-    profile.json  experiences.json  skills.json  projects.json
-    certificates.json  education.json  courses.json  github.json
-    sections.json  # navegacao (rotas, ordem, icones, enabled)
-    source.json    # de onde os dados vem (static | remote)
-  controller/             # um controller por tela + BaseController (navegacao, formatadores)
-  view/                   # uma XMLView por tela
-  fragment/               # navbar, footer e cards reutilizaveis
-  service/                # regra de negocio pura (sem UI5)
-    types.ts              # contratos dos JSONs
-    DataSource.ts         # interface da fonte de dados (swapavel)
-    StaticJsonDataSource.ts
-    ContentService.ts     # carrega, valida, traduz e expoe metricas
-    Localizer.ts          # { pt, en } -> texto do idioma ativo
-    validator.ts          # problemas de conteudo com caminho do campo
-    metrics.ts            # meses de experiencia, stacks, contagens
-    viewData.ts           # dados derivados publicados no model
-    LocaleService.ts / LocaleResolver.ts / ThemeService.ts / formatters.ts
-  i18n/                   # textos de UI (PT e EN)
-  css/                    # components.css + print.css (A4)
-  cv/                     # PDF gerado (nao versionado)
-tools/                    # scripts de linha de comando (Node)
-test/                     # testes Vitest
+  Component.ts              # cria os models (device, ui, content) e aplica o tema
+  index.html / manifest.json
+  content/                  # <- DADOS do portfolio (um JSON por secao + source.json)
+
+  view/  fragment/          # V: XMLViews e pedacos reutilizaveis (cards, topo, rodape)
+
+  controller/               # C: um controller por tela, todos finos
+    BaseController.ts       #    acesso a models/router, links, `formatter`, acoes comuns
+    App.controller.ts       #    shell: rotas, titulo da secao, tema, splash
+    support/                #    comportamentos reutilizaveis
+      ClickableCards.ts     #      cartao inteiro clicavel (mouse + teclado + a11y)
+      CvPdfAction.ts        #      "Ver PDF": gera, abre a pre-visualizacao, fallback
+
+  model/                    # M: dados e regras (sem UI5)
+    types.ts                #    contratos dos JSONs
+    models.ts               #    fabricas dos JSONModels
+    formatter.ts            #    UNICO lugar onde dado vira texto de tela
+    dates.ts                #    datas em texto (usado pelo formatter e pelo PDF)
+    data/                   #    de onde os dados vem
+      DataSource.ts  StaticJsonDataSource.ts  liveSources.ts (Credly/GitHub)
+    content/                #    o que se faz com eles
+      ContentLoader.ts      #      entrada unica: fonte -> validacao -> traducao -> model
+      ContentService.ts     #      conteudo carregado + metricas e listas derivadas
+      Localizer.ts  validator.ts  metrics.ts
+      ordering.ts           #      regras de ordem (formacao, projetos por recencia)
+      filters.ts            #      filtros das telas (funcoes puras)
+      viewData.ts           #      dados derivados publicados no model
+
+  pdf/                      # curriculo em PDF (jsPDF) - roda no navegador e no Node
+    cvPdf.ts  pdfPreview.ts  pdfPhoto.ts
+  util/                     # navegador: LocaleService, LocaleResolver, ThemeService
+  i18n/  css/  images/
+tools/                      # scripts Node (sync GitHub/Credly, PDF, validacao)
+test/                       # testes Vitest
 ```
 
-**Regra de ouro da arquitetura:** as views nunca falam com `fetch`. Elas leem o model
-`content`, que e publicado pelo `ContentService`. Isso permite trocar a origem dos dados
-sem tocar em view nem controller.
+**Regras da arquitetura**
+
+- As views nunca chamam `fetch`: leem o model `content`, preenchido pelo
+  `ContentLoader`. Trocar a origem dos dados (JSON -> CAP) nao toca em view nem controller.
+- Controller nao tem regra de negocio: le a escolha do usuario, chama uma funcao de
+  `model/` (ex.: `filterProjects`) e publica o resultado.
+- Formatacao so no `model/formatter.ts`; no XML: `formatter: '.formatter.period'`.
+- Texto visivel so no i18n ou no JSON de conteudo.
 
 ## Como editar o conteudo
 
@@ -167,7 +184,7 @@ Para ler de uma URL unica (backend, OData, CAP servindo um JSON):
 ```
 
 Para integrate com CAP/OData de verdade, crie uma classe que implemente a interface
-`webapp/service/DataSource.ts` e registre-a em `createDataSource()`. Nenhuma view ou
+`webapp/model/data/DataSource.ts` e registre-a em `createDataSource()`. Nenhuma view ou
 controller precisa mudar - eles continuam lendo o mesmo model `content`.
 
 ## Internacionalizacao
@@ -219,11 +236,11 @@ npm run cv:pdf -- --lang=en
 npm run cv:pdf -- --out=dist/cv.pdf
 ```
 
-O layout do PDF fica em `webapp/service/cvPdf.ts` (jsPDF) e e o mesmo nas duas pontas:
+O layout do PDF fica em `webapp/pdf/cvPdf.ts` (jsPDF) e e o mesmo nas duas pontas:
 
 - **No site**, os botoes "Baixar PDF" / "Baixar curriculo" geram o arquivo **na hora, no
   navegador**, no idioma ativo, e o abrem numa **nova aba para visualizar** antes de baixar
-  (`service/pdfPreview.ts`). O botao "Baixar PDF" da aba salva como `davi-castro-cv-pt.pdf`
+  (`pdf/pdfPreview.ts`). O botao "Baixar PDF" da aba salva como `davi-castro-cv-pt.pdf`
   ou `-en.pdf`. Se o navegador bloquear a aba, o arquivo e baixado direto. O jsPDF so e
   carregado no clique.
 - **No terminal**, `npm run cv:pdf` grava `webapp/cv/davi-castro-cv.pdf`, usado como

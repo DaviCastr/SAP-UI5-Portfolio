@@ -16,7 +16,7 @@
                 </VBox>
 
                 <!--
-                    Folha do curriculo: mesmo desenho do PDF (service/cvPdf.ts) -
+                    Folha do curriculo: mesmo desenho do PDF (pdf/cvPdf.ts) -
                     faixa com foto, barra lateral e coluna principal. As cores
                     vem dos tokens, entao a folha acompanha o tema claro/escuro
                     (e a impressao tambem, ver print.css).
@@ -58,7 +58,7 @@
                                 </VBox>
                                 <VBox class="pf-cv__field" visible="{= !!${content>/profile/phone}}">
                                     <Text class="pf-cv__label" text="{i18n>cv.phone}"/>
-                                    <Text class="pf-cv__value" text="{path: 'content>/profile/phone', formatter: '.fPhone'}"/>
+                                    <Text class="pf-cv__value" text="{path: 'content>/profile/phone', formatter: '.formatter.phone'}"/>
                                 </VBox>
                                 <VBox class="pf-cv__field" visible="{= !!${content>/profile/location}}">
                                     <Text class="pf-cv__label" text="{i18n>cv.location}"/>
@@ -69,7 +69,7 @@
                                         <Text class="pf-cv__label" text="{label}"/>
                                         <Link
                                             class="pf-cv__value"
-                                            text="{path: 'url', formatter: '.fShortUrl'}"
+                                            text="{path: 'url', formatter: '.formatter.shortUrl'}"
                                             href="{url}"
                                             target="_blank"
                                             wrapping="true"/>
@@ -99,12 +99,12 @@
                                             <VBox class="pf-cv__skill">
                                                 <HBox justifyContent="SpaceBetween" alignItems="Center">
                                                     <Text class="pf-cv__skill-name" text="{name}"/>
-                                                    <Text class="pf-cv__skill-level" text="{path: 'level', formatter: '.fLevel'}"/>
+                                                    <Text class="pf-cv__skill-level" text="{path: 'level', formatter: '.formatter.level'}"/>
                                                 </HBox>
                                                 <HBox class="pf-cv__bar">
                                                     <HBox
                                                         class="pf-cv__bar-fill"
-                                                        width="{path: 'level', formatter: '.fLevelPercent'}"/>
+                                                        width="{path: 'level', formatter: '.formatter.levelPercent'}"/>
                                                 </HBox>
                                             </VBox>
                                         </VBox>
@@ -126,7 +126,7 @@
                                             value="{level}"
                                             displayOnly="true"
                                             iconSize="0.75rem"
-                                            tooltip="{path: 'level', formatter: '.fLevel'}"/>
+                                            tooltip="{path: 'level', formatter: '.formatter.level'}"/>
                                     </HBox>
                                 </VBox>
                             </VBox>
@@ -172,7 +172,7 @@
                                             <!-- O rotulo "atual/Present" vem do i18n como 2a parte. -->
                                             <Text
                                                 class="pf-cv__pill"
-                                                text="{parts: ['period', 'i18n>period.current'], formatter: '.fPeriod'}"/>
+                                                text="{parts: ['period', 'i18n>period.current'], formatter: '.formatter.period'}"/>
                                         </HBox>
                                         <Text class="pf-cv__text" text="{summary}"/>
                                         <VBox
@@ -199,7 +199,7 @@
                                             <Text class="pf-cv__entry-title" text="{name}"/>
                                             <Link
                                                 class="pf-cv__link"
-                                                text="{path: 'repo', formatter: '.fShortUrl'}"
+                                                text="{path: 'repo', formatter: '.formatter.shortUrl'}"
                                                 href="{repo}"
                                                 target="_blank"
                                                 visible="{= !!${repo}}"/>
@@ -222,7 +222,7 @@
                                         </VBox>
                                         <Text
                                             class="pf-cv__pill"
-                                            text="{parts: ['period', 'i18n>period.current'], formatter: '.fPeriod'}"
+                                            text="{parts: ['period', 'i18n>period.current'], formatter: '.formatter.period'}"
                                             visible="{= !!${period/from}}"/>
                                     </HBox>
                                 </VBox>
@@ -242,16 +242,16 @@
                                         <core:Icon src="sap-icon://validate" class="pf-cvcert__icon"/>
                                         <VBox class="pf-cvcert__body">
                                             <Text class="pf-cvcert__eyebrow" text="SAP Certified"/>
-                                            <Text class="pf-cvcert__title" text="{path: 'title', formatter: '.fCertShort'}"/>
+                                            <Text class="pf-cvcert__title" text="{path: 'title', formatter: '.formatter.certShort'}"/>
                                         </VBox>
-                                        <Text class="pf-cvcert__date" text="{path: 'issuedAt', formatter: '.fIssued'}"/>
+                                        <Text class="pf-cvcert__date" text="{path: 'issuedAt', formatter: '.formatter.monthYear'}"/>
                                     </HBox>
                                 </VBox>
                             </VBox>
 
                             <HBox class="pf-cv__foot" justifyContent="SpaceBetween">
                                 <Text class="pf-small pf-muted" text="{i18n>cv.generated}"/>
-                                <Text class="pf-small pf-muted" text="{path: 'content>/meta/updatedAt', formatter: '.fDateTime'}"/>
+                                <Text class="pf-small pf-muted" text="{path: 'content>/meta/updatedAt', formatter: '.formatter.dateTime'}"/>
                             </HBox>
                         </VBox>
                     </VBox>

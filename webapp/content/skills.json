@@ -111,6 +111,42 @@
     "tags": ["SAP", "Mobile", "BTP"]
   },
   {
+    "id": "hana",
+    "name": "SAP HANA DB",
+    "category": "SAP",
+    "icon": "database",
+    "level": 4,
+    "description": {
+      "pt": "Modelagem e consultas no SAP HANA, inclusive como banco do SAP CAP (HDI, CDS e Calculation Views).",
+      "en": "Modeling and querying SAP HANA, including as the SAP CAP database (HDI, CDS and Calculation Views)."
+    },
+    "tags": ["SAP", "HANA", "CAP"]
+  },
+  {
+    "id": "odata",
+    "name": "OData",
+    "category": "SAP",
+    "icon": "chain-link",
+    "level": 5,
+    "description": {
+      "pt": "Serviços OData V2 e V4 para apps Fiori, com RAP, CAP e SAP Gateway.",
+      "en": "OData V2 and V4 services for Fiori apps, with RAP, CAP and SAP Gateway."
+    },
+    "tags": ["SAP", "OData", "Fiori"]
+  },
+  {
+    "id": "gateway",
+    "name": "SAP Gateway",
+    "category": "SAP",
+    "icon": "connected",
+    "level": 4,
+    "description": {
+      "pt": "Criação e manutenção de serviços no SAP Gateway (SEGW), DPC/MPC e integração com Fiori.",
+      "en": "Building and maintaining SAP Gateway services (SEGW), DPC/MPC and Fiori integration."
+    },
+    "tags": ["SAP", "Gateway", "OData"]
+  },
+  {
     "id": "ui5",
     "name": "SAPUI5 (freestyle)",
     "category": "Front-end",

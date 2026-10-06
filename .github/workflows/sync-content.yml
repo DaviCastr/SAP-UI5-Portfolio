@@ -21,7 +21,7 @@ on:
       # Mudou o codigo do scraper ou o formato do dado: regerar faz sentido.
       - "tools/credly/**"
       - "tools/github/**"
-      - "webapp/service/liveSources.ts"
+      - "webapp/model/data/liveSources.ts"
       - ".github/workflows/sync-content.yml"
 
 permissions:

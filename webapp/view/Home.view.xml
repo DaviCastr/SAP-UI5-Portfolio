@@ -63,7 +63,7 @@
                             </HBox>
                             <HBox alignItems="Center" class="pf-hero__meta-item">
                                 <core:Icon src="sap-icon://phone" class="pf-text-xs"/>
-                                <Text text="{path: 'content>/profile/phone', formatter: '.fPhone'}"/>
+                                <Text text="{path: 'content>/profile/phone', formatter: '.formatter.phone'}"/>
                             </HBox>
                         </HBox>
                     </VBox>

@@ -1,4 +1,4 @@
-import type { PortfolioContent, ContentLocale } from "./types";
+import type { PortfolioContent, ContentLocale } from "../types";
 
 /** Funcao que busca um JSON por URL (injetavel: facilitates testes e modo remoto). */
 export type JsonFetcher = (url: string) => Promise<unknown>;

@@ -1,5 +1,5 @@
-import { emptyContent } from "../../webapp/service/ContentService";
-import type { PortfolioContent } from "../../webapp/service/types";
+import { emptyContent } from "../../webapp/model/content/ContentService";
+import type { PortfolioContent } from "../../webapp/model/types";
 
 /**
  * Monta um PortfolioContent completo a partir de um parcial.

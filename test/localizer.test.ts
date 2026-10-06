@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { localize, localizeText, pickLocalized } from "../webapp/service/Localizer";
+import { localize, localizeText, pickLocalized } from "../webapp/model/content/Localizer";
 
 describe("pickLocalized", () => {
     it("usa o idioma exato quando existe", () => {

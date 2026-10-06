@@ -2,14 +2,14 @@
     <VBox class="pf-project">
         <HBox alignItems="Center" class="pf-project__head">
             <HBox class="pf-project__icon" alignItems="Center">
-                <core:Icon src="{path: 'icon', formatter: '.fIcon'}" class="pf-text-lg"/>
+                <core:Icon src="{path: 'icon', formatter: '.formatter.icon'}" class="pf-text-lg"/>
             </HBox>
             <VBox class="pf-project__title">
                 <Text class="pf-project__name" text="{name}"/>
                 <!-- Papel e empresa ("Consultor SAP ABAP · Accenture Brasil"). -->
                 <Text
                     class="pf-project__meta"
-                    text="{parts: ['role', 'company'], formatter: '.fJoinDot'}"
+                    text="{parts: ['role', 'company'], formatter: '.formatter.joinDot'}"
                     visible="{= !!${role} || !!${company} }"/>
             </VBox>
         </HBox>
@@ -19,7 +19,7 @@
             <Text class="pf-project__badge pf-project__badge--live" text="{i18n>project.current}" visible="{= !!${current} }"/>
             <Text
                 class="pf-project__badge"
-                text="{parts: ['period', 'i18n>period.current'], formatter: '.fPeriod'}"
+                text="{parts: ['period', 'i18n>period.current'], formatter: '.formatter.period'}"
                 visible="{= !${current} &amp;&amp; !!${period/from} }"/>
         </HBox>
 

@@ -1,7 +1,7 @@
 import { inflateSync } from "node:zlib";
 import { describe, expect, it } from "vitest";
 import { loadLocalizedContent } from "../tools/shared/nodeContent";
-import { buildCvPdf, cvPdfFileName, formatCvMonth, formatCvPeriod } from "../webapp/service/cvPdf";
+import { buildCvPdf, cvPdfFileName, formatCvMonth, formatCvPeriod } from "../webapp/pdf/cvPdf";
 
 /**
  * O mesmo gerador roda no botao "Baixar PDF" e no `npm run cv:pdf`. O que
@@ -83,9 +83,9 @@ describe("cvPdf", () => {
     });
 
     it("formata periodos e nome do arquivo", async () => {
-        expect(formatCvMonth("2025-06", "pt")).toBe("jun 2025");
+        expect(formatCvMonth("2025-06", "pt")).toBe("jun/2025");
         expect(formatCvMonth("2025-06-30", "en")).toBe("Jun 2025");
-        expect(formatCvPeriod({ from: "2025-06", to: null }, "pt")).toBe("jun 2025 – atual");
+        expect(formatCvPeriod({ from: "2025-06", to: null }, "pt")).toBe("jun/2025 – atual");
         expect(formatCvPeriod({ from: "2019-01", to: "2022-12" }, "en")).toBe("Jan 2019 – Dec 2022");
         expect(cvPdfFileName(await loadLocalizedContent("pt"), "en")).toBe("davi-castro-cv-en.pdf");
     });

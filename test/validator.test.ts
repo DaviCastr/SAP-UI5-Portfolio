@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import type { Skill } from "../webapp/service/types";
-import { validateContent } from "../webapp/service/validator";
+import type { Skill } from "../webapp/model/types";
+import { validateContent } from "../webapp/model/content/validator";
 import { buildContent } from "./helpers/content";
 
 /** Caminhos dos problemas encontrados (ordem de insercao). */
