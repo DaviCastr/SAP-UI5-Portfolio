@@ -1,5 +1,13 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
     <VBox class="pf-project">
+        <!-- Capa opcional (ex.: curso); sem `image` o card segue so com o icone. -->
+        <Image
+            class="pf-project__cover"
+            src="{image}"
+            densityAware="false"
+            alt="{name}"
+            visible="{= !!${image} }"/>
+
         <HBox alignItems="Center" class="pf-project__head">
             <HBox class="pf-project__icon" alignItems="Center">
                 <core:Icon src="{path: 'icon', formatter: '.formatter.icon'}" class="pf-text-lg"/>

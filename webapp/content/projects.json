@@ -13,19 +13,47 @@
       "pt": "Participação no projeto de estoque transitório na Vale, atuando como desenvolvedor SAP MDK e CAP.",
       "en": "Taking part in the transitory stock project at Vale, working as an SAP MDK and CAP developer."
     },
-    "stack": [
-      "SAP MDK",
-      "SAP CAP"
-    ],
-    "tags": [
-      "SAP",
-      "MDK",
-      "CAP",
-      "Mobile"
-    ],
+    "stack": ["SAP MDK", "SAP CAP"],
+    "tags": ["SAP", "MDK", "CAP", "Mobile"],
     "featured": true,
     "current": true,
     "icon": "iphone"
+  },
+  {
+    "id": "curso-sap-abap-rap",
+    "name": {
+      "pt": "Curso: Destravando SAP ABAP RAP",
+      "en": "Course: Unlocking SAP ABAP RAP"
+    },
+    "role": {
+      "pt": "Autor e instrutor",
+      "en": "Author and instructor"
+    },
+    "description": {
+      "pt": "Treinamento prático e avançado para desenvolvedores SAP: modelagem, implementação e otimização de aplicações com SAP ABAP RAP para atuar em projetos reais. São 18 aulas, do protótipo managed ao draft.",
+      "en": "Hands-on, advanced training for SAP developers: modeling, implementing and optimizing applications with SAP ABAP RAP for real-world projects. 18 lessons, from the managed prototype to draft."
+    },
+    "highlights": [
+      {
+        "pt": "CDS de interface, projeção, metadata, serviço, autorização e comportamento, além de EML.",
+        "en": "Interface, projection, metadata, service, authorization and behavior CDS, plus EML."
+      },
+      {
+        "pt": "Determinações, validações, ações e draft (rascunho).",
+        "en": "Determinations, validations, actions and draft."
+      },
+      {
+        "pt": "Cenários greenfield (managed), brownfield (unmanaged) e custom entities.",
+        "en": "Greenfield (managed), brownfield (unmanaged) and custom entity scenarios."
+      }
+    ],
+    "url": "https://davicastro-training.hotmart.host/destravando-seu-desenvolvimento-em-sap-abap-rap-8a01a68d-d1a7-4574-9cfd-daf7c8b8f87f",
+    "image": "images/projects/curso-sap-rap.png",
+    "icon": "education",
+    "stack": ["SAP ABAP RAP", "CDS Views", "EML", "ABAP"],
+    "tags": ["SAP", "RAP", "ABAP", "Curso"],
+    "featured": true,
+    "current": true
   },
   {
     "id": "comgas-ams",
@@ -41,18 +69,8 @@
       "pt": "Projeto AMS de sustentação dos ambientes SAP ECC, CCS (Customer Care and Service) e CRM da Comgás, com correção de incidentes e melhorias.",
       "en": "AMS project supporting the SAP ECC, CCS (Customer Care and Service) and CRM landscapes at Comgás, handling incidents and enhancements."
     },
-    "stack": [
-      "SAP ABAP",
-      "SAP ECC",
-      "SAP CCS",
-      "SAP CRM"
-    ],
-    "tags": [
-      "SAP",
-      "AMS",
-      "ABAP",
-      "CRM"
-    ],
+    "stack": ["SAP ABAP", "SAP ECC", "SAP CCS", "SAP CRM"],
+    "tags": ["SAP", "AMS", "ABAP", "CRM"],
     "featured": true,
     "icon": "headset"
   },
@@ -80,18 +98,8 @@
         "en": "I use it every day to manage my personal finances."
       }
     ],
-    "stack": [
-      "SAP CAP",
-      "SAP HANA",
-      "SAPUI5",
-      "SAP Fiori Elements"
-    ],
-    "tags": [
-      "SAP",
-      "CAP",
-      "UI5",
-      "Pessoal"
-    ],
+    "stack": ["SAP CAP", "SAP HANA", "SAPUI5", "SAP Fiori Elements"],
+    "tags": ["SAP", "CAP", "UI5", "Pessoal"],
     "featured": true,
     "icon": "credit-card"
   },
@@ -113,17 +121,8 @@
       "pt": "Melhorias internas na 3Corações, com aprimoramento de aplicativos e manutenções internas.",
       "en": "Internal improvements at 3Corações, enhancing applications and handling internal maintenance."
     },
-    "stack": [
-      "SAP ABAP",
-      "SAP Fiori",
-      "SAP S/4HANA"
-    ],
-    "tags": [
-      "SAP",
-      "S/4HANA",
-      "Fiori",
-      "AMS"
-    ],
+    "stack": ["SAP ABAP", "SAP Fiori", "SAP S/4HANA"],
+    "tags": ["SAP", "S/4HANA", "Fiori", "AMS"],
     "featured": true,
     "company": "Accenture Brasil",
     "icon": "wrench"
@@ -146,17 +145,8 @@
       "pt": "Projeto de implantação do S/4HANA na 3Corações: implementação de soluções e customizações, criação de apps Fiori, apps com extensões e melhorias internas.",
       "en": "S/4HANA implementation project at 3Corações: solution implementation and customizations, Fiori apps, extension apps and internal improvements."
     },
-    "stack": [
-      "SAP ABAP",
-      "SAP Fiori",
-      "SAP S/4HANA"
-    ],
-    "tags": [
-      "SAP",
-      "S/4HANA",
-      "Fiori",
-      "Implantação"
-    ],
+    "stack": ["SAP ABAP", "SAP Fiori", "SAP S/4HANA"],
+    "tags": ["SAP", "S/4HANA", "Fiori", "Implantação"],
     "featured": true,
     "company": "GFX Consultoria",
     "icon": "factory"
@@ -179,15 +169,8 @@
       "pt": "Melhorias AMS em clientes da GFX Consultoria, atendendo incidentes e evoluções para os clientes.",
       "en": "AMS improvements for GFX Consultoria clients, handling incidents and enhancements."
     },
-    "stack": [
-      "SAP ABAP",
-      "SAP Fiori"
-    ],
-    "tags": [
-      "SAP",
-      "AMS",
-      "ABAP"
-    ],
+    "stack": ["SAP ABAP", "SAP Fiori"],
+    "tags": ["SAP", "AMS", "ABAP"],
     "company": "GFX Consultoria",
     "icon": "inspection"
   }

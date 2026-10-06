@@ -231,6 +231,8 @@ export interface Project {
     period?: Period;
     /** Icone SAP UI5 do card (ex.: "iphone"). */
     icon?: string;
+    /** Capa opcional do card (ex.: "images/projects/curso-sap-rap.png"). */
+    image?: string;
     /** Projeto em andamento sem data conhecida (conta como o mais recente). */
     current?: boolean;
     /** Empresa pela qual o projeto foi feito (ex.: "Accenture Brasil"). */

@@ -933,6 +933,18 @@
     box-shadow: var(--pf-shadow-2);
 }
 
+/* Capa ate as bordas do card (anula o padding) e no topo. */
+.pf-project .pf-project__cover {
+    display: block;
+    width: calc(100% + 2 * var(--pf-card-padding));
+    max-width: none;
+    margin: calc(-1 * var(--pf-card-padding)) calc(-1 * var(--pf-card-padding)) 0;
+    aspect-ratio: 2 / 1;
+    object-fit: cover;
+    border-radius: calc(var(--pf-radius-lg) - 1px) calc(var(--pf-radius-lg) - 1px) 0 0;
+    border-bottom: 1px solid var(--pf-border);
+}
+
 .pf-project__head {
     display: flex;
     align-items: center;
