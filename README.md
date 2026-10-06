@@ -10,7 +10,7 @@ Tudo o que aparece na tela vem de arquivos JSON versionados: para atualizar o po
 ---
 
 ## Sumario
-
+ 
 - [Como rodar](#como-rodar)
 - [Scripts](#scripts)
 - [Estrutura do projeto](#estrutura-do-projeto)
