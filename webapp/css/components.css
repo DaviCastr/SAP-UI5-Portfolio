@@ -2423,3 +2423,8 @@ html .pf-app .pf-topbar .sapMBtn:focus-visible > .sapMBtnInner::before {
     background: rgba(255, 255, 255, 0.1);
     color: #ffffff;
 }
+
+/* "Ver projeto" no card de repositorio: pilula, como os demais botoes da marca. */
+.pf-repo .pf-repo__live.sapMBtn .sapMBtnInner {
+    border-radius: var(--pf-radius-pill);
+}

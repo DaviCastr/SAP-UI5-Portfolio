@@ -97,6 +97,11 @@ export default abstract class BaseController extends Controller {
         this.onLinkPress(event);
     }
 
+    /** Site publicado do repositorio (GitHub Pages ou homepage, campo `siteUrl`). */
+    public onSitePress(event: sap.ui.base.Event): void {
+        this.openLink(this.sourceProperty(event, "siteUrl"));
+    }
+
     /** Repositorio do projeto (campo `repo`). */
     public onRepoPress(event: sap.ui.base.Event): void {
         this.openLink(this.sourceProperty(event, "repo"));

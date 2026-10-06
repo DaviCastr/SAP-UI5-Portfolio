@@ -2,9 +2,10 @@
     <!--
         Card de repositorio do GitHub.
 
-        O card inteiro e clicavel (delegado no BaseController via .pf-repo) e nao
-        tem botao interno: a URL vem do campo "url" do proprio objeto, e um
-        botao "Repositorio" repetiria a acao sem acrescentar informacao.
+        O card inteiro e clicavel (ClickableCards via .pf-repo) e abre o
+        repositorio ("url"). O unico botao interno e "Ver projeto", que leva ao
+        site publicado (GitHub Pages ou homepage, campo "siteUrl") - clique em
+        botao nao dispara o clique do card.
     -->
     <VBox class="pf-repo">
         <HBox alignItems="Center" class="pf-repo__head">
@@ -39,6 +40,16 @@
                 <core:Icon src="sap-icon://share" class="pf-text-xs"/>
                 <Text text="{forks}"/>
             </HBox>
+        </HBox>
+
+        <HBox visible="{= !!${siteUrl} }">
+            <Button
+                class="pf-repo__live"
+                type="Emphasized"
+                icon="sap-icon://world"
+                text="{i18n>project.viewLive}"
+                tooltip="{siteUrl}"
+                press="onSitePress"/>
         </HBox>
     </VBox>
 </core:FragmentDefinition>

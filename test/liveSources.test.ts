@@ -255,7 +255,8 @@ describe("toRepo", () => {
             forks: 2,
             topics: ["sap", "ui5"],
             pushedAt: "2026-10",
-            homepage: undefined
+            homepage: undefined,
+            siteUrl: undefined
         });
     });
 
@@ -280,6 +281,26 @@ describe("toRepo", () => {
         expect(toRepo({ ...base, homepage: "https://davi.dev" }).homepage).toBe("https://davi.dev");
         expect(toRepo({ ...base, homepage: "javascript:alert(1)" }).homepage).toBeUndefined();
         expect(toRepo({ ...base, homepage: "davi.dev" }).homepage).toBeUndefined();
+    });
+
+    it("siteUrl: usa o homepage cadastrado ou monta a URL do GitHub Pages", () => {
+        const base = {
+            name: "SAP-UI5-ExpenseManager",
+            html_url: "https://github.com/DaviCastr/SAP-UI5-ExpenseManager",
+            stargazers_count: 0,
+            forks_count: 0,
+            fork: false,
+            archived: false
+        };
+
+        expect(toRepo({ ...base, has_pages: true }).siteUrl).toBe(
+            "https://davicastr.github.io/SAP-UI5-ExpenseManager/"
+        );
+        expect(toRepo({ ...base, has_pages: true, homepage: "https://app.vercel.app" }).siteUrl).toBe(
+            "https://app.vercel.app"
+        );
+        expect(toRepo({ ...base, homepage: "javascript:alert(1)" }).siteUrl).toBeUndefined();
+        expect(toRepo(base).siteUrl).toBeUndefined();
     });
 });
 

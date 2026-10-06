@@ -183,6 +183,8 @@ export interface GhRepo {
     pushed_at?: string;
     description?: string;
     homepage?: string;
+    /** O repositorio publica um site no GitHub Pages. */
+    has_pages?: boolean;
     topics?: string[];
 }
 
@@ -209,12 +211,26 @@ export function toDate(iso: string | undefined): string | undefined {
 }
 
 /**
+ * Site publicado do repositorio (botao "Ver projeto" no card):
+ *   1. o `homepage` cadastrado no repositorio, quando valido;
+ *   2. senao, se o GitHub Pages esta ativo, https://<dono>.github.io/<repo>/.
+ */
+export function siteUrlOf(repo: GhRepo, homepage: string | undefined): string | undefined {
+    if (homepage) {
+        return homepage;
+    }
+    const owner = /github\.com\/([^/]+)\//i.exec(repo.html_url ?? "")?.[1];
+    return repo.has_pages && owner ? `https://${owner.toLowerCase()}.github.io/${repo.name}/` : undefined;
+}
+
+/**
  * Converte um repositorio da API no formato do portfolio.
  *
  * `homepage` so e aceito com http(s): o GitHub aceita valor livre nesse campo e
  * um "javascript:..." ali viraria um link clicavel no card.
  */
 export function toRepo(repo: GhRepo): GitHubRepo {
+    const homepage = /^https?:\/\//i.test(repo.homepage ?? "") ? repo.homepage : undefined;
     return {
         name: repo.name,
         url: repo.html_url,
@@ -224,7 +240,8 @@ export function toRepo(repo: GhRepo): GitHubRepo {
         forks: repo.forks_count,
         topics: repo.topics?.length ? repo.topics : undefined,
         pushedAt: toMonth(repo.pushed_at),
-        homepage: /^https?:\/\//i.test(repo.homepage ?? "") ? repo.homepage : undefined
+        homepage,
+        siteUrl: siteUrlOf(repo, homepage)
     };
 }
 

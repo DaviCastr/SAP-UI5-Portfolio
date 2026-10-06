@@ -86,6 +86,8 @@ export interface GitHubRepo {
     pushedAt?: string;
     /** Site declarado no campo "website" do repositorio. */
     homepage?: string;
+    /** Site publicado (homepage ou GitHub Pages) - botao "Ver projeto". */
+    siteUrl?: string;
 }
 
 /** Dados do GitHub usados na aba de projetos (preenchidos pelo sync). */
