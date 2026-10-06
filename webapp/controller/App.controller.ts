@@ -21,12 +21,15 @@ const COMPACT_NAV_QUERY = "(max-width: 1199px)";
  *
  * Fluxo de inicializacao:
  *   1. onInit: escuta as rotas e dispara o carregamento do conteudo;
- *   2. onAfterRendering: inicia o router (o NavContainer ja existe);
- *   3. conteudo carregado: publica no model "content", preenche o tema do
- *      rodape e remove o splash do index.html.
+ *   2. conteudo carregado: publica no model "content" e preenche o tema;
+ *   3. router inicia so quando o shell JA renderizou (NavContainer existe) E o
+ *      conteudo JA carregou - ver `startRouterWhenReady`;
+ *   4. remove o splash do index.html.
  */
 export default class AppController extends BaseController {
     private routerStarted = false;
+    private shellRendered = false;
+    private contentLoaded = false;
 
     /** route -> titulo traduzido, para a barra de secao. */
     private sectionTitles: Record<string, string> = {};
@@ -51,10 +54,24 @@ export default class AppController extends BaseController {
 
     /** O router so pode iniciar depois que o NavContainer da view raiz existe. */
     public override onAfterRendering(): void {
-        if (!this.routerStarted) {
-            this.routerStarted = true;
-            this.component().getRouter().initialize();
+        this.shellRendered = true;
+        this.startRouterWhenReady();
+    }
+
+    /**
+     * Inicia o router so com as duas condicoes: NavContainer criado (primeiro
+     * render do shell) e conteudo carregado.
+     *
+     * Iniciar so no render fazia o link direto (".../#/certificates") criar a
+     * view antes do JSON chegar: o onInit da tela lia o conteudo e quebrava com
+     * "ContentService.boot() precisa ser chamado antes do primeiro acesso".
+     */
+    private startRouterWhenReady(): void {
+        if (this.routerStarted || !this.shellRendered || !this.contentLoaded) {
+            return;
         }
+        this.routerStarted = true;
+        this.component().getRouter().initialize();
     }
 
     // ------------------------------------------------------------- handlers
@@ -85,9 +102,10 @@ export default class AppController extends BaseController {
         const { modelData, sectionTitles } = await loadPortfolio(this.locale());
 
         this.model("content")?.setData(modelData);
+        // Titulos antes do router: a primeira rota ja sai com o titulo certo.
         this.sectionTitles = sectionTitles;
-        // A rota inicial foi resolvida antes do conteudo: refaz o titulo dela.
-        this.syncSectionTitle(this.activeRoute());
+        this.contentLoaded = true;
+        this.startRouterWhenReady();
 
         await this.fillThemeToggle();
         this.model("ui")?.setProperty("/busy", false);
@@ -103,11 +121,6 @@ export default class AppController extends BaseController {
     private syncSectionTitle(route: string): void {
         const title = route === HOME_ROUTE ? "" : (this.sectionTitles[route] ?? "");
         this.model("ui")?.setProperty("/currentSectionTitle", title);
-    }
-
-    private activeRoute(): string {
-        const route = this.model("ui")?.getProperty("/activeRoute");
-        return typeof route === "string" && route ? route : HOME_ROUTE;
     }
 
     /**
