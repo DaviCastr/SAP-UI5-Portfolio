@@ -1,4 +1,5 @@
 import BaseController from "./BaseController";
+import { Model } from "../model/constants";
 import { ALL, filterProjects, filterRepos, repoLanguages } from "../model/content/filters";
 
 /**
@@ -14,7 +15,7 @@ export default class ProjectsController extends BaseController {
     private static readonly REPO_PAGE = 9;
 
     public override onInit(): void {
-        this.model("content")?.setProperty("/repoLanguages", repoLanguages(this.repos()));
+        this.model(Model.CONTENT)?.setProperty("/repoLanguages", repoLanguages(this.repos()));
         this.applyProjectFilter(ALL);
         this.applyRepoFilter(ALL);
     }
@@ -45,7 +46,7 @@ export default class ProjectsController extends BaseController {
     }
 
     public onShowAllReposPress(): void {
-        this.applyRepoFilter(this.model("ui")?.getProperty("/repoLanguageFilter") ?? ALL, true);
+        this.applyRepoFilter(this.model(Model.UI)?.getProperty("/repoLanguageFilter") ?? ALL, true);
     }
 
     public onGitHubPress(): void {
@@ -59,8 +60,11 @@ export default class ProjectsController extends BaseController {
     }
 
     private applyProjectFilter(tag: string): void {
-        this.model("content")?.setProperty("/filteredProjects", filterProjects(this.content().projects, tag));
-        this.model("ui")?.setProperty("/projectFilter", tag);
+        this.model(Model.CONTENT)?.setProperty(
+            "/filteredProjects",
+            filterProjects(this.content().projects, tag)
+        );
+        this.model(Model.UI)?.setProperty("/projectFilter", tag);
     }
 
     private applyRepoFilter(language: string, showAll = false): void {
@@ -69,10 +73,10 @@ export default class ProjectsController extends BaseController {
             language,
             showAll ? undefined : ProjectsController.REPO_PAGE
         );
-        const content = this.model("content");
+        const content = this.model(Model.CONTENT);
         content?.setProperty("/filteredRepos", visible);
         // O botao "Mostrar todos (N)" some quando nao ha nada escondido.
         content?.setProperty("/hiddenRepoCount", hidden);
-        this.model("ui")?.setProperty("/repoLanguageFilter", language);
+        this.model(Model.UI)?.setProperty("/repoLanguageFilter", language);
     }
 }

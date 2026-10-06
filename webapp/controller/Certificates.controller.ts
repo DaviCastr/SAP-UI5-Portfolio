@@ -1,4 +1,5 @@
 import BaseController from "./BaseController";
+import { Model, Filter } from "../model/constants";
 import { ALL, filterCertificates } from "../model/content/filters";
 
 /** Galeria de certificacoes com filtro por ano e por validade. */
@@ -17,7 +18,7 @@ export default class CertificatesController extends BaseController {
     }
 
     public onValidPress(): void {
-        this.applyFilter("valid");
+        this.applyFilter(Filter.VALID);
     }
 
     public onYearPress(event: sap.ui.base.Event): void {
@@ -25,10 +26,10 @@ export default class CertificatesController extends BaseController {
     }
 
     private applyFilter(filter: string): void {
-        this.model("content")?.setProperty(
+        this.model(Model.CONTENT)?.setProperty(
             "/filteredCertificates",
             filterCertificates(this.content().certificates, filter)
         );
-        this.model("ui")?.setProperty("/certificateFilter", filter);
+        this.model(Model.UI)?.setProperty("/certificateFilter", filter);
     }
 }

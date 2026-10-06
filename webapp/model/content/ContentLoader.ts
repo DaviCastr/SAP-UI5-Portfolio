@@ -1,4 +1,5 @@
 import { browserFetcher, createDataSource, loadSourceConfig } from "../data/StaticJsonDataSource";
+import { ContentLoadError } from "../errors";
 import type { ContentLocale } from "../types";
 import { ContentService } from "./ContentService";
 import { buildViewData } from "./viewData";
@@ -18,14 +19,22 @@ export interface LoadedPortfolio {
  * Carrega o portfolio no navegador: escolhe a fonte (content/source.json),
  * valida, traduz para `locale` e calcula os dados derivados das views.
  *
+ * Falha de rede/arquivo vira `ContentLoadError` (ver model/errors.ts).
+ *
  * E o unico ponto de entrada de dados da app - o App.controller so chama esta
  * funcao e publica o resultado. Trocar JSON por um backend (CAP) e trocar a
  * fonte em `source.json`, sem tocar em controller nem view.
  */
 export async function loadPortfolio(locale: ContentLocale): Promise<LoadedPortfolio> {
-    const source = await loadSourceConfig(CONTENT_BASE_URL, browserFetcher);
-    const dataSource = createDataSource(source, { baseUrl: CONTENT_BASE_URL, fetcher: browserFetcher });
-    const service = await ContentService.boot({ dataSource, locale });
+    let service: ContentService;
+    try {
+        const source = await loadSourceConfig(CONTENT_BASE_URL, browserFetcher);
+        const dataSource = createDataSource(source, { baseUrl: CONTENT_BASE_URL, fetcher: browserFetcher });
+        service = await ContentService.boot({ dataSource, locale });
+    } catch (error) {
+        // Rede fora, JSON ausente ou invalido: um erro so, com mensagem para o usuario.
+        throw new ContentLoadError(error);
+    }
 
     return {
         // Um unico objeto: dois setData seguidos apagariam o documento e

@@ -11,6 +11,7 @@ import type {
     SectionDefinition
 } from "../types";
 import { validateContent } from "./validator";
+import { ContentNotLoadedError } from "../errors";
 
 /** Conteudo vazio usado quando a carga falha (a tela mostra aviso em vez de quebrar). */
 export function emptyContent(): PortfolioContent {
@@ -158,7 +159,7 @@ export class ContentService {
     /** Instancia ativa (lancando erro se o boot ainda nao aconteceu). */
     static get(): ContentService {
         if (!ContentService.instance) {
-            throw new Error("ContentService.boot() precisa ser chamado antes do primeiro acesso.");
+            throw new ContentNotLoadedError();
         }
         return ContentService.instance;
     }

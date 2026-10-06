@@ -1,3 +1,4 @@
+import { Filter } from "../constants";
 import { isExpired } from "../dates";
 import { orderCertificates } from "../data/liveSources";
 import type { Certificate, Experience, GitHubRepo, Project } from "../types";
@@ -11,12 +12,12 @@ import { sortProjectsByRecency } from "./ordering";
  * aparecem") mora aqui, onde pode ser testada sem UI5.
  */
 
-/** Valor de filtro que significa "sem filtro". */
-export const ALL = "all";
+/** Valor de filtro que significa "sem filtro" (alias de Filter.ALL). */
+export const ALL = Filter.ALL;
 
 /** Experiencias por natureza: "job", "project" ou ALL. Sem `kind` conta como "job". */
 export function filterExperiences(items: Experience[], kind: string): Experience[] {
-    return kind === ALL ? items : items.filter((item) => (item.kind ?? "job") === kind);
+    return kind === ALL ? items : items.filter((item) => (item.kind ?? Filter.JOB) === kind);
 }
 
 /**
@@ -55,12 +56,12 @@ export function experienceTimeline(
     projects: Project[],
     kind: string
 ): Experience[] {
-    const jobs = filterExperiences(experiences, "job");
+    const jobs = filterExperiences(experiences, Filter.JOB);
     const projectItems = sortProjectsByRecency(projects).map(projectAsExperience);
-    if (kind === "job") {
+    if (kind === Filter.JOB) {
         return jobs;
     }
-    if (kind === "project") {
+    if (kind === Filter.PROJECT) {
         return projectItems;
     }
     // 0 = em andamento, 1 = datado, 2 = sem data (vai para o fim).
@@ -91,7 +92,7 @@ export function filterCertificates(items: Certificate[], filter: string, now = n
     if (filter === ALL) {
         return ordered;
     }
-    if (filter === "valid") {
+    if (filter === Filter.VALID) {
         return ordered.filter((item) => !isExpired(item.expiresAt, now));
     }
     return ordered.filter((item) => (item.issuedAt ?? "").startsWith(filter));

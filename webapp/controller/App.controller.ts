@@ -3,12 +3,10 @@ import SegmentedButton from "sap/m/SegmentedButton";
 import SegmentedButtonItem from "sap/m/SegmentedButtonItem";
 import type ResourceModel from "sap/ui/model/resource/ResourceModel";
 import BaseController from "./BaseController";
+import { Model, Route, type RouteName } from "../model/constants";
 import { loadPortfolio } from "../model/content/ContentLoader";
-import type { SectionDefinition } from "../model/types";
+import { PortfolioError } from "../model/errors";
 import { ThemeService, type ThemeMode } from "../util/ThemeService";
-
-/** Rota inicial: a unica sem a barra de secao (o hero ja mostra o contexto). */
-const HOME_ROUTE = "home";
 
 /**
  * Abaixo desta largura as abas da barra mostram so o icone: marca + 7 abas com
@@ -45,7 +43,7 @@ export default class AppController extends BaseController {
             .getRouter()
             .attachRouteMatched((event) => {
                 const route = (event.getParameter("name") as string) ?? "";
-                this.model("ui")?.setProperty("/activeRoute", route);
+                this.model(Model.UI)?.setProperty("/activeRoute", route);
                 this.syncSectionTitle(route);
             });
 
@@ -78,7 +76,8 @@ export default class AppController extends BaseController {
 
     /** Aba da barra superior. */
     public onNavPress(event: sap.ui.base.Event): void {
-        const route = this.sourceProperty<SectionDefinition["route"]>(event, "route");
+        // `route` vem do sections.json, validado contra o manifest no carregamento.
+        const route = this.sourceProperty<RouteName>(event, "route");
         if (route) {
             this.navigate(route);
         }
@@ -92,35 +91,43 @@ export default class AppController extends BaseController {
         const mode =
             ((event.getSource() as SegmentedButton | undefined)?.getSelectedKey() as ThemeMode) || "light";
         ThemeService.apply(mode);
-        this.model("ui")?.setProperty("/theme", mode);
+        this.model(Model.UI)?.setProperty("/theme", mode);
     }
 
     // ------------------------------------------------------------- interno
 
     /** Carrega o conteudo e libera a interface. */
     private async start(): Promise<void> {
-        const { modelData, sectionTitles } = await loadPortfolio(this.locale());
+        let loaded: Awaited<ReturnType<typeof loadPortfolio>>;
+        try {
+            loaded = await loadPortfolio(this.locale());
+        } catch (error) {
+            this.showStartupError(error);
+            return;
+        }
+        const { modelData, sectionTitles } = loaded;
 
-        this.model("content")?.setData(modelData);
+        this.model(Model.CONTENT)?.setData(modelData);
         // Titulos antes do router: a primeira rota ja sai com o titulo certo.
         this.sectionTitles = sectionTitles;
         this.contentLoaded = true;
         this.startRouterWhenReady();
 
         await this.fillThemeToggle();
-        this.model("ui")?.setProperty("/busy", false);
+        this.model(Model.UI)?.setProperty("/busy", false);
         this.hideSplash();
     }
 
     /** Publica no model "ui" se a barra esta em modo compacto (so icones). */
     private readonly applyCompactNav = (): void => {
-        this.model("ui")?.setProperty("/compactNav", this.compactMedia.matches);
+        this.model(Model.UI)?.setProperty("/compactNav", this.compactMedia.matches);
     };
 
     /** Titulo da barra de secao; vazio na home (e o vazio que esconde a barra). */
     private syncSectionTitle(route: string): void {
-        const title = route === HOME_ROUTE ? "" : (this.sectionTitles[route] ?? "");
-        this.model("ui")?.setProperty("/currentSectionTitle", title);
+        // Na home o hero ja da o contexto: titulo vazio esconde a barra.
+        const title = route === Route.HOME ? "" : (this.sectionTitles[route] ?? "");
+        this.model(Model.UI)?.setProperty("/currentSectionTitle", title);
     }
 
     /**
@@ -145,6 +152,29 @@ export default class AppController extends BaseController {
         toggle.addItem(new SegmentedButtonItem({ key: "light", text: text("theme.light") }));
         toggle.addItem(new SegmentedButtonItem({ key: "dark", text: text("theme.dark") }));
         toggle.setSelectedKey(ThemeService.getMode());
+    }
+
+    /**
+     * Falha no carregamento: registra o detalhe tecnico e troca o texto do
+     * splash pela mensagem para o usuario, na hora (sem esperar a rede de
+     * seguranca por tempo do index.html).
+     */
+    private showStartupError(error: unknown): void {
+        Log.error(error instanceof Error ? error.message : String(error), undefined, "davi.portfolio");
+        const message =
+            error instanceof PortfolioError
+                ? error.userMessage(this.locale())
+                : this.locale() === "en"
+                  ? "Something went wrong while starting the portfolio."
+                  : "Algo deu errado ao iniciar o portfólio.";
+        const splash = document.getElementById("pf-splash");
+        if (splash) {
+            splash.innerHTML = "";
+            const title = document.createElement("div");
+            title.className = "pf-splash__name";
+            title.textContent = message;
+            splash.appendChild(title);
+        }
     }
 
     /** Remove o splash do index.html com um fade curto. */

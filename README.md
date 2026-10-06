@@ -76,6 +76,8 @@ webapp/
 
   model/                    # M: dados e regras (sem UI5)
     types.ts                #    contratos dos JSONs
+    constants.ts            #    nomes de models, rotas e filtros (tipados)
+    errors.ts               #    erros da app com mensagem para o usuario
     models.ts               #    fabricas dos JSONModels
     formatter.ts            #    UNICO lugar onde dado vira texto de tela
     dates.ts                #    datas em texto (usado pelo formatter e pelo PDF)
@@ -96,6 +98,17 @@ webapp/
 tools/                      # scripts Node (sync GitHub/Credly, PDF, validacao)
 test/                       # testes Vitest
 ```
+
+**Paralelo com um backend CAP em camadas** (ex.: SAP-CAP-ExpenseManager)
+
+| CAP (`srv/`)                                 | Este app                                      |
+| -------------------------------------------- | --------------------------------------------- |
+| `repositories/` (protocols + implementation) | `model/data/` - `DataSource` + implementacoes |
+| `factories/`                                 | `createDataSource()`, `ContentLoader`         |
+| `services/`                                  | `model/content/ContentService.ts`             |
+| `domain/` (regras, fonte unica)              | `model/content/` (filters, ordering, metrics) |
+| `controllers/`                               | `controller/` (finos, so ligam view e model)  |
+| `constants/` / `errors/`                     | `model/constants.ts` / `model/errors.ts`      |
 
 **Regras da arquitetura**
 

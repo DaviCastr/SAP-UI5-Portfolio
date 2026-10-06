@@ -3,6 +3,7 @@ import type UIComponent from "sap/ui/core/UIComponent";
 import type JSONModel from "sap/ui/model/json/JSONModel";
 import { ContentService } from "../model/content/ContentService";
 import formatter from "../model/formatter";
+import { Route, type ModelName, type RouteName } from "../model/constants";
 import type { ContentLocale, PortfolioContent } from "../model/types";
 import { LocaleService } from "../util/LocaleService";
 import { ClickableCards } from "./support/ClickableCards";
@@ -37,7 +38,7 @@ export default abstract class BaseController extends Controller {
     }
 
     /** Model do componente ("ui", "content", "device"). No UI5 1.153 o Controller nao tem getModel. */
-    protected model(name: string): JSONModel | undefined {
+    protected model(name: ModelName): JSONModel | undefined {
         return this.component()?.getModel(name) as JSONModel | undefined;
     }
 
@@ -63,7 +64,7 @@ export default abstract class BaseController extends Controller {
     // ------------------------------------------------------------- navegacao
 
     /** Vai para uma rota do manifest.json (sem empilhar historico). */
-    protected navigate(route: string): void {
+    protected navigate(route: RouteName): void {
         this.component().getRouter().navTo(route, undefined, true);
     }
 
@@ -108,7 +109,7 @@ export default abstract class BaseController extends Controller {
 
     /** Pagina do curriculo. */
     public onCvPress(): void {
-        this.navigate("cv");
+        this.navigate(Route.CV);
     }
 
     // ------------------------------------------------------- cartoes clicaveis

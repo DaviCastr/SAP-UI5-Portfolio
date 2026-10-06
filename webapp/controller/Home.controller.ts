@@ -1,4 +1,5 @@
 import BaseController from "./BaseController";
+import { Route } from "../model/constants";
 
 /** Pagina inicial: hero, destaques e atalhos para as demais secoes. */
 export default class HomeController extends BaseController {
@@ -8,15 +9,15 @@ export default class HomeController extends BaseController {
     }
 
     public onSkillsPress(): void {
-        this.navigate("skills");
+        this.navigate(Route.SKILLS);
     }
 
     public onProjectsPress(): void {
-        this.navigate("projects");
+        this.navigate(Route.PROJECTS);
     }
 
     public onCertificatesPress(): void {
-        this.navigate("certificates");
+        this.navigate(Route.CERTIFICATES);
     }
 
     public onLinkedinPress(): void {

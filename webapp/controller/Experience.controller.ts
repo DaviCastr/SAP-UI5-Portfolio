@@ -1,4 +1,5 @@
 import BaseController from "./BaseController";
+import { Model, Filter } from "../model/constants";
 import { ALL, experienceTimeline } from "../model/content/filters";
 
 /** Experiencia: linha do tempo de vinculos e projetos (filtro tudo / vinculos / projetos). */
@@ -12,18 +13,18 @@ export default class ExperienceController extends BaseController {
     }
 
     public onJobPress(): void {
-        this.applyFilter("job");
+        this.applyFilter(Filter.JOB);
     }
 
     public onProjectPress(): void {
-        this.applyFilter("project");
+        this.applyFilter(Filter.PROJECT);
     }
 
     private applyFilter(kind: string): void {
-        this.model("content")?.setProperty(
+        this.model(Model.CONTENT)?.setProperty(
             "/filteredExperiences",
             experienceTimeline(this.content().experiences, this.content().projects, kind)
         );
-        this.model("ui")?.setProperty("/experienceKind", kind);
+        this.model(Model.UI)?.setProperty("/experienceKind", kind);
     }
 }
