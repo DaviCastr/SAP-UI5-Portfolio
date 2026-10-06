@@ -80,9 +80,9 @@ export function filterProjects(items: Project[], tag: string): Project[] {
 }
 
 /**
- * Certificacoes: ALL, "valid" (com validade e ainda vigentes) ou um ano ("2025").
- * Credencial sem `expiresAt` nao expira, mas tambem nao entra em "valid": o
- * filtro mostra o que tem prazo e ainda esta dentro dele.
+ * Certificacoes: ALL, "valid" (todas menos as vencidas) ou um ano ("2025").
+ * Credencial sem `expiresAt` nao expira, entao conta como vigente - mesma
+ * regra do card "Vigentes" (metrics.validCertificates).
  */
 export function filterCertificates(items: Certificate[], filter: string, now = new Date()): Certificate[] {
     // Sempre na ordem de exibicao (SAP Certified, depois as mais recentes):
@@ -92,7 +92,7 @@ export function filterCertificates(items: Certificate[], filter: string, now = n
         return ordered;
     }
     if (filter === "valid") {
-        return ordered.filter((item) => !!item.expiresAt && !isExpired(item.expiresAt, now));
+        return ordered.filter((item) => !isExpired(item.expiresAt, now));
     }
     return ordered.filter((item) => (item.issuedAt ?? "").startsWith(filter));
 }

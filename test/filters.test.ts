@@ -73,8 +73,11 @@ describe("filterCertificates", () => {
         cert("sem-prazo", "2024-05-01", null)
     ];
 
-    it("vigentes: so as com prazo ainda valido", () => {
-        expect(filterCertificates(items, "valid", now).map((item) => item.id)).toEqual(["vigente"]);
+    it("vigentes: remove so as vencidas (sem prazo conta como vigente)", () => {
+        expect(filterCertificates(items, "valid", now).map((item) => item.id)).toEqual([
+            "vigente",
+            "sem-prazo"
+        ]);
     });
 
     it("por ano de emissao, da mais recente para a mais antiga", () => {
