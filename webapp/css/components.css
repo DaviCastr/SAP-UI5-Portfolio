@@ -1199,6 +1199,20 @@
     transform-origin: top center;
 }
 
+/*
+ * Certificado inteiro em paisagem (JPG local, ex.: cursos da Moovi): `cover`
+ * cortaria as laterais e o titulo. Mostra a imagem toda sobre um fundo escuro
+ * proximo ao do certificado, para as faixas de cima/baixo sumirem. Os badges do
+ * Credly sao URLs remotas sem extensao e seguem com `cover`.
+ */
+.pf-cert__media:has(.pf-cert__image[src$=".jpg"]) {
+    background: #14131c;
+}
+
+.pf-cert__image[src$=".jpg"] {
+    object-fit: contain;
+}
+
 /* Capa gerada (sem imagem): degrade da marca, titulo grande e emissor. */
 .pf-cert__fallback {
     display: flex;
