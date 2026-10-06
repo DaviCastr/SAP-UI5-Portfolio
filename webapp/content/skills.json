@@ -39,6 +39,78 @@
     "featured": true
   },
   {
+    "id": "rap",
+    "name": "SAP RAP",
+    "category": "SAP",
+    "icon": "database",
+    "level": 5,
+    "description": {
+      "pt": "RESTful Application Programming Model: business objects, behaviors, CDS e serviços OData V4.",
+      "en": "RESTful Application Programming Model: business objects, behaviors, CDS and OData V4 services."
+    },
+    "tags": ["SAP", "ABAP", "RAP"]
+  },
+  {
+    "id": "cap",
+    "name": "SAP CAP",
+    "category": "SAP",
+    "icon": "cloud",
+    "level": 5,
+    "description": {
+      "pt": "Cloud Application Programming Model com Node.js, CDS e SAP HANA.",
+      "en": "Cloud Application Programming Model with Node.js, CDS and SAP HANA."
+    },
+    "tags": ["SAP", "CAP", "BTP"]
+  },
+  {
+    "id": "cds",
+    "name": "CDS Views",
+    "category": "SAP",
+    "icon": "table-view",
+    "level": 4,
+    "description": {
+      "pt": "CDS Views, annotations e Calculation Views para modelagem e consumo de dados.",
+      "en": "CDS Views, annotations and Calculation Views for data modeling and consumption."
+    },
+    "tags": ["SAP", "ABAP", "HANA"]
+  },
+  {
+    "id": "sap-build",
+    "name": "SAP Build",
+    "category": "SAP",
+    "icon": "process",
+    "level": 4,
+    "description": {
+      "pt": "SAP Build Apps, Process Automation e Work Zone.",
+      "en": "SAP Build Apps, Process Automation and Work Zone."
+    },
+    "tags": ["SAP", "BTP", "Low-code"]
+  },
+  {
+    "id": "cpi",
+    "name": "SAP CPI (Cloud Integration)",
+    "category": "SAP",
+    "icon": "connected",
+    "level": 3,
+    "description": {
+      "pt": "Integration Suite / Cloud Integration: iFlows e integração entre sistemas SAP e externos.",
+      "en": "Integration Suite / Cloud Integration: iFlows and integration between SAP and external systems."
+    },
+    "tags": ["SAP", "BTP", "Integração"]
+  },
+  {
+    "id": "mdk",
+    "name": "SAP MDK",
+    "category": "SAP",
+    "icon": "iphone",
+    "level": 4,
+    "description": {
+      "pt": "Mobile Development Kit para aplicativos móveis integrados ao SAP.",
+      "en": "Mobile Development Kit for mobile apps integrated with SAP."
+    },
+    "tags": ["SAP", "Mobile", "BTP"]
+  },
+  {
     "id": "ui5",
     "name": "SAPUI5 (freestyle)",
     "category": "Front-end",
@@ -161,7 +233,7 @@
       "en": "Problem Solving"
     },
     "category": "Soft Skills",
-    "icon": "thinking",
+    "icon": "lightbulb",
     "level": 5,
     "description": {
       "pt": "Análise crítica, troubleshooting e entrega de soluções práticas.",
@@ -211,6 +283,21 @@
     "description": {
       "pt": "Proatividade, empatia e foco em resultados coletivos.",
       "en": "Proactivity, empathy and focus on collective outcomes."
+    },
+    "tags": ["Soft Skills"]
+  },
+  {
+    "id": "best-practices",
+    "name": {
+      "pt": "Boas práticas de desenvolvimento",
+      "en": "Development best practices"
+    },
+    "category": "Soft Skills",
+    "icon": "sys-enter-2",
+    "level": 5,
+    "description": {
+      "pt": "Desenvolvimento seguindo as melhores práticas e os padrões mais recentes da SAP (clean code, clean core).",
+      "en": "Development following best practices and the latest SAP standards (clean code, clean core)."
     },
     "tags": ["Soft Skills"]
   }

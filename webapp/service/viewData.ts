@@ -1,6 +1,7 @@
 import type { ContentService } from "./ContentService";
 import { localizeText } from "./Localizer";
 import { isSapCertified, orderCertificates } from "./liveSources";
+import { sortProjectsByRecency } from "./ordering";
 import type { PortfolioMetrics } from "./metrics";
 import type {
     Certificate,
@@ -69,6 +70,8 @@ export interface PortfolioViewData {
     footerLinks: ExternalLink[];
     issues: { path: string; message: string }[];
     focusSkills: Skill[];
+    /** Chips de tecnologia do hero (`profile.stackHighlights`). */
+    heroStack: { label: string }[];
     recentExperiences: Experience[];
     featuredProjects: Project[];
     /**
@@ -179,35 +182,9 @@ export function mostRecentRepos(repos: GitHubRepo[], limit: number): GitHubRepo[
         .slice(0, limit);
 }
 
-/**
- * Projetos mais recentes por data de fim.
- *
- * Prioriza `endDate` (desc), depois `startDate` (desc) e por fim o nome, para
- * ter uma ordem deterministica.
- */
+/** Projetos mais recentes (regra em `sortProjectsByRecency`). */
 export function mostRecentProjects(projects: Project[], limit: number): Project[] {
-    return [...projects]
-        .sort((a, b) => {
-            const endA = a.period?.to ?? "";
-            const endB = b.period?.to ?? "";
-            const end = endB.localeCompare(endA);
-
-            if (end !== 0) {
-                return end;
-            }
-
-            const startA = a.period?.from ?? "";
-            const startB = b.period?.from ?? "";
-            const start = startB.localeCompare(startA);
-
-            if (start !== 0) {
-                return start;
-            }
-
-            // O conteudo ja chega traduzido; `name` e texto aqui.
-            return String(a.name).localeCompare(String(b.name));
-        })
-        .slice(0, limit);
+    return sortProjectsByRecency(projects).slice(0, limit);
 }
 
 /** Monta o pacote completo de dados derivados para as views. */
@@ -229,6 +206,7 @@ export function buildViewData(service: ContentService): PortfolioViewData {
         footerLinks: links,
         issues: service.issues.map((issue) => ({ path: issue.path, message: issue.message })),
         focusSkills: service.focusSkills.slice(0, 8),
+        heroStack: (content.profile.stackHighlights ?? []).map((label) => ({ label })),
         recentExperiences: content.experiences.filter((item) => item.kind !== "project").slice(0, 3),
         featuredProjects: service.featuredProjects.slice(0, 6),
         recentProjects: mostRecentProjects(content.projects, 3),

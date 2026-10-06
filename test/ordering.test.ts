@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { sortEducationByRecency } from "../webapp/service/ordering";
-import type { Education } from "../webapp/service/types";
+import { sortEducationByRecency, sortProjectsByRecency } from "../webapp/service/ordering";
+import type { Education, Project } from "../webapp/service/types";
 
 function education(id: string, from: string, to: string | null): Education {
     return {
@@ -62,5 +62,44 @@ describe("sortEducationByRecency", () => {
         const sorted = sortEducationByRecency([semPeriodo, education("antigo", "2010", "2014")]);
 
         expect(sorted.map((item) => item.id)).toEqual(["x", "antigo"]);
+    });
+});
+describe("sortProjectsByRecency", () => {
+    const project = (id: string, extra: Partial<Project> = {}): Project => ({
+        id,
+        name: id,
+        description: "",
+        stack: ["ABAP"],
+        tags: [],
+        ...extra
+    });
+
+    it("poe o projeto atual (sem data) antes dos datados", () => {
+        const sorted = sortProjectsByRecency([
+            project("cartoes", { period: { from: "2025-04", to: "2025-05" } }),
+            project("vale", { current: true }),
+            project("antigo", { period: { from: "2018-11", to: "2022-08" } })
+        ]);
+
+        expect(sorted.map((item) => item.id)).toEqual(["vale", "cartoes", "antigo"]);
+    });
+
+    it("trata periodo sem fim como em andamento", () => {
+        const sorted = sortProjectsByRecency([
+            project("encerrado", { period: { from: "2024-01", to: "2024-12" } }),
+            project("aberto", { period: { from: "2020-01", to: null } })
+        ]);
+
+        expect(sorted[0].id).toBe("aberto");
+    });
+
+    it("deixa os sem data por ultimo, na ordem do JSON", () => {
+        const sorted = sortProjectsByRecency([
+            project("sem-data-1"),
+            project("datado", { period: { from: "2019-01", to: "2019-06" } }),
+            project("sem-data-2")
+        ]);
+
+        expect(sorted.map((item) => item.id)).toEqual(["datado", "sem-data-1", "sem-data-2"]);
     });
 });

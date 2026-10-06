@@ -25,8 +25,8 @@
       "en": "Bachelor's degree in Computer Science"
     },
     "period": {
-      "from": "2019-01",
-      "to": "2022-12"
+      "from": "2019-02",
+      "to": "2024-06"
     },
     "description": {
       "pt": "Formação em fundamentos de programação, bancos de dados, redes e engenharia de software.",
@@ -35,5 +35,23 @@
     "kind": "education",
     "url": "documents/bacharelado-computacao.pdf",
     "tags": ["Algoritmos", "Banco de dados", "Redes", "Engenharia de software"]
+  },
+  {
+    "id": "pos-integration-developer-360",
+    "institution": "Moovi",
+    "degree": {
+      "pt": "Pós-graduação em Integração de Sistemas (Integration Developer 360)",
+      "en": "Postgraduate degree in Systems Integration (Integration Developer 360)"
+    },
+    "period": {
+      "from": "2026-02",
+      "to": "2027-07"
+    },
+    "description": {
+      "pt": "Pós-graduação em integração de sistemas, com previsão de conclusão em julho de 2027.",
+      "en": "Postgraduate program in systems integration, expected to finish in July 2027."
+    },
+    "kind": "education",
+    "tags": ["Integração de sistemas", "APIs", "SAP Integration Suite"]
   }
 ]

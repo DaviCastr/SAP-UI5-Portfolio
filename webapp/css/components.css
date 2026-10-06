@@ -867,6 +867,13 @@
     white-space: nowrap;
 }
 
+/* O HBox embrulha cada filho num .sapMFlexItem, e e ele que encolhia: "5/5"
+   quebrava em duas linhas ao lado de nomes longos. */
+.pf-skill .sapMFlexItem:has(> .pf-skill__level) {
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
 .pf-skill__desc {
     font-size: var(--pf-font-sm);
     line-height: 1.6;
@@ -930,6 +937,60 @@
     border-radius: var(--pf-radius-sm);
     background: var(--pf-surface-sunken);
     color: var(--pf-text);
+}
+
+.pf-project__title {
+    gap: 2px;
+    min-width: 0;
+}
+
+.pf-project__meta {
+    font-size: var(--pf-font-xs);
+    font-weight: 700;
+    color: var(--pf-primary);
+}
+
+.pf-project__badge {
+    padding: 3px 10px;
+    border-radius: var(--pf-radius-pill);
+    background: var(--pf-primary-soft);
+    color: var(--pf-primary);
+    font-size: var(--pf-font-xs);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* "Em andamento": ambar com um ponto pulsando discreto. */
+.pf-project__badge--live {
+    position: relative;
+    padding-left: 22px;
+    background: color-mix(in srgb, var(--pf-accent) 14%, var(--pf-surface));
+    color: var(--pf-accent);
+}
+
+.pf-project__badge--live::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 9px;
+    width: 7px;
+    height: 7px;
+    margin-top: -3.5px;
+    border-radius: 50%;
+    background: var(--pf-accent);
+    animation: pf-live 1.8s ease-in-out infinite;
+}
+
+@keyframes pf-live {
+    50% {
+        opacity: 0.35;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pf-project__badge--live::before {
+        animation: none;
+    }
 }
 
 .pf-project__name {
@@ -2283,4 +2344,11 @@ html .pf-app .pf-topbar .sapMBtn:focus-visible > .sapMBtnInner::before {
     .pf-topbar__btn .sapMBtnContent {
         font-size: var(--pf-font-sm);
     }
+}
+
+/* Chips de tecnologia sobre o degrade do hero (claro e escuro). */
+.pf-hero__stack .pf-chip {
+    border-color: rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
 }

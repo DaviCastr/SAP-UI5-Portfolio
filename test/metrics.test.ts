@@ -118,6 +118,22 @@ describe("computeMetrics", () => {
         expect(metrics.githubStars).toBe(3);
     });
 
+    it("usa as estrelas dos repositorios sincronizados quando existem", () => {
+        const withRepos = buildContent({
+            projects: [{ id: "p1", name: "P1", description: "", stack: ["ABAP"], tags: [] }],
+            github: {
+                username: "DaviCastr",
+                repos: [
+                    { name: "a", url: "https://github.com/x/a", stars: 3 },
+                    { name: "b", url: "https://github.com/x/b", stars: 2 },
+                    { name: "c", url: "https://github.com/x/c" }
+                ]
+            } as never
+        });
+
+        expect(computeMetrics(withRepos).githubStars).toBe(5);
+    });
+
     it("conta skills avancadas (nivel 4 ou 5)", () => {
         expect(metrics.skillCount).toBe(3);
         expect(metrics.advancedSkills).toBe(2);

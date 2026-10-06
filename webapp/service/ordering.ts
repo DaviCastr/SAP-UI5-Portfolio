@@ -1,4 +1,4 @@
-import type { Education } from "./types";
+import type { Education, Project } from "./types";
 
 /**
  * Regras de ordenacao de listas que mais de um consumidor precisa conhecer.
@@ -31,4 +31,29 @@ export function sortEducationByRecency(education: Education[]): Education[] {
         }
         return end(b).localeCompare(end(a)) || start(b).localeCompare(start(a)) || a.id.localeCompare(b.id);
     });
+}
+/**
+ * Projetos, do mais recente para o mais antigo.
+ *
+ * 1. Em andamento primeiro: `current: true` (projeto atual sem data conhecida)
+ *    ou periodo com inicio e sem `to`.
+ * 2. Depois os datados, pela data de fim e, empatando, pela de inicio.
+ * 3. Por ultimo os sem data, na ordem em que estao no JSON (sort estavel).
+ *
+ * Antes, projeto sem periodo caia no fim mesmo sendo o atual - a Home mostrava
+ * um projeto de 2025 como "mais recente" no lugar do que esta em andamento.
+ */
+export function sortProjectsByRecency(projects: Project[]): Project[] {
+    const rank = (item: Project): number => {
+        if (item.current || (item.period?.from && !item.period.to)) {
+            return 0;
+        }
+        return item.period?.from ? 1 : 2;
+    };
+    const end = (item: Project): string => item.period?.to ?? item.period?.from ?? "";
+    const start = (item: Project): string => item.period?.from ?? "";
+
+    return [...projects].sort(
+        (a, b) => rank(a) - rank(b) || end(b).localeCompare(end(a)) || start(b).localeCompare(start(a))
+    );
 }

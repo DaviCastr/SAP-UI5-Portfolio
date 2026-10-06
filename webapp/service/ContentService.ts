@@ -1,7 +1,7 @@
 import type { DataSource } from "./DataSource";
 import { localize, localizeText } from "./Localizer";
 import { computeMetrics, type PortfolioMetrics } from "./metrics";
-import { sortEducationByRecency } from "./ordering";
+import { sortEducationByRecency, sortProjectsByRecency } from "./ordering";
 import type {
     ChipItem,
     ContentIssue,
@@ -241,8 +241,10 @@ export class ContentService {
 
     /** Projetos em destaque (ordem manual, depois os demais). */
     get featuredProjects() {
-        const featured = this.localized.projects.filter((item) => item.featured);
-        const rest = this.localized.projects.filter((item) => !item.featured);
+        // Destaques primeiro, cada grupo do mais recente para o mais antigo.
+        const projects = sortProjectsByRecency(this.localized.projects);
+        const featured = projects.filter((item) => item.featured);
+        const rest = projects.filter((item) => !item.featured);
         return [...featured, ...rest];
     }
 }

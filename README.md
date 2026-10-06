@@ -234,6 +234,19 @@ coluna principal com resumo, experiencia, projetos, formacao e certificacoes SAP
 conteudo nao couber em uma pagina, os espacos entre blocos sao reduzidos antes de quebrar
 para a segunda - nunca sobra folha em branco. O PDF **nao** e versionado (`.gitignore`).
 
+## Publicacao (GitHub Pages)
+
+O workflow `.github/workflows/deploy.yml` roda a cada push na `main`, diariamente
+e sob demanda (aba Actions > "Run workflow"): sincroniza GitHub e Credly, valida o
+conteudo, gera o PDF, faz o build e publica o `dist` com as actions oficiais do Pages.
+
+**Configuracao unica no repositorio:** Settings > Pages > Build and deployment >
+Source = **GitHub Actions**. Com "Deploy from a branch" o Pages publica a branch
+escolhida pelo Jekyll - na `main` aparece o README no lugar do app, e o Jekyll
+ignora pastas iniciadas por `_` (o bundle do jsPDF usa `thirdparty/_dynamics/`).
+
+Site: https://davicastr.github.io/SAP-UI5-Portfolio/
+
 ## Testes e qualidade
 
 ```bash

@@ -169,7 +169,12 @@ export function computeMetrics(content: PortfolioContent, now: Date = new Date()
         projectCount: content.projects.length,
         featuredProjects: content.projects.filter((item) => item.featured).length,
         sapProjects: content.projects.filter(isSapProject).length,
-        githubStars: content.projects.reduce((sum, item) => sum + (item.stars ?? 0), 0),
+        // Estrelas de todos os repositorios publicos (github.json, do sync). Os
+        // projetos do projects.json nem sempre tem repositorio - somar so eles
+        // dava 0 com repositorios estrelados na conta.
+        githubStars: content.github?.repos?.length
+            ? content.github.repos.reduce((sum, repo) => sum + (repo.stars ?? 0), 0)
+            : content.projects.reduce((sum, item) => sum + (item.stars ?? 0), 0),
         certificateCount: content.certificates.length,
         validCertificates: content.certificates.filter((item) => expiresAt(item.expiresAt) >= now.getTime())
             .length,

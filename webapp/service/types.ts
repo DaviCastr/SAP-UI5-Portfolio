@@ -131,6 +131,8 @@ export interface Profile {
     links: ExternalLink[];
     /** Ids das skills destacadas no hero (ver skills.json). */
     focusSkills: string[];
+    /** Tecnologias em destaque no hero da Home (chips), na ordem do JSON. */
+    stackHighlights?: string[];
 }
 
 /** Periodo de trabalho. `to: null` significa "atual". */
@@ -225,6 +227,12 @@ export interface Project {
     stackItems?: ChipItem[];
     highlightsItems?: ChipItem[];
     period?: Period;
+    /** Icone SAP UI5 do card (ex.: "iphone"). */
+    icon?: string;
+    /** Projeto em andamento sem data conhecida (conta como o mais recente). */
+    current?: boolean;
+    /** Empresa pela qual o projeto foi feito (ex.: "Accenture Brasil"). */
+    company?: string;
     highlights?: LocalizedText[];
     /** Aparece na home. */
     featured?: boolean;

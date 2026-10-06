@@ -36,6 +36,11 @@ export const sharedFormatters = {
         return `${from} – ${to}`;
     },
 
+    /** ("Consultor", "Accenture") -> "Consultor · Accenture"; ignora vazios. */
+    joinDot(...parts: (string | undefined | null)[]): string {
+        return parts.filter((part) => typeof part === "string" && part.trim()).join(" · ");
+    },
+
     /** "2025-09-01" -> "01/09/2025" */
     date(value: string): string {
         return formatDate(value, LocaleService.getActive());

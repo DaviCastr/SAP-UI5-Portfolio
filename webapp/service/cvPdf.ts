@@ -1,7 +1,7 @@
 import { jsPDF } from "jspdf";
 import { localizeText } from "./Localizer";
 import { isSapCertified, orderCertificates } from "./liveSources";
-import { sortEducationByRecency } from "./ordering";
+import { sortEducationByRecency, sortProjectsByRecency } from "./ordering";
 import { isSoftSkill } from "./viewData";
 import type { ContentLocale, Period, PortfolioContent, Skill } from "./types";
 
@@ -239,24 +239,39 @@ function renderCvPdf(
         doc.rect(0, top, SIDEBAR_W, PAGE_H - top, "F");
     };
 
-    /** Nova pagina: barra lateral e uma faixa fina no topo, sem repetir o cabecalho. */
-    const newPage = (): void => {
-        doc.addPage();
-        doc.setFillColor(HEADER);
-        doc.rect(0, 0, PAGE_W, 10, "F");
-        paintSidebar(10);
-        mainY = 34;
-        sideY = 34;
+    /*
+     * Cada coluna tem a propria pagina corrente. A lateral e desenhada inteira
+     * antes da principal; se ela transbordar para a pagina 2, a principal ainda
+     * precisa comecar na pagina 1 - por isso "avancar" e ir para a proxima
+     * pagina daquela coluna (criando-a so se ainda nao existir), e nao zerar
+     * as duas colunas como antes.
+     */
+    let mainPage = 1;
+    let sidePage = 1;
+
+    /** Proxima pagina (cria com faixa fina no topo e lateral, sem repetir o cabecalho). */
+    const gotoPage = (page: number): void => {
+        while (doc.getNumberOfPages() < page) {
+            doc.addPage();
+            doc.setFillColor(HEADER);
+            doc.rect(0, 0, PAGE_W, 10, "F");
+            paintSidebar(10);
+        }
+        doc.setPage(page);
     };
 
     const ensureMain = (height: number): void => {
         if (mainY + height > BOTTOM) {
-            newPage();
+            mainPage += 1;
+            gotoPage(mainPage);
+            mainY = 34;
         }
     };
     const ensureSide = (height: number): void => {
         if (sideY + height > BOTTOM) {
-            newPage();
+            sidePage += 1;
+            gotoPage(sidePage);
+            sideY = 34;
         }
     };
 
@@ -355,7 +370,8 @@ function renderCvPdf(
 
     // ========================================================= barra lateral
     const sideHeading = (text: string): void => {
-        ensureSide(30);
+        // Titulo + ao menos dois itens: o titulo nunca fica sozinho no pe da coluna.
+        ensureSide(60);
         font("bold", 8.5, PRIMARY);
         doc.text(text.toUpperCase(), SIDE_X, sideY, { charSpace: 0.8 });
         doc.setDrawColor(PRIMARY);
@@ -447,10 +463,13 @@ function renderCvPdf(
     }
 
     // ===================================================== coluna principal
+    // A lateral pode ter terminado em outra pagina: a principal comeca na 1.
+    gotoPage(mainPage);
     const mainHeading = (text: string): void => {
         // Respiro fixo acima do titulo: nao encosta nos chips do bloco anterior.
         mainY += 6;
-        ensureMain(34);
+        // Titulo + o comeco do primeiro item juntos (sem titulo orfao no pe da pagina).
+        ensureMain(100);
         font("bold", 10.5, HEADER);
         doc.text(text.toUpperCase(), MAIN_X, mainY, { charSpace: 0.9 });
         const textW = doc.getTextWidth(text.toUpperCase()) + text.length * 0.9;
@@ -533,14 +552,19 @@ function renderCvPdf(
         mainY += sp(6);
     }
 
-    const projects = content.projects.filter((project) => project.featured).slice(0, 4);
+    // Mesma ordem da tela: em andamento primeiro, depois do mais recente ao mais antigo.
+    const projects = sortProjectsByRecency(content.projects.filter((project) => project.featured)).slice(
+        0,
+        4
+    );
     if (projects.length) {
         mainHeading(labels.projects);
         projects.forEach((project) => {
             // Sem "★": a Helvetica padrao do PDF so cobre WinAnsi.
             const meta = project.stars ? `${project.stars} ${locale === "pt" ? "estrelas" : "stars"}` : "";
             ensureMain(70);
-            entryHead(t(project.name), t(project.role), meta);
+            const subtitle = [t(project.role), project.company ?? ""].filter(Boolean).join(" · ");
+            entryHead(t(project.name), subtitle, meta);
             body(t(project.description));
             if (project.url || project.repo) {
                 font("normal", 7.6, ACCENT);

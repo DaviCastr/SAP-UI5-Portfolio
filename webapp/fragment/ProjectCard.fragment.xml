@@ -4,7 +4,23 @@
             <HBox class="pf-project__icon" alignItems="Center">
                 <core:Icon src="{path: 'icon', formatter: '.fIcon'}" class="pf-text-lg"/>
             </HBox>
-            <Text class="pf-project__name" text="{name}"/>
+            <VBox class="pf-project__title">
+                <Text class="pf-project__name" text="{name}"/>
+                <!-- Papel e empresa ("Consultor SAP ABAP · Accenture Brasil"). -->
+                <Text
+                    class="pf-project__meta"
+                    text="{parts: ['role', 'company'], formatter: '.fJoinDot'}"
+                    visible="{= !!${role} || !!${company} }"/>
+            </VBox>
+        </HBox>
+
+        <!-- Em andamento (sem data) ou o periodo. -->
+        <HBox class="pf-gap-2">
+            <Text class="pf-project__badge pf-project__badge--live" text="{i18n>project.current}" visible="{= !!${current} }"/>
+            <Text
+                class="pf-project__badge"
+                text="{parts: ['period', 'i18n>period.current'], formatter: '.fPeriod'}"
+                visible="{= !${current} &amp;&amp; !!${period/from} }"/>
         </HBox>
 
         <Text class="pf-project__desc" text="{description}"/>
@@ -13,10 +29,12 @@
             <core:Fragment fragmentName="davi.portfolio.fragment.Chip" type="XML"/>
         </HBox>
 
-        <VBox class="pf-gap-1" visible="{= !!${highlightsItems} &amp;&amp; ${highlightsItems}.length > 0}">
-            <HBox items="{path: 'highlightsItems', templateShareable: true}">
-                <Text class="pf-bullet pf-small pf-muted" text="{label}"/>
-            </HBox>
+        <!-- VBox: um destaque por linha. -->
+        <VBox
+            class="pf-gap-1"
+            items="{path: 'highlightsItems', templateShareable: true}"
+            visible="{= !!${highlightsItems} &amp;&amp; ${highlightsItems}.length > 0}">
+            <Text class="pf-bullet pf-small pf-muted" text="{label}"/>
         </VBox>
 
         <HBox class="pf-project__foot">

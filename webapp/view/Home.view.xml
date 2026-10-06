@@ -24,12 +24,20 @@
                         <Title level="H1" class="pf-hero__title" text="{content>/profile/headline}"/>
                         <Text class="pf-hero__role" text="{content>/profile/role}"/>
 
+                        <!-- Tecnologias em destaque (profile.stackHighlights). -->
+                        <HBox
+                            class="pf-chips pf-hero__stack"
+                            items="{path: '/heroStack', templateShareable: true}"
+                            visible="{= !!${/heroStack} &amp;&amp; ${/heroStack}.length > 0}">
+                            <core:Fragment fragmentName="davi.portfolio.fragment.Chip" type="XML"/>
+                        </HBox>
+
                         <Text class="pf-hero__summary" text="{content>/profile/summary}"/>
 
                         <HBox class="pf-hero__actions">
                             <Button
                                 type="Emphasized"
-                                icon="sap-icon://download"
+                                icon="sap-icon://document-text"
                                 text="{i18n>action.cv}"
                                 press="onCvPress"/>
                             <Button

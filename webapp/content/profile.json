@@ -2,29 +2,29 @@
   "id": "davi-castro",
   "name": "Davi Castro",
   "role": {
-    "pt": "Desenvolvedor SAP Fiori / ABAP",
-    "en": "SAP Fiori / ABAP Developer"
+    "pt": "Desenvolvedor SAP · 3x SAP Certified",
+    "en": "SAP Developer · 3x SAP Certified"
   },
   "headline": {
-    "pt": "Construindo aplicações Fiori, extensões e integrações para o ecossistema SAP",
-    "en": "Building Fiori applications, extensions and integrations for the SAP ecosystem"
+    "pt": "Soluções SAP de ponta a ponta com ABAP, Fiori, RAP, CAP e BTP",
+    "en": "End-to-end SAP solutions with ABAP, Fiori, RAP, CAP and BTP"
   },
   "summary": {
-    "pt": "Consultor SAP com experiência em ABAP, aplicações Fiori (SAPUI5), RAP, CAP e integrações no ecossistema SAP BTP. Atuo em implantações S/4HANA e suporte AMS, entregando soluções que traduzem processos críticos de negócio em telas simples, com atenção a desempenho e manutenção.",
-    "en": "SAP consultant experienced with ABAP, Fiori applications (SAPUI5), RAP, CAP and integrations across the SAP BTP ecosystem. I work on S/4HANA implementations and AMS support, delivering solutions that turn critical business processes into simple screens, with care for performance and maintainability."
+    "pt": "Consultor SAP ABAP desde o início da carreira, com projetos de desenvolvimento em ambientes SAP S/4HANA e ECC, tanto em AMS quanto em implantação. Sólida experiência em ABAP, SAP Fiori e SAPUI5 e, nos últimos anos, foco em SAP RAP, CAP e SAP Build, entregando soluções robustas, escaláveis e aderentes às melhores práticas da SAP.",
+    "en": "SAP ABAP consultant since the start of my career, working on development projects in SAP S/4HANA and ECC landscapes, in both AMS and implementation projects. Solid experience in ABAP, SAP Fiori and SAPUI5 and, in recent years, a focus on SAP RAP, CAP and SAP Build, delivering robust, scalable solutions aligned with SAP best practices."
   },
   "about": [
     {
-      "pt": "Consultor SAP com experiência em ABAP, aplicações Fiori (SAPUI5) e integrações no ecossistema SAP BTP. Atuo na construção de soluções para processos de negócio, com foco em usabilidade, desempenho e código que outros desenvolvedores conseguem manter.",
-      "en": "SAP consultant experienced with ABAP, Fiori applications (SAPUI5) and integrations across the SAP BTP ecosystem. I build solutions for business processes with a focus on usability, performance and code that other developers can maintain."
+      "pt": "Iniciei minha carreira como Consultor SAP ABAP e, desde então, venho me especializando continuamente nas tecnologias e inovações do ecossistema SAP. Atuei em projetos de desenvolvimento para clientes em ambientes SAP S/4HANA e ECC, com experiência tanto em AMS quanto em projetos de implantação.",
+      "en": "I started my career as an SAP ABAP consultant and have been specializing in the technologies and innovations of the SAP ecosystem ever since. I have worked on development projects for clients in SAP S/4HANA and ECC landscapes, in both AMS and implementation projects."
     },
     {
-      "pt": "Trabalho de ponta a ponta: levantamento com o time de negócio, modelagem dos dados, implementação da aplicação e publicação. Gosto de transformar processos manuais em telas claras - e de medir o resultado depois.",
-      "en": "I work end to end: discovery with the business team, data modeling, application implementation and deployment. I enjoy turning manual processes into clear screens - and measuring the outcome afterwards."
+      "pt": "Tenho sólida experiência em desenvolvimento ABAP e forte atuação em SAP Fiori e SAPUI5, incluindo aplicações Fiori customizadas. Nos últimos anos, ampliei meu portfólio técnico com SAP RAP (RESTful Application Programming Model), CAP (Cloud Application Programming Model) e SAP Build, desenvolvendo soluções robustas, escaláveis e com excelente experiência de usuário.",
+      "en": "I have solid experience in ABAP development and strong work with SAP Fiori and SAPUI5, including custom Fiori applications. In recent years I have broadened my technical portfolio with SAP RAP (RESTful Application Programming Model), CAP (Cloud Application Programming Model) and SAP Build, building robust, scalable solutions with an excellent user experience."
     },
     {
-      "pt": "Mantenho projetos pessoais abertos para estudo e portfólio, incluindo este site, feito com SAPUI5 + TypeScript e dados em JSON.",
-      "en": "I maintain open personal projects for study and portfolio purposes, including this website, built with SAPUI5 + TypeScript and JSON data."
+      "pt": "Sou comprometido com a entrega de soluções eficientes, aderentes às melhores práticas e aos padrões mais recentes da SAP. Estou sempre em busca de evolução contínua, técnica e profissional - este site, feito com SAPUI5 + TypeScript, é um exemplo disso.",
+      "en": "I am committed to delivering efficient solutions that follow SAP best practices and the latest standards. I am always looking to keep growing, both technically and professionally - this website, built with SAPUI5 + TypeScript, is one example."
     }
   ],
   "avatar": "images/profile.png",
@@ -126,5 +126,18 @@
       "primary": false
     }
   ],
-  "focusSkills": ["fiori", "abap", "ui5", "btp", "node", "typescript", "integration", "sql"]
+  "focusSkills": ["abap", "fiori", "ui5", "rap", "cap", "btp", "sap-build", "cpi"],
+  "stackHighlights": [
+    "ABAP",
+    "Fiori",
+    "UI5",
+    "RAP",
+    "BTP",
+    "CAP",
+    "SAP Build Apps",
+    "Process Automation",
+    "Work Zone",
+    "CPI",
+    "MDK"
+  ]
 }

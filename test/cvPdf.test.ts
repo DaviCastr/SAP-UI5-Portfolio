@@ -54,7 +54,8 @@ describe("cvPdf", () => {
         const short = {
             ...content,
             experiences: content.experiences.slice(2),
-            projects: content.projects.slice(0, 1)
+            projects: content.projects.slice(0, 1),
+            skills: content.skills.slice(0, 8)
         };
 
         expect(buildCvPdf(short, "pt").getNumberOfPages()).toBe(1);

@@ -15,7 +15,28 @@
     },
     "stack": ["SAP MDK", "SAP CAP"],
     "tags": ["SAP", "MDK", "CAP", "Mobile"],
-    "featured": true
+    "featured": true,
+    "current": true,
+    "icon": "iphone"
+  },
+  {
+    "id": "comgas-ams",
+    "name": {
+      "pt": "Sustentação SAP ECC, CCS e CRM - Comgás",
+      "en": "SAP ECC, CCS and CRM support - Comgás"
+    },
+    "role": {
+      "pt": "Consultor SAP ABAP",
+      "en": "SAP ABAP Consultant"
+    },
+    "description": {
+      "pt": "Projeto AMS de sustentação dos ambientes SAP ECC, CCS (Customer Care and Service) e CRM da Comgás, com correção de incidentes e melhorias.",
+      "en": "AMS project supporting the SAP ECC, CCS (Customer Care and Service) and CRM landscapes at Comgás, handling incidents and enhancements."
+    },
+    "stack": ["SAP ABAP", "SAP ECC", "SAP CCS", "SAP CRM"],
+    "tags": ["SAP", "AMS", "ABAP", "CRM"],
+    "featured": true,
+    "icon": "headset"
   },
   {
     "id": "gestao-cartoes",
@@ -43,7 +64,8 @@
     ],
     "stack": ["SAP CAP", "SAP HANA", "SAPUI5", "SAP Fiori Elements"],
     "tags": ["SAP", "CAP", "UI5", "Pessoal"],
-    "featured": true
+    "featured": true,
+    "icon": "credit-card"
   },
   {
     "id": "3coracoes-manutencao",
@@ -52,8 +74,8 @@
       "en": "S/4HANA development and maintenance - 3Corações"
     },
     "role": {
-      "pt": "Accenture Brasil",
-      "en": "Accenture Brasil"
+      "pt": "Consultor SAP ABAP / Fiori",
+      "en": "SAP ABAP / Fiori Consultant"
     },
     "period": {
       "from": "2023-08",
@@ -65,7 +87,9 @@
     },
     "stack": ["SAP ABAP", "SAP Fiori", "SAP S/4HANA"],
     "tags": ["SAP", "S/4HANA", "Fiori", "AMS"],
-    "featured": true
+    "featured": true,
+    "company": "Accenture Brasil",
+    "icon": "wrench"
   },
   {
     "id": "3coracoes-implantacao",
@@ -74,8 +98,8 @@
       "en": "S/4HANA implementation - 3Corações"
     },
     "role": {
-      "pt": "GFX Consultoria",
-      "en": "GFX Consultoria"
+      "pt": "Consultor SAP ABAP / Fiori",
+      "en": "SAP ABAP / Fiori Consultant"
     },
     "period": {
       "from": "2022-09",
@@ -87,7 +111,9 @@
     },
     "stack": ["SAP ABAP", "SAP Fiori", "SAP S/4HANA"],
     "tags": ["SAP", "S/4HANA", "Fiori", "Implantação"],
-    "featured": true
+    "featured": true,
+    "company": "GFX Consultoria",
+    "icon": "factory"
   },
   {
     "id": "gfx-ams",
@@ -96,8 +122,8 @@
       "en": "Enhancements and maintenance for GFX Consultoria clients"
     },
     "role": {
-      "pt": "GFX Consultoria",
-      "en": "GFX Consultoria"
+      "pt": "Consultor SAP ABAP",
+      "en": "SAP ABAP Consultant"
     },
     "period": {
       "from": "2018-11",
@@ -108,6 +134,8 @@
       "en": "AMS improvements for GFX Consultoria clients, handling incidents and enhancements."
     },
     "stack": ["SAP ABAP", "SAP Fiori"],
-    "tags": ["SAP", "AMS", "ABAP"]
+    "tags": ["SAP", "AMS", "ABAP"],
+    "company": "GFX Consultoria",
+    "icon": "inspection"
   }
 ]

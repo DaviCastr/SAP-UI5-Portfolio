@@ -96,6 +96,14 @@
                         <core:Fragment fragmentName="davi.portfolio.fragment.RepoCard" type="XML"/>
                     </HBox>
 
+                    <HBox justifyContent="Center" visible="{= ${content>/hiddenRepoCount} > 0 }">
+                        <Button
+                            type="Ghost"
+                            icon="sap-icon://expand-group"
+                            text="{parts: ['i18n>projects.reposShowAll', 'content>/hiddenRepoCount'], formatter: '.fCount'}"
+                            press="onShowAllReposPress"/>
+                    </HBox>
+
                     <VBox
                         class="pf-empty"
                         visible="{= !!${content>/filteredRepos} ? ${content>/filteredRepos}.length === 0 : false }">

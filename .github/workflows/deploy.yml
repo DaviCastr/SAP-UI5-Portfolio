@@ -1,12 +1,18 @@
 name: Deploy UI5 App to GitHub Pages
 
-# Os certificados (Credly) e repositorios (GitHub) sao buscados AQUI, no
-# deploy, e nao no navegador: o credly.com nao envia CORS e a busca ao vivo
-# travava a tela. O site publicado sempre sai com os dados do momento do build.
+# Publica o `dist` com as actions OFICIAIS do GitHub Pages (upload-pages-artifact
+# + deploy-pages). Requer, uma unica vez, em Settings > Pages > Build and
+# deployment > Source: "GitHub Actions".
 #
-# O agendamento diario republica o site mesmo sem push, para badges novas
-# aparecerem sozinhas. (O commit do sync-content.yml usa [skip ci] e, por isso,
-# nao dispara este workflow.)
+# Por que nao publicar numa branch gh-pages: nesse modo o Pages passa os
+# arquivos pelo Jekyll, que IGNORA pastas e arquivos iniciados por "_" - e o
+# bundle do jsPDF tem `thirdparty/_dynamics/` e `_commonjsHelpers.js`. O PDF
+# quebraria no site publicado. O artefato do deploy-pages e servido como esta.
+#
+# Os certificados (Credly) e repositorios (GitHub) sao buscados AQUI, no build,
+# e nao no navegador: o credly.com nao envia CORS. O agendamento diario
+# republica o site para badges e estrelas novas aparecerem sozinhas. (O commit
+# do sync-content.yml usa [skip ci] e nao dispara este workflow.)
 
 on:
     push:
@@ -18,16 +24,18 @@ on:
     workflow_dispatch:
 
 permissions:
-    contents: write
+    contents: read
+    pages: write
+    id-token: write
 
+# Um deploy de cada vez; um novo push cancela o build anterior ainda em curso.
 concurrency:
-    group: deploy-pages
+    group: pages
     cancel-in-progress: true
 
 jobs:
-    build-and-deploy:
+    build:
         runs-on: ubuntu-latest
-
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
@@ -56,7 +64,7 @@ jobs:
             - name: Validate content
               run: npm run content:check
 
-            # PDF estatico (webapp/cv/ esta no .gitignore). O botao "Baixar PDF" gera
+            # PDF estatico (webapp/cv/ esta no .gitignore). O botao "Ver PDF" gera
             # o arquivo na hora no navegador; este e a alternativa se isso falhar.
             - name: Generate CV PDF
               run: npm run cv:pdf
@@ -64,8 +72,22 @@ jobs:
             - name: Build UI5 Project (Transpile TS to JS)
               run: npm run build
 
-            - name: Deploy to GitHub Pages
-              uses: JamesIves/github-pages-deploy-action@v4
+            # Seguro extra caso o Pages volte a ser servido por branch.
+            - name: Disable Jekyll
+              run: touch dist/.nojekyll
+
+            - name: Upload Pages artifact
+              uses: actions/upload-pages-artifact@v3
               with:
-                  folder: dist
-                  branch: gh-pages
+                  path: dist
+
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        steps:
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4

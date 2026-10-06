@@ -1,4 +1,5 @@
 import BaseController from "./BaseController";
+import { sortProjectsByRecency } from "../service/ordering";
 import type { Project } from "../service/types";
 
 /**
@@ -83,18 +84,31 @@ export default class ProjectsController extends BaseController {
     private applyFilter(tag: string): void {
         const items: Project[] =
             tag === "all"
-                ? this.content().projects
-                : this.content().projects.filter((project) => project.tags?.includes(tag));
+                ? sortProjectsByRecency(this.content().projects)
+                : sortProjectsByRecency(
+                      this.content().projects.filter((project) => project.tags?.includes(tag))
+                  );
 
         this.model("content")?.setProperty("/filteredProjects", items);
         this.model("ui")?.setProperty("/projectFilter", tag);
     }
 
-    private applyRepoFilter(language: string): void {
+    /** Repositorios visiveis antes de "Mostrar todos" (a conta tem dezenas). */
+    private static readonly REPO_PAGE = 9;
+
+    /** Mostra todos os repositorios do filtro atual. */
+    public onShowAllReposPress(): void {
+        this.applyRepoFilter(this.model("ui")?.getProperty("/repoLanguageFilter") ?? "all", true);
+    }
+
+    private applyRepoFilter(language: string, showAll = false): void {
         const repos = this.content().github?.repos ?? [];
         const items = language === "all" ? repos : repos.filter((repo) => repo.language === language);
+        const visible = showAll ? items : items.slice(0, ProjectsController.REPO_PAGE);
 
-        this.model("content")?.setProperty("/filteredRepos", items);
+        this.model("content")?.setProperty("/filteredRepos", visible);
+        // Quantos ficaram escondidos: o botao "Mostrar todos (N)" some quando e 0.
+        this.model("content")?.setProperty("/hiddenRepoCount", items.length - visible.length);
         this.model("ui")?.setProperty("/repoLanguageFilter", language);
     }
 

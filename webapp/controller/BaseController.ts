@@ -34,6 +34,12 @@ export default abstract class BaseController extends Controller {
     public readonly fSummary = sharedFormatters.summary;
     public readonly fPhone = sharedFormatters.phone;
     public readonly fCertImage = sharedFormatters.certImage;
+    public readonly fJoinDot = sharedFormatters.joinDot;
+
+    /** ("Mostrar todos", 45) -> "Mostrar todos (45)". */
+    public fCount(label: string, count: number): string {
+        return count ? `${label} (${count})` : label;
+    }
 
     /**
      * Componente dono deste controller (tipado, sempre presente em runtime).
