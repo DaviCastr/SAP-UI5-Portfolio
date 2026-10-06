@@ -1,0 +1,40 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <!--
+        O card inteiro e o alvo do link: nao existe mais o botao "View credential".
+        Como nao ha binding de URL no DOM, o BaseController (metodo
+        `onAfterRendering`) delega o clique/teclado e resolve a URL pelo contexto
+        de binding do proprio controle do card.
+    -->
+    <VBox class="pf-cert">
+        <HBox class="pf-cert__media">
+            <Image
+                class="pf-cert__image"
+                src="{path: 'image', formatter: '.fCertImage'}"
+                densityAware="false"
+                alt="{title}"
+                visible="{= !!${image}}"/>
+            <VBox class="pf-cert__fallback" visible="{= !${image}}">
+                <core:Icon src="sap-icon://verified" class="pf-text-xl pf-muted"/>
+                <Text class="pf-small" text="{i18n>certificate.imageUnavailable}"/>
+            </VBox>
+        </HBox>
+
+        <VBox class="pf-cert__body">
+            <HBox alignItems="Center" class="pf-cert__meta">
+                <core:Icon src="sap-icon://calendar" class="pf-text-xs pf-muted"/>
+                <Text class="pf-small pf-muted" text="{path: 'issuedAt', formatter: '.fDate'}"/>
+                <Text
+                    class="pf-chip pf-chip--warn"
+                    text="{i18n>certificate.expired}"
+                    visible="{path: 'expiresAt', formatter: '.fExpired'}"/>
+            </HBox>
+            <Text class="pf-cert__issuer" text="{issuer}"/>
+            <Text class="pf-cert__title" text="{title}"/>
+        </VBox>
+
+        <!-- Afordancia visual de "abre em nova aba", no lugar do botao removido. -->
+        <HBox class="pf-cert__corner" visible="{= !!${url}}">
+            <core:Icon src="sap-icon://forward" class="pf-text-sm"/>
+        </HBox>
+    </VBox>
+</core:FragmentDefinition>

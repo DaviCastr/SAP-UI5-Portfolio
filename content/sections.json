@@ -1,0 +1,105 @@
+[
+  {
+    "id": "home",
+    "nav": {
+      "pt": "Início",
+      "en": "Home"
+    },
+    "icon": "home",
+    "route": "home",
+    "order": 1,
+    "enabled": true,
+    "showInNav": true,
+    "dataFile": "profile.json"
+  },
+  {
+    "id": "about",
+    "nav": {
+      "pt": "Sobre",
+      "en": "About"
+    },
+    "icon": "employee",
+    "route": "about",
+    "order": 2,
+    "enabled": true,
+    "showInNav": true,
+    "dataFile": "profile.json"
+  },
+  {
+    "id": "experience",
+    "nav": {
+      "pt": "Experiência",
+      "en": "Experience"
+    },
+    "icon": "suitcase",
+    "route": "experience",
+    "order": 3,
+    "enabled": true,
+    "showInNav": true,
+    "dataFile": "experiences.json"
+  },
+  {
+    "id": "skills",
+    "nav": {
+      "pt": "Competências",
+      "en": "Skills"
+    },
+    "icon": "settings",
+    "route": "skills",
+    "order": 4,
+    "enabled": true,
+    "showInNav": true,
+    "dataFile": "skills.json"
+  },
+  {
+    "id": "projects",
+    "nav": {
+      "pt": "Projetos",
+      "en": "Projects"
+    },
+    "icon": "source-code",
+    "route": "projects",
+    "order": 5,
+    "enabled": true,
+    "showInNav": true,
+    "dataFile": "projects.json"
+  },
+  {
+    "id": "certificates",
+    "nav": {
+      "pt": "Certificações",
+      "en": "Certificates"
+    },
+    "icon": "verified",
+    "route": "certificates",
+    "order": 6,
+    "enabled": true,
+    "showInNav": true,
+    "dataFile": "certificates.json"
+  },
+  {
+    "id": "education",
+    "nav": {
+      "pt": "Formação",
+      "en": "Education"
+    },
+    "icon": "education",
+    "route": "education",
+    "order": 7,
+    "enabled": true,
+    "showInNav": true,
+    "dataFile": "education.json"
+  },
+  {
+    "id": "cv",
+    "nav": {
+      "pt": "Currículo",
+      "en": "Resume"
+    },
+    "icon": "download",
+    "route": "cv",
+    "order": 8,
+    "enabled": true,
+    "showInNav": false
+  }
+]

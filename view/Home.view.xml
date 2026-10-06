@@ -1,0 +1,193 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    controllerName="davi.portfolio.controller.Home"
+    class="pf-view">
+    <Page id="page" class="pf-page-scroll" enableScrolling="true" showHeader="false">
+        <content>
+            <VBox class="pf-container pf-page">
+
+                <!-- Hero -->
+                <HBox alignItems="Center" class="pf-hero">
+                    <Image
+                        class="pf-hero__avatar"
+                        src="{content>/profile/avatar}"
+                        densityAware="false"
+                        alt="{content>/profile/name}"/>
+                    <VBox class="pf-hero__content pf-gap-3">
+                        <HBox alignItems="Center" class="pf-hero__badge">
+                            <core:Icon src="sap-icon://accept" class="pf-text-xs"/>
+                            <Text text="{i18n>hero.availability}"/>
+                        </HBox>
+
+                        <Title level="H1" class="pf-hero__title" text="{content>/profile/headline}"/>
+                        <Text class="pf-hero__role" text="{content>/profile/role}"/>
+
+                        <Text class="pf-hero__summary" text="{content>/profile/summary}"/>
+
+                        <HBox class="pf-hero__actions">
+                            <Button
+                                type="Emphasized"
+                                icon="sap-icon://download"
+                                text="{i18n>action.cv}"
+                                press="onCvPress"/>
+                            <Button
+                                type="Ghost"
+                                icon="sap-icon://email"
+                                text="{i18n>action.contact}"
+                                press="onEmailPress"/>
+                            <Button
+                                type="Ghost"
+                                icon="sap-icon://business-card"
+                                text="{i18n>action.linkedin}"
+                                press="onLinkedinPress"/>
+                        </HBox>
+
+                        <HBox class="pf-hero__meta">
+                            <HBox alignItems="Center" class="pf-hero__meta-item">
+                                <core:Icon src="sap-icon://map" class="pf-text-xs"/>
+                                <Text text="{content>/profile/location}"/>
+                            </HBox>
+                            <HBox alignItems="Center" class="pf-hero__meta-item">
+                                <core:Icon src="sap-icon://email" class="pf-text-xs"/>
+                                <Text text="{content>/profile/email}"/>
+                            </HBox>
+                            <HBox alignItems="Center" class="pf-hero__meta-item">
+                                <core:Icon src="sap-icon://phone" class="pf-text-xs"/>
+                                <Text text="{path: 'content>/profile/phone', formatter: '.fPhone'}"/>
+                            </HBox>
+                        </HBox>
+                    </VBox>
+                </HBox>
+
+                <!-- Indicadores -->
+                <HBox class="pf-grid pf-grid--metrics">
+                    <VBox class="pf-metric">
+                        <Text class="pf-metric__value" text="{content>/metrics/yearsOfExperience}"/>
+                        <Text class="pf-metric__label" text="{i18n>metric.years}"/>
+                    </VBox>
+                    <VBox class="pf-metric">
+                        <Text class="pf-metric__value" text="{content>/metrics/projectCount}"/>
+                        <Text class="pf-metric__label" text="{i18n>metric.projects}"/>
+                    </VBox>
+                    <VBox class="pf-metric">
+                        <Text class="pf-metric__value" text="{content>/metrics/certificateCount}"/>
+                        <Text class="pf-metric__label" text="{i18n>metric.certificates}"/>
+                    </VBox>
+                    <VBox class="pf-metric">
+                        <Text class="pf-metric__value" text="{content>/metrics/skillCount}"/>
+                        <Text class="pf-metric__label" text="{i18n>metric.skills}"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Expertise em destaque -->
+                <VBox class="pf-stack pf-gap-4">
+                    <HBox alignItems="Center" class="pf-row--between pf-row--wrap pf-gap-3">
+                        <VBox>
+                            <Text class="pf-eyebrow" text="{i18n>home.focusEyebrow}"/>
+                            <Title level="H2" class="pf-h2" text="{i18n>home.focusTitle}"/>
+                        </VBox>
+                        <Button
+                            type="Transparent"
+                            icon="sap-icon://arrow-right"
+                            text="{i18n>action.viewAll}"
+                            press="onSkillsPress"/>
+                    </HBox>
+
+                    <HBox class="pf-grid pf-grid--skills" items="{path: '/focusSkills', length: 6, templateShareable: true}">
+                        <core:Fragment fragmentName="davi.portfolio.fragment.SkillCard" type="XML"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Certificacoes recentes -->
+                <VBox class="pf-stack pf-gap-4">
+                    <HBox alignItems="Center" class="pf-row--between pf-row--wrap pf-gap-3">
+                        <VBox>
+                            <Text class="pf-eyebrow" text="{i18n>home.certificatesEyebrow}"/>
+                            <Title level="H2" class="pf-h2" text="{i18n>home.certificatesTitle}"/>
+                        </VBox>
+                        <Button
+                            type="Transparent"
+                            icon="sap-icon://arrow-right"
+                            text="{i18n>action.viewAll}"
+                            press="onCertificatesPress"/>
+                    </HBox>
+
+                    <HBox class="pf-grid pf-grid--certs" items="{path: '/recentCertificates', length: 3, templateShareable: true}">
+                        <core:Fragment fragmentName="davi.portfolio.fragment.CertificateCard" type="XML"/>
+                    </HBox>
+                </VBox>
+
+                <!--
+                    Projetos escritos a mao (projects.json): contam a historia de
+                    cada trabalho. Sao exibidos em ordem cronologica (mais recentes
+                    primeiro).
+                -->
+                <VBox class="pf-stack pf-gap-4">
+                    <HBox alignItems="Center" class="pf-row--between pf-row--wrap pf-gap-3">
+                        <VBox>
+                            <Text class="pf-eyebrow" text="{i18n>home.projectsRecentEyebrow}"/>
+                            <Title level="H2" class="pf-h2" text="{i18n>home.projectsRecentTitle}"/>
+                        </VBox>
+                        <Button
+                            type="Transparent"
+                            icon="sap-icon://arrow-right"
+                            text="{i18n>action.viewAll}"
+                            press="onProjectsPress"/>
+                    </HBox>
+
+                    <HBox
+                        class="pf-grid pf-grid--projects"
+                        items="{path: '/recentProjects', length: 3, templateShareable: true}">
+                        <core:Fragment fragmentName="davi.portfolio.fragment.ProjectCard" type="XML"/>
+                    </HBox>
+                </VBox>
+
+                <!--
+                    Repositorios do GitHub: o retrato real da conta, sincronizado
+                    por "npm run sync:github", do push mais recente para o mais
+                    antigo.
+                -->
+                <VBox class="pf-stack pf-gap-4" visible="{= !!${content>/recentRepos} &amp;&amp; ${content>/recentRepos}.length > 0 }">
+                    <HBox alignItems="Center" class="pf-row--between pf-row--wrap pf-gap-3">
+                        <VBox>
+                            <Text class="pf-eyebrow" text="{i18n>home.reposEyebrow}"/>
+                            <Title level="H2" class="pf-h2" text="{i18n>home.reposTitle}"/>
+                        </VBox>
+                        <Button
+                            type="Transparent"
+                            icon="sap-icon://arrow-right"
+                            text="{i18n>action.viewAll}"
+                            press="onProjectsPress"/>
+                    </HBox>
+
+                    <HBox class="pf-grid pf-grid--repos" items="{path: '/recentRepos', length: 3, templateShareable: true}">
+                        <core:Fragment fragmentName="davi.portfolio.fragment.RepoCard" type="XML"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Chamada final -->
+                <VBox class="pf-cta">
+                    <VBox class="pf-cta__content pf-gap-3">
+                        <Title level="H2" class="pf-cta__title" text="{i18n>cta.title}"/>
+                        <Text class="pf-cta__text" text="{i18n>cta.text}"/>
+                    </VBox>
+                    <HBox class="pf-cta__actions">
+                        <Button
+                            type="Emphasized"
+                            icon="sap-icon://email"
+                            text="{i18n>action.contact}"
+                            press="onEmailPress"/>
+                        <Button
+                            type="Ghost"
+                            icon="sap-icon://pdf-attachment"
+                            text="{i18n>action.downloadCv}"
+                            press="onDownloadCvPress"/>
+                    </HBox>
+                </VBox>
+
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

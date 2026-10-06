@@ -1,0 +1,2 @@
+sap.ui.define(["./LocaleResolver"],function(e){"use strict";const a=e["resolveLocale"];class t{static getActive(){return a(window.location.search,navigator.language)}}var c={__esModule:true};c.LocaleService=t;return c});
+//# sourceMappingURL=LocaleService.js.map

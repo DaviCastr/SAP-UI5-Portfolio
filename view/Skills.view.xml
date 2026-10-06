@@ -1,0 +1,64 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    controllerName="davi.portfolio.controller.Skills"
+    class="pf-view">
+    <Page id="page" class="pf-page-scroll" enableScrolling="true" showHeader="false">
+        <content>
+            <VBox class="pf-container pf-page">
+
+                <!-- Cabecalho -->
+                <VBox class="pf-page__head">
+                    <Text class="pf-eyebrow" text="{i18n>skills.eyebrow}"/>
+                    <Title level="H1" class="pf-page__title" text="{i18n>skills.title}"/>
+                    <Text class="pf-lead" text="{i18n>skills.subtitle}"/>
+                </VBox>
+
+                <!-- Resumo por area -->
+                <HBox class="pf-grid pf-grid--metrics">
+                    <VBox class="pf-metric">
+                        <Text class="pf-metric__value" text="{content>/metrics/skillCount}"/>
+                        <Text class="pf-metric__label" text="{i18n>metric.skills}"/>
+                    </VBox>
+                    <VBox class="pf-metric">
+                        <Text class="pf-metric__value" text="{content>/skillCategoryCount}"/>
+                        <Text class="pf-metric__label" text="{i18n>metric.categories}"/>
+                    </VBox>
+                    <VBox class="pf-metric">
+                        <Text class="pf-metric__value" text="{content>/metrics/advancedSkills}"/>
+                        <Text class="pf-metric__label" text="{i18n>metric.advanced}"/>
+                    </VBox>
+                    <VBox class="pf-metric">
+                        <Text class="pf-metric__value" text="{content>/metrics/moduleCount}"/>
+                        <Text class="pf-metric__label" text="{i18n>metric.modules}"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Competencias por categoria -->
+                <VBox class="pf-stack pf-gap-6" items="{path: '/skillsByCategory', templateShareable: true}">
+                    <VBox class="pf-stack pf-gap-3">
+                        <HBox alignItems="Center" class="pf-gap-3">
+                            <core:Icon src="sap-icon://group-2" class="pf-text-s pf-muted"/>
+                            <Title level="H2" class="pf-h3" text="{category}"/>
+                            <Text class="pf-pill pf-text-xs" text="{count}"/>
+                        </HBox>
+
+                        <HBox class="pf-grid pf-grid--skills" items="{path: 'items', templateShareable: true}">
+                            <core:Fragment fragmentName="davi.portfolio.fragment.SkillCard" type="XML"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+
+                <!-- Estado vazio -->
+                <VBox
+                    class="pf-empty"
+                    visible="{= ${content>/skillsByCategory} ? ${content>/skillsByCategory}.length === 0 : false }">
+                    <core:Icon src="sap-icon://settings" class="pf-text-xl pf-muted"/>
+                    <Text text="{i18n>skills.empty}"/>
+                </VBox>
+
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Davi Castro">
+    <!--
+        Monograma "DC" (Davi Castro) na paleta do site (tokens.css): fundo no
+        degrade verde-petroleo do cabecalho, "D" branco e "C" ambar. As letras
+        sao tracos (sem <text>), para nao depender de fonte instalada.
+    -->
+    <defs>
+        <linearGradient id="pfFav" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#062b26" />
+            <stop offset="55%" stop-color="#0a4a3f" />
+            <stop offset="100%" stop-color="#0e7c6b" />
+        </linearGradient>
+    </defs>
+    <rect width="64" height="64" rx="16" fill="url(#pfFav)" />
+    <g fill="none" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M13 19v26h6a13 13 0 0 0 0-26z" stroke="#ffffff" />
+        <path d="M53.8 24.2A11 11 0 1 0 53.8 39.8" stroke="#fbbf24" />
+    </g>
+</svg>

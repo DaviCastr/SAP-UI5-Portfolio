@@ -1,0 +1,217 @@
+[
+  {
+    "id": "fiori",
+    "name": "SAP Fiori Elements",
+    "category": "SAP",
+    "icon": "instance",
+    "level": 5,
+    "description": {
+      "pt": "List Report, Overview Page e Object Page com annotations e extensões de controlador.",
+      "en": "List Report, Overview Page and Object Page with annotations and controller extensions."
+    },
+    "tags": ["SAP", "Fiori"],
+    "featured": true
+  },
+  {
+    "id": "abap",
+    "name": "ABAP",
+    "category": "SAP",
+    "icon": "instance",
+    "level": 5,
+    "description": {
+      "pt": "ABAP OO, RAP, reports, enhancements (BAdI, user exits, BTE), Smart Forms e integrações com APIs.",
+      "en": "ABAP OO, RAP, reports, enhancements (BAdI, user exits, BTE), Smart Forms and API integrations."
+    },
+    "tags": ["SAP", "ABAP"],
+    "featured": true
+  },
+  {
+    "id": "btp",
+    "name": "SAP BTP",
+    "category": "SAP",
+    "icon": "instance",
+    "level": 4,
+    "description": {
+      "pt": "Cloud Foundry, Destination Service, SAP Build e integração com serviços do BTP.",
+      "en": "Cloud Foundry, Destination Service, SAP Build and integration with BTP services."
+    },
+    "tags": ["SAP", "Cloud", "BTP"],
+    "featured": true
+  },
+  {
+    "id": "ui5",
+    "name": "SAPUI5 (freestyle)",
+    "category": "Front-end",
+    "icon": "grid",
+    "level": 5,
+    "description": {
+      "pt": "Aplicações MVC, ViewModels, routing e uso de controls do sap.m.",
+      "en": "MVC applications, ViewModels, routing and sap.m controls."
+    },
+    "tags": ["SAP", "UI5", "Front-end"],
+    "featured": true
+  },
+  {
+    "id": "typescript",
+    "name": "TypeScript",
+    "category": "Front-end",
+    "icon": "source-code",
+    "level": 4,
+    "description": {
+      "pt": "Tipagem estrita em aplicações UI5 e código legível em equipe.",
+      "en": "Strict typing in UI5 applications and team-friendly code."
+    },
+    "tags": ["Front-end", "TypeScript"],
+    "featured": true
+  },
+  {
+    "id": "node",
+    "name": "Node.js",
+    "category": "Back-end",
+    "icon": "cloud",
+    "level": 4,
+    "description": {
+      "pt": "APIs REST, integrações e ferramentas de linha de comando.",
+      "en": "REST APIs, integrations and command-line tooling."
+    },
+    "tags": ["Back-end", "Node.js"],
+    "featured": true
+  },
+  {
+    "id": "sql",
+    "name": "SQL",
+    "category": {
+      "pt": "Banco de dados",
+      "en": "Databases"
+    },
+    "icon": "database",
+    "level": 4,
+    "description": {
+      "pt": "Consultas em SAP HANA, CDS Views e Calculation Views, com foco em desempenho.",
+      "en": "Queries on SAP HANA, CDS Views and Calculation Views, with a focus on performance."
+    },
+    "tags": ["Banco de dados", "HANA"],
+    "featured": true
+  },
+  {
+    "id": "integration",
+    "name": {
+      "pt": "Integração",
+      "en": "Integration"
+    },
+    "category": "Back-end",
+    "icon": "world",
+    "level": 4,
+    "description": {
+      "pt": "APIs REST/OData, web services, arquivos e integração entre sistemas heterogêneos.",
+      "en": "REST/OData APIs, web services, files and integration between heterogeneous systems."
+    },
+    "tags": ["Back-end", "Integração"],
+    "featured": true
+  },
+  {
+    "id": "ui5-tooling",
+    "name": "UI5 Tooling",
+    "category": "Front-end",
+    "icon": "settings",
+    "level": 4,
+    "description": {
+      "pt": "Transpilação de TypeScript, middleware e build de aplicações UI5.",
+      "en": "TypeScript transpilation, middleware and UI5 application build."
+    },
+    "tags": ["Front-end", "Build"]
+  },
+  {
+    "id": "git",
+    "name": {
+      "pt": "Git e GitHub Actions",
+      "en": "Git and GitHub Actions"
+    },
+    "category": {
+      "pt": "Ferramentas",
+      "en": "Tools"
+    },
+    "icon": "log",
+    "level": 4,
+    "description": {
+      "pt": "Versionamento, code review e pipelines de publicação automática.",
+      "en": "Versioning, code review and automated publishing pipelines."
+    },
+    "tags": ["Ferramentas", "DevOps"]
+  },
+  {
+    "id": "communication",
+    "name": {
+      "pt": "Comunicação",
+      "en": "Communication"
+    },
+    "category": "Soft Skills",
+    "icon": "discussion",
+    "level": 5,
+    "description": {
+      "pt": "Comunicação clara e objetiva com o negócio e o time técnico.",
+      "en": "Clear and objective communication with business and technical teams."
+    },
+    "tags": ["Soft Skills"]
+  },
+  {
+    "id": "problem-solving",
+    "name": {
+      "pt": "Resolução de Problemas",
+      "en": "Problem Solving"
+    },
+    "category": "Soft Skills",
+    "icon": "thinking",
+    "level": 5,
+    "description": {
+      "pt": "Análise crítica, troubleshooting e entrega de soluções práticas.",
+      "en": "Critical analysis, troubleshooting and practical solutions."
+    },
+    "tags": ["Soft Skills"]
+  },
+  {
+    "id": "leadership",
+    "name": {
+      "pt": "Liderança e Mentoria",
+      "en": "Leadership and Mentoring"
+    },
+    "category": "Soft Skills",
+    "icon": "manager",
+    "level": 4,
+    "description": {
+      "pt": "Orientação de desenvolvedores, boas práticas e revisão de código.",
+      "en": "Developer mentoring, best practices and code review guidance."
+    },
+    "tags": ["Soft Skills"]
+  },
+  {
+    "id": "organization",
+    "name": {
+      "pt": "Organização e Planejamento",
+      "en": "Organization and Planning"
+    },
+    "category": "Soft Skills",
+    "icon": "appointment",
+    "level": 4,
+    "description": {
+      "pt": "Priorização, gerenciamento de escopo e cumprimento de prazos.",
+      "en": "Prioritization, scope management and timely delivery."
+    },
+    "tags": ["Soft Skills"]
+  },
+  {
+    "id": "teamwork",
+    "name": {
+      "pt": "Colaboração e Trabalho em Equipe",
+      "en": "Collaboration and Teamwork"
+    },
+    "category": "Soft Skills",
+    "icon": "group",
+    "level": 5,
+    "description": {
+      "pt": "Proatividade, empatia e foco em resultados coletivos.",
+      "en": "Proactivity, empathy and focus on collective outcomes."
+    },
+    "tags": ["Soft Skills"]
+  }
+]

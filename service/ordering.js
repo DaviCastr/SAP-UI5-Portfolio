@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";function e(e){const o=e=>e.period?.to??"";const r=e=>e.period?.from??"";const t=e=>o(e)!=="";return[...e].sort((e,n)=>{if(t(e)!==t(n)){return t(e)?1:-1}return o(n).localeCompare(o(e))||r(n).localeCompare(r(e))||e.id.localeCompare(n.id)})}var o={__esModule:true};o.sortEducationByRecency=e;return o});
+//# sourceMappingURL=ordering.js.map

@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <VBox class="pf-skill">
+        <HBox alignItems="Center" class="pf-gap-3">
+            <HBox class="pf-skill__icon" alignItems="Center">
+                <core:Icon src="{path: 'icon', formatter: '.fIcon'}" class="pf-text-lg"/>
+            </HBox>
+            <Text class="pf-skill__name" text="{name}"/>
+            <Text class="pf-skill__level" text="{path: 'level', formatter: '.fLevel'}"/>
+        </HBox>
+
+        <HBox class="pf-skill__bar">
+            <HBox
+                class="pf-skill__bar-fill"
+                width="{path: 'level', formatter: '.fLevelPercent'}"/>
+        </HBox>
+
+        <Text class="pf-skill__desc" text="{description}" visible="{= !!${description}}"/>
+
+        <HBox class="pf-chips" items="{path: 'tagItems', templateShareable: true}" visible="{= !!${tagItems} &amp;&amp; ${tagItems}.length > 0}">
+            <core:Fragment fragmentName="davi.portfolio.fragment.Chip" type="XML"/>
+        </HBox>
+    </VBox>
+</core:FragmentDefinition>

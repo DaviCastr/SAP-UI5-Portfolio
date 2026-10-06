@@ -1,0 +1,2 @@
+sap.ui.define(["./BaseController"],function(e){"use strict";function n(e){return e&&e.__esModule&&typeof e.default!=="undefined"?e.default:e}const o=n(e);const t=o.extend("webapp.controller.NotFoundController",{onHomePress:function e(){this.navigate("home")},onContactPress:function e(){window.location.href=`mailto:${this.content().profile.email}`}});return t});
+//# sourceMappingURL=NotFound.controller.js.map

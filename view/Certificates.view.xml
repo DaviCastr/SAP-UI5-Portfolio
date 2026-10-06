@@ -1,0 +1,77 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    controllerName="davi.portfolio.controller.Certificates"
+    class="pf-view">
+    <Page id="page" class="pf-page-scroll" enableScrolling="true" showHeader="false">
+        <content>
+            <VBox class="pf-container pf-page">
+
+                <!-- Cabecalho -->
+                <VBox class="pf-page__head">
+                    <Text class="pf-eyebrow" text="{i18n>certificates.eyebrow}"/>
+                    <Title level="H1" class="pf-page__title" text="{i18n>certificates.title}"/>
+                    <Text class="pf-lead" text="{i18n>certificates.subtitle}"/>
+                </VBox>
+
+                <!-- Indicadores -->
+                <HBox class="pf-grid pf-grid--metrics">
+                    <VBox class="pf-metric">
+                        <Text class="pf-metric__value" text="{content>/metrics/certificateCount}"/>
+                        <Text class="pf-metric__label" text="{i18n>metric.certificates}"/>
+                    </VBox>
+                    <VBox class="pf-metric">
+                        <Text class="pf-metric__value" text="{content>/metrics/validCertificates}"/>
+                        <Text class="pf-metric__label" text="{i18n>metric.validCertificates}"/>
+                    </VBox>
+                    <VBox class="pf-metric">
+                        <Text class="pf-metric__value" text="{content>/certificateYearCount}"/>
+                        <Text class="pf-metric__label" text="{i18n>metric.yearsOfTraining}"/>
+                    </VBox>
+                    <VBox class="pf-metric">
+                        <Text class="pf-metric__value" text="{content>/metrics/certificateSources}"/>
+                        <Text class="pf-metric__label" text="{i18n>metric.sources}"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Filtros -->
+                <HBox class="pf-filterbar">
+                    <Button
+                        class="pf-filter"
+                        text="{i18n>certificates.filter.all}"
+                        type="{= ${ui>/certificateFilter} === 'all' ? 'Emphasized' : 'Transparent' }"
+                        press="onAllPress"/>
+
+                    <HBox class="pf-filterbar__years" items="{path: '/certificateYears', templateShareable: true}">
+                        <Button
+                            class="pf-filter"
+                            text="{year}"
+                            type="{= ${ui>/certificateFilter} === ${year} ? 'Emphasized' : 'Transparent' }"
+                            press="onYearPress"/>
+                    </HBox>
+
+                    <Button
+                        class="pf-filter"
+                        text="{i18n>certificates.filter.valid}"
+                        type="{= ${ui>/certificateFilter} === 'valid' ? 'Emphasized' : 'Transparent' }"
+                        press="onValidPress"/>
+                </HBox>
+
+                <!-- Certificacoes -->
+                <HBox class="pf-grid pf-grid--certs" items="{path: '/filteredCertificates', length: 60, templateShareable: true}">
+                    <core:Fragment fragmentName="davi.portfolio.fragment.CertificateCard" type="XML"/>
+                </HBox>
+
+                <!-- Estado vazio -->
+                <VBox
+                    class="pf-empty"
+                    visible="{= ${content>/filteredCertificates} ? ${content>/filteredCertificates}.length === 0 : false }">
+                    <core:Icon src="sap-icon://verified" class="pf-text-xl pf-muted"/>
+                    <Text text="{i18n>certificates.empty}"/>
+                </VBox>
+
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

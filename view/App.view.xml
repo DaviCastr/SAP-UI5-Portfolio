@@ -1,0 +1,65 @@
+<mvc:View
+    controllerName="davi.portfolio.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    displayBlock="true">
+    <!--
+        renderType="Bare" remove o sap.m.FlexItem que o FlexBox criaria em volta
+        de cada item: sem isso o NavContainer fica dentro de um wrapper que nao
+        recebe o `flex: 1 1 auto` e a area de conteudo colapsa para height:0.
+    -->
+    <FlexBox direction="Column" class="pf-app" renderType="Bare">
+        <core:Fragment fragmentName="davi.portfolio.fragment.Topbar" type="XML"/>
+
+        <!--
+            Barra da secao: repete o nome da aba atual logo abaixo da barra fixa e
+            concentra as acoes da pagina. Ela fica fora do NavContainer, entao
+            acompanha o conteudo sem cobrir nada - nao precisa de margin-top de
+            compensacao no conteudo.
+        -->
+        <HBox
+            class="pf-sectionbar pf-container"
+            alignItems="Center"
+            visible="{= ${ui>/activeRoute} === 'cv' }">
+            <!-- visible="{= !!${ui>/currentSectionTitle} }" -->
+            <!-- <Text class="pf-sectionbar__title" text="{ui>/currentSectionTitle}"/> -->
+
+            <!--
+                Download e impressao do curriculo. Ficam aqui, e nao no topo da
+                pagina, para nao dividir a atencao com o texto de abertura do CV:
+                a barra ja diz em qual secao se esta, e o botao de PDF do topo
+                continua sendo o atalho para chegar ate ela.
+            -->
+            <HBox
+                class="pf-sectionbar__actions"
+                alignItems="Center"
+                visible="{= ${ui>/activeRoute} === 'cv' }">
+                <Button
+                    type="Emphasized"
+                    icon="sap-icon://pdf-attachment"
+                    text="{i18n>action.downloadPdf}"
+                    tooltip="{i18n>action.downloadPdf}"
+                    press="onDownloadPress"/>
+                <Button
+                    type="Transparent"
+                    icon="sap-icon://print"
+                    text="{i18n>action.print}"
+                    tooltip="{i18n>action.print}"
+                    press="onPrintPress"/>
+            </HBox>
+        </HBox>
+        <!--
+            autoFocus="false": desde 1.153 o NavContainer foca o primeiro elemento
+            focavel da Page ao navegar. Como a barra superior vive fora da Page,
+            o foco caia no botao "View resume" e o navegador rolava a pagina
+            inteira, escondendo o conteudo inicial.
+        -->
+        <NavContainer
+            id="appContainer"
+            class="pf-app__content"
+            autoFocus="false"
+            busyIndicatorDelay="0"/>
+        <core:Fragment fragmentName="davi.portfolio.fragment.Footer" type="XML"/>
+    </FlexBox>
+</mvc:View>

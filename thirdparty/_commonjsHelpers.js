@@ -1,0 +1,2 @@
+sap.ui.define(["exports"],function(e){"use strict";var o=typeof globalThis!=="undefined"?globalThis:typeof window!=="undefined"?window:typeof global!=="undefined"?global:typeof self!=="undefined"?self:{};function t(e){return e&&e.__esModule&&Object.prototype.hasOwnProperty.call(e,"default")?e["default"]:e}e.commonjsGlobal=o;e.getDefaultExportFromCjs=t});
+//# sourceMappingURL=_commonjsHelpers.js.map

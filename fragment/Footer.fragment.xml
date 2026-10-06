@@ -1,0 +1,57 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <VBox class="pf-footer">
+        <!--
+            Uma linha so: convite de contato a esquerda, links e tema a direita,
+            e a nota de "feito com" no fim. O rodape nao repete nome, cargo nem
+            foto: no topo e no hero ja aparecem, e tres copias do mesmo bloco so
+            competem entre si. Aqui vai o convite de contato, que e o que o
+            leitor procura no fim da pagina.
+        -->
+        <HBox alignItems="Center" class="pf-container pf-footer__row" width="100%">
+            <VBox class="pf-footer__cta">
+                <Text class="pf-strong" text="{i18n>cta.title}"/>
+                <Text class="pf-footer__contact" text="{content>/profile/email}"/>
+            </VBox>
+
+            <HBox alignItems="Center" class="pf-gap-4 pf-row--wrap">
+                <!--
+                    Os itens e o selectedKey do toggle sao definidos em
+                    App.controller (publishUiOptions): o sap.m.SegmentedButton
+                    declara "buttons" como defaultAggregation (ignora template XML
+                    em "items") e o binding de selectedKey em two-way sobrescrevia o
+                    model "ui" com string vazia no boot. One-way (:=) nao serve
+                    aqui: quebra o boot de fragment no UI5 1.153.
+
+                    So o tema tem toggle: o idioma segue o do navegador (i18n do
+                    UI5) e pode ser fixado por ?lang= na URL.
+                -->
+                <!--
+                    Links do portfolio: mesmo formato do topo (normalizeLinks
+                    entrega "text" ja traduzido e "icon"), aqui com o icone
+                    como elemento principal porque o rodape e a ultima coisa que
+                    se le antes de sair da pagina.
+                -->
+                <HBox class="pf-row--wrap pf-footer__links" items="{path: '/footerLinks', templateShareable: true}">
+                    <Button
+                        type="Transparent"
+                        icon="{path: 'icon', formatter: '.fIcon'}"
+                        text="{text}"
+                        tooltip="{text}"
+                        iconDensityAware="false"
+                        press="onLinkPress"/>
+                </HBox>
+
+                <!--
+                    A nota "Built with SAPUI5 and TypeScript. Data in JSON." foi
+                    removida: e metadado de implementacao, nao informacao util
+                    para quem visita o portfolio. O botao de tema e o ultimo
+                    item da linha.
+                -->
+                <SegmentedButton
+                    id="themeToggle"
+                    selectionChange="onThemeChange"
+                    class="pf-footer__toggle"/>
+            </HBox>
+        </HBox>
+    </VBox>
+</core:FragmentDefinition>

@@ -1,0 +1,203 @@
+{
+	"_version": "1.65.0",
+	"sap.app": {
+		"id": "davi.portfolio",
+		"type": "application",
+		"i18n": {
+			"bundleUrl": "i18n/i18n.properties",
+			"supportedLocales": [
+				"",
+				"en"
+			],
+			"fallbackLocale": ""
+		},
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"backgroundColor": "#f6f5f2"
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "images/favicon.svg",
+			"favIcon": "images/favicon.svg"
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"typescript": true,
+		"flexEnabled": true,
+		"dependencies": {
+			"minUI5Version": "1.153.0",
+			"libs": {
+				"sap.m": {},
+				"sap.f": {},
+				"sap.ui.core": {},
+				"sap.ui.layout": {},
+				"sap.ui.unified": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"handleValidation": true,
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "davi.portfolio.i18n.i18n",
+					"supportedLocales": [
+						"",
+						"en"
+					],
+					"fallbackLocale": "",
+					"asyncSupport": true
+				}
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/tokens.css"
+				},
+				{
+					"uri": "css/library.css"
+				},
+				{
+					"uri": "css/components.css"
+				},
+				{
+					"uri": "css/print.css",
+					"sap-ui-xx": "print"
+				}
+			],
+			"images": {
+				"path": "images/"
+			}
+		},
+		"rootView": {
+			"viewName": "davi.portfolio.view.App",
+			"type": "XML",
+			"id": "appView",
+			"async": true
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "davi.portfolio.view",
+				"controlId": "appContainer",
+				"controlAggregation": "pages",
+				"transition": "fade",
+				"async": true
+			},
+			"routes": [
+				{
+					"name": "home",
+					"pattern": "",
+					"target": "home"
+				},
+				{
+					"name": "homeAlias",
+					"pattern": "home",
+					"target": "home"
+				},
+				{
+					"name": "about",
+					"pattern": "about",
+					"target": "about"
+				},
+				{
+					"name": "experience",
+					"pattern": "experience",
+					"target": "experience"
+				},
+				{
+					"name": "skills",
+					"pattern": "skills",
+					"target": "skills"
+				},
+				{
+					"name": "projects",
+					"pattern": "projects",
+					"target": "projects"
+				},
+				{
+					"name": "certificates",
+					"pattern": "certificates",
+					"target": "certificates"
+				},
+				{
+					"name": "education",
+					"pattern": "education",
+					"target": "education"
+				},
+				{
+					"name": "cv",
+					"pattern": "cv",
+					"target": "cv"
+				},
+				{
+					"name": "notFound",
+					"pattern": ":notFoundRoute:",
+					"target": "notFound"
+				}
+			],
+			"targets": {
+				"home": {
+					"viewName": "Home",
+					"viewId": "homeView",
+					"viewLevel": 1
+				},
+				"about": {
+					"viewName": "About",
+					"viewId": "aboutView",
+					"viewLevel": 1
+				},
+				"experience": {
+					"viewName": "Experience",
+					"viewId": "experienceView",
+					"viewLevel": 1
+				},
+				"skills": {
+					"viewName": "Skills",
+					"viewId": "skillsView",
+					"viewLevel": 1
+				},
+				"projects": {
+					"viewName": "Projects",
+					"viewId": "projectsView",
+					"viewLevel": 1
+				},
+				"certificates": {
+					"viewName": "Certificates",
+					"viewId": "certificatesView",
+					"viewLevel": 1
+				},
+				"education": {
+					"viewName": "Education",
+					"viewId": "educationView",
+					"viewLevel": 1
+				},
+				"cv": {
+					"viewName": "Cv",
+					"viewId": "cvView",
+					"viewLevel": 1
+				},
+				"notFound": {
+					"viewName": "NotFound",
+					"viewId": "notFoundView",
+					"viewLevel": 1
+				}
+			}
+		},
+		"flexBundle": false
+	}
+}

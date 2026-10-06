@@ -1,0 +1,57 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <VBox class="pf-card">
+        <!-- Empresa + periodo -->
+        <HBox alignItems="Center" class="pf-row--between pf-row--wrap pf-gap-3">
+            <HBox alignItems="Center" class="pf-gap-3">
+                <Image
+                    class="pf-logo"
+                    src="{logo}"
+                    densityAware="false"
+                    visible="{= !!${logo}}"
+                    alt="{company}"/>
+                <VBox class="sapUiVBoxTiny">
+                    <Text class="pf-tl-item__role" text="{role}"/>
+                    <HBox alignItems="Center" class="pf-gap-2">
+                        <Text class="pf-tl-item__company" text="{company}"/>
+                        <Text
+                            class="pf-tl-item__company"
+                            text="{workplace}"
+                            visible="{= !!${workplace}}"/>
+                    </HBox>
+                </VBox>
+            </HBox>
+
+            <HBox alignItems="Center" class="pf-gap-2 pf-small pf-strong pf-chip pf-chip--primary">
+                <core:Icon src="sap-icon://calendar" class="pf-text-xs"/>
+                <Text text="{path: 'period/from', formatter: '.fMonthYear'}"/>
+                <Text text="-"/>
+                <Text
+                    text="{path: 'period/to', formatter: '.fMonthYear'}"
+                    visible="{= !!${period/to}}"/>
+                <Text text="{i18n>period.current}" visible="{= !${period/to}}"/>
+            </HBox>
+        </HBox>
+
+        <!-- Descricao -->
+        <Text class="pf-card__body" text="{summary}"/>
+
+        <!-- Principais atuacoes -->
+        <!-- VBox: um destaque por linha (com HBox eles ficavam lado a lado). -->
+        <VBox
+            class="pf-stack pf-gap-1"
+            items="{path: 'highlightsItems', templateShareable: true}"
+            visible="{= !!${highlightsItems} &amp;&amp; ${highlightsItems}.length > 0}">
+            <Text class="pf-bullet pf-small pf-muted" text="{label}"/>
+        </VBox>
+
+        <!-- Modulos SAP -->
+        <HBox class="pf-chips" items="{path: 'modulesItems', templateShareable: true}" visible="{= !!${modulesItems} &amp;&amp; ${modulesItems}.length > 0}">
+            <core:Fragment fragmentName="davi.portfolio.fragment.Chip" type="XML"/>
+        </HBox>
+
+        <!-- Stack tecnica -->
+        <HBox class="pf-chips" items="{path: 'stackItems', templateShareable: true}" visible="{= !!${stackItems} &amp;&amp; ${stackItems}.length > 0}">
+            <core:Fragment fragmentName="davi.portfolio.fragment.Chip" type="XML"/>
+        </HBox>
+    </VBox>
+</core:FragmentDefinition>

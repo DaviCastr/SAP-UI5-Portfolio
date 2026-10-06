@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/model/json/JSONModel","sap/ui/Device"],function(e,t){"use strict";var s={createDeviceModel(){return new e({system:{...t.system},support:{...t.support}})},createUiStateModel(){return new e({busy:true,theme:"light",locale:"pt",compactNav:false,currentSectionTitle:""})},createContentModel(){return new e({profile:{},experiences:[],skills:[],projects:[],certificates:[],education:[],sections:[],issues:[]})}};return s});
+//# sourceMappingURL=models.js.map

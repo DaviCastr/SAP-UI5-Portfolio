@@ -1,0 +1,2286 @@
+/* ==========================================================================
+ * components.css - Componentes visuais do portfolio
+ *
+ * As telas sao montadas com controles UI5 (sap.m), entao este arquivo cuida
+ * apenas de aparencia: cores vindas de --sap* (tema claro/escuro), grid,
+ * cartoes, chips e estados. Nenhuma regra depende de estrutura de HTML.
+ * ========================================================================== */
+
+/* ------------------------------ Tokens locais ------------------------------ */
+
+.pf-app {
+    /*
+     * Shell de altura fixa: a coluna ocupa a viewport e o NavContainer rola
+     * internamente (padrao do sap.m.NavContainer).
+     *
+     * A altura usa unidades de viewport de proposito: `height: 100%` encadeado
+     * ate o #app-uiarea nao resolve (o sapUiXMLView intermediario fica com
+     * altura implicita) e o meio da tela colapsava para 0.
+     *
+     * Depende de renderType="Bare" no App.view.xml: sem ele o FlexBox cria um
+     * sap.m.FlexItem em volta do NavContainer, esse wrapper nao recebe o
+     * `flex: 1 1 0` abaixo e a area de conteudo continua com height:0.
+     */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: var(--pf-bg);
+    color: var(--pf-text);
+}
+
+.pf-app__content {
+    /* `1 1 0` + height:0: o espaco livre da coluna vai inteiro para o conteudo. */
+    flex: 1 1 0;
+    height: 0;
+    min-height: 0;
+    background: transparent;
+}
+
+/*
+ * Barra de rolagem da area de conteudo: discreta, sem "trilho" e sem borda,
+ * para nao competir visualmente com o conteudo.
+ *
+ * O scroller real criado pelo sap.m.Page e o `.sapUiScrollDelegate` (o Page
+ * coloca `sapMPageEnableScrolling` nele); o CSS do UI5 deixa a barra com 15px
+ * e cinza chumbo, que e o que aparece "feio" na home.
+ */
+.pf-app__content,
+.pf-app__content .sapMPage,
+.pf-app__content .sapMPageContentWrapper,
+.pf-app__content .sapMPageContent,
+.pf-app__content .sapUiScrollDelegate {
+    scrollbar-width: thin;
+    scrollbar-color: var(--pf-border-strong) transparent;
+}
+
+.pf-app__content::-webkit-scrollbar,
+.pf-app__content .sapMPage::-webkit-scrollbar,
+.pf-app__content .sapMPageContentWrapper::-webkit-scrollbar,
+.pf-app__content .sapMPageContent::-webkit-scrollbar,
+.pf-app__content .sapUiScrollDelegate::-webkit-scrollbar {
+    width: 8px;
+}
+
+.pf-app__content::-webkit-scrollbar-track,
+.pf-app__content .sapMPage::-webkit-scrollbar-track,
+.pf-app__content .sapMPageContentWrapper::-webkit-scrollbar-track,
+.pf-app__content .sapMPageContent::-webkit-scrollbar-track,
+.pf-app__content .sapUiScrollDelegate::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.pf-app__content::-webkit-scrollbar-thumb,
+.pf-app__content .sapMPage::-webkit-scrollbar-thumb,
+.pf-app__content .sapMPageContentWrapper::-webkit-scrollbar-thumb,
+.pf-app__content .sapMPageContent::-webkit-scrollbar-thumb,
+.pf-app__content .sapUiScrollDelegate::-webkit-scrollbar-thumb {
+    background: var(--pf-border-strong);
+    border-radius: var(--pf-radius-pill);
+}
+
+.pf-app__content::-webkit-scrollbar-thumb:hover,
+.pf-app__content .sapMPage::-webkit-scrollbar-thumb:hover,
+.pf-app__content .sapMPageContentWrapper::-webkit-scrollbar-thumb:hover,
+.pf-app__content .sapMPageContent::-webkit-scrollbar-thumb:hover,
+.pf-app__content .sapUiScrollDelegate::-webkit-scrollbar-thumb:hover {
+    background: var(--pf-text-muted);
+}
+
+/* ------------------------------ Tipografia ------------------------------ */
+
+.pf-eyebrow {
+    font-size: var(--pf-font-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pf-primary);
+}
+
+.pf-page__head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pf-space-2);
+}
+
+.pf-page__title,
+.pf-h2,
+.pf-h3 {
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--pf-text);
+}
+
+.pf-page__title {
+    font-size: var(--pf-font-3xl);
+    line-height: 1.1;
+}
+
+.pf-h2 {
+    font-size: var(--pf-font-2xl);
+    line-height: 1.2;
+}
+
+.pf-h3 {
+    font-size: var(--pf-font-lg);
+    line-height: 1.3;
+}
+
+.pf-lead {
+    max-width: 74ch;
+    font-size: var(--pf-font-md);
+    line-height: 1.6;
+    color: var(--pf-text-muted);
+}
+
+.pf-prose {
+    font-size: var(--pf-font-md);
+    line-height: 1.7;
+    color: var(--pf-text);
+}
+
+.pf-muted {
+    color: var(--pf-text-muted);
+}
+
+.pf-strong {
+    font-weight: 700;
+    color: var(--pf-text);
+}
+
+.pf-small {
+    font-size: var(--pf-font-sm);
+}
+
+.pf-text-xs {
+    font-size: var(--pf-font-xs);
+}
+
+.pf-text-s {
+    font-size: var(--pf-font-sm);
+}
+
+.pf-text-lg {
+    font-size: var(--pf-font-lg);
+}
+
+.pf-text-xl {
+    font-size: var(--pf-font-2xl);
+}
+
+/* ------------------------------ Layout ------------------------------ */
+
+/*
+ * Espacamento vertical da pagina.
+ *
+ * O seletor precisa de `.pf-container` junto: as views usam `pf-container pf-page`
+ * e o `.pf-container` define `padding: 0 var(--pf-space-6)`. Com `.pf-page`
+ * sozinho as duas regras tinham a mesma especificidade e, como `.pf-container`
+ * vem depois no arquivo, o padding vertical era zerado - o conteudo encostava
+ * no topo da pagina e no fim dela.
+ *
+ * O padding lateral e reescrito aqui (e nao deixado para o `.pf-container`)
+ * porque esta regra e mais especifica: se usassemos o atalho de 3 valores, o `0`
+ * do meio apagaria tambem o respiro lateral e o texto encostaria nas bordas da
+ * tela no celular e no tablet.
+ */
+.pf-container.pf-page {
+    padding: var(--pf-space-10) var(--pf-space-6) var(--pf-space-12);
+    gap: var(--pf-space-10);
+}
+
+/* A Page fica sem fundo proprio: quem pinta o fundo e o .pf-app */
+.pf-page-scroll,
+.pf-page-scroll .sapMPageContent {
+    background: transparent;
+}
+
+.pf-container {
+    width: 100%;
+    max-width: var(--pf-container);
+    margin: 0 auto;
+    padding: 0 var(--pf-space-6);
+    box-sizing: border-box;
+}
+
+.pf-stack {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.pf-stack--tight {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.pf-gap-1 {
+    gap: var(--pf-space-1);
+}
+
+.pf-gap-2 {
+    gap: var(--pf-space-2);
+}
+
+.pf-gap-3 {
+    gap: var(--pf-space-3);
+}
+
+.pf-gap-4 {
+    gap: var(--pf-space-4);
+}
+
+.pf-gap-5 {
+    gap: var(--pf-space-5);
+}
+
+.pf-gap-6 {
+    gap: var(--pf-space-6);
+}
+
+.pf-row--between {
+    justify-content: space-between;
+}
+
+.pf-row--wrap {
+    flex-wrap: wrap;
+}
+
+.pf-grow-1 {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.pf-center {
+    align-items: center;
+    text-align: center;
+}
+
+.pf-mt-4 {
+    margin-top: var(--pf-space-4);
+}
+
+.pf-mb-0 {
+    margin-bottom: 0;
+}
+
+.pf-scroll-x {
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.pf-scroll-x::-webkit-scrollbar {
+    display: none;
+}
+
+.pf-two-col {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: var(--pf-space-8);
+    align-items: start;
+}
+
+/* ------------------------------ Grid ------------------------------ */
+
+.pf-grid {
+    display: grid;
+    gap: var(--pf-space-4);
+}
+
+.pf-grid--metrics {
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+.pf-grid--skills {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.pf-grid--projects {
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+}
+
+.pf-grid--certs {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.pf-grid--languages {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+/* Repositorios do GitHub: cards mais estreitos, porque o conteudo e curto. */
+.pf-grid--repos {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+/* ------------------------------ Cartao generico ------------------------------ */
+
+.pf-card {
+    padding: var(--pf-card-padding);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-lg);
+    background: var(--pf-surface);
+    box-shadow: var(--pf-shadow-1);
+}
+
+.pf-card__title {
+    font-size: var(--pf-font-md);
+    font-weight: 700;
+    color: var(--pf-text);
+}
+
+.pf-card__body {
+    font-size: var(--pf-font-sm);
+    line-height: 1.65;
+    color: var(--pf-text-muted);
+}
+
+.pf-logo {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 auto;
+    border-radius: var(--pf-radius-sm);
+    object-fit: contain;
+    background: var(--pf-surface);
+}
+
+.pf-separator {
+    width: 100%;
+    height: 1px;
+    margin: 0;
+    border: 0;
+    background: var(--pf-border);
+}
+
+/* ------------------------------ Chips e pills ------------------------------ */
+
+.pf-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--pf-space-2);
+    align-items: center;
+}
+
+.pf-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-pill);
+    background: var(--pf-surface-sunken);
+    font-size: var(--pf-font-xs);
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--pf-text-muted);
+    white-space: nowrap;
+}
+
+.pf-chip--primary {
+    border-color: transparent;
+    background: var(--pf-accent-soft);
+    color: var(--pf-primary);
+}
+
+.pf-chip--warn {
+    border-color: transparent;
+    background: color-mix(in srgb, var(--pf-warning) 18%, transparent);
+    color: var(--pf-warning);
+}
+
+.pf-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--pf-space-2);
+    padding: var(--pf-space-3) var(--pf-space-4);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-pill);
+    background: var(--pf-surface);
+}
+
+.pf-bullet {
+    position: relative;
+    padding-left: 14px;
+}
+
+.pf-bullet::before {
+    content: "\2022";
+    position: absolute;
+    left: 2px;
+    color: var(--pf-primary);
+    font-weight: 700;
+}
+
+/* ------------------------------ Topbar ------------------------------ */
+
+.pf-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    border-bottom: 1px solid var(--pf-border);
+    background: color-mix(in srgb, var(--pf-surface) 90%, transparent);
+    backdrop-filter: saturate(180%) blur(12px);
+}
+
+/*
+ * Tres colunas: marca | abas | acoes.
+ *
+ * Com flex, a largura da marca (196px) e a das acoes (298px) sao diferentes e
+ * `margin: 0 auto` centralizava as abas 51px a esquerda do meio. As colunas
+ * `1fr auto 1fr` dao a mesma sobra dos dois lados, entao as abas ficam
+ * exatamente no centro, qualquer que seja o tamanho do texto da marca.
+ */
+.pf-topbar__row {
+    display: grid;
+    /*
+     * `minmax(0, 1fr)` em vez de `1fr`: em `1fr` (= minmax(auto, 1fr)) o
+     * min-content da marca ou dos acoes consegue esticar a coluna e empurrar a
+     * navegacao para fora do centro. Com o minimo em 0 as duas colunas laterais
+     * dividem o espaco restante por igual e a navegacao fica no meio da tela.
+     */
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--pf-space-4);
+    min-height: var(--pf-nav-height);
+    padding: var(--pf-space-2) 0;
+}
+
+/* A marca pode encolher: o nome e o cargo sao truncados, nunca empurram o centro. */
+.pf-topbar__brand {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.pf-topbar__brand-name,
+.pf-topbar__brand-role {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pf-topbar__brand-avatar {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 auto;
+    border-radius: var(--pf-radius-pill);
+    object-fit: cover;
+    box-shadow: var(--pf-shadow-1);
+}
+
+.pf-topbar__brand-name {
+    font-size: var(--pf-font-md);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--pf-text);
+}
+
+.pf-topbar__brand-role {
+    font-size: var(--pf-font-xs);
+    color: var(--pf-text-muted);
+}
+
+.pf-topbar__nav {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin: 0 auto;
+    padding: 4px;
+    border-radius: var(--pf-radius-pill);
+    background: var(--pf-surface-sunken);
+}
+
+.pf-topbar__btn {
+    white-space: nowrap;
+}
+
+.pf-topbar__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--pf-space-1);
+    flex: 0 0 auto;
+    justify-self: end;
+}
+
+/* --------------------------- Barra da secao --------------------------- */
+
+/*
+ * Repete o titulo da aba atual abaixo da barra fixa. Fica como linha propria do
+ * shell (fora do NavContainer), entao nunca cobre o conteudo e dispensa
+ * compensacao de margin-top - o proprio espacamento da barra faz esse papel.
+ *
+ * E uma faixa de orientacao, nao um segundo cabecalho: por isso nao repete a
+ * altura da barra de navegacao. Sem `min-height`, a altura vem do conteudo
+ * (titulo + botoes) e sobra cerca de 30px em relacao a barra de 64px.
+ */
+.pf-sectionbar {
+    display: flex;
+    align-items: center;
+    gap: var(--pf-space-3);
+    min-height: 0;
+    padding: var(--pf-space-2) 0;
+    border-bottom: 1px solid var(--pf-border);
+    background: var(--pf-surface);
+}
+
+.pf-sectionbar__title {
+    font-size: var(--pf-font-lg);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--pf-text);
+}
+
+/* Acoes da secao (PDF/Print no CV): encostadas na direita da barra. */
+.pf-sectionbar__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--pf-space-2);
+    margin-left: auto;
+}
+
+/* ==========================================================================
+ * Base responsiva
+ *
+ * Ajustes que valem em qualquer largura, porque corrigem o comportamento padrao
+ * dos controles do UI5 e nao um tamanho especifico:
+ *
+ * 1. `sap.m.Title` e `sap.m.Text` nascem com `white-space: nowrap`. O titulo do
+ *    hero ("Building Fiori application...") ficava com a largura do texto
+ *    (~969px) e empurrava o layout inteiro para fora da viewport em tablet e
+ *    celular - o conteúdo era cortado sem barra de rolagem.
+ * 2. Itens de flex do UI5 nascem com `min-width: auto`, ou seja, não encolhem
+ *    abaixo do próprio conteúdo. Sem `min-width: 0` um título longo estoura o
+ *    cartão em vez de quebrar linha.
+ * 3. Listas de chips, metadados e filtros nascem com `sapMFlexBoxWrapNoWrap` e
+ *    precisam quebrar linha em telas estreitas.
+ * ========================================================================== */
+
+.pf-view .sapMTitle,
+.pf-view .sapMText {
+    white-space: normal;
+}
+
+/* Título longo deve quebrar, nunca empurrar o cartão para fora. */
+.pf-view .sapMTitle,
+.pf-view .sapMText {
+    overflow-wrap: break-word;
+}
+
+.pf-hero__content,
+.pf-cert,
+.pf-cert__body,
+.pf-cert__media > *,
+.pf-project,
+.pf-project__head,
+.pf-card,
+.pf-stack,
+.pf-two-col > * {
+    min-width: 0;
+}
+
+.pf-chips,
+.pf-filterbar,
+.pf-filterbar__years,
+.pf-project__foot,
+.pf-hero__actions,
+.pf-row--wrap {
+    flex-wrap: wrap !important;
+}
+
+/*
+ * A barra de filtros tem um HBox interno para os anos que nem sempre recebe
+ * uma classe `pf-*` (o `items` do XML fica direto nele). Sem isso ele nascia
+ * com `sapMFlexBoxWrapNoWrap` e os botoes de ano estouravam a largura da tela.
+ */
+.pf-filterbar > .sapMHBox,
+.pf-filterbar > .sapMVBox {
+    flex-wrap: wrap !important;
+    min-width: 0;
+}
+
+/* ------------------------------ Hero ------------------------------ */
+
+.pf-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--pf-space-10);
+    overflow: hidden;
+    padding: var(--pf-space-12);
+    border-radius: var(--pf-radius-xl);
+    color: #fff;
+    background: var(--pf-hero-gradient);
+    box-shadow: var(--pf-shadow-3);
+}
+
+.pf-hero::after {
+    content: "";
+    position: absolute;
+    top: -120px;
+    right: -80px;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.16) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.pf-hero__avatar {
+    width: 168px;
+    height: 168px;
+    flex: 0 0 auto;
+    border: 4px solid rgba(255, 255, 255, 0.28);
+    border-radius: var(--pf-radius-pill);
+    object-fit: cover;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+}
+
+.pf-hero__content {
+    position: relative;
+    z-index: 1;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.pf-hero__badge {
+    display: inline-flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: var(--pf-radius-pill);
+    background: rgba(255, 255, 255, 0.12);
+    font-size: var(--pf-font-xs);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #fff;
+}
+
+.pf-hero__title {
+    margin: 0;
+    font-size: var(--pf-font-3xl);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: #fff;
+}
+
+.pf-hero__role {
+    font-size: var(--pf-font-lg);
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.pf-hero__summary {
+    max-width: 62ch;
+    font-size: var(--pf-font-md);
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.pf-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--pf-space-3);
+}
+
+.pf-hero__actions .sapMBtn {
+    border-radius: var(--pf-radius-pill);
+    font-weight: 600;
+}
+
+.pf-hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--pf-space-5);
+    padding-top: var(--pf-space-5);
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.pf-hero__meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--pf-font-sm);
+    color: rgba(255, 255, 255, 0.86);
+}
+
+.pf-hero,
+.pf-hero .sapMText,
+.pf-hero .sapMTitle,
+.pf-hero .sapUiIcon,
+.pf-hero .sapMBtnContent,
+.pf-hero .sapMBtnIcon {
+    color: #fff;
+}
+
+.pf-hero__title {
+    color: #fff;
+}
+
+.pf-hero__role {
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.pf-hero__summary {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.pf-hero__badge,
+.pf-hero__badge > *,
+.pf-hero__badge .sapMText,
+.pf-hero__badge .sapUiIcon {
+    color: #fff;
+}
+
+.pf-hero__meta-item,
+.pf-hero__meta-item .sapMText,
+.pf-hero__meta-item .sapUiIcon {
+    color: #fff;
+}
+
+/* ------------------------------ Metricas ------------------------------ */
+
+.pf-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--pf-space-5);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-lg);
+    background: var(--pf-surface);
+    box-shadow: var(--pf-shadow-1);
+}
+
+.pf-metric__value {
+    font-size: var(--pf-font-2xl);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--pf-primary);
+}
+
+.pf-metric__label {
+    font-size: var(--pf-font-sm);
+    font-weight: 600;
+    color: var(--pf-text);
+}
+
+/* ------------------------------ Linha do tempo ------------------------------ */
+
+.pf-timeline {
+    position: relative;
+}
+
+/* Respiro entre os cards de experiencia (o VBox e flex em coluna). */
+.pf-timeline.sapMVBox {
+    gap: var(--pf-space-6);
+}
+
+.pf-tl-item {
+    position: relative;
+    display: flex;
+    gap: var(--pf-space-4);
+    padding-left: var(--pf-space-8);
+}
+
+.pf-tl-item::before {
+    content: "";
+    position: absolute;
+    top: var(--pf-space-6);
+    bottom: calc(var(--pf-space-6) * -1);
+    left: 11px;
+    width: 2px;
+    background: var(--pf-border);
+}
+
+.pf-tl-item:last-child::before {
+    display: none;
+}
+
+.pf-tl-item__marker {
+    position: absolute;
+    top: var(--pf-space-6);
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--pf-radius-pill);
+    background: var(--pf-surface);
+    border: 2px solid var(--pf-primary);
+    color: var(--pf-primary);
+    box-sizing: border-box;
+}
+
+.pf-tl-item__role {
+    font-size: var(--pf-font-md);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--pf-text);
+}
+
+.pf-tl-item__company {
+    font-size: var(--pf-font-sm);
+    color: var(--pf-text-muted);
+}
+
+/* ------------------------------ Skills ------------------------------ */
+
+.pf-skill {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pf-space-3);
+    height: 100%;
+    padding: var(--pf-card-padding);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-lg);
+    background: var(--pf-surface);
+    box-shadow: var(--pf-shadow-1);
+}
+
+.pf-skill__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 auto;
+    border-radius: var(--pf-radius-sm);
+    background: var(--pf-accent-soft);
+    color: var(--pf-primary);
+}
+
+.pf-skill__name {
+    margin: 0;
+    font-size: var(--pf-font-md);
+    font-weight: 600;
+    color: var(--pf-text);
+}
+
+.pf-skill__level {
+    margin-left: auto;
+    font-size: var(--pf-font-xs);
+    font-weight: 700;
+    color: var(--pf-primary);
+    white-space: nowrap;
+}
+
+.pf-skill__desc {
+    font-size: var(--pf-font-sm);
+    line-height: 1.6;
+    color: var(--pf-text-muted);
+}
+
+.pf-skill__bar {
+    height: 6px;
+    overflow: hidden;
+    border-radius: var(--pf-radius-pill);
+    background: var(--pf-surface-sunken);
+}
+
+.pf-skill__bar-fill {
+    height: 100%;
+    border-radius: var(--pf-radius-pill);
+    background: linear-gradient(
+        90deg,
+        var(--pf-primary) 0%,
+        color-mix(in srgb, var(--pf-primary) 55%, #35c1f1) 100%
+    );
+}
+
+/* ------------------------------ Projetos ------------------------------ */
+
+.pf-project {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pf-space-3);
+    height: 100%;
+    padding: var(--pf-card-padding);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-lg);
+    background: var(--pf-surface);
+    box-shadow: var(--pf-shadow-1);
+    transition:
+        transform var(--pf-transition),
+        box-shadow var(--pf-transition),
+        border-color var(--pf-transition);
+}
+
+.pf-project:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--pf-primary) 45%, var(--pf-border));
+    box-shadow: var(--pf-shadow-2);
+}
+
+.pf-project__head {
+    display: flex;
+    align-items: center;
+    gap: var(--pf-space-3);
+}
+
+.pf-project__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 auto;
+    border-radius: var(--pf-radius-sm);
+    background: var(--pf-surface-sunken);
+    color: var(--pf-text);
+}
+
+.pf-project__name {
+    margin: 0;
+    font-size: var(--pf-font-md);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--pf-text);
+    word-break: break-word;
+}
+
+.pf-project__desc {
+    flex: 1 1 auto;
+    font-size: var(--pf-font-sm);
+    line-height: 1.6;
+    color: var(--pf-text-muted);
+}
+
+.pf-project__foot {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--pf-space-3);
+    padding-top: var(--pf-space-3);
+    border-top: 1px solid var(--pf-border);
+    font-size: var(--pf-font-xs);
+    color: var(--pf-text-muted);
+}
+
+.pf-project__stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ------------------------------ Repositorios ------------------------------ */
+
+/* Mesma mecânica do certificado: `role="link"` (no DOM via BaseController)
+   marca o card como clicavel e ganha foco visivel. */
+.pf-repo[role="link"] {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pf-repo[role="link"]:focus-visible {
+    outline: 2px solid var(--pf-primary);
+    outline-offset: 3px;
+}
+
+.pf-repo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pf-space-3);
+    height: 100%;
+    padding: var(--pf-card-padding);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-lg);
+    background: var(--pf-surface);
+    box-shadow: var(--pf-shadow-1);
+    transition:
+        transform var(--pf-transition),
+        box-shadow var(--pf-transition),
+        border-color var(--pf-transition);
+}
+
+.pf-repo:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--pf-primary) 45%, var(--pf-border));
+    box-shadow: var(--pf-shadow-2);
+}
+
+.pf-repo__head {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--pf-space-3);
+}
+
+.pf-repo__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 auto;
+    border-radius: var(--pf-radius-sm);
+    background: var(--pf-surface-sunken);
+    color: var(--pf-primary);
+}
+
+/* Nome de repositorio e identificador: `word-break` porque tem underscore e
+   barra, que nao quebram sozinhos e estourariam o card. */
+.pf-repo__name {
+    margin: 0;
+    font-size: var(--pf-font-sm);
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--pf-text);
+    overflow-wrap: anywhere;
+}
+
+.pf-repo__desc {
+    flex: 1 1 auto;
+    font-size: var(--pf-font-sm);
+    line-height: 1.6;
+    color: var(--pf-text-muted);
+}
+
+/* ------------------------------ Certificados ------------------------------ */
+
+/* Card com `role="link"` (aplicado no DOM pelo BaseController) = clicavel. */
+.pf-cert[role="link"] {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pf-cert[role="link"]:focus-visible {
+    outline: 2px solid var(--pf-primary);
+    outline-offset: 3px;
+}
+
+.pf-cert {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-lg);
+    background: var(--pf-surface);
+    box-shadow: var(--pf-shadow-1);
+    transition:
+        transform var(--pf-transition),
+        box-shadow var(--pf-transition),
+        border-color var(--pf-transition);
+}
+
+.pf-cert:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--pf-primary) 45%, var(--pf-border));
+    box-shadow: var(--pf-shadow-3);
+}
+
+/*
+ * Area da imagem: quadrada e "full bleed" (sem padding interno), com a mesma
+ * borda e o mesmo raio do card. A altura vem de `aspect-ratio` em vez de um
+ * px fixo, entao o badge do Credly (2048x2048, quadrado) ocupa 100% da largura
+ * e 100% da altura da area, e o layout continua correto em qualquer largura.
+ */
+.pf-cert__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--pf-border);
+    border-bottom: none;
+    border-radius: calc(var(--pf-radius-lg) - 1px) calc(var(--pf-radius-lg) - 1px) 0 0;
+    background: var(--pf-surface-sunken);
+}
+
+/*
+ * O sap.m.Image nao renderiza a <img> direto: ele cria um div intermediario
+ * (`sapMFlexItem`). Sem forcar `height: 100%` nesse intermediario, a <img>
+ * fica com `max-height` sem referencia e invade o texto logo abaixo.
+ */
+.pf-cert__media > .sapMFlexItem,
+.pf-cert__media > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+}
+
+.pf-cert__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /*
+     * Os PNGs do Credly (2048x2048, RGBA) vem com cantos arredondados
+     * desenhados nos QUATRO cantos: a base tem 43px (2,1%) de alpha 0. O
+     * `border-radius` do container resolve o topo, mas embaixo essa faixa
+     * transparente deixa ver o fundo e o certificado parece ter o canto
+     * arredondado embaixo tambem.
+     *
+     * Grow de 3,5% ancorado no topo empurra essa faixa para fora da area
+     * visivel (o `overflow: hidden` do container corta), e sobra a borda reta
+     * da arte. O topo nao e afetado: ele ja e recortado pelo raio do container.
+     */
+    transform: scale(1.035);
+    transform-origin: top center;
+}
+
+.pf-cert__fallback {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--pf-text-muted);
+    text-align: center;
+}
+
+/* Afordancia de "abre em nova aba", no lugar do botao removido. */
+.pf-cert__corner {
+    position: absolute;
+    top: var(--pf-space-3);
+    right: var(--pf-space-3);
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-pill);
+    background: color-mix(in srgb, var(--pf-surface) 88%, transparent);
+    color: var(--pf-primary);
+    opacity: 0;
+    transform: translate(-4px, -4px);
+    transition:
+        opacity var(--pf-transition),
+        transform var(--pf-transition);
+}
+
+.pf-cert:hover .pf-cert__corner,
+.pf-cert:focus-visible .pf-cert__corner,
+.pf-cert:focus-within .pf-cert__corner {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+.pf-cert__body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 6px;
+    padding: var(--pf-space-4);
+}
+
+.pf-cert__issuer {
+    font-size: var(--pf-font-xs);
+    font-weight: 700;
+    color: var(--pf-primary);
+}
+
+.pf-cert__title {
+    margin: 0;
+    font-size: var(--pf-font-sm);
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--pf-text);
+}
+
+.pf-cert__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--pf-space-2);
+    margin-top: auto;
+    font-size: var(--pf-font-xs);
+    color: var(--pf-text-muted);
+}
+
+/* ------------------------------ Filtros ------------------------------ */
+
+.pf-filterbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--pf-space-2);
+    padding: var(--pf-space-2);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-pill);
+    background: var(--pf-surface);
+    box-shadow: var(--pf-shadow-1);
+}
+
+.pf-filterbar__years {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--pf-space-2);
+}
+
+.pf-filter {
+    border-radius: var(--pf-radius-pill) !important;
+    font-weight: 600;
+}
+
+/* ------------------------------ Sobre ------------------------------ */
+
+.pf-about__avatar {
+    width: 120px;
+    height: 120px;
+    align-self: flex-start;
+    border-radius: var(--pf-radius-pill);
+    object-fit: cover;
+    box-shadow: var(--pf-shadow-1);
+}
+
+.pf-about__name {
+    font-size: var(--pf-font-lg);
+    font-weight: 700;
+    color: var(--pf-text);
+}
+
+.pf-contact-row {
+    display: flex;
+    align-items: center;
+    gap: var(--pf-space-3);
+    font-size: var(--pf-font-sm);
+    color: var(--pf-text);
+}
+
+.pf-contact-row .sapIcon {
+    color: var(--pf-primary);
+}
+
+/* ------------------------------ Chamada final ------------------------------ */
+
+.pf-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--pf-space-6);
+    padding: var(--pf-space-10);
+    border-radius: var(--pf-radius-xl);
+    background: var(--pf-accent-soft);
+}
+
+.pf-cta__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pf-space-2);
+    min-width: 0;
+}
+
+.pf-cta__title {
+    margin: 0;
+    font-size: var(--pf-font-2xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--pf-text);
+}
+
+.pf-cta__text {
+    max-width: 56ch;
+    font-size: var(--pf-font-sm);
+    line-height: 1.6;
+    color: var(--pf-text-muted);
+}
+
+.pf-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--pf-space-3);
+}
+
+.pf-cta__actions .sapMBtn {
+    border-radius: var(--pf-radius-pill);
+    font-weight: 600;
+}
+
+/* ------------------------------ Curriculo (A4) ------------------------------ */
+
+.pf-sheet {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pf-space-8);
+    padding: var(--pf-space-10);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-lg);
+    background: var(--pf-surface);
+    box-shadow: var(--pf-shadow-2);
+}
+
+.pf-sheet__head {
+    display: flex;
+    align-items: center;
+    gap: var(--pf-space-6);
+    padding-bottom: var(--pf-space-6);
+    border-bottom: 2px solid var(--pf-primary);
+}
+
+.pf-sheet__avatar {
+    width: 92px;
+    height: 92px;
+    flex: 0 0 auto;
+    border-radius: var(--pf-radius-pill);
+    object-fit: cover;
+}
+
+.pf-sheet__name {
+    margin: 0;
+    font-size: var(--pf-font-2xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.pf-sheet__role {
+    font-size: var(--pf-font-md);
+    font-weight: 600;
+    color: var(--pf-primary);
+}
+
+.pf-sheet__contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--pf-space-4);
+    font-size: var(--pf-font-sm);
+    color: var(--pf-text-muted);
+}
+
+.pf-sheet__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pf-space-3);
+}
+
+.pf-sheet__section-title {
+    font-size: var(--pf-font-sm);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--pf-primary);
+}
+
+.pf-sheet__metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--pf-space-4);
+}
+
+.pf-sheet__metric {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--pf-space-4);
+    border-radius: var(--pf-radius-md);
+    background: var(--pf-surface-sunken);
+}
+
+.pf-sheet__metric-value {
+    font-size: var(--pf-font-xl);
+    font-weight: 700;
+    color: var(--pf-primary);
+}
+
+.pf-sheet__item-title {
+    font-size: var(--pf-font-sm);
+    font-weight: 700;
+    color: var(--pf-text);
+}
+
+.pf-sheet__text {
+    font-size: var(--pf-font-sm);
+    line-height: 1.6;
+    color: var(--pf-text-muted);
+}
+
+.pf-sheet__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--pf-space-3);
+    padding-top: var(--pf-space-4);
+    border-top: 1px solid var(--pf-border);
+}
+
+/*
+ * Curriculo no desenho do PDF (service/cvPdf.ts): faixa com foto, barra
+ * lateral e coluna principal. So tokens `--pf-*`: o tema escuro funciona sem
+ * nenhuma regra extra. Os seletores levam `.pf-cv` na frente para vencer as
+ * classes dos controles UI5 (sapMTitle, sapMLnk...) sem `!important`.
+ */
+.pf-sheet.pf-cv {
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.pf-cv {
+    --pf-cv-side: 300px;
+    --pf-cv-amber-soft: color-mix(in srgb, var(--pf-accent) 12%, var(--pf-surface));
+}
+
+/* ------------------------------ cabecalho ------------------------------ */
+
+.pf-cv .pf-cv__head {
+    position: relative;
+    gap: var(--pf-space-8);
+    padding: var(--pf-space-8) var(--pf-space-10);
+    background: var(--pf-hero-gradient);
+    border-bottom: 4px solid var(--pf-accent);
+    color: #fff;
+}
+
+.pf-cv .pf-cv__avatar {
+    width: 132px;
+    height: 132px;
+    flex: 0 0 auto;
+    border-radius: var(--pf-radius-pill);
+    object-fit: cover;
+    box-shadow:
+        0 0 0 4px rgba(255, 255, 255, 0.9),
+        0 0 0 8px color-mix(in srgb, var(--pf-primary) 70%, transparent),
+        var(--pf-shadow-3);
+}
+
+.pf-cv .pf-cv__identity {
+    gap: var(--pf-space-1);
+    min-width: 0;
+}
+
+.pf-cv .pf-cv__badge {
+    align-self: flex-start;
+    margin-bottom: var(--pf-space-2);
+    padding: 4px 12px;
+    border-radius: var(--pf-radius-pill);
+    background: #fdf0dc;
+    color: #92400e;
+    font-size: var(--pf-font-xs);
+    font-weight: 700;
+}
+
+.pf-cv .pf-cv__name {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(1.9rem, 1.2rem + 2.2vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.pf-cv .pf-cv__role {
+    color: #a8f0e1;
+    font-size: var(--pf-font-lg, 1.15rem);
+    font-weight: 700;
+}
+
+.pf-cv .pf-cv__headline {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: var(--pf-font-sm);
+    line-height: 1.5;
+}
+
+/* ---------------------------- duas colunas ---------------------------- */
+
+.pf-cv .pf-cv__body {
+    display: grid;
+    grid-template-columns: var(--pf-cv-side) minmax(0, 1fr);
+}
+
+/* ---------------------------- barra lateral ---------------------------- */
+
+.pf-cv .pf-cv__side {
+    gap: var(--pf-space-8);
+    padding: var(--pf-space-8) var(--pf-space-6);
+    background: color-mix(in srgb, var(--pf-primary) 5%, var(--pf-surface-sunken));
+    border-right: 1px solid var(--pf-border);
+}
+
+.pf-cv .pf-cv__block {
+    gap: var(--pf-space-3);
+}
+
+.pf-cv .pf-cv__side-title {
+    position: relative;
+    padding-bottom: var(--pf-space-2);
+    color: var(--pf-primary);
+    font-size: var(--pf-font-xs);
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.pf-cv .pf-cv__side-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 28px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--pf-primary);
+}
+
+.pf-cv .pf-cv__field {
+    gap: 1px;
+    margin-bottom: var(--pf-space-2);
+}
+
+.pf-cv .pf-cv__label {
+    color: var(--pf-text-subtle);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.pf-cv .pf-cv__value {
+    color: var(--pf-text);
+    font-size: var(--pf-font-sm);
+    overflow-wrap: anywhere;
+}
+
+.pf-cv .sapMLnk.pf-cv__value,
+.pf-cv .sapMLnk.pf-cv__link {
+    color: var(--pf-primary);
+}
+
+.pf-cv .pf-cv__lang {
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--pf-border);
+}
+
+.pf-cv .pf-cv__lang-name {
+    color: var(--pf-text);
+    font-size: var(--pf-font-sm);
+    font-weight: 700;
+}
+
+.pf-cv .pf-cv__lang-level {
+    color: var(--pf-text-muted);
+    font-size: var(--pf-font-xs);
+}
+
+.pf-cv .pf-cv__groups {
+    gap: var(--pf-space-4);
+}
+
+.pf-cv .pf-cv__group-title {
+    margin-bottom: var(--pf-space-1);
+    color: var(--pf-accent);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.pf-cv .pf-cv__skill {
+    gap: 4px;
+    padding: 4px 0;
+}
+
+.pf-cv .pf-cv__skill-name {
+    color: var(--pf-text);
+    font-size: var(--pf-font-sm);
+}
+
+.pf-cv .pf-cv__skill-level {
+    color: var(--pf-text-subtle);
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.pf-cv .pf-cv__bar {
+    height: 5px;
+    overflow: hidden;
+    border-radius: var(--pf-radius-pill);
+    background: color-mix(in srgb, var(--pf-primary) 16%, transparent);
+}
+
+.pf-cv .pf-cv__bar-fill {
+    height: 100%;
+    border-radius: var(--pf-radius-pill);
+    background: linear-gradient(90deg, var(--pf-primary), color-mix(in srgb, var(--pf-primary) 60%, #35c1f1));
+}
+
+.pf-cv .pf-cv__soft {
+    gap: var(--pf-space-2);
+    padding: 5px 0;
+}
+
+.pf-cv .pf-cv__soft-name {
+    color: var(--pf-text);
+    font-size: var(--pf-font-sm);
+}
+
+/* Estrelas do RatingIndicator na cor de acento, como os pontos do PDF. */
+.pf-cv .pf-cv__dots {
+    flex: 0 0 auto;
+    --sapContent_RatedColor: var(--pf-accent);
+    --sapContent_UnratedColor: color-mix(in srgb, var(--pf-accent) 25%, transparent);
+}
+
+.pf-cv .pf-cv__dots .sapMRISel {
+    color: var(--pf-accent);
+}
+
+.pf-cv .pf-cv__dots .sapMRIUnsel {
+    color: color-mix(in srgb, var(--pf-accent) 25%, transparent);
+}
+
+/* --------------------------- coluna principal --------------------------- */
+
+.pf-cv .pf-cv__main {
+    gap: var(--pf-space-8);
+    padding: var(--pf-space-8) var(--pf-space-10);
+    min-width: 0;
+}
+
+.pf-cv .pf-cv__section {
+    gap: var(--pf-space-4);
+}
+
+.pf-cv .pf-cv__title {
+    display: flex;
+    align-items: center;
+    gap: var(--pf-space-3);
+    margin: 0;
+    color: var(--pf-text);
+    font-size: var(--pf-font-sm);
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.pf-cv .pf-cv__title::before {
+    content: "";
+    width: 18px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--pf-accent);
+}
+
+.pf-cv .pf-cv__title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--pf-border);
+}
+
+.pf-cv .pf-cv__text {
+    color: var(--pf-text-muted);
+    font-size: var(--pf-font-sm);
+    line-height: 1.65;
+}
+
+.pf-cv .pf-cv__metrics {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--pf-space-3);
+}
+
+.pf-cv .pf-cv__metric {
+    gap: 2px;
+    padding: var(--pf-space-3) var(--pf-space-4);
+    border: 1px solid var(--pf-border);
+    border-top: 3px solid var(--pf-primary);
+    border-radius: var(--pf-radius-md);
+    background: var(--pf-surface);
+}
+
+.pf-cv .pf-cv__metric-value {
+    color: var(--pf-primary);
+    font-size: var(--pf-font-xl);
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.pf-cv .pf-cv__metric-label {
+    color: var(--pf-text-muted);
+    font-size: var(--pf-font-xs);
+}
+
+/* Linha do tempo: trilho a esquerda e um ponto por experiencia. */
+.pf-cv .pf-cv__timeline {
+    position: relative;
+    gap: var(--pf-space-6);
+    padding-left: var(--pf-space-6);
+}
+
+.pf-cv .pf-cv__timeline::before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 5px;
+    width: 2px;
+    background: color-mix(in srgb, var(--pf-primary) 25%, transparent);
+}
+
+.pf-cv .pf-cv__timeline .pf-cv__entry {
+    position: relative;
+}
+
+.pf-cv .pf-cv__timeline .pf-cv__entry::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: calc(-1 * var(--pf-space-6) + 1px);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--pf-surface);
+    border: 2px solid var(--pf-primary);
+}
+
+.pf-cv .pf-cv__entry {
+    gap: var(--pf-space-2);
+}
+
+.pf-cv .pf-cv__entry-head {
+    gap: var(--pf-space-4);
+}
+
+.pf-cv .pf-cv__entry-title {
+    color: var(--pf-text);
+    font-size: var(--pf-font-md);
+    font-weight: 700;
+}
+
+.pf-cv .pf-cv__entry-sub {
+    color: var(--pf-primary);
+    font-size: var(--pf-font-sm);
+    font-weight: 700;
+}
+
+.pf-cv .pf-cv__pill {
+    flex: 0 0 auto;
+    padding: 3px 10px;
+    border-radius: var(--pf-radius-pill);
+    background: var(--pf-primary-soft);
+    color: var(--pf-primary);
+    font-size: var(--pf-font-xs);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.pf-cv .pf-cv__bullets {
+    gap: 2px;
+}
+
+.pf-cv .pf-cv__bullet {
+    position: relative;
+    padding-left: 16px;
+    color: var(--pf-text-muted);
+    font-size: var(--pf-font-sm);
+    line-height: 1.6;
+}
+
+.pf-cv .pf-cv__bullet::before {
+    content: "";
+    position: absolute;
+    top: 0.62em;
+    left: 2px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--pf-accent);
+}
+
+.pf-cv .pf-cv__list {
+    gap: var(--pf-space-5);
+}
+
+.pf-cv .pf-cv__project {
+    gap: var(--pf-space-2);
+    padding: var(--pf-space-4);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-md);
+    background: var(--pf-surface);
+}
+
+.pf-cv .pf-cv__link {
+    font-size: var(--pf-font-xs);
+}
+
+/* Certificacoes SAP: cartoes ambar clicaveis (abrem a credencial). */
+.pf-cv .pf-cv__certs {
+    gap: var(--pf-space-3);
+}
+
+.pf-cv .pf-cvcert {
+    gap: var(--pf-space-4);
+    padding: var(--pf-space-3) var(--pf-space-4);
+    border-left: 4px solid var(--pf-accent);
+    border-radius: var(--pf-radius-sm);
+    background: var(--pf-cv-amber-soft);
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.pf-cv .pf-cvcert[role="link"] {
+    cursor: pointer;
+}
+
+.pf-cv .pf-cvcert[role="link"]:hover,
+.pf-cv .pf-cvcert[role="link"]:focus-visible {
+    transform: translateX(2px);
+    box-shadow: var(--pf-shadow-2);
+    outline: none;
+}
+
+.pf-cv .pf-cvcert__icon {
+    flex: 0 0 auto;
+    color: var(--pf-accent);
+    font-size: 1.4rem;
+}
+
+.pf-cv .pf-cvcert__body {
+    flex: 1;
+    min-width: 0;
+}
+
+.pf-cv .pf-cvcert__eyebrow {
+    color: var(--pf-accent);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.pf-cv .pf-cvcert__title {
+    color: var(--pf-text);
+    font-size: var(--pf-font-sm);
+    font-weight: 700;
+}
+
+.pf-cv .pf-cvcert__date {
+    flex: 0 0 auto;
+    color: var(--pf-text-muted);
+    font-size: var(--pf-font-xs);
+    white-space: nowrap;
+}
+
+.pf-cv .pf-cv__foot {
+    flex-wrap: wrap;
+    gap: var(--pf-space-3);
+    padding-top: var(--pf-space-4);
+    border-top: 1px solid var(--pf-border);
+}
+
+/* Tablet: barra lateral mais estreita. */
+@media (max-width: 1024px) {
+    .pf-cv {
+        --pf-cv-side: 250px;
+    }
+
+    .pf-cv .pf-cv__metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Celular: uma coluna, cabecalho centralizado. (Abaixo da largura de um A4
+   impresso, para a impressao manter as duas colunas.) */
+@media screen and (max-width: 700px) {
+    .pf-cv .pf-cv__head {
+        flex-direction: column;
+        text-align: center;
+        padding: var(--pf-space-8) var(--pf-space-5);
+        gap: var(--pf-space-4);
+    }
+
+    .pf-cv .pf-cv__identity {
+        align-items: center;
+    }
+
+    .pf-cv .pf-cv__badge {
+        align-self: center;
+    }
+
+    .pf-cv .pf-cv__body {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .pf-cv .pf-cv__side {
+        border-right: 0;
+        border-bottom: 1px solid var(--pf-border);
+    }
+
+    .pf-cv .pf-cv__side,
+    .pf-cv .pf-cv__main {
+        padding: var(--pf-space-6) var(--pf-space-5);
+    }
+
+    .pf-cv .pf-cv__entry-head {
+        flex-direction: column;
+        gap: var(--pf-space-2);
+    }
+}
+
+/* ------------------------------ 404 / vazio ------------------------------ */
+
+.pf-notfound__code {
+    font-size: 84px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--pf-primary);
+}
+
+.pf-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--pf-space-3);
+    padding: var(--pf-space-12) var(--pf-space-4);
+    border: 1px dashed var(--pf-border-strong);
+    border-radius: var(--pf-radius-lg);
+    color: var(--pf-text-muted);
+    text-align: center;
+}
+
+/* ------------------------------ Footer ------------------------------ */
+
+.pf-footer {
+    padding: var(--pf-space-3) 0;
+    border-top: 1px solid var(--pf-border);
+    background: var(--pf-surface);
+}
+
+/*
+ * Botao do rodape (e botao do topo).
+ *
+ * O UI5 em modo Compact desenha o fundo do botao no `.sapMBtnInner` com
+ * `height: var(--sapElement_Compact_Height)` (26px), mas o botao tem
+ * `height: 2rem` (32px) e `padding: 3px 0`: o fundo de hover ficava com uma
+ * faixa menor que o botao. Aqui a altura e fixa e o padding vertical some, de
+ * modo que o inner ocupa o botao inteiro. O arredondamento e forcado no botao e
+ * no inner para os dois raios baterem, e o anel de foco e tratado logo abaixo.
+ */
+.pf-footer .sapMBtn,
+.pf-topbar .sapMBtn {
+    padding-top: 0;
+    padding-bottom: 0;
+    /*
+     * O arredondamento precisa bater no botao E no inner. Se so o inner for
+     * pill, o canto do botao (que ainda usa o raio padrao do UI5) aparece como
+     * um "bico" ao redor do fundo de hover/active - era o que aparecia no
+     * clique das abas e do botao "View resume".
+     */
+    border-radius: var(--pf-radius-pill);
+}
+
+.pf-footer .sapMBtn {
+    height: 28px;
+}
+
+.pf-footer .sapMBtnInner,
+.pf-topbar .sapMBtnInner {
+    height: 100%;
+    align-items: center;
+    border: none;
+    border-radius: var(--pf-radius-pill);
+}
+
+.pf-footer .sapMBtn:active .sapMBtnInner,
+.pf-topbar .sapMBtn:active .sapMBtnInner {
+    border: none;
+}
+
+.pf-footer .sapMBtn:focus,
+.pf-topbar .sapMBtn:focus {
+    outline: none;
+}
+
+/*
+ * Anel de foco do UI5 1.153 - a "bordinha" do clique.
+ *
+ * O anel NAO e um elemento: `.sapMBtnFocusBorder` nao existe mais nessa versao.
+ * Ele e um `::before` pintado pelo tema em
+ *
+ *   html.sap-desktop .sapMBtn:focus > .sapMFocusable:not(.sapMBadgeIndicator)::before
+ *   { border: 2px solid <foco>; border-radius: 0.375rem }
+ *
+ * Dois problemas para nos: ele responde a `:focus` (e nao a `:focus-visible`), o
+ * que fazia o clique do mouse tambem desenhar a moldura; e o raio vem fixo em
+ * 0.375rem (6px), sem herdar o raio do botao - num botao redondo de 999px a
+ * moldura saia como um retangulo solto dentro da pilula.
+ *
+ * Medido via CDP durante o clique real: `border: 2px solid rgb(52,211,180)` com
+ * `border-radius: 6px` no `.sapMBtnInner` das abas e do "View resume".
+ *
+ * O `:focus` e o `:focus-visible` entram de proposito: a regra do tema tem
+ * especificidade (0,5,2) e ganha o empate da nossa regra porque o
+ * `library.css` e reinserido no fim do head quando o tema e aplicado. Como o
+ * `:focus-visible` do teclado tambem casa com `:focus`, a segunda regra (mais
+ * abaixo no arquivo) restaura o anel sem depender de ordem de cascata.
+ */
+html .pf-app .pf-footer .sapMBtn:focus > .sapMBtnInner::before,
+html .pf-app .pf-topbar .sapMBtn:focus > .sapMBtnInner::before {
+    content: none;
+}
+
+html .pf-app .pf-footer .sapMBtn:focus-visible > .sapMBtnInner::before,
+html .pf-app .pf-topbar .sapMBtn:focus-visible > .sapMBtnInner::before {
+    content: "";
+    border-radius: var(--pf-radius-pill);
+}
+
+/*
+ * Rodape em uma linha so.
+ *
+ * Antes eram tres blocos (CTA, separador, links) com 32px de padding em cima e
+ * embaixo: 168px de altura no desktop e 250px no celular, comecando em uma
+ * pagina que ja nao tem muito conteudo. Espremer para uma linha devolve ~90px
+ * de altura util para o scroll.
+ */
+.pf-footer__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pf-space-3);
+}
+
+.pf-footer__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--pf-space-3) var(--pf-space-4);
+}
+
+.pf-footer__toggle {
+    border-radius: var(--pf-radius-pill);
+}
+
+/*
+ * Link do rodape: icone + rotulo no desktop. Em tela estreita o rotulo some e
+ * sobra o icone (o nome continua no title e no texto invisivel do botao),
+ * porque cinco rotulos em tela estreita quebravam o rodape em quatro linhas e
+ * empurravam o conteudo para cima.
+ *
+ * O rotulo vive em `.sapMBtnContent`. Cuidado com `.sapMBtnText`: no UI5 1.153
+ * essa classe fica no proprio `.sapMBtnInner`, e nao num span de texto - usar
+ * ela aqui escondia o botao inteiro (largura 0) e tirava o `display: flex` do
+ * inner, fazendo o fundo de hover encurtar.
+ */
+@media (max-width: 767px) {
+    .pf-footer__links .sapMBtnContent {
+        display: none;
+    }
+}
+
+.pf-footer__cta {
+    display: flex;
+    align-items: baseline;
+    gap: var(--pf-space-2);
+    min-width: 0;
+}
+
+.pf-footer__contact {
+    font-size: var(--pf-font-sm);
+    color: var(--pf-primary);
+    overflow-wrap: anywhere;
+}
+
+/* ------------------------------ Responsivo ------------------------------ */
+
+@media (max-width: 1199px) {
+    .pf-hero {
+        padding: var(--pf-space-10);
+    }
+
+    .pf-hero__avatar {
+        width: 132px;
+        height: 132px;
+    }
+
+    .pf-two-col {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* Cartões mais largos quando a coluna já não cabe inteira. */
+    .pf-grid--projects {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+/*
+ * Abas so com icone desde 1199px (o limite esta no App.controller, via
+ * `matchMedia`, porque o binding do rotulo depende do JS).
+ *
+ * A partir de 768px marca, abas e acoes ainda cabem na mesma linha: com icone a
+ * barra inteira mede ~700px. Abaixo disso a linha quebra e a navegacao ocupa a
+ * largura toda - o `overflow-x` fica so como rede de seguranca para fontes de
+ * icone muito grandes; na pratica nao ha truncamento.
+ */
+@media (max-width: 767px) {
+    /*
+     * Respiro lateral nas telas estreitas. `.pf-container.pf-page` e mais
+     * especifica que `.pf-container`, entao o padding de 3 valores do bloco
+     * base precisa ser reescrito aqui tambem - senao o `0` do meio volta a
+     * colar o conteudo nas bordas.
+     */
+    .pf-container,
+    .pf-container.pf-page {
+        padding-left: var(--pf-space-4);
+        padding-right: var(--pf-space-4);
+    }
+
+    .pf-hero {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--pf-space-6);
+    }
+
+    .pf-hero__title {
+        font-size: var(--pf-font-2xl);
+    }
+
+    .pf-page__title {
+        font-size: var(--pf-font-2xl);
+    }
+
+    .pf-topbar__brand-role {
+        display: none;
+    }
+
+    .pf-grid--skills,
+    .pf-grid--projects,
+    .pf-grid--languages,
+    .pf-grid--repos {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+
+    /*
+     * A partir de 768px marca, abas e acoes ainda cabem na mesma linha: com icone
+     * a barra inteira mede ~700px. Abaixo disso a navegacao desce para a linha
+     * propria - e o grid volta a flex, porque `order`/`flex` nao valem em grid.
+     * O `overflow-x` da faixa fica so como rede de seguranca para fontes de
+     * icone muito grandes; na pratica nao ha truncamento.
+     */
+    .pf-topbar__row {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: var(--pf-space-2);
+    }
+
+    .pf-topbar__nav {
+        order: 3;
+        flex: 1 0 100%;
+        justify-content: center;
+        margin: 0 0 var(--pf-space-1) 0;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .pf-topbar__actions {
+        margin-left: auto;
+    }
+
+    .pf-topbar__nav::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@media (max-width: 599px) {
+    .pf-container {
+        padding: 0 var(--pf-space-4);
+    }
+
+    .pf-sectionbar__title {
+        font-size: var(--pf-font-lg);
+    }
+
+    .pf-hero {
+        padding: var(--pf-space-6);
+        border-radius: var(--pf-radius-lg);
+    }
+
+    .pf-hero__avatar {
+        width: 96px;
+        height: 96px;
+        border-width: 3px;
+    }
+
+    .pf-container.pf-page {
+        padding: var(--pf-space-6) var(--pf-space-4) var(--pf-space-10);
+        gap: var(--pf-space-8);
+    }
+
+    .pf-filterbar {
+        border-radius: var(--pf-radius-md);
+    }
+
+    .pf-sheet {
+        padding: var(--pf-space-6);
+    }
+
+    /* Uma coluna por linha: 340px de cartao nao cabem em 390px com folga. */
+    .pf-grid--skills,
+    .pf-grid--projects,
+    .pf-grid--certs,
+    .pf-grid--languages,
+    .pf-grid--repos {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    /*
+     * As metricas sao curtas (numero + rotulo), entao duas colunas continuam
+     * legiveis a 360px e evitam uma coluna de 4 cartoes empilhados.
+     */
+    .pf-grid--metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pf-metric {
+        padding: var(--pf-space-4);
+    }
+
+    .pf-hide-phone {
+        display: none !important;
+    }
+
+    /*
+     * No celular o botao de CV aparece com rotulo, mas os links de redes
+     * sociais ficam so com icone: e o que faz a acao caber na linha ao lado da
+     * marca sem truncar o nome. Antes o botao de CV era que sumia.
+     *
+     * `flex: 0 0 auto` nos dois lados e obrigatorio: sem isso o flex encolhe os
+     * botoes de rede social a 0px quando a linha aperta, e eles somem.
+     */
+    /*
+     * O rotulo esta em `.sapMBtnContent`. `.sapMBtnText` nao serve: no UI5
+     * 1.153 ela marca o `.sapMBtnInner` inteiro e o botao inteiro sumia.
+     */
+    .pf-topbar__social .sapMBtnContent {
+        display: none;
+    }
+
+    .pf-topbar__social .sapMBtnInner {
+        padding: 0 0.5rem;
+    }
+
+    .pf-topbar__actions,
+    .pf-topbar__social .sapMBtn {
+        flex: 0 0 auto;
+    }
+
+    /*
+     * As seis abas nao cabem em 360px com rotulo e icone. Em vez de esconder o
+     * rotulo (que e o que identifica a aba), a faixa fica mais densa e rola na
+     * horizontal: cabem ~4 abas visiveis e as demais ficam a um toque.
+     */
+    .pf-topbar__nav {
+        padding: 2px;
+        gap: 0;
+        margin-bottom: var(--pf-space-1);
+    }
+
+    .pf-topbar__btn .sapMBtnInner {
+        padding: 0 0.5rem;
+    }
+
+    .pf-topbar__btn .sapMBtnContent {
+        font-size: var(--pf-font-sm);
+    }
+}

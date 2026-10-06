@@ -1,0 +1,2 @@
+sap.ui.define(["./BaseController"],function(e){"use strict";function n(e){return e&&e.__esModule&&typeof e.default!=="undefined"?e.default:e}const t=n(e);const o=t.extend("webapp.controller.SkillsController",{});return o});
+//# sourceMappingURL=Skills.controller.js.map

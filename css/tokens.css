@@ -1,0 +1,340 @@
+/* ==========================================================================
+ * tokens.css - Design tokens do portfolio
+ *
+ * A identidade visual e custom (verde-petroleo + ambar) e nao vem do tema
+ * padrao do UI5. O caminho e:
+ *
+ *   1. `:root` define a paleta literal em `--pf-*`.
+ *   2. Os tokens do design system do UI5 (`--sap*`) sao sobrescritos para
+ *      apontar para os `--pf-*`. Com isso os controles nativos - Button
+ *      Emphasized, Link, SegmentedButton, Text, List - passam a usar a mesma
+ *      paleta, sem nenhum "if" de tema em JS.
+ *
+ * `html[data-theme="dark"]` redefine a paleta escura; o ThemeService mantem o
+ * atributo em sincronia com o tema UI5 ativo (`sap_horizon` / `sap_horizon_dark`).
+ * ========================================================================== */
+
+:root {
+    /* ---------- Marca ---------- */
+    --pf-primary: #0e7c6b;
+    --pf-primary-hover: #0a6355;
+    --pf-primary-soft: #e2f2ef;
+    --pf-on-primary: #ffffff;
+    --pf-accent: #b45309;
+    --pf-accent-soft: #fdf0dc;
+
+    /* ---------- Superficies ---------- */
+    --pf-bg: #f6f5f2;
+    --pf-surface: #ffffff;
+    --pf-surface-2: #ffffff;
+    --pf-surface-sunken: #eceae5;
+
+    /* ---------- Bordas ---------- */
+    --pf-border: rgba(27, 26, 23, 0.12);
+    --pf-border-strong: rgba(27, 26, 23, 0.22);
+
+    /* ---------- Texto ---------- */
+    --pf-text: #1b1a17;
+    --pf-text-muted: color-mix(in srgb, var(--pf-text) 62%, transparent);
+    --pf-text-subtle: color-mix(in srgb, var(--pf-text) 44%, transparent);
+    --pf-text-inverse: #ffffff;
+
+    /* ---------- Estados ---------- */
+    --pf-success: #2f7d4f;
+    --pf-warning: #b45309;
+    --pf-critical: #b3261e;
+    --pf-info: #0e7c6b;
+
+    /* ---------- Gradientes ---------- */
+    --pf-hero-gradient: linear-gradient(135deg, #062b26 0%, #0a4a3f 46%, #0e7c6b 100%);
+    --pf-hero-gradient-hover: linear-gradient(135deg, #041d1a 0%, #083c33 46%, #0a6a5b 100%);
+    --pf-accent-soft: color-mix(in srgb, var(--pf-primary) 12%, transparent);
+    --pf-accent-softer: color-mix(in srgb, var(--pf-primary) 6%, transparent);
+
+    /* ---------- Forma ---------- */
+    --pf-radius-xs: 4px;
+    --pf-radius-sm: 8px;
+    --pf-radius-md: 12px;
+    --pf-radius-lg: 18px;
+    --pf-radius-xl: 26px;
+    --pf-radius-pill: 999px;
+
+    /* ---------- Sombras ---------- */
+    --pf-shadow-1: 0 1px 2px rgba(6, 43, 38, 0.07), 0 1px 3px rgba(6, 43, 38, 0.05);
+    --pf-shadow-2: 0 4px 12px rgba(6, 43, 38, 0.09), 0 2px 4px rgba(6, 43, 38, 0.05);
+    --pf-shadow-3: 0 16px 36px rgba(6, 43, 38, 0.16);
+
+    /* ---------- Espacamento ---------- */
+    --pf-space-1: 4px;
+    --pf-space-2: 8px;
+    --pf-space-3: 12px;
+    --pf-space-4: 16px;
+    --pf-space-5: 20px;
+    --pf-space-6: 24px;
+    --pf-space-8: 32px;
+    --pf-space-10: 40px;
+    --pf-space-12: 48px;
+    --pf-space-16: 64px;
+
+    /* ---------- Layout ---------- */
+    --pf-container: 1200px;
+    --pf-container-narrow: 900px;
+    --pf-nav-height: 64px;
+    --pf-card-padding: 24px;
+
+    /* ---------- Tipografia ---------- */
+    --pf-font-xs: 0.75rem;
+    --pf-font-sm: 0.8125rem;
+    --pf-font-md: 0.9375rem;
+    --pf-font-lg: 1.125rem;
+    --pf-font-xl: 1.5rem;
+    --pf-font-2xl: 2rem;
+    --pf-font-3xl: 2.75rem;
+
+    /* ---------- Movimento ---------- */
+    --pf-transition: 160ms cubic-bezier(0.2, 0, 0.15, 1);
+    --pf-transition-slow: 320ms cubic-bezier(0.2, 0, 0.15, 1);
+
+    /* ======================================================================
+     * Ponte para o design system do UI5
+     *
+     * Sem estes overrides, todo Button Emphasized, Link e SegmentedButton
+     * continuaria no azul #0070f2 do tema, e a pagina pareceria um formulario
+     * SAP em vez de um portfolio.
+     * ====================================================================== */
+    --sapButtonEmphasizedBackground: var(--pf-primary);
+    --sapButtonEmphasizedHoverBackground: var(--pf-primary-hover);
+    --sapButtonEmphasizedPressedBackground: var(--pf-primary-hover);
+    --sapButtonEmphasizedBorderColor: var(--pf-primary);
+    --sapButtonEmphasizedHoverBorderColor: var(--pf-primary-hover);
+    --sapButtonEmphasizedPressedBorderColor: var(--pf-primary-hover);
+    --sapButtonEmphasizedColor: var(--pf-on-primary);
+    --sapButtonEmphasizedFontWeight: 600;
+
+    --sapLinkColor: var(--pf-primary);
+    --sapLinkHoverColor: var(--pf-primary-hover);
+    --sapLinkVisitedColor: var(--pf-primary);
+    --sapLinkSubtleColor: var(--pf-primary);
+
+    /*
+     * Botoes "Text"/"Transparent" (abas da navegacao, links de acao, links do
+     * rodape) e o SegmentedButton do tema sao os controles que o usuario nota
+     * mais: sem estes tokens eles ficam no #4DB1FF do tema.
+     */
+    --sapButton_TextColor: var(--pf-primary);
+    --sapButton_Hover_TextColor: var(--pf-primary-hover);
+    --sapButton_Active_TextColor: var(--pf-primary);
+    --sapButton_Transparent_TextColor: var(--pf-primary);
+    --sapButton_Transparent_Hover_TextColor: var(--pf-primary-hover);
+    /* A borda cinza-azulada (#3A4A5A no dark) tambem vem da library. */
+    --sapButton_Ghost_BorderColor: var(--pf-border-strong);
+    --sapButton_Transparent_BorderColor: transparent;
+    --sapContent_FocusColor: var(--pf-primary);
+
+    --sapTextColor: var(--pf-text);
+    --sapTitleTextColor: var(--pf-text);
+    --sapBackgroundColor: var(--pf-bg);
+    --sapShellBackground: var(--pf-bg);
+    --sapGroup_ContentBackground: var(--pf-surface);
+    --sapListItemBackground: var(--pf-surface);
+    --sapListItemBorderColor: var(--pf-border);
+    --sapTileBackground: var(--pf-surface-sunken);
+    --sapFieldBackground: var(--pf-surface);
+
+    --sapSegmentedButtonBackground: var(--pf-surface-sunken);
+    --sapSegmentedButtonTextColor: var(--pf-text-muted);
+    --sapSegmentedButtonSelectedBackground: var(--pf-surface);
+    --sapSegmentedButtonSelectedTextColor: var(--pf-primary);
+    --sapSegmentedButtonSelectedBorderColor: var(--pf-border-strong);
+
+    --sapHighlightColor: var(--pf-primary);
+    --sapPositiveColor: var(--pf-success);
+    --sapWarningColor: var(--pf-warning);
+    --sapNegativeColor: var(--pf-critical);
+    --sapInformationColor: var(--pf-info);
+    --sapIndicationColor: var(--pf-accent);
+}
+
+/* A library do sap.m escreve `background-color` com cor fixa em `.sapUiBody`
+ * (por exemplo #f5f6f7 no sap_horizon claro). Como seletor de classe tem
+ * especificidade maior que o `body` do index.html, o override precisa repetir a
+ * classe para vencer - e nao adianta apenas declarar `--sapBackgroundColor`,
+ * porque a library nao consome essa variavel nessa regra. */
+body.sapUiBody,
+body.sapUiBodyBackground {
+    background-color: var(--pf-bg);
+}
+
+/* ==========================================================================
+ * Patch dos controles que o token sozinho nao alcanca
+ *
+ * No tema Horizon a cor do texto dos botoes "Text"/"Transparent" e a cor de
+ * fundo do "Emphasized" estao fixas em `.sapMBtnInner` e nos spans internos
+ * (`.sapMBtnContent`, `bdi`), e nao em `--sapButton_TextColor` /
+ * `--sapButtonEmphasizedBackground`. Por isso, mudando so o token, as abas da
+ * navegacao, os links de acao e o botao ativo continuavam em #4DB1FF e #0070F2.
+ *
+ * Aqui o controle e pintado direto no elemento, que e o unico jeito de vencer.
+ * Os seletores usam `.sapUiBody` para ter especificidade maior que a library.
+ * ========================================================================== */
+
+/* Botao ativo da aba: fundo verde-petroleo, sem o gradiente do tema.
+ * A classe real do UI5 1.153 e `sapMBtnEmphasized` (confirmado no DOM:
+ * `sapMBtnInner ... sapMBtnText sapMBtnIconFirst sapMBtnEmphasized`). */
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized {
+    background: var(--pf-primary) !important;
+    border-color: var(--pf-primary) !important;
+    background-image: none !important;
+}
+
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized:hover,
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized.sapMBtnActive {
+    background: var(--pf-primary-hover) !important;
+    border-color: var(--pf-primary-hover) !important;
+}
+
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized bdi,
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized .sapMBtnIcon {
+    color: var(--pf-on-primary) !important;
+}
+
+/*
+ * Botoes de link: abas da navegacao, acoes da barra e links do rodape.
+ *
+ * O `:not(.sapMBtnEmphasized)` e obrigatorio: no Horizon o botao de destaque
+ * tambem carrega `sapMBtnText`, e como as duas regras tinham a mesma
+ * especificidade, a do link (verde) vencia e o rotulo ficava verde sobre verde.
+ */
+.sapUiBody .sapMBtnInner.sapMBtnText:not(.sapMBtnEmphasized),
+.sapUiBody .sapMBtnInner.sapMBtnTransparent:not(.sapMBtnEmphasized),
+.sapUiBody .sapMBtnInner.sapMBtnGhost:not(.sapMBtnEmphasized),
+.sapUiBody .sapMBtnInner.sapMBtnLite:not(.sapMBtnEmphasized) {
+    color: var(--pf-primary) !important;
+}
+
+/* Botao de link nao tem borda; a da library (#3A4A5A no dark) so aparecia como
+ * um retangulo azulado ao redor do rotulo. */
+.sapUiBody .sapMBtnInner.sapMBtnText,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent,
+.sapUiBody .sapMBtnInner.sapMBtnLite {
+    border-color: transparent !important;
+}
+
+.sapUiBody .sapMBtnInner.sapMBtnText:not(.sapMBtnEmphasized) > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent:not(.sapMBtnEmphasized) > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnGhost:not(.sapMBtnEmphasized) > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnLite:not(.sapMBtnEmphasized) > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnText:not(.sapMBtnEmphasized) bdi,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent:not(.sapMBtnEmphasized) bdi,
+.sapUiBody .sapMBtnInner.sapMBtnGhost:not(.sapMBtnEmphasized) bdi,
+.sapUiBody .sapMBtnInner.sapMBtnLite:not(.sapMBtnEmphasized) bdi,
+.sapUiBody .sapMBtnInner.sapMBtnText:not(.sapMBtnEmphasized) .sapMBtnIcon,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent:not(.sapMBtnEmphasized) .sapMBtnIcon,
+.sapUiBody .sapMBtnInner.sapMBtnGhost:not(.sapMBtnEmphasized) .sapMBtnIcon,
+.sapUiBody .sapMBtnInner.sapMBtnLite:not(.sapMBtnEmphasized) .sapMBtnIcon {
+    color: var(--pf-primary) !important;
+}
+
+/*
+ * O texto do botao de destaque vem DEPOIS das regras de link de proposito: as
+ * duas tem a mesma especificidade e o que vale e a ultima. Sem esta ordem, o
+ * rotulo e o icone ficam verdes sobre o fundo verde e so aparecem no hover.
+ */
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized,
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized bdi,
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized .sapMBtnIcon {
+    color: var(--pf-on-primary) !important;
+}
+
+.sapUiBody .sapMBtnInner.sapMBtnText:not(.sapMBtnEmphasized):hover,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent:not(.sapMBtnEmphasized):hover,
+.sapUiBody .sapMBtnInner.sapMBtnGhost:not(.sapMBtnEmphasized):hover,
+.sapUiBody .sapMBtnInner.sapMBtnLite:not(.sapMBtnEmphasized):hover {
+    background: var(--pf-primary-soft) !important;
+    border-color: transparent !important;
+}
+
+.sapUiBody .sapMBtnInner.sapMBtnText:not(.sapMBtnEmphasized):hover > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent:not(.sapMBtnEmphasized):hover > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnGhost:not(.sapMBtnEmphasized):hover > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnLite:not(.sapMBtnEmphasized):hover > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnText:not(.sapMBtnEmphasized):hover bdi,
+.sapUiBody .sapMBtnInner.sapMBtnTransparent:not(.sapMBtnEmphasized):hover bdi,
+.sapUiBody .sapMBtnInner.sapMBtnGhost:not(.sapMBtnEmphasized):hover bdi,
+.sapUiBody .sapMBtnInner.sapMBtnLite:not(.sapMBtnEmphasized):hover bdi {
+    color: var(--pf-primary-hover) !important;
+}
+
+/* O hover do destaque clareia o fundo, mas o rotulo continua claro. */
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized:hover > .sapMBtnContent,
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized:hover bdi,
+.sapUiBody .sapMBtnInner.sapMBtnEmphasized:hover .sapMBtnIcon {
+    color: var(--pf-on-primary) !important;
+}
+
+/* sap.m.Link (nenhum binding usa hoje, mas qualquer `href` futuro entra na
+ * identidade sem precisar de CSS novo). */
+.sapUiBody a.sapMLink,
+.sapUiBody a.sapMLink:hover,
+.sapUiBody a.sapMLink:active {
+    color: var(--pf-primary) !important;
+}
+
+/* Toggle de tema: item nao selecionado em texto neutro, selecionado na cor da
+ * marca. O selecionado real e `li.sapMSegBBtnSel[aria-selected="true"]` e o
+ * fundo/borda azuis (#EDF5FF / #0064D9) vem do wrapper, nao do texto. */
+.sapUiBody .sapMSegBBtnInner {
+    color: var(--pf-text-muted) !important;
+}
+
+/* So o item selecionado tem borda; a do nao selecionado era a cinza-azulada. */
+.sapUiBody .sapMSegBBtnInnerWrapper,
+.sapUiBody .sapMSegBBtnInner {
+    border-color: transparent !important;
+}
+
+.sapUiBody li.sapMSegBBtnSel > .sapMSegBBtnInnerWrapper,
+.sapUiBody li.sapMSegBBtnSel .sapMSegBBtnInner {
+    background: var(--pf-primary-soft) !important;
+    border-color: var(--pf-primary) !important;
+}
+
+.sapUiBody li.sapMSegBBtnSel > .sapMSegBBtnInnerWrapper .sapMSegBBtnInner {
+    color: var(--pf-primary) !important;
+    font-weight: 600;
+}
+
+/* Paleta escura: verdes profundo e menta, com ambar para os destaques. */
+html[data-theme="dark"] {
+    --pf-primary: #34d3b4;
+    --pf-primary-hover: #5ee0c6;
+    --pf-primary-soft: #10322c;
+    --pf-on-primary: #04231e;
+    --pf-accent: #fbbf24;
+    --pf-accent-soft: #33270c;
+
+    --pf-bg: #0c1412;
+    --pf-surface: #131c19;
+    --pf-surface-2: #131c19;
+    --pf-surface-sunken: #0a110f;
+
+    --pf-border: rgba(233, 246, 241, 0.12);
+    --pf-border-strong: rgba(233, 246, 241, 0.24);
+
+    --pf-text: #e6f2ee;
+    --pf-text-inverse: #04231e;
+
+    --pf-success: #5fd39a;
+    --pf-warning: #fbbf24;
+    --pf-critical: #ff8a80;
+    --pf-info: #34d3b4;
+
+    --pf-hero-gradient: linear-gradient(135deg, #04120f 0%, #0a2f28 48%, #0d5c4e 100%);
+    --pf-hero-gradient-hover: linear-gradient(135deg, #061a16 0%, #0c3a31 48%, #0f6e5d 100%);
+
+    --pf-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.45);
+    --pf-shadow-2: 0 4px 14px rgba(0, 0, 0, 0.5);
+    --pf-shadow-3: 0 18px 40px rgba(0, 0, 0, 0.6);
+}

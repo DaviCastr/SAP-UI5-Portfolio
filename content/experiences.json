@@ -1,0 +1,159 @@
+[
+  {
+    "id": "accenture-sap-abap",
+    "company": "Accenture Brasil",
+    "role": {
+      "pt": "Consultor SAP ABAP | RAP | CAP | CI",
+      "en": "SAP ABAP Consultant | RAP | CAP | CI"
+    },
+    "workplace": {
+      "pt": "Remoto · Tempo integral",
+      "en": "Remote · Full-time"
+    },
+    "period": {
+      "from": "2024-09",
+      "to": null
+    },
+    "summary": {
+      "pt": "Consultoria SAP em projeto de implantação S/4HANA, com desenvolvimento ABAP, RAP, CAP, Fiori e integrações (Cloud Integration) para diversos módulos.",
+      "en": "SAP consulting on an S/4HANA implementation project, developing ABAP, RAP, CAP, Fiori and integrations (Cloud Integration) across several modules."
+    },
+    "highlights": [
+      {
+        "pt": "Atuação em projeto de implantação S/4HANA.",
+        "en": "Work on an S/4HANA implementation project."
+      },
+      {
+        "pt": "SAP Fiori: manutenção e implementação de aplicações.",
+        "en": "SAP Fiori: application maintenance and implementation."
+      },
+      {
+        "pt": "Soluções ABAP para os módulos MM, SD, FI, CO, QM, PP, TDF, BASIS e outros.",
+        "en": "ABAP solutions for the MM, SD, FI, CO, QM, PP, TDF and BASIS modules, among others."
+      }
+    ],
+    "stack": [
+      "ABAP OO",
+      "ABAP RAP",
+      "SAP CAP",
+      "SAP Cloud Integration",
+      "SAP Fiori",
+      "SAPUI5",
+      "CDS Views",
+      "SAP BTP",
+      "SAP Build Process Automation",
+      "SAP Build Work Zone"
+    ],
+    "modules": ["MM", "SD", "FI", "CO", "QM", "PP", "TDF", "BASIS"],
+    "kind": "job",
+    "featured": true
+  },
+  {
+    "id": "gfx-sap-abap",
+    "company": "GFX Consultoria",
+    "role": {
+      "pt": "Consultor SAP ABAP",
+      "en": "SAP ABAP Consultant"
+    },
+    "workplace": {
+      "pt": "Híbrido · Tempo integral",
+      "en": "Hybrid · Full-time"
+    },
+    "period": {
+      "from": "2018-11",
+      "to": "2024-09"
+    },
+    "summary": {
+      "pt": "Consultoria SAP em implantação S/4HANA e suporte AMS para clientes S/4HANA e ECC, com desenvolvimento ABAP e Fiori.",
+      "en": "SAP consulting on S/4HANA implementation and AMS support for S/4HANA and ECC clients, with ABAP and Fiori development."
+    },
+    "highlights": [
+      {
+        "pt": "Atuação em projeto de implantação S/4HANA.",
+        "en": "Work on an S/4HANA implementation project."
+      },
+      {
+        "pt": "Suporte AMS para clientes S/4HANA e ECC.",
+        "en": "AMS support for S/4HANA and ECC clients."
+      },
+      {
+        "pt": "SAP Fiori: manutenção e implementação de aplicações.",
+        "en": "SAP Fiori: application maintenance and implementation."
+      },
+      {
+        "pt": "Soluções ABAP para os módulos MM, SD, FI, CO, QM, PP, TDF, BASIS e outros.",
+        "en": "ABAP solutions for the MM, SD, FI, CO, QM, PP, TDF and BASIS modules, among others."
+      }
+    ],
+    "stack": [
+      "ABAP OO",
+      "SAP Fiori",
+      "SAPUI5",
+      "Module Pool",
+      "BAdI / User Exits / BTE",
+      "Smart Forms",
+      "Web Services",
+      "CDS Views",
+      "Calculation Views",
+      "SAP BTP",
+      "SAP Build Process Automation",
+      "SAP Build Work Zone"
+    ],
+    "modules": ["MM", "SD", "FI", "CO", "QM", "PP", "TDF", "BASIS"],
+    "kind": "job"
+  },
+  {
+    "id": "gfx-estagio-abap",
+    "company": "GFX Consultoria",
+    "role": {
+      "pt": "Consultor ABAP (Estágio)",
+      "en": "ABAP Consultant (Internship)"
+    },
+    "location": {
+      "pt": "Fortaleza, CE",
+      "en": "Fortaleza, Brazil"
+    },
+    "workplace": {
+      "pt": "Estágio",
+      "en": "Internship"
+    },
+    "period": {
+      "from": "2018-08",
+      "to": "2018-11"
+    },
+    "summary": {
+      "pt": "Estágio como consultor SAP ABAP, com atuação em implantação de sistema S/4HANA e melhorias AMS.",
+      "en": "Internship as an SAP ABAP consultant, working on an S/4HANA system implementation and AMS improvements."
+    },
+    "highlights": [],
+    "stack": ["ABAP", "SAP S/4HANA Extensions"],
+    "kind": "job"
+  },
+  {
+    "id": "monitor-paulo-petrola",
+    "company": "Escola Estadual de Educação Profissional Paulo Petrola",
+    "role": {
+      "pt": "Monitor de desenvolvimento",
+      "en": "Development Teaching Assistant"
+    },
+    "location": {
+      "pt": "Fortaleza, CE",
+      "en": "Fortaleza, Brazil"
+    },
+    "workplace": {
+      "pt": "Presencial · Tempo integral",
+      "en": "On-site · Full-time"
+    },
+    "period": {
+      "from": "2017-01",
+      "to": "2018-12"
+    },
+    "summary": {
+      "pt": "Aluno monitor da turma de informática, apoiando dúvidas e projetos da turma para ajudar no desenvolvimento e no aprendizado em equipe.",
+      "en": "Student teaching assistant for the IT class, helping with questions and class projects to support development and team learning."
+    },
+    "highlights": [],
+    "stack": ["HTML", "CSS"],
+    "kind": "job"
+  }
+]

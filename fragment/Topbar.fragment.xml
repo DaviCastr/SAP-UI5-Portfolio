@@ -1,0 +1,64 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <HBox class="pf-topbar">
+        <HBox class="pf-container pf-topbar__row" alignItems="Center">
+
+            <!-- Marca -->
+            <HBox alignItems="Center" class="pf-gap-3 pf-topbar__brand">
+                <Image
+                    class="pf-topbar__brand-avatar"
+                    src="{content>/profile/avatar}"
+                    densityAware="false"
+                    alt="{content>/profile/name}"/>
+                <VBox class="sapUiVBoxTiny">
+                    <Text class="pf-topbar__brand-name" text="{content>/profile/name}"/>
+                    <Text class="pf-topbar__brand-role" text="{content>/profile/role}"/>
+                </VBox>
+            </HBox>
+
+            <!--
+                Navegacao: gerada a partir de content/sections.json.
+                Em telas estreitas o rotulo e suprimido (ui>/compactNav) e sobra
+                so o icone, com o nome no tooltip - assim nenhum botao fica fora
+                da tela. O icone continua no link/ancora para leitores de tela.
+            -->
+            <HBox class="pf-topbar__nav" items="{path: '/navSections', templateShareable: true}">
+                <Button
+                    class="pf-topbar__btn"
+                    type="{= ${route} === ${path: 'ui>/activeRoute'} ? 'Emphasized' : 'Transparent' }"
+                    text="{= ${ui>/compactNav} ? '' : ${nav} }"
+                    tooltip="{nav}"
+                    icon="{path: 'icon', formatter: '.fIcon'}"
+                    iconDensityAware="false"
+                    press="onNavPress"/>
+            </HBox>
+
+            <!--
+                Acoes.
+                O botao de CV fica em todas as larguras: e a acao principal do
+                portfolio e sumir dele no celular deixava a aba "Curriculo" como
+                unico caminho. Para caber ao lado dos icones de redes sociais,
+                os dois ficam so com icone abaixo de 600px (o nome segue no
+                tooltip e no aria-label).
+            -->
+            <HBox alignItems="Center" class="pf-topbar__actions">
+                <Button
+                    class="pf-topbar__cta"
+                    type="Emphasized"
+                    icon="sap-icon://download"
+                    text="{i18n>action.cv}"
+                    press="onCvPress"/>
+
+                <HBox class="pf-row--wrap pf-topbar__social" items="{path: '/navLinks', templateShareable: true}">
+                    <Button
+                        type="Transparent"
+                        icon="{path: 'icon', formatter: '.fIcon'}"
+                        text="{text}"
+                        tooltip="{text}"
+                        iconDensityAware="false"
+                        press="onLinkPress"/>
+                </HBox>
+            </HBox>
+
+        </HBox>
+    </HBox>
+</core:FragmentDefinition>

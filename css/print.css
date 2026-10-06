@@ -1,0 +1,244 @@
+/* ==========================================================================
+ * print.css - Impressao do curriculo
+ *
+ * Carregado apenas em "@media print" (ver manifest.json -> resources.css).
+ * Objetivo: ao imprimir a aba "Curriculo" (ou usar "Salvar como PDF" do
+ * navegador), sair uma folha A4 limpa - sem menu e sem o rodape do site - mas
+ * RESPETANDO O TEMA ATIVO (claro ou escuro).
+ *
+ * A paleta NAO e sobrescrita aqui: `tokens.css` ja define `:root` (claro) e
+ * `html[data-theme="dark"]` (escuro), e o ThemeService mantem esse atributo em
+ * sincronia. Reescrever as variaveis no print descartaria a escolha do usuario
+ * e sairia sempre preto sobre branco. O que se remove sao apenas as sombras e
+ * os efeitos de tela (gradientes decorativos), que nao fazem sentido no papel.
+ * ========================================================================== */
+
+@media print {
+    /* Sombras nao existem no papel; as cores, sim. */
+    :root {
+        --pf-shadow-1: none;
+        --pf-shadow-2: none;
+        --pf-shadow-3: none;
+    }
+
+    /*
+     * Sem isto o navegador descarta fundos coloridos por padrao e o tema
+     * escuro saia com fundo preto, mas chips/realces claros - ou seja, meio
+     * tema, e o texto claro ficava quase invisivel. "exact" mantem o que a
+     * tela mostra.
+     */
+    html,
+    body,
+    .pf-sheet,
+    .pf-chip,
+    .pf-sheet__metric,
+    .pf-sheet__section-title,
+    .pf-sheet__head,
+    .pf-cv,
+    .pf-cv * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    html,
+    body {
+        background: var(--pf-bg) !important;
+    }
+
+    /* Esconde tudo que nao faz parte do documento impresso. */
+    .pf-topbar,
+    .pf-footer,
+    .pf-filterbar,
+    .pf-cta,
+    .pf-issues,
+    .pf-empty,
+    .pf-view--cv .sapMPageHeader,
+    .pf-view--cv .sapMPageSubHeader {
+        display: none !important;
+    }
+
+    /*
+     * O NavContainer do UI5 mantem a view anterior no DOM, apenas marcada com
+     * `aria-hidden="true"`. O reset de `display: block` abaixo (necessario para
+     * achatar o scroller da view ativa) ressuscitava essa view antiga e ela
+     * saia impressa junto com o curriculo - o "PDF" tinha 4 paginas, das quais
+     * quase metade era conteudo de outra aba.
+     */
+    .pf-app__content .sapUiView[aria-hidden="true"] {
+        display: none !important;
+    }
+
+    /*
+     * A folha ocupa a pagina inteira, sem areas de conteudo da UI5.
+     *
+     * `.sapUiScrollDelegate` precisa estar na lista: e o container que o
+     * sap.m.Page cria com `height` fixa + `overflow:auto`. Sem o reset ele
+     * "esconde" o documento na impressao e a folha sai praticamente em branco.
+     */
+    /*
+     * `background` aqui e o mesmo em todos: `transparent`. Forcar uma cor
+     * chapada quebraria o fundo do tema. O que se precisa e remover o fundo
+     * branco de componentes do UI5 (o container transparente em vez disso).
+     */
+    .pf-app,
+    .pf-app__content,
+    .pf-app__content .sapMNavItem,
+    .pf-app__content .sapUiView,
+    .pf-app__content .sapUiScrollDelegate,
+    .pf-app__content .sapMPage,
+    .pf-app__content .sapMPageContentWrapper,
+    .pf-app__content .sapMPageContent,
+    .pf-view--cv .sapMPageContent,
+    .pf-view--cv .sapMPageContentScrollContainer {
+        display: block !important;
+        height: auto !important;
+        max-height: none !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: transparent !important;
+        border: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .pf-container {
+        max-width: none;
+        padding: 0;
+    }
+
+    .pf-page {
+        padding: 0;
+        gap: 12px;
+    }
+
+    /* Folha A4 com margem de pagina padrao. */
+    .pf-sheet {
+        display: block;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+
+        /*
+         * O navegador quebra a ultima folha mesmo sem `page-break-after`: um
+         * bloco alto com `break-inside: avoid` nos filhos empurra o resto e sai
+         * um folio em branco no fim. O `.pf-sheet` nao pode quebrar aqui.
+         */
+        page-break-inside: auto;
+        break-inside: auto;
+        orphans: 2;
+        widows: 2;
+    }
+
+    /* Ultimo bloco da folha nao deve gerar uma quebra "para" a proxima pagina. */
+    .pf-sheet > :last-child,
+    .pf-sheet__section:last-child,
+    .pf-sheet__section:last-child > :last-child {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+        page-break-after: auto;
+        break-after: auto;
+    }
+
+    .pf-sheet__head {
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--pf-primary);
+    }
+
+    .pf-sheet__section {
+        margin-top: 14px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .pf-sheet__section-title {
+        color: var(--pf-primary);
+        border-bottom: 1px solid var(--pf-border-strong);
+        padding-bottom: 2px;
+    }
+
+    .pf-sheet__metric {
+        background: var(--pf-surface);
+        border: 1px solid var(--pf-border);
+    }
+
+    /* Evita que um item quebre entre duas paginas. */
+    .pf-sheet__metrics,
+    .pf-chips,
+    .pf-sheet__text,
+    .pf-sheet__item-title {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .pf-chip {
+        border: 1px solid var(--pf-border-strong);
+        background: var(--pf-primary-soft);
+        color: var(--pf-text);
+    }
+
+    /* Links mostram a URL real no PDF impresso. */
+    a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 9px;
+        color: var(--pf-text-muted);
+    }
+
+    .pf-sheet a[href]::after {
+        content: "";
+    }
+
+    /*
+     * Curriculo no desenho do PDF (.pf-cv): mantem as duas colunas e a faixa do
+     * cabecalho, so com espacos menores para caber no A4.
+     */
+    .pf-sheet.pf-cv {
+        border: 0;
+    }
+
+    .pf-cv .pf-cv__head {
+        padding: 18px 28px;
+        gap: 22px;
+    }
+
+    .pf-cv .pf-cv__avatar {
+        width: 96px;
+        height: 96px;
+    }
+
+    .pf-cv .pf-cv__name {
+        font-size: 26px;
+    }
+
+    .pf-cv .pf-cv__body {
+        grid-template-columns: 200px minmax(0, 1fr);
+    }
+
+    .pf-cv .pf-cv__side {
+        gap: 16px;
+        padding: 18px 16px;
+    }
+
+    .pf-cv .pf-cv__main {
+        gap: 16px;
+        padding: 18px 24px;
+    }
+
+    .pf-cv .pf-cv__metrics {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .pf-cv .pf-cv__entry,
+    .pf-cv .pf-cv__project,
+    .pf-cv .pf-cvcert,
+    .pf-cv .pf-cv__group {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    @page {
+        size: A4;
+        margin: 14mm;
+    }
+}
