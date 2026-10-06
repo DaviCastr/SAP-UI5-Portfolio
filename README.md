@@ -1,5 +1,5 @@
 # SAP-UI5-Portfolio
-
+  
 Portfolio profissional em **SAPUI5 (OpenUI5) + TypeScript**, bilíngue (PT/EN), com tema
 claro/escuro, currículo em PDF gerado a partir dos dados e sincronização automática de
 certificações (Credly) e do GitHub.
