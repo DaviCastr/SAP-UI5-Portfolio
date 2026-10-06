@@ -13,9 +13,11 @@
                 densityAware="false"
                 alt="{title}"
                 visible="{= !!${image}}"/>
+            <!-- Sem badge (cursos fora do Credly): capa gerada com titulo e emissor. -->
             <VBox class="pf-cert__fallback" visible="{= !${image}}">
-                <core:Icon src="sap-icon://verified" class="pf-text-xl pf-muted"/>
-                <Text class="pf-small" text="{i18n>certificate.imageUnavailable}"/>
+                <core:Icon src="sap-icon://education" class="pf-cert__fallback-icon"/>
+                <Text class="pf-cert__fallback-title" text="{title}"/>
+                <Text class="pf-cert__fallback-issuer" text="{issuer}"/>
             </VBox>
         </HBox>
 

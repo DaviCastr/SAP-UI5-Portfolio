@@ -10,9 +10,12 @@
                     visible="{= !!${logo}}"
                     alt="{company}"/>
                 <VBox class="sapUiVBoxTiny">
-                    <Text class="pf-tl-item__role" text="{role}"/>
                     <HBox alignItems="Center" class="pf-gap-2">
-                        <Text class="pf-tl-item__company" text="{company}"/>
+                        <Text class="pf-tl-item__role" text="{role}"/>
+                        <Text class="pf-tl-item__kind" text="{i18n>experience.kind.project}" visible="{= ${kind} === 'project' }"/>
+                    </HBox>
+                    <HBox alignItems="Center" class="pf-gap-2">
+                        <Text class="pf-tl-item__company" text="{company}" visible="{= !!${company} }"/>
                         <Text
                             class="pf-tl-item__company"
                             text="{workplace}"
@@ -21,14 +24,16 @@
                 </VBox>
             </HBox>
 
-            <HBox alignItems="Center" class="pf-gap-2 pf-small pf-strong pf-chip pf-chip--primary">
+            <!-- Periodo ("atual" vem do i18n) ou "Em andamento" para projeto sem data. -->
+            <HBox
+                alignItems="Center"
+                class="pf-gap-2 pf-small pf-strong pf-chip pf-chip--primary"
+                visible="{= !!${current} || !!${period/from} }">
                 <core:Icon src="sap-icon://calendar" class="pf-text-xs"/>
-                <Text text="{path: 'period/from', formatter: '.formatter.monthYear'}"/>
-                <Text text="-"/>
+                <Text text="{i18n>project.current}" visible="{= !!${current} }"/>
                 <Text
-                    text="{path: 'period/to', formatter: '.formatter.monthYear'}"
-                    visible="{= !!${period/to}}"/>
-                <Text text="{i18n>period.current}" visible="{= !${period/to}}"/>
+                    text="{parts: ['period', 'i18n>period.current'], formatter: '.formatter.period'}"
+                    visible="{= !${current} }"/>
             </HBox>
         </HBox>
 

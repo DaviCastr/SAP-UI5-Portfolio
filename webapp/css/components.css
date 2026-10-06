@@ -821,6 +821,18 @@
     color: var(--pf-text);
 }
 
+/* Etiqueta "Projeto" nos itens da linha do tempo que vem de projects.json. */
+.pf-tl-item__kind {
+    padding: 1px 8px;
+    border-radius: var(--pf-radius-pill);
+    background: color-mix(in srgb, var(--pf-accent) 14%, var(--pf-surface));
+    color: var(--pf-accent);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
 .pf-tl-item__company {
     font-size: var(--pf-font-sm);
     color: var(--pf-text-muted);
@@ -1187,13 +1199,45 @@
     transform-origin: top center;
 }
 
+/* Capa gerada (sem imagem): degrade da marca, titulo grande e emissor. */
 .pf-cert__fallback {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    color: var(--pf-text-muted);
-    text-align: center;
+    justify-content: flex-end;
+    gap: var(--pf-space-2);
+    width: 100%;
+    height: 100%;
+    padding: var(--pf-space-5);
+    box-sizing: border-box;
+    background:
+        radial-gradient(
+            circle at 85% 15%,
+            color-mix(in srgb, var(--pf-accent) 35%, transparent) 0,
+            transparent 45%
+        ),
+        var(--pf-hero-gradient);
+    color: #ffffff;
+}
+
+.pf-cert__fallback-icon {
+    margin-bottom: auto;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 2rem;
+}
+
+.pf-cert__fallback-title {
+    color: #ffffff;
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.pf-cert__fallback-issuer {
+    color: #a8f0e1;
+    font-size: var(--pf-font-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 }
 
 /* Afordancia de "abre em nova aba", no lugar do botao removido. */

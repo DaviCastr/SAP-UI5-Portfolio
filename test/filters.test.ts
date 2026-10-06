@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
     ALL,
+    experienceTimeline,
     filterCertificates,
     filterExperiences,
     filterProjects,
@@ -76,10 +77,10 @@ describe("filterCertificates", () => {
         expect(filterCertificates(items, "valid", now).map((item) => item.id)).toEqual(["vigente"]);
     });
 
-    it("por ano de emissao", () => {
+    it("por ano de emissao, da mais recente para a mais antiga", () => {
         expect(filterCertificates(items, "2024", now).map((item) => item.id)).toEqual([
-            "vencida",
-            "sem-prazo"
+            "sem-prazo",
+            "vencida"
         ]);
     });
 });
@@ -94,5 +95,47 @@ describe("filterRepos / repoLanguages", () => {
 
     it("conta linguagens, da mais usada para a menos usada", () => {
         expect(repoLanguages(repos).map((item) => item.label)).toEqual(["JavaScript (2)", "ABAP (1)"]);
+    });
+});
+
+describe("experienceTimeline", () => {
+    const job = (id: string, from: string, to: string | null): Experience =>
+        ({ ...exp(id, "job"), period: { from, to } }) as Experience;
+    const project = (id: string, extra: Partial<Project>): Project => ({
+        id,
+        name: id,
+        description: "",
+        stack: ["SAP"],
+        tags: [],
+        ...extra
+    });
+    const jobs = [job("accenture", "2024-09", null), job("gfx", "2018-11", "2024-09")];
+    const projects = [
+        project("cartoes", { period: { from: "2025-04", to: "2025-05" } }),
+        project("vale", { current: true }),
+        project("sem-data", {})
+    ];
+
+    it("'project' traz os projetos do projects.json, o atual primeiro", () => {
+        const items = experienceTimeline(jobs, projects, "project");
+        expect(items.map((item) => item.id)).toEqual(["project-vale", "project-cartoes", "project-sem-data"]);
+        expect(items.every((item) => item.kind === "project")).toBe(true);
+    });
+
+    it("'job' traz so os vinculos", () => {
+        expect(experienceTimeline(jobs, projects, "job").map((item) => item.id)).toEqual([
+            "accenture",
+            "gfx"
+        ]);
+    });
+
+    it("ALL junta tudo: em andamento primeiro, depois pela data de fim", () => {
+        expect(experienceTimeline(jobs, projects, ALL).map((item) => item.id)).toEqual([
+            "accenture",
+            "project-vale",
+            "project-cartoes",
+            "gfx",
+            "project-sem-data"
+        ]);
     });
 });

@@ -1,4 +1,5 @@
 import { isExpired } from "../dates";
+import { orderCertificates } from "../data/liveSources";
 import type { Certificate, Experience, GitHubRepo, Project } from "../types";
 import { sortProjectsByRecency } from "./ordering";
 
@@ -18,6 +19,61 @@ export function filterExperiences(items: Experience[], kind: string): Experience
     return kind === ALL ? items : items.filter((item) => (item.kind ?? "job") === kind);
 }
 
+/**
+ * Projeto como item da linha do tempo de experiencia: o nome vira o titulo, a
+ * empresa fica na linha de baixo e o papel ao lado (no lugar do "Remoto").
+ */
+export function projectAsExperience(project: Project): Experience {
+    return {
+        id: `project-${project.id}`,
+        company: project.company ?? "",
+        role: project.name,
+        workplace: project.role,
+        period: project.period ?? { from: "", to: null },
+        summary: project.description,
+        highlights: project.highlights ?? [],
+        highlightsItems: project.highlightsItems,
+        stack: project.stack,
+        stackItems: project.stackItems,
+        kind: "project",
+        current: project.current
+    };
+}
+
+/**
+ * Linha do tempo da tela de Experiencia.
+ *
+ * - "job": os vinculos (experiences.json);
+ * - "project": os projetos (projects.json), do mais recente ao mais antigo;
+ * - ALL: os dois juntos - em andamento primeiro, depois pela data de fim.
+ *
+ * Antes o filtro "Projetos" procurava `kind: "project"` em experiences.json, e
+ * como os projetos moram em projects.json a lista ficava vazia.
+ */
+export function experienceTimeline(
+    experiences: Experience[],
+    projects: Project[],
+    kind: string
+): Experience[] {
+    const jobs = filterExperiences(experiences, "job");
+    const projectItems = sortProjectsByRecency(projects).map(projectAsExperience);
+    if (kind === "job") {
+        return jobs;
+    }
+    if (kind === "project") {
+        return projectItems;
+    }
+    // 0 = em andamento, 1 = datado, 2 = sem data (vai para o fim).
+    const rank = (item: Experience): number =>
+        item.current || (item.period?.from && !item.period.to) ? 0 : item.period?.from ? 1 : 2;
+    const end = (item: Experience): string => item.period?.to ?? "";
+    const start = (item: Experience): string => item.period?.from ?? "";
+    // Sort estavel: empates mantem vinculos antes de projetos.
+    return [...jobs, ...projectItems].sort(
+        (a, b) => rank(a) - rank(b) || end(b).localeCompare(end(a)) || start(b).localeCompare(start(a))
+    );
+}
+
 /** Projetos com a tag (ou todos), sempre do mais recente para o mais antigo. */
 export function filterProjects(items: Project[], tag: string): Project[] {
     return sortProjectsByRecency(tag === ALL ? items : items.filter((item) => item.tags?.includes(tag)));
@@ -29,13 +85,16 @@ export function filterProjects(items: Project[], tag: string): Project[] {
  * filtro mostra o que tem prazo e ainda esta dentro dele.
  */
 export function filterCertificates(items: Certificate[], filter: string, now = new Date()): Certificate[] {
+    // Sempre na ordem de exibicao (SAP Certified, depois as mais recentes):
+    // entradas manuais ficam no fim do JSON e sem isto apareceriam por ultimo.
+    const ordered = orderCertificates(items);
     if (filter === ALL) {
-        return items;
+        return ordered;
     }
     if (filter === "valid") {
-        return items.filter((item) => !!item.expiresAt && !isExpired(item.expiresAt, now));
+        return ordered.filter((item) => !!item.expiresAt && !isExpired(item.expiresAt, now));
     }
-    return items.filter((item) => (item.issuedAt ?? "").startsWith(filter));
+    return ordered.filter((item) => (item.issuedAt ?? "").startsWith(filter));
 }
 
 /** Repositorios por linguagem, paginados: `visible` + quantos ficaram de fora. */

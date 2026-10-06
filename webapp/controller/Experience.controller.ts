@@ -1,7 +1,7 @@
 import BaseController from "./BaseController";
-import { ALL, filterExperiences } from "../model/content/filters";
+import { ALL, experienceTimeline } from "../model/content/filters";
 
-/** Experiencia profissional com filtro por natureza (tudo / vinculos / projetos). */
+/** Experiencia: linha do tempo de vinculos e projetos (filtro tudo / vinculos / projetos). */
 export default class ExperienceController extends BaseController {
     public override onInit(): void {
         this.applyFilter(ALL);
@@ -22,7 +22,7 @@ export default class ExperienceController extends BaseController {
     private applyFilter(kind: string): void {
         this.model("content")?.setProperty(
             "/filteredExperiences",
-            filterExperiences(this.content().experiences, kind)
+            experienceTimeline(this.content().experiences, this.content().projects, kind)
         );
         this.model("ui")?.setProperty("/experienceKind", kind);
     }

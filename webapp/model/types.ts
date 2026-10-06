@@ -167,6 +167,8 @@ export interface Experience {
     modulesItems?: ChipItem[];
     /** Marca a experiencia como projeto (aparece no filtro "Projetos"). */
     kind?: "job" | "project";
+    /** Em andamento sem data conhecida (itens vindos de projetos, ver experienceTimeline). */
+    current?: boolean;
     /** Destaque na home. */
     featured?: boolean;
 }
