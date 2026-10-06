@@ -36,10 +36,12 @@
         <Text class="pf-card__body" text="{summary}"/>
 
         <!-- Principais atuacoes -->
-        <VBox class="pf-stack pf-gap-2" visible="{= !!${highlightsItems} &amp;&amp; ${highlightsItems}.length > 0}">
-            <HBox items="{path: 'highlightsItems', templateShareable: true}">
-                <Text class="pf-bullet pf-small pf-muted" text="{label}"/>
-            </HBox>
+        <!-- VBox: um destaque por linha (com HBox eles ficavam lado a lado). -->
+        <VBox
+            class="pf-stack pf-gap-1"
+            items="{path: 'highlightsItems', templateShareable: true}"
+            visible="{= !!${highlightsItems} &amp;&amp; ${highlightsItems}.length > 0}">
+            <Text class="pf-bullet pf-small pf-muted" text="{label}"/>
         </VBox>
 
         <!-- Modulos SAP -->

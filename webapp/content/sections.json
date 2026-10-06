@@ -1,7 +1,10 @@
 [
   {
     "id": "home",
-    "nav": { "pt": "Inicio", "en": "Home" },
+    "nav": {
+      "pt": "Início",
+      "en": "Home"
+    },
     "icon": "home",
     "route": "home",
     "order": 1,
@@ -11,7 +14,10 @@
   },
   {
     "id": "about",
-    "nav": { "pt": "Sobre", "en": "About" },
+    "nav": {
+      "pt": "Sobre",
+      "en": "About"
+    },
     "icon": "employee",
     "route": "about",
     "order": 2,
@@ -21,7 +27,10 @@
   },
   {
     "id": "experience",
-    "nav": { "pt": "Experiencia", "en": "Experience" },
+    "nav": {
+      "pt": "Experiência",
+      "en": "Experience"
+    },
     "icon": "suitcase",
     "route": "experience",
     "order": 3,
@@ -31,7 +40,10 @@
   },
   {
     "id": "skills",
-    "nav": { "pt": "Competencias", "en": "Skills" },
+    "nav": {
+      "pt": "Competências",
+      "en": "Skills"
+    },
     "icon": "settings",
     "route": "skills",
     "order": 4,
@@ -41,7 +53,10 @@
   },
   {
     "id": "projects",
-    "nav": { "pt": "Projetos", "en": "Projects" },
+    "nav": {
+      "pt": "Projetos",
+      "en": "Projects"
+    },
     "icon": "source-code",
     "route": "projects",
     "order": 5,
@@ -51,7 +66,10 @@
   },
   {
     "id": "certificates",
-    "nav": { "pt": "Certificacoes", "en": "Certificates" },
+    "nav": {
+      "pt": "Certificações",
+      "en": "Certificates"
+    },
     "icon": "verified",
     "route": "certificates",
     "order": 6,
@@ -61,7 +79,10 @@
   },
   {
     "id": "education",
-    "nav": { "pt": "Formacao", "en": "Education" },
+    "nav": {
+      "pt": "Formação",
+      "en": "Education"
+    },
     "icon": "education",
     "route": "education",
     "order": 7,
@@ -71,7 +92,10 @@
   },
   {
     "id": "cv",
-    "nav": { "pt": "Curriculo", "en": "Resume" },
+    "nav": {
+      "pt": "Currículo",
+      "en": "Resume"
+    },
     "icon": "download",
     "route": "cv",
     "order": 8,

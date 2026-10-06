@@ -1,63 +1,113 @@
 [
   {
-    "id": "sap-ui5-portfolio",
-    "name": "SAP-UI5-Portfolio",
-    "description": {
-      "pt": "Portfolio profissional em SAPUI5 + TypeScript, bilíngue, com modo escuro e dados totalmente em JSON.",
-      "en": "Professional portfolio in SAPUI5 + TypeScript, bilingual, with dark mode and fully JSON-driven content."
+    "id": "vale-pet",
+    "name": {
+      "pt": "Posto de Estoque Transitório (PET) - Vale",
+      "en": "Transitory Stock Post (PET) - Vale"
     },
-    "repo": "https://github.com/DaviCastr/SAP-UI5-Portfolio",
-    "stack": [
-      "SAPUI5",
-      "TypeScript",
-      "UI5 Tooling",
-      "Vitest"
-    ],
-    "tags": [
-      "SAP",
-      "UI5",
-      "TypeScript",
-      "Portfolio"
-    ],
-    "featured": true,
-    "stars": 0,
-    "forks": 0,
-    "updatedAt": "2026-10-05",
-    "language": "TypeScript"
-  },
-  {
-    "id": "cap-expense-manager",
-    "name": "CAP Expense Manager",
-    "description": {
-      "pt": "Aplicacao de controle de despesas seguindo arquitetura SAP CAP com separacao de camadas.",
-      "en": "Expense control application following the SAP CAP architecture with layered separation."
+    "role": {
+      "pt": "Desenvolvedor SAP MDK e CAP",
+      "en": "SAP MDK and CAP Developer"
     },
-    "stack": [
-      "SAP CAP",
-      "Node.js",
-      "SQLite"
-    ],
-    "tags": [
-      "SAP",
-      "CAP",
-      "Node.js"
-    ],
+    "description": {
+      "pt": "Participação no projeto de estoque transitório na Vale, atuando como desenvolvedor SAP MDK e CAP.",
+      "en": "Taking part in the transitory stock project at Vale, working as an SAP MDK and CAP developer."
+    },
+    "stack": ["SAP MDK", "SAP CAP"],
+    "tags": ["SAP", "MDK", "CAP", "Mobile"],
     "featured": true
   },
   {
-    "id": "js-basics",
-    "name": "JavaScript Moderno",
-    "description": {
-      "pt": "Exercicios e anotacoes sobre JavaScript moderno: async/await, modulos e testes.",
-      "en": "Exercises and notes on modern JavaScript: async/await, modules and testing."
+    "id": "gestao-cartoes",
+    "name": {
+      "pt": "Gestão financeira de cartões",
+      "en": "Credit card finance manager"
     },
-    "stack": [
-      "JavaScript",
-      "Node.js"
+    "role": {
+      "pt": "Projeto pessoal",
+      "en": "Personal project"
+    },
+    "period": {
+      "from": "2025-04",
+      "to": "2025-05"
+    },
+    "description": {
+      "pt": "Aplicação para gerir gastos no cartão de crédito, com faturas, transações, projeção futura e envio de e-mails sobre vencimentos. Backend em SAP CAP integrado ao SAP HANA e front-end em UI5 com Fiori Elements e customizações freestyle.",
+      "en": "Application to manage credit card spending, with statements, transactions, future projections and due-date email notifications. SAP CAP backend integrated with SAP HANA and a UI5 front end built with Fiori Elements and freestyle customizations."
+    },
+    "highlights": [
+      {
+        "pt": "Uso o projeto no dia a dia para gerir minhas finanças pessoais.",
+        "en": "I use it every day to manage my personal finances."
+      }
     ],
-    "tags": [
-      "JavaScript",
-      "Estudo"
-    ]
+    "stack": ["SAP CAP", "SAP HANA", "SAPUI5", "SAP Fiori Elements"],
+    "tags": ["SAP", "CAP", "UI5", "Pessoal"],
+    "featured": true
+  },
+  {
+    "id": "3coracoes-manutencao",
+    "name": {
+      "pt": "Desenvolvimento e manutenção S/4HANA - 3Corações",
+      "en": "S/4HANA development and maintenance - 3Corações"
+    },
+    "role": {
+      "pt": "Accenture Brasil",
+      "en": "Accenture Brasil"
+    },
+    "period": {
+      "from": "2023-08",
+      "to": "2024-08"
+    },
+    "description": {
+      "pt": "Melhorias internas na 3Corações, com aprimoramento de aplicativos e manutenções internas.",
+      "en": "Internal improvements at 3Corações, enhancing applications and handling internal maintenance."
+    },
+    "stack": ["SAP ABAP", "SAP Fiori", "SAP S/4HANA"],
+    "tags": ["SAP", "S/4HANA", "Fiori", "AMS"],
+    "featured": true
+  },
+  {
+    "id": "3coracoes-implantacao",
+    "name": {
+      "pt": "Implantação do S/4HANA - 3Corações",
+      "en": "S/4HANA implementation - 3Corações"
+    },
+    "role": {
+      "pt": "GFX Consultoria",
+      "en": "GFX Consultoria"
+    },
+    "period": {
+      "from": "2022-09",
+      "to": "2023-07"
+    },
+    "description": {
+      "pt": "Projeto de implantação do S/4HANA na 3Corações: implementação de soluções e customizações, criação de apps Fiori, apps com extensões e melhorias internas.",
+      "en": "S/4HANA implementation project at 3Corações: solution implementation and customizations, Fiori apps, extension apps and internal improvements."
+    },
+    "stack": ["SAP ABAP", "SAP Fiori", "SAP S/4HANA"],
+    "tags": ["SAP", "S/4HANA", "Fiori", "Implantação"],
+    "featured": true
+  },
+  {
+    "id": "gfx-ams",
+    "name": {
+      "pt": "Melhorias e manutenção em clientes da GFX Consultoria",
+      "en": "Enhancements and maintenance for GFX Consultoria clients"
+    },
+    "role": {
+      "pt": "GFX Consultoria",
+      "en": "GFX Consultoria"
+    },
+    "period": {
+      "from": "2018-11",
+      "to": "2022-08"
+    },
+    "description": {
+      "pt": "Melhorias AMS em clientes da GFX Consultoria, atendendo incidentes e evoluções para os clientes.",
+      "en": "AMS improvements for GFX Consultoria clients, handling incidents and enhancements."
+    },
+    "stack": ["SAP ABAP", "SAP Fiori"],
+    "tags": ["SAP", "AMS", "ABAP"]
   }
 ]

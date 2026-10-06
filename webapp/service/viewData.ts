@@ -101,6 +101,10 @@ export interface PortfolioViewData {
      * uma segunda pagina. Elas continuam acessiveis na aba Certificacoes.
      */
     cvCertificates: Certificate[];
+    /** Skills tecnicas agrupadas (sem soft skills), para a barra lateral do CV. */
+    cvSkillGroups: SkillGroup[];
+    /** Links de contato do CV (sem o `mailto:`, que ja aparece como e-mail). */
+    cvLinks: ExternalLink[];
     skillsByCategory: SkillGroup[];
     skillCategories: TagGroup[];
     projectTags: TagGroup[];
@@ -200,7 +204,8 @@ export function mostRecentProjects(projects: Project[], limit: number): Project[
                 return start;
             }
 
-            return a.name.localeCompare(b.name);
+            // O conteudo ja chega traduzido; `name` e texto aqui.
+            return String(a.name).localeCompare(String(b.name));
         })
         .slice(0, limit);
 }
@@ -232,6 +237,10 @@ export function buildViewData(service: ContentService): PortfolioViewData {
         softSkills: content.skills.filter(isSoftSkill),
         hardSkills: content.skills.filter((skill) => !isSoftSkill(skill)),
         cvCertificates: orderCertificates(content.certificates.filter((item) => isSapCertified(item.title))),
+        cvSkillGroups: groupSkillsByCategory(content.skills.filter((skill) => !isSoftSkill(skill))).map(
+            (group) => ({ ...group, items: [...group.items].sort((a, b) => b.level - a.level) })
+        ),
+        cvLinks: links.filter((link) => !link.url.startsWith("mailto:")),
         skillsByCategory,
         skillCategories,
         projectTags,

@@ -8,162 +8,253 @@
         <content>
             <VBox class="pf-container pf-page">
 
-                <!-- Cabecalho. Download e impressao ficam na barra de secao (App.view.xml). -->
+                <!-- Cabecalho da pagina. Ver PDF e imprimir ficam na barra de secao (App.view.xml). -->
                 <VBox>
                     <Text class="pf-eyebrow" text="{i18n>cv.eyebrow}"/>
                     <Title level="H1" class="pf-page__title" text="{i18n>cv.title}"/>
                     <Text class="pf-lead" text="{i18n>cv.subtitle}"/>
                 </VBox>
 
-                <!-- Curriculo em A4 -->
-                <VBox class="pf-sheet">
-                    <!-- Cabecalho do curriculum -->
-                    <HBox class="pf-sheet__head" alignItems="Center">
+                <!--
+                    Folha do curriculo: mesmo desenho do PDF (service/cvPdf.ts) -
+                    faixa com foto, barra lateral e coluna principal. As cores
+                    vem dos tokens, entao a folha acompanha o tema claro/escuro
+                    (e a impressao tambem, ver print.css).
+                -->
+                <VBox class="pf-sheet pf-cv">
+
+                    <!-- ============================== Cabecalho ============================== -->
+                    <HBox class="pf-cv__head" alignItems="Center">
                         <Image
-                            class="pf-sheet__avatar"
+                            class="pf-cv__avatar"
                             src="{content>/profile/avatar}"
                             densityAware="false"
                             alt="{content>/profile/name}"/>
-                        <VBox class="pf-grow-1 pf-gap-1">
-                            <Title level="H2" class="pf-sheet__name" text="{content>/profile/name}"/>
-                            <Text class="pf-sheet__role" text="{content>/profile/role}"/>
-                            <HBox class="pf-sheet__contacts">
-                                <Text text="{content>/profile/email}"/>
-                                <Text text="{path: 'content>/profile/phone', formatter: '.fPhone'}"/>
-                                <Text text="{content>/profile/location}"/>
-                            </HBox>
-                            <HBox class="pf-chips" items="{path: '/navLinks', templateShareable: true}">
-                                <!-- <Button class="pf-chip" text="{text}"/> -->
-                                <Button
-                                    type="Transparent"
-                                    icon="{path: 'icon', formatter: '.fIcon'}"
-                                    text="{text}"
-                                    tooltip="{text}"
-                                    iconDensityAware="false"
-                                    press="onLinkPress"/>
-                            </HBox>
+                        <VBox class="pf-cv__identity">
+                            <Text
+                                class="pf-cv__badge"
+                                text="{content>/profile/availability}"
+                                visible="{= !!${content>/profile/availability}}"/>
+                            <Title level="H2" class="pf-cv__name" text="{content>/profile/name}"/>
+                            <Text class="pf-cv__role" text="{content>/profile/role}"/>
+                            <Text class="pf-cv__headline" text="{content>/profile/headline}"/>
                         </VBox>
                     </HBox>
 
-                    <!-- Resumo -->
-                    <VBox class="pf-sheet__section">
-                        <Text class="pf-sheet__section-title" text="{i18n>cv.summary}"/>
-                        <Text class="pf-sheet__text" text="{content>/profile/summary}"/>
-                    </VBox>
+                    <VBox class="pf-cv__body">
 
-                    <!-- Indicadores -->
-                    <HBox class="pf-sheet__metrics">
-                        <VBox class="pf-sheet__metric">
-                            <Text class="pf-sheet__metric-value" text="{content>/metrics/yearsOfExperience}"/>
-                            <Text class="pf-small pf-muted" text="{i18n>metric.years}"/>
-                        </VBox>
-                        <VBox class="pf-sheet__metric">
-                            <Text class="pf-sheet__metric-value" text="{content>/metrics/projectCount}"/>
-                            <Text class="pf-small pf-muted" text="{i18n>metric.projects}"/>
-                        </VBox>
-                        <VBox class="pf-sheet__metric">
-                            <Text class="pf-sheet__metric-value" text="{content>/metrics/certificateCount}"/>
-                            <Text class="pf-small pf-muted" text="{i18n>metric.certificates}"/>
-                        </VBox>
-                        <VBox class="pf-sheet__metric">
-                            <Text class="pf-sheet__metric-value" text="{content>/metrics/skillCount}"/>
-                            <Text class="pf-small pf-muted" text="{i18n>metric.skills}"/>
-                        </VBox>
-                    </HBox>
+                        <!-- ============================ Barra lateral ============================ -->
+                        <VBox class="pf-cv__side">
 
-                    <!-- Experiencia -->
-                    <VBox class="pf-sheet__section">
-                        <Text class="pf-sheet__section-title" text="{i18n>nav.experience}"/>
-                        <VBox class="pf-stack pf-gap-3" items="{path: '/experiences', length: 20, templateShareable: true}">
-                            <VBox>
-                                <HBox alignItems="Center" class="pf-row--between pf-gap-3">
-                                    <Text class="pf-sheet__item-title" text="{role}"/>
-                                    <Text class="pf-small pf-muted" text="{path: 'period', formatter: '.fPeriod'}"/>
-                                </HBox>
-                                <Text class="pf-small pf-muted" text="{company}"/>
-                                <Text class="pf-sheet__text" text="{summary}"/>
+                            <VBox class="pf-cv__block">
+                                <Text class="pf-cv__side-title" text="{i18n>cv.contact}"/>
+                                <VBox class="pf-cv__field">
+                                    <Text class="pf-cv__label" text="{i18n>cv.email}"/>
+                                    <Link
+                                        class="pf-cv__value"
+                                        text="{content>/profile/email}"
+                                        href="mailto:{content>/profile/email}"
+                                        wrapping="true"/>
+                                </VBox>
+                                <VBox class="pf-cv__field" visible="{= !!${content>/profile/phone}}">
+                                    <Text class="pf-cv__label" text="{i18n>cv.phone}"/>
+                                    <Text class="pf-cv__value" text="{path: 'content>/profile/phone', formatter: '.fPhone'}"/>
+                                </VBox>
+                                <VBox class="pf-cv__field" visible="{= !!${content>/profile/location}}">
+                                    <Text class="pf-cv__label" text="{i18n>cv.location}"/>
+                                    <Text class="pf-cv__value" text="{content>/profile/location}"/>
+                                </VBox>
+                                <VBox items="{path: '/cvLinks', templateShareable: true}">
+                                    <VBox class="pf-cv__field">
+                                        <Text class="pf-cv__label" text="{label}"/>
+                                        <Link
+                                            class="pf-cv__value"
+                                            text="{path: 'url', formatter: '.fShortUrl'}"
+                                            href="{url}"
+                                            target="_blank"
+                                            wrapping="true"/>
+                                    </VBox>
+                                </VBox>
+                            </VBox>
+
+                            <VBox
+                                class="pf-cv__block"
+                                visible="{= !!${content>/profile/languages} &amp;&amp; ${content>/profile/languages}.length > 0}">
+                                <Text class="pf-cv__side-title" text="{i18n>cv.languages}"/>
+                                <VBox items="{path: 'content>/profile/languages', templateShareable: true}">
+                                    <HBox class="pf-cv__lang" justifyContent="SpaceBetween" alignItems="Center">
+                                        <Text class="pf-cv__lang-name" text="{content>name}"/>
+                                        <Text class="pf-cv__lang-level" text="{content>level}"/>
+                                    </HBox>
+                                </VBox>
+                            </VBox>
+
+                            <!-- Skills tecnicas por categoria, com barra de nivel (1 a 5). -->
+                            <VBox class="pf-cv__block" visible="{= ${/cvSkillGroups}.length > 0}">
+                                <Text class="pf-cv__side-title" text="{i18n>nav.skills}"/>
+                                <VBox class="pf-cv__groups" items="{path: '/cvSkillGroups', templateShareable: true}">
+                                    <VBox class="pf-cv__group">
+                                        <Text class="pf-cv__group-title" text="{category}"/>
+                                        <VBox items="{path: 'items', templateShareable: true}">
+                                            <VBox class="pf-cv__skill">
+                                                <HBox justifyContent="SpaceBetween" alignItems="Center">
+                                                    <Text class="pf-cv__skill-name" text="{name}"/>
+                                                    <Text class="pf-cv__skill-level" text="{path: 'level', formatter: '.fLevel'}"/>
+                                                </HBox>
+                                                <HBox class="pf-cv__bar">
+                                                    <HBox
+                                                        class="pf-cv__bar-fill"
+                                                        width="{path: 'level', formatter: '.fLevelPercent'}"/>
+                                                </HBox>
+                                            </VBox>
+                                        </VBox>
+                                    </VBox>
+                                </VBox>
+                            </VBox>
+
+                            <!-- Soft skills: nome + nivel em pontos (como no PDF). -->
+                            <VBox
+                                class="pf-cv__block"
+                                visible="{= !!${/softSkills} &amp;&amp; ${/softSkills}.length > 0}">
+                                <Text class="pf-cv__side-title" text="{i18n>cv.softSkills}"/>
+                                <VBox items="{path: '/softSkills', templateShareable: true}">
+                                    <HBox class="pf-cv__soft" justifyContent="SpaceBetween" alignItems="Center">
+                                        <Text class="pf-cv__soft-name" text="{name}" tooltip="{description}"/>
+                                        <RatingIndicator
+                                            class="pf-cv__dots"
+                                            maxValue="5"
+                                            value="{level}"
+                                            displayOnly="true"
+                                            iconSize="0.75rem"
+                                            tooltip="{path: 'level', formatter: '.fLevel'}"/>
+                                    </HBox>
+                                </VBox>
                             </VBox>
                         </VBox>
-                    </VBox>
 
-                    <!--
-                        Competencias: ferramentas e comportamento em blocos
-                        separados. `metrics/stacksItems` sao as stacks de todos os
-                        projetos; `/softSkills` vem da categoria "Soft Skills" de
-                        skills.json (ver isSoftSkill em viewData.ts).
-                    -->
-                    <VBox class="pf-sheet__section">
-                        <Text class="pf-sheet__section-title" text="{i18n>nav.skills}"/>
-                        <HBox class="pf-chips" items="{path: '/metrics/stacksItems', templateShareable: true}">
-                            <core:Fragment fragmentName="davi.portfolio.fragment.Chip" type="XML"/>
-                        </HBox>
-                    </VBox>
+                        <!-- =========================== Coluna principal =========================== -->
+                        <VBox class="pf-cv__main">
 
-                    <VBox class="pf-sheet__section" visible="{= !!${/softSkills} &amp;&amp; ${/softSkills}.length > 0}">
-                        <Text class="pf-sheet__section-title" text="{i18n>cv.softSkills}"/>
-                        <HBox class="pf-chips" items="{path: '/softSkills', templateShareable: true}">
-                            <Text class="pf-chip" text="{name}"/>
-                        </HBox>
-                    </VBox>
-
-                    <!-- Projetos -->
-                    <VBox class="pf-sheet__section">
-                        <Text class="pf-sheet__section-title" text="{i18n>nav.projects}"/>
-                        <VBox class="pf-stack pf-gap-3" items="{path: '/featuredProjects', length: 8, templateShareable: true}">
-                            <VBox>
-                                <HBox alignItems="Center" class="pf-gap-2">
-                                    <Text class="pf-sheet__item-title" text="{name}"/>
-                                    <Text class="pf-small pf-muted" text="{description}"/>
-                                </HBox>
-                                <HBox class="pf-chips" items="{path: 'stackItems', templateShareable: true}">
-                                    <core:Fragment fragmentName="davi.portfolio.fragment.Chip" type="XML"/>
-                                </HBox>
+                            <VBox class="pf-cv__section">
+                                <Title level="H3" class="pf-cv__title" text="{i18n>cv.summary}"/>
+                                <Text class="pf-cv__text" text="{content>/profile/summary}"/>
                             </VBox>
-                        </VBox>
-                    </VBox>
 
-                    <!-- Formacao -->
-                    <VBox class="pf-sheet__section">
-                        <Text class="pf-sheet__section-title" text="{i18n>nav.education}"/>
-                        <VBox class="pf-stack pf-gap-2" items="{path: '/education', templateShareable: true}">
-                            <HBox alignItems="Center" class="pf-row--between pf-gap-3">
-                                <Text class="pf-sheet__item-title" text="{degree}"/>
-                                <Text class="pf-small pf-muted" text="{institution}"/>
+                            <HBox class="pf-cv__metrics">
+                                <VBox class="pf-cv__metric">
+                                    <Text class="pf-cv__metric-value" text="{content>/metrics/yearsOfExperience}"/>
+                                    <Text class="pf-cv__metric-label" text="{i18n>metric.years}"/>
+                                </VBox>
+                                <VBox class="pf-cv__metric">
+                                    <Text class="pf-cv__metric-value" text="{content>/metrics/projectCount}"/>
+                                    <Text class="pf-cv__metric-label" text="{i18n>metric.projects}"/>
+                                </VBox>
+                                <VBox class="pf-cv__metric">
+                                    <Text class="pf-cv__metric-value" text="{content>/metrics/certificateCount}"/>
+                                    <Text class="pf-cv__metric-label" text="{i18n>metric.certificates}"/>
+                                </VBox>
+                                <VBox class="pf-cv__metric">
+                                    <Text class="pf-cv__metric-value" text="{content>/metrics/skillCount}"/>
+                                    <Text class="pf-cv__metric-label" text="{i18n>metric.skills}"/>
+                                </VBox>
+                            </HBox>
+
+                            <!-- Experiencia em linha do tempo. -->
+                            <VBox class="pf-cv__section">
+                                <Title level="H3" class="pf-cv__title" text="{i18n>nav.experience}"/>
+                                <VBox class="pf-cv__timeline" items="{path: '/experiences', length: 20, templateShareable: true}">
+                                    <VBox class="pf-cv__entry">
+                                        <HBox class="pf-cv__entry-head" justifyContent="SpaceBetween" alignItems="Start">
+                                            <VBox>
+                                                <Text class="pf-cv__entry-title" text="{role}"/>
+                                                <Text class="pf-cv__entry-sub" text="{company}"/>
+                                            </VBox>
+                                            <!-- O rotulo "atual/Present" vem do i18n como 2a parte. -->
+                                            <Text
+                                                class="pf-cv__pill"
+                                                text="{parts: ['period', 'i18n>period.current'], formatter: '.fPeriod'}"/>
+                                        </HBox>
+                                        <Text class="pf-cv__text" text="{summary}"/>
+                                        <VBox
+                                            class="pf-cv__bullets"
+                                            items="{path: 'highlightsItems', templateShareable: true}"
+                                            visible="{= !!${highlightsItems} &amp;&amp; ${highlightsItems}.length > 0}">
+                                            <Text class="pf-cv__bullet" text="{label}"/>
+                                        </VBox>
+                                        <HBox
+                                            class="pf-chips"
+                                            items="{path: 'stackItems', templateShareable: true}"
+                                            visible="{= !!${stackItems} &amp;&amp; ${stackItems}.length > 0}">
+                                            <core:Fragment fragmentName="davi.portfolio.fragment.Chip" type="XML"/>
+                                        </HBox>
+                                    </VBox>
+                                </VBox>
+                            </VBox>
+
+                            <VBox class="pf-cv__section">
+                                <Title level="H3" class="pf-cv__title" text="{i18n>nav.projects}"/>
+                                <VBox class="pf-cv__list" items="{path: '/featuredProjects', length: 4, templateShareable: true}">
+                                    <VBox class="pf-cv__project">
+                                        <HBox justifyContent="SpaceBetween" alignItems="Center" class="pf-gap-3">
+                                            <Text class="pf-cv__entry-title" text="{name}"/>
+                                            <Link
+                                                class="pf-cv__link"
+                                                text="{path: 'repo', formatter: '.fShortUrl'}"
+                                                href="{repo}"
+                                                target="_blank"
+                                                visible="{= !!${repo}}"/>
+                                        </HBox>
+                                        <Text class="pf-cv__text" text="{description}"/>
+                                        <HBox class="pf-chips" items="{path: 'stackItems', templateShareable: true}">
+                                            <core:Fragment fragmentName="davi.portfolio.fragment.Chip" type="XML"/>
+                                        </HBox>
+                                    </VBox>
+                                </VBox>
+                            </VBox>
+
+                            <VBox class="pf-cv__section">
+                                <Title level="H3" class="pf-cv__title" text="{i18n>nav.education}"/>
+                                <VBox class="pf-cv__list" items="{path: '/education', templateShareable: true}">
+                                    <HBox class="pf-cv__entry-head" justifyContent="SpaceBetween" alignItems="Start">
+                                        <VBox>
+                                            <Text class="pf-cv__entry-title" text="{degree}"/>
+                                            <Text class="pf-cv__entry-sub" text="{institution}"/>
+                                        </VBox>
+                                        <Text
+                                            class="pf-cv__pill"
+                                            text="{parts: ['period', 'i18n>period.current'], formatter: '.fPeriod'}"
+                                            visible="{= !!${period/from}}"/>
+                                    </HBox>
+                                </VBox>
+                            </VBox>
+
+                            <!--
+                                Apenas as "SAP Certified" (`/cvCertificates` ja vem
+                                filtrado e ordenado em viewData). As demais seguem na
+                                aba Certificacoes. Cada card abre a credencial.
+                            -->
+                            <VBox
+                                class="pf-cv__section"
+                                visible="{= !!${/cvCertificates} &amp;&amp; ${/cvCertificates}.length > 0}">
+                                <Title level="H3" class="pf-cv__title" text="{i18n>cv.sapCertifications}"/>
+                                <VBox class="pf-cv__certs" items="{path: '/cvCertificates', templateShareable: true}">
+                                    <HBox class="pf-cvcert" alignItems="Center">
+                                        <core:Icon src="sap-icon://validate" class="pf-cvcert__icon"/>
+                                        <VBox class="pf-cvcert__body">
+                                            <Text class="pf-cvcert__eyebrow" text="SAP Certified"/>
+                                            <Text class="pf-cvcert__title" text="{path: 'title', formatter: '.fCertShort'}"/>
+                                        </VBox>
+                                        <Text class="pf-cvcert__date" text="{path: 'issuedAt', formatter: '.fIssued'}"/>
+                                    </HBox>
+                                </VBox>
+                            </VBox>
+
+                            <HBox class="pf-cv__foot" justifyContent="SpaceBetween">
+                                <Text class="pf-small pf-muted" text="{i18n>cv.generated}"/>
+                                <Text class="pf-small pf-muted" text="{path: 'content>/meta/updatedAt', formatter: '.fDateTime'}"/>
                             </HBox>
                         </VBox>
                     </VBox>
-
-                    <!--
-                        Certificacoes: apenas as "SAP Certified".
-
-                        `/cvCertificates` ja vem filtrado por `isSapCertified` em
-                        `viewData.buildViewData` e ordenado por
-                        `orderCertificates`, entao a aba nao repete o filtro.
-                        Todas as 18 continuam na aba "Certificacoes" do portfolio
-                        (`/filteredCertificates`).
-
-                        O icone, o emissor e o destaque vem de `featured`, que
-                        agora vale para todas as itens desta lista.
-                    -->
-                    <VBox class="pf-sheet__section" visible="{= !!${/cvCertificates} &amp;&amp; ${/cvCertificates}.length > 0 }">
-                        <Text class="pf-sheet__section-title" text="{i18n>cv.sapCertifications}"/>
-                        <VBox class="pf-stack pf-gap-2" items="{path: '/cvCertificates', templateShareable: true}">
-                            <HBox alignItems="Center" class="pf-row--between pf-gap-3">
-                                <HBox alignItems="Center" class="pf-gap-2 pf-grow-1">
-                                    <core:Icon src="sap-icon://verified" visible="{= !!${featured}}" class="pf-text-s"/>
-                                    <Text class="{path: 'featured', formatter: '.fCertTitleClass'}" text="{title}"/>
-                                    <Text class="pf-small pf-muted" text="{issuer}" visible="{= !!${featured} &amp;&amp; !!${issuer}}"/>
-                                </HBox>
-                                <Text class="pf-small pf-muted" text="{path: 'issuedAt', formatter: '.fDate'}"/>
-                            </HBox>
-                        </VBox>
-                    </VBox>
-
-                    <!-- Rodape -->
-                    <HBox class="pf-sheet__foot">
-                        <Text class="pf-small pf-muted" text="{i18n>cv.generated}"/>
-                        <Text class="pf-small pf-muted" text="{path: 'content>/meta/updatedAt', formatter: '.fDateTime'}"/>
-                    </HBox>
                 </VBox>
 
             </VBox>

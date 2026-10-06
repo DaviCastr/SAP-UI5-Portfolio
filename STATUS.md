@@ -1,6 +1,6 @@
 # STATUS
 
-Ultima atualizacao: 2026-10-03
+Ultima atualizacao: 2026-10-05
 
 ## Resumo
 
@@ -58,7 +58,10 @@ apontados em "Pendencias".
       `--download-images`.
 - [x] `tools/github/sync.ts` - grava `github.json` (54 repositorios) e atualiza
       estrelas/fors/linguagem dos projetos.
-- [x] `tools/cv/generate-pdf.ts` - PDF A4 (2 paginas) em `webapp/cv/davi-castro-cv.pdf`.
+- [x] PDF do curriculo com jsPDF (`webapp/service/cvPdf.ts`): gerado na hora no navegador
+      pelo botao "Baixar PDF" (idioma ativo) e por `npm run cv:pdf` (arquivo estatico de
+      alternativa). A4, duas colunas, 1 pagina sem folha em branco. (05/10/2026)
+- [x] Deploy busca Credly/GitHub antes do build (push + diario); sem busca ao vivo no browser.
 
 ### Qualidade
 

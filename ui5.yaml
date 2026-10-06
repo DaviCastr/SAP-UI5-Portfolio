@@ -29,8 +29,21 @@ customConfiguration:
             autoConvertAllExtendClasses: true
     ui5-tooling-modules: &cfgModules
         debug: true
+        # Pacotes npm (ex.: jspdf, usado pelo PDF do curriculo) ficam em
+        # davi/portfolio/thirdparty/. Precisa valer no serve tambem: sem isso o
+        # import "jspdf" vira um modulo de topo e o loader o procura no CDN do
+        # UI5 (ui5.sap.com/resources/jspdf.js), onde nao existe.
+        addToNamespace: true
 
 builder:
+    # Bibliotecas npm (jspdf e os chunks opcionais dele: html2canvas, canvg,
+    # dompurify) ficam FORA do Component-preload: sao ~700 KB que so o botao
+    # "Baixar PDF" usa, e o loader os busca sob demanda no clique. Dentro do
+    # preload, todo visitante baixaria isso ao abrir o site - e o analisador do
+    # UI5 ainda falhava no chunk do canvg (sintaxe `new.target`).
+    componentPreload:
+        excludes:
+            - "davi/portfolio/thirdparty/"
     customTasks:
         # Transpila TypeScript -> JavaScript (ES5) durante o build.
         - name: ui5-tooling-transpile-task
@@ -38,11 +51,12 @@ builder:
           configuration:
               <<: *cfgTranspile
         # Resolve imports de pacotes npm (sap/*) e os registra como namespaces.
+        # Depois da transpilacao: so assim os imports npm dos .ts ja convertidos
+        # (ex.: "jspdf" em service/cvPdf) sao reescritos para o namespace.
         - name: ui5-tooling-modules-task
-          afterTask: replaceVersion
+          afterTask: ui5-tooling-transpile-task
           configuration:
               <<: *cfgModules
-              addToNamespace: true
 
 server:
     customMiddleware:

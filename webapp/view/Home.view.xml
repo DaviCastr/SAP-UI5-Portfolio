@@ -181,7 +181,7 @@
                             press="onEmailPress"/>
                         <Button
                             type="Ghost"
-                            icon="sap-icon://download"
+                            icon="sap-icon://pdf-attachment"
                             text="{i18n>action.downloadCv}"
                             press="onDownloadCvPress"/>
                     </HBox>

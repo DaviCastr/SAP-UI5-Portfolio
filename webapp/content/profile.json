@@ -6,25 +6,25 @@
     "en": "SAP Fiori / ABAP Developer"
   },
   "headline": {
-    "pt": "Construindo Applications Fiori e automacoes para o ecossistema SAP",
-    "en": "Building Fiori applications and automations for the SAP ecosystem"
+    "pt": "Construindo aplicações Fiori, extensões e integrações para o ecossistema SAP",
+    "en": "Building Fiori applications, extensions and integrations for the SAP ecosystem"
   },
   "summary": {
-    "pt": "Desenvolvedor com experiencia em Applications Fiori (SAPUI5), ABAP e integracoes no ecossistema SAP BTP. Entrego interfaces que traduzem processos criticos de negocio em telas simples, com atencao a desempenho, acessibilidade e manutencao.",
-    "en": "Developer experienced with Fiori applications (SAPUI5), ABAP and integrations across the SAP BTP ecosystem. I deliver interfaces that turn critical business processes into simple screens, with care for performance, accessibility and maintainability."
+    "pt": "Consultor SAP com experiência em ABAP, aplicações Fiori (SAPUI5), RAP, CAP e integrações no ecossistema SAP BTP. Atuo em implantações S/4HANA e suporte AMS, entregando soluções que traduzem processos críticos de negócio em telas simples, com atenção a desempenho e manutenção.",
+    "en": "SAP consultant experienced with ABAP, Fiori applications (SAPUI5), RAP, CAP and integrations across the SAP BTP ecosystem. I work on S/4HANA implementations and AMS support, delivering solutions that turn critical business processes into simple screens, with care for performance and maintainability."
   },
   "about": [
     {
-      "pt": "Desenvolvedor com experiencia em Applications Fiori (SAPUI5), ABAP e integracoes no ecossistema SAP BTP. Atuo na construcao de interfaces para processos de negocio, com foco em usabilidade, desempenho e codigo que outros devs conseguem manter.",
-      "en": "Developer experienced with Fiori applications (SAPUI5), ABAP and integrations across the SAP BTP ecosystem. I build interfaces for business processes with focus on usability, performance and code that other developers can maintain."
+      "pt": "Consultor SAP com experiência em ABAP, aplicações Fiori (SAPUI5) e integrações no ecossistema SAP BTP. Atuo na construção de soluções para processos de negócio, com foco em usabilidade, desempenho e código que outros desenvolvedores conseguem manter.",
+      "en": "SAP consultant experienced with ABAP, Fiori applications (SAPUI5) and integrations across the SAP BTP ecosystem. I build solutions for business processes with a focus on usability, performance and code that other developers can maintain."
     },
     {
-      "pt": "Trabalho de ponta a ponta:levantamento com o time de negocio, modelagem dos dados, implementacao da aplicacao e publicacao. Gosto de transformar processos manuais em telas claras - e de medir o resultado depois.",
-      "en": "I work end to end: discovery with the business team, data modelling, application implementation and deployment. I enjoy turning manual processes into clear screens - and measuring the outcome afterwards."
+      "pt": "Trabalho de ponta a ponta: levantamento com o time de negócio, modelagem dos dados, implementação da aplicação e publicação. Gosto de transformar processos manuais em telas claras - e de medir o resultado depois.",
+      "en": "I work end to end: discovery with the business team, data modeling, application implementation and deployment. I enjoy turning manual processes into clear screens - and measuring the outcome afterwards."
     },
     {
-      "pt": "Mantencio projetos pessoais abertos para estudo e portfolio, incluindo este site, feito com SAPUI5 + TypeScript e dados em JSON.",
-      "en": "I keep open personal projects for study and portfolio purposes, including this website, built with SAPUI5 + TypeScript and JSON data."
+      "pt": "Mantenho projetos pessoais abertos para estudo e portfólio, incluindo este site, feito com SAPUI5 + TypeScript e dados em JSON.",
+      "en": "I maintain open personal projects for study and portfolio purposes, including this website, built with SAPUI5 + TypeScript and JSON data."
     }
   ],
   "avatar": "images/profile.png",
@@ -42,52 +42,85 @@
   "languages": [
     {
       "id": "pt",
-      "name": { "pt": "Portugues", "en": "Portuguese" },
-      "level": { "pt": "Nativo", "en": "Native" }
+      "name": {
+        "pt": "Português",
+        "en": "Portuguese"
+      },
+      "level": {
+        "pt": "Nativo",
+        "en": "Native"
+      }
     },
     {
       "id": "en",
-      "name": { "pt": "Ingles", "en": "English" },
-      "level": { "pt": "Intermediario", "en": "Intermediate" }
+      "name": {
+        "pt": "Inglês",
+        "en": "English"
+      },
+      "level": {
+        "pt": "Intermediário",
+        "en": "Intermediate"
+      }
     },
     {
       "id": "es",
-      "name": { "pt": "Espanhol", "en": "Spanish" },
-      "level": { "pt": "Basico", "en": "Basic" }
+      "name": {
+        "pt": "Espanhol",
+        "en": "Spanish"
+      },
+      "level": {
+        "pt": "Básico",
+        "en": "Basic"
+      }
     }
   ],
   "links": [
     {
       "id": "linkedin",
-      "label": { "pt": "LinkedIn", "en": "LinkedIn" },
+      "label": {
+        "pt": "LinkedIn",
+        "en": "LinkedIn"
+      },
       "url": "https://www.linkedin.com/in/davi-castr",
       "icon": "business-card",
       "primary": true
     },
     {
       "id": "github",
-      "label": { "pt": "GitHub", "en": "GitHub" },
+      "label": {
+        "pt": "GitHub",
+        "en": "GitHub"
+      },
       "url": "https://github.com/DaviCastr",
       "icon": "source-code",
       "primary": true
     },
     {
       "id": "sap-profile",
-      "label": { "pt": "SAP Community", "en": "SAP Community" },
+      "label": {
+        "pt": "SAP Community",
+        "en": "SAP Community"
+      },
       "url": "https://profile.sap.com/u/DaviCastro",
       "icon": "instance",
       "primary": false
     },
     {
       "id": "credly",
-      "label": { "pt": "Credly", "en": "Credly" },
+      "label": {
+        "pt": "Credly",
+        "en": "Credly"
+      },
       "url": "https://www.credly.com/users/davi-castr/badges/credly",
       "icon": "verified",
       "primary": false
     },
     {
       "id": "email",
-      "label": { "pt": "E-mail", "en": "Email" },
+      "label": {
+        "pt": "E-mail",
+        "en": "Email"
+      },
       "url": "mailto:davifgeo@gmail.com",
       "icon": "email",
       "primary": false

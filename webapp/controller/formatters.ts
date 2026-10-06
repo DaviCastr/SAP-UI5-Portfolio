@@ -14,15 +14,24 @@ export const sharedFormatters = {
         return formatMonthYear(value, LocaleService.getActive());
     },
 
-    /** { from: "2020-01", to: null } -> "jan/2020 – atual" */
-    period(period: Period | undefined, resourceBundle?: { getText(key: string): string }): string {
+    /**
+     * { from: "2020-01", to: null } -> "jan/2020 – atual" ("Present" em ingles).
+     *
+     * No XML, passe o rotulo do i18n como segunda parte - um formatter com uma
+     * so parte nao recebe o resource bundle, e o texto ficava sempre "atual":
+     *   text="{parts: ['period', 'i18n>period.current'], formatter: '.fPeriod'}"
+     */
+    period(period: Period | undefined, current?: string | { getText(key: string): string }): string {
         if (!period?.from) {
             return "";
         }
-        const from = formatMonthYear(period.from, LocaleService.getActive());
-        const to = period.to
-            ? formatMonthYear(period.to, LocaleService.getActive())
-            : (resourceBundle?.getText("period.current") ?? "atual");
+        const locale = LocaleService.getActive();
+        const currentLabel =
+            typeof current === "string"
+                ? current
+                : (current?.getText("period.current") ?? (locale === "en" ? "Present" : "atual"));
+        const from = formatMonthYear(period.from, locale);
+        const to = period.to ? formatMonthYear(period.to, locale) : currentLabel;
 
         return `${from} – ${to}`;
     },

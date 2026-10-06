@@ -37,7 +37,7 @@
                 visible="{= ${ui>/activeRoute} === 'cv' }">
                 <Button
                     type="Emphasized"
-                    icon="sap-icon://download"
+                    icon="sap-icon://pdf-attachment"
                     text="{i18n>action.downloadPdf}"
                     tooltip="{i18n>action.downloadPdf}"
                     press="onDownloadPress"/>

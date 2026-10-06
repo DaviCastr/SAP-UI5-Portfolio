@@ -1,35 +1,71 @@
 name: Deploy UI5 App to GitHub Pages
 
+# Os certificados (Credly) e repositorios (GitHub) sao buscados AQUI, no
+# deploy, e nao no navegador: o credly.com nao envia CORS e a busca ao vivo
+# travava a tela. O site publicado sempre sai com os dados do momento do build.
+#
+# O agendamento diario republica o site mesmo sem push, para badges novas
+# aparecerem sozinhas. (O commit do sync-content.yml usa [skip ci] e, por isso,
+# nao dispara este workflow.)
+
 on:
-  push:
-    branches:
-      - main # ou 'master', dependendo do nome da sua branch principal
+    push:
+        branches:
+            - main
+    schedule:
+        # 06:30 UTC (03:30 no Brasil), depois do sync-content.yml.
+        - cron: "30 6 * * *"
+    workflow_dispatch:
 
 permissions:
-  contents: write
+    contents: write
+
+concurrency:
+    group: deploy-pages
+    cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+    build-and-deploy:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: "npm"
 
-      - name: Install dependencies
-        run: npm ci
+            - name: Install dependencies
+              run: npm ci
 
-      - name: Build UI5 Project (Transpile TS to JS)
-        run: npm run build
+            # Falha de rede/limite em uma das fontes nao derruba o deploy: o JSON
+            # versionado em webapp/content continua valendo.
+            - name: Sync GitHub data
+              continue-on-error: true
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: npm run sync:github
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: dist # Pasta gerada pelo comando 'ui5 build'
-          branch: gh-pages # Branch automática onde o site estático ficará
+            - name: Scrape Credly certificates
+              continue-on-error: true
+              run: npm run scrape:certificates
+
+            - name: Validate content
+              run: npm run content:check
+
+            # PDF estatico (webapp/cv/ esta no .gitignore). O botao "Baixar PDF" gera
+            # o arquivo na hora no navegador; este e a alternativa se isso falhar.
+            - name: Generate CV PDF
+              run: npm run cv:pdf
+
+            - name: Build UI5 Project (Transpile TS to JS)
+              run: npm run build
+
+            - name: Deploy to GitHub Pages
+              uses: JamesIves/github-pages-deploy-action@v4
+              with:
+                  folder: dist
+                  branch: gh-pages

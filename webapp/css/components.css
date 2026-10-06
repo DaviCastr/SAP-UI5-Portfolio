@@ -772,6 +772,11 @@
     position: relative;
 }
 
+/* Respiro entre os cards de experiencia (o VBox e flex em coluna). */
+.pf-timeline.sapMVBox {
+    gap: var(--pf-space-6);
+}
+
 .pf-tl-item {
     position: relative;
     display: flex;
@@ -1394,6 +1399,521 @@
     gap: var(--pf-space-3);
     padding-top: var(--pf-space-4);
     border-top: 1px solid var(--pf-border);
+}
+
+/*
+ * Curriculo no desenho do PDF (service/cvPdf.ts): faixa com foto, barra
+ * lateral e coluna principal. So tokens `--pf-*`: o tema escuro funciona sem
+ * nenhuma regra extra. Os seletores levam `.pf-cv` na frente para vencer as
+ * classes dos controles UI5 (sapMTitle, sapMLnk...) sem `!important`.
+ */
+.pf-sheet.pf-cv {
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.pf-cv {
+    --pf-cv-side: 300px;
+    --pf-cv-amber-soft: color-mix(in srgb, var(--pf-accent) 12%, var(--pf-surface));
+}
+
+/* ------------------------------ cabecalho ------------------------------ */
+
+.pf-cv .pf-cv__head {
+    position: relative;
+    gap: var(--pf-space-8);
+    padding: var(--pf-space-8) var(--pf-space-10);
+    background: var(--pf-hero-gradient);
+    border-bottom: 4px solid var(--pf-accent);
+    color: #fff;
+}
+
+.pf-cv .pf-cv__avatar {
+    width: 132px;
+    height: 132px;
+    flex: 0 0 auto;
+    border-radius: var(--pf-radius-pill);
+    object-fit: cover;
+    box-shadow:
+        0 0 0 4px rgba(255, 255, 255, 0.9),
+        0 0 0 8px color-mix(in srgb, var(--pf-primary) 70%, transparent),
+        var(--pf-shadow-3);
+}
+
+.pf-cv .pf-cv__identity {
+    gap: var(--pf-space-1);
+    min-width: 0;
+}
+
+.pf-cv .pf-cv__badge {
+    align-self: flex-start;
+    margin-bottom: var(--pf-space-2);
+    padding: 4px 12px;
+    border-radius: var(--pf-radius-pill);
+    background: #fdf0dc;
+    color: #92400e;
+    font-size: var(--pf-font-xs);
+    font-weight: 700;
+}
+
+.pf-cv .pf-cv__name {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(1.9rem, 1.2rem + 2.2vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.pf-cv .pf-cv__role {
+    color: #a8f0e1;
+    font-size: var(--pf-font-lg, 1.15rem);
+    font-weight: 700;
+}
+
+.pf-cv .pf-cv__headline {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: var(--pf-font-sm);
+    line-height: 1.5;
+}
+
+/* ---------------------------- duas colunas ---------------------------- */
+
+.pf-cv .pf-cv__body {
+    display: grid;
+    grid-template-columns: var(--pf-cv-side) minmax(0, 1fr);
+}
+
+/* ---------------------------- barra lateral ---------------------------- */
+
+.pf-cv .pf-cv__side {
+    gap: var(--pf-space-8);
+    padding: var(--pf-space-8) var(--pf-space-6);
+    background: color-mix(in srgb, var(--pf-primary) 5%, var(--pf-surface-sunken));
+    border-right: 1px solid var(--pf-border);
+}
+
+.pf-cv .pf-cv__block {
+    gap: var(--pf-space-3);
+}
+
+.pf-cv .pf-cv__side-title {
+    position: relative;
+    padding-bottom: var(--pf-space-2);
+    color: var(--pf-primary);
+    font-size: var(--pf-font-xs);
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.pf-cv .pf-cv__side-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 28px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--pf-primary);
+}
+
+.pf-cv .pf-cv__field {
+    gap: 1px;
+    margin-bottom: var(--pf-space-2);
+}
+
+.pf-cv .pf-cv__label {
+    color: var(--pf-text-subtle);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.pf-cv .pf-cv__value {
+    color: var(--pf-text);
+    font-size: var(--pf-font-sm);
+    overflow-wrap: anywhere;
+}
+
+.pf-cv .sapMLnk.pf-cv__value,
+.pf-cv .sapMLnk.pf-cv__link {
+    color: var(--pf-primary);
+}
+
+.pf-cv .pf-cv__lang {
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--pf-border);
+}
+
+.pf-cv .pf-cv__lang-name {
+    color: var(--pf-text);
+    font-size: var(--pf-font-sm);
+    font-weight: 700;
+}
+
+.pf-cv .pf-cv__lang-level {
+    color: var(--pf-text-muted);
+    font-size: var(--pf-font-xs);
+}
+
+.pf-cv .pf-cv__groups {
+    gap: var(--pf-space-4);
+}
+
+.pf-cv .pf-cv__group-title {
+    margin-bottom: var(--pf-space-1);
+    color: var(--pf-accent);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.pf-cv .pf-cv__skill {
+    gap: 4px;
+    padding: 4px 0;
+}
+
+.pf-cv .pf-cv__skill-name {
+    color: var(--pf-text);
+    font-size: var(--pf-font-sm);
+}
+
+.pf-cv .pf-cv__skill-level {
+    color: var(--pf-text-subtle);
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.pf-cv .pf-cv__bar {
+    height: 5px;
+    overflow: hidden;
+    border-radius: var(--pf-radius-pill);
+    background: color-mix(in srgb, var(--pf-primary) 16%, transparent);
+}
+
+.pf-cv .pf-cv__bar-fill {
+    height: 100%;
+    border-radius: var(--pf-radius-pill);
+    background: linear-gradient(90deg, var(--pf-primary), color-mix(in srgb, var(--pf-primary) 60%, #35c1f1));
+}
+
+.pf-cv .pf-cv__soft {
+    gap: var(--pf-space-2);
+    padding: 5px 0;
+}
+
+.pf-cv .pf-cv__soft-name {
+    color: var(--pf-text);
+    font-size: var(--pf-font-sm);
+}
+
+/* Estrelas do RatingIndicator na cor de acento, como os pontos do PDF. */
+.pf-cv .pf-cv__dots {
+    flex: 0 0 auto;
+    --sapContent_RatedColor: var(--pf-accent);
+    --sapContent_UnratedColor: color-mix(in srgb, var(--pf-accent) 25%, transparent);
+}
+
+.pf-cv .pf-cv__dots .sapMRISel {
+    color: var(--pf-accent);
+}
+
+.pf-cv .pf-cv__dots .sapMRIUnsel {
+    color: color-mix(in srgb, var(--pf-accent) 25%, transparent);
+}
+
+/* --------------------------- coluna principal --------------------------- */
+
+.pf-cv .pf-cv__main {
+    gap: var(--pf-space-8);
+    padding: var(--pf-space-8) var(--pf-space-10);
+    min-width: 0;
+}
+
+.pf-cv .pf-cv__section {
+    gap: var(--pf-space-4);
+}
+
+.pf-cv .pf-cv__title {
+    display: flex;
+    align-items: center;
+    gap: var(--pf-space-3);
+    margin: 0;
+    color: var(--pf-text);
+    font-size: var(--pf-font-sm);
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.pf-cv .pf-cv__title::before {
+    content: "";
+    width: 18px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--pf-accent);
+}
+
+.pf-cv .pf-cv__title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--pf-border);
+}
+
+.pf-cv .pf-cv__text {
+    color: var(--pf-text-muted);
+    font-size: var(--pf-font-sm);
+    line-height: 1.65;
+}
+
+.pf-cv .pf-cv__metrics {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--pf-space-3);
+}
+
+.pf-cv .pf-cv__metric {
+    gap: 2px;
+    padding: var(--pf-space-3) var(--pf-space-4);
+    border: 1px solid var(--pf-border);
+    border-top: 3px solid var(--pf-primary);
+    border-radius: var(--pf-radius-md);
+    background: var(--pf-surface);
+}
+
+.pf-cv .pf-cv__metric-value {
+    color: var(--pf-primary);
+    font-size: var(--pf-font-xl);
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.pf-cv .pf-cv__metric-label {
+    color: var(--pf-text-muted);
+    font-size: var(--pf-font-xs);
+}
+
+/* Linha do tempo: trilho a esquerda e um ponto por experiencia. */
+.pf-cv .pf-cv__timeline {
+    position: relative;
+    gap: var(--pf-space-6);
+    padding-left: var(--pf-space-6);
+}
+
+.pf-cv .pf-cv__timeline::before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 5px;
+    width: 2px;
+    background: color-mix(in srgb, var(--pf-primary) 25%, transparent);
+}
+
+.pf-cv .pf-cv__timeline .pf-cv__entry {
+    position: relative;
+}
+
+.pf-cv .pf-cv__timeline .pf-cv__entry::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: calc(-1 * var(--pf-space-6) + 1px);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--pf-surface);
+    border: 2px solid var(--pf-primary);
+}
+
+.pf-cv .pf-cv__entry {
+    gap: var(--pf-space-2);
+}
+
+.pf-cv .pf-cv__entry-head {
+    gap: var(--pf-space-4);
+}
+
+.pf-cv .pf-cv__entry-title {
+    color: var(--pf-text);
+    font-size: var(--pf-font-md);
+    font-weight: 700;
+}
+
+.pf-cv .pf-cv__entry-sub {
+    color: var(--pf-primary);
+    font-size: var(--pf-font-sm);
+    font-weight: 700;
+}
+
+.pf-cv .pf-cv__pill {
+    flex: 0 0 auto;
+    padding: 3px 10px;
+    border-radius: var(--pf-radius-pill);
+    background: var(--pf-primary-soft);
+    color: var(--pf-primary);
+    font-size: var(--pf-font-xs);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.pf-cv .pf-cv__bullets {
+    gap: 2px;
+}
+
+.pf-cv .pf-cv__bullet {
+    position: relative;
+    padding-left: 16px;
+    color: var(--pf-text-muted);
+    font-size: var(--pf-font-sm);
+    line-height: 1.6;
+}
+
+.pf-cv .pf-cv__bullet::before {
+    content: "";
+    position: absolute;
+    top: 0.62em;
+    left: 2px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--pf-accent);
+}
+
+.pf-cv .pf-cv__list {
+    gap: var(--pf-space-5);
+}
+
+.pf-cv .pf-cv__project {
+    gap: var(--pf-space-2);
+    padding: var(--pf-space-4);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-md);
+    background: var(--pf-surface);
+}
+
+.pf-cv .pf-cv__link {
+    font-size: var(--pf-font-xs);
+}
+
+/* Certificacoes SAP: cartoes ambar clicaveis (abrem a credencial). */
+.pf-cv .pf-cv__certs {
+    gap: var(--pf-space-3);
+}
+
+.pf-cv .pf-cvcert {
+    gap: var(--pf-space-4);
+    padding: var(--pf-space-3) var(--pf-space-4);
+    border-left: 4px solid var(--pf-accent);
+    border-radius: var(--pf-radius-sm);
+    background: var(--pf-cv-amber-soft);
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.pf-cv .pf-cvcert[role="link"] {
+    cursor: pointer;
+}
+
+.pf-cv .pf-cvcert[role="link"]:hover,
+.pf-cv .pf-cvcert[role="link"]:focus-visible {
+    transform: translateX(2px);
+    box-shadow: var(--pf-shadow-2);
+    outline: none;
+}
+
+.pf-cv .pf-cvcert__icon {
+    flex: 0 0 auto;
+    color: var(--pf-accent);
+    font-size: 1.4rem;
+}
+
+.pf-cv .pf-cvcert__body {
+    flex: 1;
+    min-width: 0;
+}
+
+.pf-cv .pf-cvcert__eyebrow {
+    color: var(--pf-accent);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.pf-cv .pf-cvcert__title {
+    color: var(--pf-text);
+    font-size: var(--pf-font-sm);
+    font-weight: 700;
+}
+
+.pf-cv .pf-cvcert__date {
+    flex: 0 0 auto;
+    color: var(--pf-text-muted);
+    font-size: var(--pf-font-xs);
+    white-space: nowrap;
+}
+
+.pf-cv .pf-cv__foot {
+    flex-wrap: wrap;
+    gap: var(--pf-space-3);
+    padding-top: var(--pf-space-4);
+    border-top: 1px solid var(--pf-border);
+}
+
+/* Tablet: barra lateral mais estreita. */
+@media (max-width: 1024px) {
+    .pf-cv {
+        --pf-cv-side: 250px;
+    }
+
+    .pf-cv .pf-cv__metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Celular: uma coluna, cabecalho centralizado. (Abaixo da largura de um A4
+   impresso, para a impressao manter as duas colunas.) */
+@media screen and (max-width: 700px) {
+    .pf-cv .pf-cv__head {
+        flex-direction: column;
+        text-align: center;
+        padding: var(--pf-space-8) var(--pf-space-5);
+        gap: var(--pf-space-4);
+    }
+
+    .pf-cv .pf-cv__identity {
+        align-items: center;
+    }
+
+    .pf-cv .pf-cv__badge {
+        align-self: center;
+    }
+
+    .pf-cv .pf-cv__body {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .pf-cv .pf-cv__side {
+        border-right: 0;
+        border-bottom: 1px solid var(--pf-border);
+    }
+
+    .pf-cv .pf-cv__side,
+    .pf-cv .pf-cv__main {
+        padding: var(--pf-space-6) var(--pf-space-5);
+    }
+
+    .pf-cv .pf-cv__entry-head {
+        flex-direction: column;
+        gap: var(--pf-space-2);
+    }
 }
 
 /* ------------------------------ 404 / vazio ------------------------------ */

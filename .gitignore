@@ -18,3 +18,5 @@ webapp/cv/*.pdf
 !.vscode/extensions.json
 .DS_Store
 Thumbs.db
+# Cache do ui5-tooling-modules (bundle do jspdf)
+.ui5-tooling-modules/

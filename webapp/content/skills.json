@@ -6,13 +6,10 @@
     "icon": "instance",
     "level": 5,
     "description": {
-      "pt": "List Report, Overview Page e Object Page com annotations e extensoes de controlador.",
+      "pt": "List Report, Overview Page e Object Page com annotations e extensões de controlador.",
       "en": "List Report, Overview Page and Object Page with annotations and controller extensions."
     },
-    "tags": [
-      "SAP",
-      "Fiori"
-    ],
+    "tags": ["SAP", "Fiori"],
     "featured": true
   },
   {
@@ -22,13 +19,10 @@
     "icon": "instance",
     "level": 5,
     "description": {
-      "pt": "Desenvolvimento de reports, enhancement points e integracoes com APIs.",
-      "en": "Development of reports, enhancement points and API integrations."
+      "pt": "ABAP OO, RAP, reports, enhancements (BAdI, user exits, BTE), Smart Forms e integrações com APIs.",
+      "en": "ABAP OO, RAP, reports, enhancements (BAdI, user exits, BTE), Smart Forms and API integrations."
     },
-    "tags": [
-      "SAP",
-      "ABAP"
-    ],
+    "tags": ["SAP", "ABAP"],
     "featured": true
   },
   {
@@ -38,14 +32,10 @@
     "icon": "instance",
     "level": 4,
     "description": {
-      "pt": "Cloud Foundry, Destination Service e integracao com servicos do BTP.",
-      "en": "Cloud Foundry, Destination Service and integration with BTP services."
+      "pt": "Cloud Foundry, Destination Service, SAP Build e integração com serviços do BTP.",
+      "en": "Cloud Foundry, Destination Service, SAP Build and integration with BTP services."
     },
-    "tags": [
-      "SAP",
-      "Cloud",
-      "BTP"
-    ],
+    "tags": ["SAP", "Cloud", "BTP"],
     "featured": true
   },
   {
@@ -55,14 +45,10 @@
     "icon": "grid",
     "level": 5,
     "description": {
-      "pt": "Aplicacoes MVC, ViewModels, routing e uso de controls do sap.m.",
+      "pt": "Aplicações MVC, ViewModels, routing e uso de controls do sap.m.",
       "en": "MVC applications, ViewModels, routing and sap.m controls."
     },
-    "tags": [
-      "SAP",
-      "UI5",
-      "Front-end"
-    ],
+    "tags": ["SAP", "UI5", "Front-end"],
     "featured": true
   },
   {
@@ -72,13 +58,10 @@
     "icon": "source-code",
     "level": 4,
     "description": {
-      "pt": "Tipagem estrita em aplicacoes UI5 e codigo legivel em equipe.",
+      "pt": "Tipagem estrita em aplicações UI5 e código legível em equipe.",
       "en": "Strict typing in UI5 applications and team-friendly code."
     },
-    "tags": [
-      "Front-end",
-      "TypeScript"
-    ],
+    "tags": ["Front-end", "TypeScript"],
     "featured": true
   },
   {
@@ -88,13 +71,10 @@
     "icon": "cloud",
     "level": 4,
     "description": {
-      "pt": "APIs REST, integracoes e ferramentas de linha de comando.",
+      "pt": "APIs REST, integrações e ferramentas de linha de comando.",
       "en": "REST APIs, integrations and command-line tooling."
     },
-    "tags": [
-      "Back-end",
-      "Node.js"
-    ],
+    "tags": ["Back-end", "Node.js"],
     "featured": true
   },
   {
@@ -107,29 +87,26 @@
     "icon": "database",
     "level": 4,
     "description": {
-      "pt": "Consultas em SAP HANA e bancos relacionais, com foco em desempenho.",
-      "en": "Queries on SAP HANA and relational databases, with a performance focus."
+      "pt": "Consultas em SAP HANA, CDS Views e Calculation Views, com foco em desempenho.",
+      "en": "Queries on SAP HANA, CDS Views and Calculation Views, with a focus on performance."
     },
-    "tags": [
-      "Banco de dados",
-      "HANA"
-    ],
+    "tags": ["Banco de dados", "HANA"],
     "featured": true
   },
   {
     "id": "integration",
-    "name": "Integracao",
+    "name": {
+      "pt": "Integração",
+      "en": "Integration"
+    },
     "category": "Back-end",
     "icon": "world",
     "level": 4,
     "description": {
-      "pt": "APIs REST/OData, arquivos e integracao entre sistemas heterogeneos.",
-      "en": "REST/OData APIs, files and integration between heterogeneous systems."
+      "pt": "APIs REST/OData, web services, arquivos e integração entre sistemas heterogêneos.",
+      "en": "REST/OData APIs, web services, files and integration between heterogeneous systems."
     },
-    "tags": [
-      "Back-end",
-      "Integracao"
-    ],
+    "tags": ["Back-end", "Integração"],
     "featured": true
   },
   {
@@ -139,17 +116,17 @@
     "icon": "settings",
     "level": 4,
     "description": {
-      "pt": "Transpilacao de TypeScript, middleware e build de aplicacoes UI5.",
+      "pt": "Transpilação de TypeScript, middleware e build de aplicações UI5.",
       "en": "TypeScript transpilation, middleware and UI5 application build."
     },
-    "tags": [
-      "Front-end",
-      "Build"
-    ]
+    "tags": ["Front-end", "Build"]
   },
   {
     "id": "git",
-    "name": "Git e GitHub Actions",
+    "name": {
+      "pt": "Git e GitHub Actions",
+      "en": "Git and GitHub Actions"
+    },
     "category": {
       "pt": "Ferramentas",
       "en": "Tools"
@@ -157,13 +134,10 @@
     "icon": "log",
     "level": 4,
     "description": {
-      "pt": "Versionamento, code review e pipelines de publicacao automatica.",
+      "pt": "Versionamento, code review e pipelines de publicação automática.",
       "en": "Versioning, code review and automated publishing pipelines."
     },
-    "tags": [
-      "Ferramentas",
-      "DevOps"
-    ]
+    "tags": ["Ferramentas", "DevOps"]
   },
   {
     "id": "communication",
@@ -175,12 +149,10 @@
     "icon": "discussion",
     "level": 5,
     "description": {
-      "pt": "Comunicação clara e objetiva com negocio e time tecnico.",
+      "pt": "Comunicação clara e objetiva com o negócio e o time técnico.",
       "en": "Clear and objective communication with business and technical teams."
     },
-    "tags": [
-      "Soft Skills"
-    ]
+    "tags": ["Soft Skills"]
   },
   {
     "id": "problem-solving",
@@ -192,12 +164,10 @@
     "icon": "thinking",
     "level": 5,
     "description": {
-      "pt": "Analise crítica, troubleshooting e entrega de solucoes praticas.",
+      "pt": "Análise crítica, troubleshooting e entrega de soluções práticas.",
       "en": "Critical analysis, troubleshooting and practical solutions."
     },
-    "tags": [
-      "Soft Skills"
-    ]
+    "tags": ["Soft Skills"]
   },
   {
     "id": "leadership",
@@ -209,12 +179,10 @@
     "icon": "manager",
     "level": 4,
     "description": {
-      "pt": "Orientação de desenvolvedores, boas praticas e revisao de codigo.",
+      "pt": "Orientação de desenvolvedores, boas práticas e revisão de código.",
       "en": "Developer mentoring, best practices and code review guidance."
     },
-    "tags": [
-      "Soft Skills"
-    ]
+    "tags": ["Soft Skills"]
   },
   {
     "id": "organization",
@@ -226,12 +194,10 @@
     "icon": "appointment",
     "level": 4,
     "description": {
-      "pt": "Priorizacao, gerenciamento de escopo e cumprimento de prazos.",
+      "pt": "Priorização, gerenciamento de escopo e cumprimento de prazos.",
       "en": "Prioritization, scope management and timely delivery."
     },
-    "tags": [
-      "Soft Skills"
-    ]
+    "tags": ["Soft Skills"]
   },
   {
     "id": "teamwork",
@@ -246,8 +212,6 @@
       "pt": "Proatividade, empatia e foco em resultados coletivos.",
       "en": "Proactivity, empathy and focus on collective outcomes."
     },
-    "tags": [
-      "Soft Skills"
-    ]
+    "tags": ["Soft Skills"]
   }
 ]

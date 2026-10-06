@@ -202,7 +202,8 @@ export interface Skill {
 /** Projeto tecnico / portfolio de codigo. */
 export interface Project {
     id: string;
-    name: string;
+    /** Texto fixo ou `{ pt, en }` (nomes de projetos de cliente costumam ser traduzidos). */
+    name: LocalizedText;
     description: LocalizedText;
     /** Papel exercido no projeto. */
     role?: LocalizedText;

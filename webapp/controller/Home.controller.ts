@@ -62,8 +62,8 @@ export default class HomeController extends BaseController {
         this.openLink(linkedin?.url);
     }
 
-    /** Baixa o PDF do curriculo gerado a partir dos dados do portfolio. */
+    /** Baixa o PDF do curriculo, gerado na hora (ver BaseController.onDownloadPress). */
     public onDownloadCvPress(): void {
-        window.open("cv/davi-castro-cv.pdf", "_blank");
+        void this.onDownloadPress();
     }
 }

@@ -1,29 +1,35 @@
 [
   {
     "id": "tecnico-informatica-paulo-petrola",
-    "institution": "Escola Estadual de Educacao Profissional Paulo Petrola",
+    "institution": "Escola Estadual de Educação Profissional Paulo Petrola",
     "degree": {
-      "pt": "Curso Tecnico Profissionalizante em Informatica",
+      "pt": "Curso Técnico Profissionalizante em Informática",
       "en": "Vocational Technical Course in IT"
     },
-    "period": { "from": "2016-01", "to": "2018-12" },
+    "period": {
+      "from": "2016-01",
+      "to": "2018-12"
+    },
     "description": {
-      "pt": "Ensino medio com curso tecnico profissionalizante em informatica (3 anos, com diploma). Atuacao em manutencao de computadores e desenvolvimento de sistemas desktop e web.",
+      "pt": "Ensino médio com curso técnico profissionalizante em informática (3 anos, com diploma). Atuação em manutenção de computadores e desenvolvimento de sistemas desktop e web.",
       "en": "High school with a three-year vocational IT course (diploma). Worked on computer maintenance and developing desktop and web systems."
     },
     "kind": "education",
-    "tags": ["PHP", "HTML", "CSS", "JavaScript", "MySQL", "Manutencao de computadores"]
+    "tags": ["PHP", "HTML", "CSS", "JavaScript", "MySQL", "Manutenção de computadores"]
   },
   {
     "id": "formacao-superior",
-    "institution": "Universidade Estacio de Sa",
+    "institution": "Universidade Estácio de Sá",
     "degree": {
-      "pt": "Bacharelado em Computacao",
+      "pt": "Bacharelado em Computação",
       "en": "Bachelor's degree in Computer Science"
     },
-    "period": { "from": "2019-01", "to": "2022-12" },
+    "period": {
+      "from": "2019-01",
+      "to": "2022-12"
+    },
     "description": {
-      "pt": "Formacao em fundamentos de programacao, bancos de dados, redes e engenharia de software.",
+      "pt": "Formação em fundamentos de programação, bancos de dados, redes e engenharia de software.",
       "en": "Study of programming fundamentals, databases, networking and software engineering."
     },
     "kind": "education",

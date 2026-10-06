@@ -1,55 +1,159 @@
 [
   {
-    "id": "davi-castro-tecnologia",
-    "company": "Davi Castro Tecnologia",
+    "id": "accenture-sap-abap",
+    "company": "Accenture Brasil",
     "role": {
-      "pt": "Desenvolvedor Full Stack / SAP Fiori",
-      "en": "Full Stack / SAP Fiori Developer"
+      "pt": "Consultor SAP ABAP | RAP | CAP | CI",
+      "en": "SAP ABAP Consultant | RAP | CAP | CI"
     },
-    "workplace": { "pt": "Remoto", "en": "Remote" },
-    "period": { "from": "2025-06", "to": null },
+    "workplace": {
+      "pt": "Remoto · Tempo integral",
+      "en": "Remote · Full-time"
+    },
+    "period": {
+      "from": "2024-09",
+      "to": null
+    },
     "summary": {
-      "pt": "Atuo como desenvolvedor em projetos de automacao e aplicacoes web, incluindo clientes de integracao com sistemas SAP.",
-      "en": "I work as a developer on automation and web application projects, including integrations with SAP systems."
+      "pt": "Consultoria SAP em projeto de implantação S/4HANA, com desenvolvimento ABAP, RAP, CAP, Fiori e integrações (Cloud Integration) para diversos módulos.",
+      "en": "SAP consulting on an S/4HANA implementation project, developing ABAP, RAP, CAP, Fiori and integrations (Cloud Integration) across several modules."
     },
     "highlights": [
       {
-        "pt": "Desenvolvimento de aplicacoes SAPUI5 e integracoes com servicos SAP.",
-        "en": "Development of SAPUI5 applications and integrations with SAP services."
+        "pt": "Atuação em projeto de implantação S/4HANA.",
+        "en": "Work on an S/4HANA implementation project."
       },
       {
-        "pt": "Automacao de processos e criacao de APIs e integracoes sob medida.",
-        "en": "Process automation and custom APIs and integrations."
+        "pt": "SAP Fiori: manutenção e implementação de aplicações.",
+        "en": "SAP Fiori: application maintenance and implementation."
+      },
+      {
+        "pt": "Soluções ABAP para os módulos MM, SD, FI, CO, QM, PP, TDF, BASIS e outros.",
+        "en": "ABAP solutions for the MM, SD, FI, CO, QM, PP, TDF and BASIS modules, among others."
       }
     ],
-    "stack": ["SAPUI5", "JavaScript", "Node.js", "ABAP", "REST"],
-    "modules": ["FI", "MM", "SD"],
+    "stack": [
+      "ABAP OO",
+      "ABAP RAP",
+      "SAP CAP",
+      "SAP Cloud Integration",
+      "SAP Fiori",
+      "SAPUI5",
+      "CDS Views",
+      "SAP BTP",
+      "SAP Build Process Automation",
+      "SAP Build Work Zone"
+    ],
+    "modules": ["MM", "SD", "FI", "CO", "QM", "PP", "TDF", "BASIS"],
+    "kind": "job",
+    "featured": true
+  },
+  {
+    "id": "gfx-sap-abap",
+    "company": "GFX Consultoria",
+    "role": {
+      "pt": "Consultor SAP ABAP",
+      "en": "SAP ABAP Consultant"
+    },
+    "workplace": {
+      "pt": "Híbrido · Tempo integral",
+      "en": "Hybrid · Full-time"
+    },
+    "period": {
+      "from": "2018-11",
+      "to": "2024-09"
+    },
+    "summary": {
+      "pt": "Consultoria SAP em implantação S/4HANA e suporte AMS para clientes S/4HANA e ECC, com desenvolvimento ABAP e Fiori.",
+      "en": "SAP consulting on S/4HANA implementation and AMS support for S/4HANA and ECC clients, with ABAP and Fiori development."
+    },
+    "highlights": [
+      {
+        "pt": "Atuação em projeto de implantação S/4HANA.",
+        "en": "Work on an S/4HANA implementation project."
+      },
+      {
+        "pt": "Suporte AMS para clientes S/4HANA e ECC.",
+        "en": "AMS support for S/4HANA and ECC clients."
+      },
+      {
+        "pt": "SAP Fiori: manutenção e implementação de aplicações.",
+        "en": "SAP Fiori: application maintenance and implementation."
+      },
+      {
+        "pt": "Soluções ABAP para os módulos MM, SD, FI, CO, QM, PP, TDF, BASIS e outros.",
+        "en": "ABAP solutions for the MM, SD, FI, CO, QM, PP, TDF and BASIS modules, among others."
+      }
+    ],
+    "stack": [
+      "ABAP OO",
+      "SAP Fiori",
+      "SAPUI5",
+      "Module Pool",
+      "BAdI / User Exits / BTE",
+      "Smart Forms",
+      "Web Services",
+      "CDS Views",
+      "Calculation Views",
+      "SAP BTP",
+      "SAP Build Process Automation",
+      "SAP Build Work Zone"
+    ],
+    "modules": ["MM", "SD", "FI", "CO", "QM", "PP", "TDF", "BASIS"],
     "kind": "job"
   },
   {
-    "id": "portfolio-sapui5",
-    "company": "Projeto proprio",
+    "id": "gfx-estagio-abap",
+    "company": "GFX Consultoria",
     "role": {
-      "pt": "Desenvolvedor",
-      "en": "Developer"
+      "pt": "Consultor ABAP (Estágio)",
+      "en": "ABAP Consultant (Internship)"
     },
-    "workplace": { "pt": "Remoto", "en": "Remote" },
-    "period": { "from": "2026-06", "to": null },
+    "location": {
+      "pt": "Fortaleza, CE",
+      "en": "Fortaleza, Brazil"
+    },
+    "workplace": {
+      "pt": "Estágio",
+      "en": "Internship"
+    },
+    "period": {
+      "from": "2018-08",
+      "to": "2018-11"
+    },
     "summary": {
-      "pt": "Portfolio profissional em SAPUI5 com TypeScript, dados em JSON e geracao automatica de PDF do curriculo.",
-      "en": "Professional portfolio in SAPUI5 with TypeScript, JSON data and automatic CV PDF generation."
+      "pt": "Estágio como consultor SAP ABAP, com atuação em implantação de sistema S/4HANA e melhorias AMS.",
+      "en": "Internship as an SAP ABAP consultant, working on an S/4HANA system implementation and AMS improvements."
     },
-    "highlights": [
-      {
-        "pt": "Arquitetura MVC sem framework, com DataSource trocavel por uma API remota.",
-        "en": "MVC architecture without a framework, with a DataSource swappable for a remote API."
-      },
-      {
-        "pt": "Modo escuro, bilíngue (PT/EN) e layout responsivo.",
-        "en": "Dark mode, bilingual (PT/EN) and responsive layout."
-      }
-    ],
-    "stack": ["SAPUI5", "TypeScript", "Vite", "Vitest"],
-    "kind": "project"
+    "highlights": [],
+    "stack": ["ABAP", "SAP S/4HANA Extensions"],
+    "kind": "job"
+  },
+  {
+    "id": "monitor-paulo-petrola",
+    "company": "Escola Estadual de Educação Profissional Paulo Petrola",
+    "role": {
+      "pt": "Monitor de desenvolvimento",
+      "en": "Development Teaching Assistant"
+    },
+    "location": {
+      "pt": "Fortaleza, CE",
+      "en": "Fortaleza, Brazil"
+    },
+    "workplace": {
+      "pt": "Presencial · Tempo integral",
+      "en": "On-site · Full-time"
+    },
+    "period": {
+      "from": "2017-01",
+      "to": "2018-12"
+    },
+    "summary": {
+      "pt": "Aluno monitor da turma de informática, apoiando dúvidas e projetos da turma para ajudar no desenvolvimento e no aprendizado em equipe.",
+      "en": "Student teaching assistant for the IT class, helping with questions and class projects to support development and team learning."
+    },
+    "highlights": [],
+    "stack": ["HTML", "CSS"],
+    "kind": "job"
   }
 ]

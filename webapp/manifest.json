@@ -5,8 +5,8 @@
     "type": "application",
     "i18n": {
       "bundleUrl": "i18n/i18n.properties",
-      "supportedLocales": ["", "en", "pt", "pt_BR"],
-      "fallback": true
+      "supportedLocales": ["", "en"],
+      "fallbackLocale": ""
     },
     "applicationVersion": {
       "version": "1.0.0"
@@ -50,8 +50,8 @@
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
           "bundleName": "davi.portfolio.i18n.i18n",
-          "supportedLocales": ["", "en", "pt", "pt_BR"],
-          "fallback": true,
+          "supportedLocales": ["", "en"],
+          "fallbackLocale": "",
           "asyncSupport": true
         }
       }

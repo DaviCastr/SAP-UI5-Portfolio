@@ -33,7 +33,9 @@
     .pf-chip,
     .pf-sheet__metric,
     .pf-sheet__section-title,
-    .pf-sheet__head {
+    .pf-sheet__head,
+    .pf-cv,
+    .pf-cv * {
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
@@ -185,6 +187,54 @@
 
     .pf-sheet a[href]::after {
         content: "";
+    }
+
+    /*
+     * Curriculo no desenho do PDF (.pf-cv): mantem as duas colunas e a faixa do
+     * cabecalho, so com espacos menores para caber no A4.
+     */
+    .pf-sheet.pf-cv {
+        border: 0;
+    }
+
+    .pf-cv .pf-cv__head {
+        padding: 18px 28px;
+        gap: 22px;
+    }
+
+    .pf-cv .pf-cv__avatar {
+        width: 96px;
+        height: 96px;
+    }
+
+    .pf-cv .pf-cv__name {
+        font-size: 26px;
+    }
+
+    .pf-cv .pf-cv__body {
+        grid-template-columns: 200px minmax(0, 1fr);
+    }
+
+    .pf-cv .pf-cv__side {
+        gap: 16px;
+        padding: 18px 16px;
+    }
+
+    .pf-cv .pf-cv__main {
+        gap: 16px;
+        padding: 18px 24px;
+    }
+
+    .pf-cv .pf-cv__metrics {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .pf-cv .pf-cv__entry,
+    .pf-cv .pf-cv__project,
+    .pf-cv .pf-cvcert,
+    .pf-cv .pf-cv__group {
+        page-break-inside: avoid;
+        break-inside: avoid;
     }
 
     @page {

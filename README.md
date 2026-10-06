@@ -50,7 +50,7 @@ O app abre em <http://localhost:8080/index.html>.
 | `npm run content:check`       | Valida os JSONs do portfolio (falha se algo estiver invalido) |
 | `npm run scrape:certificates` | Importa as badges do Credly para `certificates.json`          |
 | `npm run sync:github`         | Atualiza `github.json` e as estrelas/fors dos projetos        |
-| `npm run cv:pdf`              | Gera o PDF do curriculo em `webapp/cv/`                       |
+| `npm run cv:pdf`              | Gera o PDF estatico do curriculo em `webapp/cv/`              |
 | `npm run format`              | Prettier em todo o codigo                                     |
 
 ## Estrutura do projeto
@@ -195,6 +195,9 @@ npm run scrape:certificates -- --profile=outro-usuario
 - Marca como `featured` as badges cujo titulo contem "Certified".
 - Por padrao guarda a **URL remota** da imagem; com `--download-images` baixa para
   `webapp/images/certificates/`.
+- **Nao ha busca ao vivo no navegador** (o Credly nao envia CORS). Quem atualiza e o
+  workflow de deploy (`.github/workflows/deploy.yml`), que roda este script e o do GitHub
+  antes do build - a cada push e diariamente. Se a fonte falhar, o JSON versionado vale.
 
 ### GitHub
 
@@ -216,10 +219,20 @@ npm run cv:pdf -- --lang=en
 npm run cv:pdf -- --out=dist/cv.pdf
 ```
 
-Gera `webapp/cv/davi-castro-cv.pdf` (A4, 2 paginas) a partir dos mesmos JSONs da tela.
-O PDF **nao** e versionado (esta no `.gitignore`): ele e sempre gerado a partir do
-conteudo, entao nunca fica desatualizado em relacao a tela. Para publicar, gere o PDF
-antes do deploy (o botao "Baixar PDF" da home abre esse arquivo).
+O layout do PDF fica em `webapp/service/cvPdf.ts` (jsPDF) e e o mesmo nas duas pontas:
+
+- **No site**, os botoes "Baixar PDF" / "Baixar curriculo" geram o arquivo **na hora, no
+  navegador**, no idioma ativo, e o abrem numa **nova aba para visualizar** antes de baixar
+  (`service/pdfPreview.ts`). O botao "Baixar PDF" da aba salva como `davi-castro-cv-pt.pdf`
+  ou `-en.pdf`. Se o navegador bloquear a aba, o arquivo e baixado direto. O jsPDF so e
+  carregado no clique.
+- **No terminal**, `npm run cv:pdf` grava `webapp/cv/davi-castro-cv.pdf`, usado como
+  alternativa caso a geracao no navegador falhe. O deploy gera esse arquivo antes do build.
+
+A4 em duas colunas (cabecalho com foto, barra lateral com contato/idiomas/competencias,
+coluna principal com resumo, experiencia, projetos, formacao e certificacoes SAP). Se o
+conteudo nao couber em uma pagina, os espacos entre blocos sao reduzidos antes de quebrar
+para a segunda - nunca sobra folha em branco. O PDF **nao** e versionado (`.gitignore`).
 
 ## Testes e qualidade
 
@@ -250,4 +263,4 @@ Os testes cobrem a parte que pode quebrar em silencio:
 | Testes      | Vitest (rapido, sem browser)                                           |
 | Estado      | 3 models: `device`, `ui` (tema/idioma/loading) e `content` (documento) |
 | Rotas       | `sap.m.routing.Router` com `sections.json` como fonte da verdade       |
-| Ferramentas | `tsx` + `pdfkit` + API publica do GitHub (sem servico externo)         |
+| Ferramentas | `tsx` + `jspdf` + API publica do GitHub (sem servico externo)          |

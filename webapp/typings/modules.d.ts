@@ -50,3 +50,9 @@ declare module "sap/ui/Device" {
     const Device: typeof sap.ui.core.Device;
     export default Device;
 }
+
+declare module "sap/ui/core/BusyIndicator" {
+    // Objeto singleton (show/hide); a definicao global so o declara como interface.
+    const BusyIndicator: sap.ui.core.BusyIndicator;
+    export default BusyIndicator;
+}
