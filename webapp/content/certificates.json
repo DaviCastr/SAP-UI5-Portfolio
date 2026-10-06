@@ -36,6 +36,78 @@
     "featured": true
   },
   {
+    "id": "moovi-cds-views",
+    "title": "CDS Views",
+    "issuer": "Moovi",
+    "issuedAt": "2025-11-01",
+    "expiresAt": null,
+    "url": "https://moovi.curseduca.pro/verify/8fc39155db6a72f1931671ec9cc59a00a48873a8",
+    "source": "manual",
+    "category": "Curso",
+    "credentialCode": "8fc39155db6a72f1931671ec9cc59a00a48873a8",
+    "featured": false
+  },
+  {
+    "id": "moovi-gateway-odata",
+    "title": "Gateway e OData",
+    "issuer": "Moovi",
+    "issuedAt": "2025-11-01",
+    "expiresAt": null,
+    "url": "https://moovi.curseduca.pro/verify/8314b9f4dce54ecd1dd45d79e1c3a6dfbd0b8422",
+    "source": "manual",
+    "category": "Curso",
+    "credentialCode": "8314b9f4dce54ecd1dd45d79e1c3a6dfbd0b8422",
+    "featured": false
+  },
+  {
+    "id": "moovi-sap-abap-rap",
+    "title": "SAP ABAP RAP",
+    "issuer": "Moovi",
+    "issuedAt": "2025-11-01",
+    "expiresAt": null,
+    "url": "https://moovi.curseduca.pro/verify/7d32e5ee17a303e0183a0c1331905eebb244eabd",
+    "source": "manual",
+    "category": "Curso",
+    "credentialCode": "7d32e5ee17a303e0183a0c1331905eebb244eabd",
+    "featured": false
+  },
+  {
+    "id": "moovi-sap-btp-essentials",
+    "title": "SAP BTP Essentials",
+    "issuer": "Moovi",
+    "issuedAt": "2025-11-01",
+    "expiresAt": null,
+    "url": "https://moovi.curseduca.pro/verify/66806ef4a5d1003b77dc19baf7e115ca20f43db5",
+    "source": "manual",
+    "category": "Curso",
+    "credentialCode": "66806ef4a5d1003b77dc19baf7e115ca20f43db5",
+    "featured": false
+  },
+  {
+    "id": "moovi-sap-cap",
+    "title": "SAP CAP",
+    "issuer": "Moovi",
+    "issuedAt": "2025-11-01",
+    "expiresAt": null,
+    "url": "https://moovi.curseduca.pro/verify/d60344c8b38d1c98affd5ab0e632fe42a0d74d98",
+    "source": "manual",
+    "category": "Curso",
+    "credentialCode": "d60344c8b38d1c98affd5ab0e632fe42a0d74d98",
+    "featured": false
+  },
+  {
+    "id": "moovi-fiori-freestyle",
+    "title": "Fiori Freestyle",
+    "issuer": "Moovi",
+    "issuedAt": "2025-09-01",
+    "expiresAt": null,
+    "url": "https://moovi.curseduca.pro/verify/87b6020f23e6f2ec3d62128d00bda95779dc6757",
+    "source": "manual",
+    "category": "Curso",
+    "credentialCode": "87b6020f23e6f2ec3d62128d00bda95779dc6757",
+    "featured": false
+  },
+  {
     "id": "4f025301-7735-4d6c-be94-763fe0fb2155",
     "title": "Introducing SAP ABAP Platform Fundamentals - Record of Achievement",
     "issuer": "SAP",
@@ -213,78 +285,6 @@
     "image": "https://images.credly.com/images/927c7d2e-4185-4f8d-ae50-b6d5d171eb26/blob",
     "source": "credly",
     "category": "Achievement",
-    "featured": false
-  },
-  {
-    "id": "moovi-sap-btp-essentials",
-    "title": "SAP BTP Essentials",
-    "issuer": "Moovi",
-    "issuedAt": "2025-11-01",
-    "expiresAt": null,
-    "url": "https://moovi.curseduca.pro/verify/66806ef4a5d1003b77dc19baf7e115ca20f43db5",
-    "source": "manual",
-    "category": "Curso",
-    "credentialCode": "66806ef4a5d1003b77dc19baf7e115ca20f43db5",
-    "featured": false
-  },
-  {
-    "id": "moovi-cds-views",
-    "title": "CDS Views",
-    "issuer": "Moovi",
-    "issuedAt": "2025-11-01",
-    "expiresAt": null,
-    "url": "https://moovi.curseduca.pro/verify/8fc39155db6a72f1931671ec9cc59a00a48873a8",
-    "source": "manual",
-    "category": "Curso",
-    "credentialCode": "8fc39155db6a72f1931671ec9cc59a00a48873a8",
-    "featured": false
-  },
-  {
-    "id": "moovi-sap-cap",
-    "title": "SAP CAP",
-    "issuer": "Moovi",
-    "issuedAt": "2025-11-01",
-    "expiresAt": null,
-    "url": "https://moovi.curseduca.pro/verify/d60344c8b38d1c98affd5ab0e632fe42a0d74d98",
-    "source": "manual",
-    "category": "Curso",
-    "credentialCode": "d60344c8b38d1c98affd5ab0e632fe42a0d74d98",
-    "featured": false
-  },
-  {
-    "id": "moovi-sap-abap-rap",
-    "title": "SAP ABAP RAP",
-    "issuer": "Moovi",
-    "issuedAt": "2025-11-01",
-    "expiresAt": null,
-    "url": "https://moovi.curseduca.pro/verify/7d32e5ee17a303e0183a0c1331905eebb244eabd",
-    "source": "manual",
-    "category": "Curso",
-    "credentialCode": "7d32e5ee17a303e0183a0c1331905eebb244eabd",
-    "featured": false
-  },
-  {
-    "id": "moovi-gateway-odata",
-    "title": "Gateway e OData",
-    "issuer": "Moovi",
-    "issuedAt": "2025-11-01",
-    "expiresAt": null,
-    "url": "https://moovi.curseduca.pro/verify/8314b9f4dce54ecd1dd45d79e1c3a6dfbd0b8422",
-    "source": "manual",
-    "category": "Curso",
-    "credentialCode": "8314b9f4dce54ecd1dd45d79e1c3a6dfbd0b8422",
-    "featured": false
-  },
-  {
-    "id": "moovi-fiori-freestyle",
-    "title": "Fiori Freestyle",
-    "issuer": "Moovi",
-    "issuedAt": "2025-09-01",
-    "expiresAt": null,
-    "url": "https://moovi.curseduca.pro/verify/87b6020f23e6f2ec3d62128d00bda95779dc6757",
-    "source": "manual",
-    "category": "Curso",
-    "credentialCode": "87b6020f23e6f2ec3d62128d00bda95779dc6757",
     "featured": false
   }
 ]
