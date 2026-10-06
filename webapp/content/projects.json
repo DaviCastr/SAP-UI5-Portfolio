@@ -22,35 +22,39 @@
   {
     "id": "curso-sap-abap-rap",
     "name": {
-      "pt": "Curso: Destravando SAP ABAP RAP",
-      "en": "Course: Unlocking SAP ABAP RAP"
+      "pt": "Curso: Destravando seu desenvolvimento em SAP ABAP RAP",
+      "en": "Course: Unlocking your SAP ABAP RAP development"
     },
     "role": {
       "pt": "Autor e instrutor",
       "en": "Author and instructor"
     },
     "description": {
-      "pt": "Treinamento prático e avançado para desenvolvedores SAP: modelagem, implementação e otimização de aplicações com SAP ABAP RAP para atuar em projetos reais. São 18 aulas, do protótipo managed ao draft.",
-      "en": "Hands-on, advanced training for SAP developers: modeling, implementing and optimizing applications with SAP ABAP RAP for real-world projects. 18 lessons, from the managed prototype to draft."
+      "pt": "Curso prático de SAP ABAP RAP para desenvolvedores SAP, com 18 módulos e 55 aulas: um app de viagens e reservas construído do protótipo managed ao draft, seguindo as boas práticas da SAP.",
+      "en": "Hands-on SAP ABAP RAP course for SAP developers, with 18 modules and 55 lessons: a travel and booking app built from the managed prototype to draft, following SAP best practices."
     },
     "highlights": [
       {
-        "pt": "CDS de interface, projeção, metadata, serviço, autorização e comportamento, além de EML.",
-        "en": "Interface, projection, metadata, service, authorization and behavior CDS, plus EML."
+        "pt": "Tabelas, dados de exemplo e CDS de interface, projeção, metadata, serviço, autorização e comportamento.",
+        "en": "Tables, sample data and interface, projection, metadata, service, authorization and behavior CDS."
       },
       {
-        "pt": "Determinações, validações, ações e draft (rascunho).",
-        "en": "Determinations, validations, actions and draft."
+        "pt": "EML na prática: leitura (inclusive por associação), criação, modificação, exclusão e tratamento de mensagens.",
+        "en": "EML in practice: reading (including by association), create, update, delete and message handling."
       },
       {
-        "pt": "Cenários greenfield (managed), brownfield (unmanaged) e custom entities.",
-        "en": "Greenfield (managed), brownfield (unmanaged) and custom entity scenarios."
+        "pt": "Autorização, determinações, validações e ações (internas, instance features, aceitar e rejeitar viagem), com debug.",
+        "en": "Authorization, determinations, validations and actions (internal, instance features, accept and reject travel), with debugging."
+      },
+      {
+        "pt": "Draft (rascunho) em viagem e reserva, com teste das validações no rascunho.",
+        "en": "Draft for travel and booking, including testing validations in draft."
       }
     ],
-    "url": "https://davicastro-training.hotmart.host/destravando-seu-desenvolvimento-em-sap-abap-rap-8a01a68d-d1a7-4574-9cfd-daf7c8b8f87f",
+    "url": "https://hotmart.com/pt-br/marketplace/produtos/destravando-seu-desenvolvimento-em-sap-abap-rap/X106277760C",
     "image": "images/projects/curso-sap-rap.png",
     "icon": "education",
-    "stack": ["SAP ABAP RAP", "CDS Views", "EML", "ABAP"],
+    "stack": ["SAP ABAP RAP", "CDS Views", "EML", "OData V4", "SAP Fiori Elements"],
     "tags": ["SAP", "RAP", "ABAP", "Curso"],
     "featured": true,
     "current": true

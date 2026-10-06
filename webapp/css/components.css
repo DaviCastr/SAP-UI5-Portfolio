@@ -939,7 +939,8 @@
     width: calc(100% + 2 * var(--pf-card-padding));
     max-width: none;
     margin: calc(-1 * var(--pf-card-padding)) calc(-1 * var(--pf-card-padding)) 0;
-    aspect-ratio: 2 / 1;
+    /* 3:1 = proporcao dos banners de curso (1920x640): mostra a arte inteira. */
+    aspect-ratio: 3 / 1;
     object-fit: cover;
     border-radius: calc(var(--pf-radius-lg) - 1px) calc(var(--pf-radius-lg) - 1px) 0 0;
     border-bottom: 1px solid var(--pf-border);
