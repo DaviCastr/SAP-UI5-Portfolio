@@ -292,5 +292,101 @@
     "source": "credly",
     "category": "Achievement",
     "featured": false
+  },
+  {
+    "id": "sap-learning-build-2025",
+    "title": "Develop and Automate with SAP Build - Course Completion",
+    "issuer": "SAP",
+    "issuedAt": "2025-12-03",
+    "expiresAt": null,
+    "url": "https://badger.learning.sap.com/verify/xisov-vikag-ropor-kamac-hepap",
+    "image": "images/certificates/sap-learning-build-2025.png",
+    "source": "manual",
+    "category": "Curso",
+    "featured": false
+  },
+  {
+    "id": "sap-learning-deepening-abap",
+    "title": "Deepening Your ABAP Programming Knowledge - Course Completion",
+    "issuer": "SAP",
+    "issuedAt": "2025-10-10",
+    "expiresAt": null,
+    "url": "https://badger.learning.sap.com/verify/xuveh-kokeh-timos-lakik-gudyr",
+    "image": "images/certificates/sap-learning-deepening-abap.png",
+    "source": "manual",
+    "category": "Curso",
+    "featured": false
+  },
+  {
+    "id": "lab2learn-integration-suite",
+    "title": "Jornada Integration Suite na Prática",
+    "issuer": "Lab2Learn",
+    "issuedAt": "2025-07-04",
+    "expiresAt": null,
+    "url": "https://verify.netcredential.com/kcQCVf8O77",
+    "image": "images/certificates/lab2learn-integration-suite.jpg",
+    "source": "manual",
+    "category": "Curso",
+    "featured": false
+  },
+  {
+    "id": "lab2learn-explore-sap-cap",
+    "title": "Explore SAP CAP",
+    "issuer": "Lab2Learn",
+    "issuedAt": "2025-07-01",
+    "expiresAt": null,
+    "url": "https://verify.netcredential.com/kcQCwR52IP",
+    "image": "images/certificates/lab2learn-explore-sap-cap.jpg",
+    "source": "manual",
+    "category": "Curso",
+    "featured": false
+  },
+  {
+    "id": "lab2learn-bootcamp-btp-2",
+    "title": "Bootcamp SAP BTP 2.0 - Turma 3",
+    "issuer": "Lab2Learn",
+    "issuedAt": "2025-04-11",
+    "expiresAt": null,
+    "url": "https://verify.netcredential.com/kcQCC3oevY",
+    "image": "images/certificates/lab2learn-bootcamp-btp-2.jpg",
+    "source": "manual",
+    "category": "Curso",
+    "featured": false
+  },
+  {
+    "id": "lab2learn-sap-rap-futuro-abap",
+    "title": "SAP RAP: O Futuro do ABAP",
+    "issuer": "Lab2Learn",
+    "issuedAt": "2025-03-28",
+    "expiresAt": null,
+    "url": "https://verify.netcredential.com/kcQCNwWs3B",
+    "image": "images/certificates/lab2learn-sap-rap-futuro-abap.jpg",
+    "source": "manual",
+    "category": "Curso",
+    "featured": false
+  },
+  {
+    "id": "lab2learn-btp-s4hana",
+    "title": "SAP BTP + S/4HANA na Prática",
+    "issuer": "Lab2Learn",
+    "issuedAt": "2025-02-07",
+    "expiresAt": null,
+    "url": "https://verify.netcredential.com/kcQC7q0P4p",
+    "image": "images/certificates/lab2learn-btp-s4hana.jpg",
+    "source": "manual",
+    "category": "Curso",
+    "featured": false
+  },
+  {
+    "id": "lab2learn-clean-core",
+    "title": "SAP BTP - Clean Core na Prática",
+    "issuer": "Lab2Learn",
+    "issuedAt": "2024-09-20",
+    "expiresAt": null,
+    "url": "https://verify.netcredential.com/kcQClwoGnk",
+    "image": "images/certificates/lab2learn-clean-core.jpg",
+    "source": "manual",
+    "category": "Curso",
+    "featured": false
   }
 ]

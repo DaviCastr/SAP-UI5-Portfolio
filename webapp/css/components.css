@@ -1214,16 +1214,21 @@
 
 /*
  * Certificado inteiro em paisagem (JPG local, ex.: cursos da Moovi): `cover`
- * cortaria as laterais e o titulo. Mostra a imagem toda sobre um fundo escuro
- * proximo ao do certificado, para as faixas de cima/baixo sumirem. Os badges do
+ * cortaria as laterais e o titulo. Mostra a imagem toda, com margem, sobre o
+ * fundo neutro do card (funciona com certificado claro ou escuro). Os badges do
  * Credly sao URLs remotas sem extensao e seguem com `cover`.
  */
 .pf-cert__media:has(.pf-cert__image[src$=".jpg"]) {
-    background: #14131c;
+    padding: var(--pf-space-3);
+    box-sizing: border-box;
+    background: var(--pf-surface-sunken);
 }
 
+/* Certificado como "documento": inteiro, com sombra leve - serve para os
+   claros (Lab2Learn) e os escuros (Moovi). */
 .pf-cert__image[src$=".jpg"] {
     object-fit: contain;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.18));
 }
 
 /* Capa gerada (sem imagem): degrade da marca, titulo grande e emissor. */
