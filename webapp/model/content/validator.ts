@@ -1,6 +1,8 @@
 import type { ContentIssue, PortfolioContent } from "../types";
 
 const MONTH_PERIOD = /^\d{4}-(0[1-9]|1[0-2])$/;
+/** Push do GitHub: ISO completo ("2026-10-05T12:00:00Z") ou o formato antigo "YYYY-MM". */
+const PUSHED_AT = /^\d{4}-(0[1-9]|1[0-2])(-\d{2}(T\d{2}:\d{2}(:\d{2}(\.\d+)?)?Z?)?)?$/;
 const FULL_DATE = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -176,8 +178,8 @@ export function validateContent(content: Partial<PortfolioContent>): ContentIssu
         if (!item?.url || !/^https:\/\/github\.com\/[^/]+\/[^/]+$/.test(item.url)) {
             issues.push(issue(`${path}.url`, "a URL deve ser https://github.com/usuario/repositorio"));
         }
-        if (item?.pushedAt && !MONTH_PERIOD.test(item.pushedAt)) {
-            issues.push(issue(`${path}.pushedAt`, "use o formato YYYY-MM (ex.: 2025-07)"));
+        if (item?.pushedAt && !PUSHED_AT.test(item.pushedAt)) {
+            issues.push(issue(`${path}.pushedAt`, "use data ISO (ex.: 2025-07-15T10:00:00Z) ou YYYY-MM"));
         }
     });
 

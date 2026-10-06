@@ -239,7 +239,9 @@ export function toRepo(repo: GhRepo): GitHubRepo {
         stars: repo.stargazers_count,
         forks: repo.forks_count,
         topics: repo.topics?.length ? repo.topics : undefined,
-        pushedAt: toMonth(repo.pushed_at),
+        // ISO completo: com so o mes, repos do mesmo mes empatavam e a Home
+        // desempatava por nome, nao pelo push mais recente.
+        pushedAt: optional(repo.pushed_at),
         homepage,
         siteUrl: siteUrlOf(repo, homepage)
     };
@@ -258,6 +260,7 @@ export function mapGitHubInfo(user: GhUser, repos: GhRepo[], syncedAt?: string):
         profileUrl: user.html_url,
         syncedAt: syncedAt ?? new Date().toISOString(),
         repoCount: own.length,
-        repos: own.map(toRepo)
+        // Do push mais recente para o mais antigo (mesma ordem da Home).
+        repos: own.map(toRepo).sort((a, b) => (b.pushedAt ?? "").localeCompare(a.pushedAt ?? ""))
     };
 }

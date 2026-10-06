@@ -82,7 +82,7 @@ export interface GitHubRepo {
     topics?: string[];
     /** Topics como `{ label }`, para os chips da view (ver `Project.tagItems`). */
     topicItems?: ChipItem[];
-    /** YYYY-MM do ultimo push. */
+    /** Ultimo push em ISO ("2026-10-05T12:00:00Z"); a tela mostra so mes/ano. */
     pushedAt?: string;
     /** Site declarado no campo "website" do repositorio. */
     homepage?: string;

@@ -1,7 +1,7 @@
 {
   "login": "DaviCastr",
   "profileUrl": "https://github.com/DaviCastr",
-  "syncedAt": "2026-10-06T16:16:01.839Z",
+  "syncedAt": "2026-10-06T18:14:47.884Z",
   "repoCount": 54,
   "repos": [
     {
@@ -11,45 +11,27 @@
       "language": "TypeScript",
       "stars": 1,
       "forks": 0,
-      "pushedAt": "2026-10",
+      "pushedAt": "2026-10-06T17:41:46Z",
       "homepage": "https://davicastr.github.io/SAP-UI5-Portfolio",
       "siteUrl": "https://davicastr.github.io/SAP-UI5-Portfolio"
-    },
-    {
-      "name": "SAP-UI5-CustomControl",
-      "url": "https://github.com/DaviCastr/SAP-UI5-CustomControl",
-      "description": "A Custom Control to add to a Page Fiori Freestyle",
-      "language": "JavaScript",
-      "stars": 0,
-      "forks": 0,
-      "pushedAt": "2026-10"
     },
     {
       "name": "SAP-CAP-ExpenseManager",
       "url": "https://github.com/DaviCastr/SAP-CAP-ExpenseManager",
       "description": "Projeto pessoal - Gestor de Gasto em CAP com Typescript e MvC",
       "language": "TypeScript",
-      "stars": 0,
+      "stars": 1,
       "forks": 0,
-      "pushedAt": "2026-09"
-    },
-    {
-      "name": "SAP-MDK-ExpenseManager",
-      "url": "https://github.com/DaviCastr/SAP-MDK-ExpenseManager",
-      "description": "SAP-MDK-ExpenseManager",
-      "language": "JavaScript",
-      "stars": 0,
-      "forks": 0,
-      "pushedAt": "2026-09"
+      "pushedAt": "2026-10-06T17:41:25Z"
     },
     {
       "name": "SAP-UI5-ExpenseManager",
       "url": "https://github.com/DaviCastr/SAP-UI5-ExpenseManager",
       "description": "Expensa Manager UI5 Freestyle",
       "language": "TypeScript",
-      "stars": 0,
+      "stars": 1,
       "forks": 0,
-      "pushedAt": "2026-09",
+      "pushedAt": "2026-10-06T17:20:25Z",
       "homepage": "https://davicastr.github.io/SAP-UI5-ExpenseManager/",
       "siteUrl": "https://davicastr.github.io/SAP-UI5-ExpenseManager/"
     },
@@ -60,9 +42,27 @@
       "language": "TypeScript",
       "stars": 1,
       "forks": 0,
-      "pushedAt": "2026-09",
+      "pushedAt": "2026-10-06T17:19:57Z",
       "homepage": "https://davicastr.github.io/SAP-UI5-Three-Clues-Game/",
       "siteUrl": "https://davicastr.github.io/SAP-UI5-Three-Clues-Game/"
+    },
+    {
+      "name": "SAP-UI5-CustomControl",
+      "url": "https://github.com/DaviCastr/SAP-UI5-CustomControl",
+      "description": "A Custom Control to add to a Page Fiori Freestyle",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-10-06T15:48:48Z"
+    },
+    {
+      "name": "SAP-MDK-ExpenseManager",
+      "url": "https://github.com/DaviCastr/SAP-MDK-ExpenseManager",
+      "description": "SAP-MDK-ExpenseManager",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-09-09T02:28:12Z"
     },
     {
       "name": "SAP-CAP-GestorDeGastos",
@@ -70,7 +70,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2026-04"
+      "pushedAt": "2026-04-26T18:26:22Z"
     },
     {
       "name": "SAP-MDK-Maps",
@@ -78,7 +78,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2026-02"
+      "pushedAt": "2026-02-22T18:43:14Z"
     },
     {
       "name": "SAP-MDK-PetStore",
@@ -87,7 +87,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2026-02"
+      "pushedAt": "2026-02-22T01:15:10Z"
     },
     {
       "name": "SAP-MDK-NotificationPush",
@@ -96,7 +96,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2026-02"
+      "pushedAt": "2026-02-21T18:28:34Z"
     },
     {
       "name": "SAP-MDK-I18n-L10n",
@@ -105,7 +105,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2026-02"
+      "pushedAt": "2026-02-21T18:03:30Z"
     },
     {
       "name": "SAP-MDK-DeepLink",
@@ -114,7 +114,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2026-02"
+      "pushedAt": "2026-02-21T02:34:38Z"
     },
     {
       "name": "SAP-MDK-Annotations",
@@ -123,7 +123,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2026-02"
+      "pushedAt": "2026-02-21T02:33:38Z"
     },
     {
       "name": "SAP-MDK-Styling",
@@ -132,7 +132,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2026-02"
+      "pushedAt": "2026-02-21T01:51:46Z"
     },
     {
       "name": "SAP-MDK-ErrorArchive",
@@ -141,7 +141,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2026-02"
+      "pushedAt": "2026-02-21T01:26:32Z"
     },
     {
       "name": "SAP-MDK-DemoApp",
@@ -150,7 +150,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2026-02"
+      "pushedAt": "2026-02-21T00:11:25Z"
     },
     {
       "name": "SAP-MDK-FirstApp",
@@ -159,7 +159,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2026-02"
+      "pushedAt": "2026-02-20T14:04:33Z"
     },
     {
       "name": "SAP-RAP-UploadFileWithActionUsingAbstractParameter",
@@ -167,7 +167,7 @@
       "description": "Exemplo de upload de arquivo utilizando ação abstrata",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2026-01"
+      "pushedAt": "2026-01-30T19:52:22Z"
     },
     {
       "name": "SAP-RAP-Viagem",
@@ -176,7 +176,7 @@
       "language": "ABAP",
       "stars": 3,
       "forks": 0,
-      "pushedAt": "2026-01"
+      "pushedAt": "2026-01-15T19:30:16Z"
     },
     {
       "name": "SAP-CAP-Finance",
@@ -185,7 +185,7 @@
       "language": "HTML",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-11"
+      "pushedAt": "2025-11-13T18:53:03Z"
     },
     {
       "name": "SAP-CPI-ErrorHandlingWithOpenAITrello",
@@ -193,7 +193,7 @@
       "description": "Error handling with OpenAI and Trello",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-10"
+      "pushedAt": "2025-10-31T18:17:57Z"
     },
     {
       "name": "SAP-UI5-QualityTests",
@@ -202,7 +202,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-10"
+      "pushedAt": "2025-10-28T18:05:55Z"
     },
     {
       "name": "SAP-UI5-CustomLibrary",
@@ -211,7 +211,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-10"
+      "pushedAt": "2025-10-28T17:05:39Z"
     },
     {
       "name": "SAP-UI5-FullScreenAPP",
@@ -220,7 +220,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-10"
+      "pushedAt": "2025-10-28T15:00:20Z"
     },
     {
       "name": "SAP-UI5-ExtendStandardControl",
@@ -229,7 +229,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-10"
+      "pushedAt": "2025-10-28T14:59:19Z"
     },
     {
       "name": "SAP-UI5-ListDetailApp",
@@ -238,7 +238,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-10"
+      "pushedAt": "2025-10-28T14:32:11Z"
     },
     {
       "name": "SAP-UI5-CustomersFlight",
@@ -247,7 +247,7 @@
       "language": "TypeScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-10"
+      "pushedAt": "2025-10-27T15:14:18Z"
     },
     {
       "name": "SAP-UI5-HelloWorldCICD",
@@ -256,7 +256,7 @@
       "language": "TypeScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-10"
+      "pushedAt": "2025-10-22T23:14:31Z"
     },
     {
       "name": "SAP-ABAP-SalesOrder",
@@ -265,7 +265,7 @@
       "language": "ABAP",
       "stars": 1,
       "forks": 0,
-      "pushedAt": "2025-10"
+      "pushedAt": "2025-10-22T19:38:56Z"
     },
     {
       "name": "SAP-UI5-SalesOrderExtension",
@@ -274,7 +274,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-10"
+      "pushedAt": "2025-10-22T19:05:35Z"
     },
     {
       "name": "SAP-UI5-SalesOrder",
@@ -283,7 +283,7 @@
       "language": "TypeScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-10"
+      "pushedAt": "2025-10-22T18:47:15Z"
     },
     {
       "name": "SAP-ABAP-SalesMonitorExtension",
@@ -292,7 +292,7 @@
       "language": "ABAP",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-10"
+      "pushedAt": "2025-10-20T18:13:46Z"
     },
     {
       "name": "SAP-ABAP-SalesMonitor",
@@ -301,7 +301,7 @@
       "language": "ABAP",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-10"
+      "pushedAt": "2025-10-20T18:11:11Z"
     },
     {
       "name": "SAP-UI5-CustomerRegistration",
@@ -310,7 +310,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-10"
+      "pushedAt": "2025-10-17T21:00:47Z"
     },
     {
       "name": "SAP-UI5-CustomerRegistrationExtension",
@@ -319,7 +319,7 @@
       "language": "HTML",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-10"
+      "pushedAt": "2025-10-17T20:56:53Z"
     },
     {
       "name": "SAP-UI5-AirlineMasterDetail",
@@ -328,7 +328,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-10"
+      "pushedAt": "2025-10-09T01:47:00Z"
     },
     {
       "name": "SAP-UI5-Airline-SimpleWorklist",
@@ -337,7 +337,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-10"
+      "pushedAt": "2025-10-03T15:09:11Z"
     },
     {
       "name": "SAP-CAP-SalesOrder-MVC-Ts",
@@ -346,7 +346,7 @@
       "language": "TypeScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-09"
+      "pushedAt": "2025-09-19T16:43:59Z"
     },
     {
       "name": "SAP-CAP-Lab2Cash",
@@ -355,7 +355,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-07"
+      "pushedAt": "2025-07-16T13:36:23Z"
     },
     {
       "name": "SAP-RAP-UploadFileWithSectionExtension",
@@ -364,7 +364,7 @@
       "language": "JavaScript",
       "stars": 1,
       "forks": 0,
-      "pushedAt": "2025-05"
+      "pushedAt": "2025-05-09T15:24:03Z"
     },
     {
       "name": "SAP-RAP-SimpleLogApplication",
@@ -373,7 +373,7 @@
       "language": "ABAP CDS",
       "stars": 2,
       "forks": 0,
-      "pushedAt": "2025-03"
+      "pushedAt": "2025-03-28T01:46:26Z"
     },
     {
       "name": "SAP-BuildApps-SocialMediaActions",
@@ -381,7 +381,7 @@
       "description": "Projeto feito com SAP Build APPS e Backend SAP Build",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-02"
+      "pushedAt": "2025-02-06T17:08:29Z"
     },
     {
       "name": "SAP-BuildApps-ShoppingCart",
@@ -389,7 +389,7 @@
       "description": "Projeto desenvolvido com SAP Build APPS, CAP, SAP Build Process Automation",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2025-02"
+      "pushedAt": "2025-02-06T16:32:50Z"
     },
     {
       "name": "SAP-CAP-MyAppWithHanaDB",
@@ -398,7 +398,7 @@
       "language": "CAP CDS",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2024-10"
+      "pushedAt": "2024-10-21T19:21:44Z"
     },
     {
       "name": "SAP-CAP-RiskManagement",
@@ -406,7 +406,7 @@
       "description": "Reporsitory for RiskManagement CAP Project",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2024-10"
+      "pushedAt": "2024-10-18T02:37:56Z"
     },
     {
       "name": "DaviCastr",
@@ -414,14 +414,14 @@
       "description": "Olá eu sou Davi Castro",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2024-10"
+      "pushedAt": "2024-10-16T15:56:35Z"
     },
     {
       "name": "SAP-ProcessAutomation-SalesOrderWithAgentExcel",
       "url": "https://github.com/DaviCastr/SAP-ProcessAutomation-SalesOrderWithAgentExcel",
       "stars": 1,
       "forks": 0,
-      "pushedAt": "2024-10"
+      "pushedAt": "2024-10-16T15:33:09Z"
     },
     {
       "name": "SAP-CAP-DevelopmentLearningJourney",
@@ -429,7 +429,7 @@
       "language": "CAP CDS",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2024-09"
+      "pushedAt": "2024-09-27T21:58:56Z"
     },
     {
       "name": "ContinuosIntegrationAndDelivery",
@@ -438,7 +438,7 @@
       "language": "HTML",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2024-09"
+      "pushedAt": "2024-09-25T15:02:30Z"
     },
     {
       "name": "SAP-BuildAPPs-Automations",
@@ -446,7 +446,7 @@
       "description": "Aplicativos SAP Build e Automações",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2024-09"
+      "pushedAt": "2024-09-24T19:19:01Z"
     },
     {
       "name": "SAP-RAP-UploadFileWithAnnotations",
@@ -454,7 +454,7 @@
       "language": "ABAP CDS",
       "stars": 2,
       "forks": 0,
-      "pushedAt": "2023-10"
+      "pushedAt": "2023-10-22T01:54:44Z"
     },
     {
       "name": "BatePapoTempoReal-With-PHP-AJAX-MYSQL",
@@ -463,7 +463,7 @@
       "language": "CSS",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2023-10"
+      "pushedAt": "2023-10-09T21:19:01Z"
     },
     {
       "name": "MYPPLIFE",
@@ -479,7 +479,7 @@
         "mysql",
         "php"
       ],
-      "pushedAt": "2023-10"
+      "pushedAt": "2023-10-09T21:17:41Z"
     },
     {
       "name": "ChatDosEstagiarios",
@@ -487,7 +487,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2023-10",
+      "pushedAt": "2023-10-09T21:11:57Z",
       "homepage": "https://chat-dos-estagiarios.vercel.app",
       "siteUrl": "https://chat-dos-estagiarios.vercel.app"
     }

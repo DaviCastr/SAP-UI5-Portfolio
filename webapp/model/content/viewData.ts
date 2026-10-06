@@ -180,9 +180,9 @@ export function countCertificateYears(certificates: Certificate[]): YearGroup[] 
 /**
  * Repositorios do GitHub, do push mais recente para o mais antigo.
  *
- * O `pushedAt` do sync e "YYYY-MM", que ordena igual a data ISO em ordem
- * alfabetica; o nome desempate para a lista nao mudar de posicao entre um
- * build e outro quando varios repositorios foram empurrados no mesmo mes.
+ * O `pushedAt` do sync e o ISO completo do ultimo push, que ordena certo como
+ * texto; o nome so desempata pushes no mesmo instante (ou dados antigos com
+ * apenas "YYYY-MM").
  */
 export function mostRecentRepos(repos: GitHubRepo[], limit: number): GitHubRepo[] {
     return [...repos]

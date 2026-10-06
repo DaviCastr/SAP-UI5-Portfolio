@@ -254,7 +254,7 @@ describe("toRepo", () => {
             stars: 3,
             forks: 2,
             topics: ["sap", "ui5"],
-            pushedAt: "2026-10",
+            pushedAt: "2026-10-05T12:00:00Z",
             homepage: undefined,
             siteUrl: undefined
         });

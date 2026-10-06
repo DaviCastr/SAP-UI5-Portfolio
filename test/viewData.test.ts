@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { countCertificateYears, countTags, groupSkillsByCategory, isSoftSkill } from "../webapp/model/content/viewData";
+import {
+    countCertificateYears,
+    countTags,
+    groupSkillsByCategory,
+    isSoftSkill,
+    mostRecentRepos
+} from "../webapp/model/content/viewData";
 import type { Certificate, Skill } from "../webapp/model/types";
 
 function skill(id: string, category: string): Skill {
@@ -82,5 +88,17 @@ describe("countCertificateYears", () => {
 
     it("ignora registros sem data de emissao utilizavel", () => {
         expect(countCertificateYears([certificate("a", "")])).toEqual([]);
+    });
+});
+
+describe("mostRecentRepos", () => {
+    it("ordena pelo push real, nao pelo nome, dentro do mesmo mes", () => {
+        const repos = [
+            { name: "A-antigo", url: "https://github.com/x/a", pushedAt: "2026-10-01T08:00:00Z" },
+            { name: "Z-novo", url: "https://github.com/x/z", pushedAt: "2026-10-05T18:00:00Z" },
+            { name: "M-setembro", url: "https://github.com/x/m", pushedAt: "2026-09-30T23:00:00Z" }
+        ];
+
+        expect(mostRecentRepos(repos, 2).map((repo) => repo.name)).toEqual(["Z-novo", "A-antigo"]);
     });
 });
