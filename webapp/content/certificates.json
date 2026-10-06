@@ -49,32 +49,6 @@
     "image": "images/certificates/moovi-cds-views.jpg"
   },
   {
-    "id": "moovi-gateway-odata",
-    "title": "Gateway e OData",
-    "issuer": "Moovi",
-    "issuedAt": "2025-11-04",
-    "expiresAt": null,
-    "url": "https://moovi.curseduca.pro/verify/8314b9f4dce54ecd1dd45d79e1c3a6dfbd0b8422",
-    "source": "manual",
-    "category": "Curso",
-    "credentialCode": "8314b9f4dce54ecd1dd45d79e1c3a6dfbd0b8422",
-    "featured": false,
-    "image": "images/certificates/moovi-gateway-odata.jpg"
-  },
-  {
-    "id": "moovi-sap-abap-rap",
-    "title": "SAP ABAP RAP",
-    "issuer": "Moovi",
-    "issuedAt": "2025-11-07",
-    "expiresAt": null,
-    "url": "https://moovi.curseduca.pro/verify/7d32e5ee17a303e0183a0c1331905eebb244eabd",
-    "source": "manual",
-    "category": "Curso",
-    "credentialCode": "7d32e5ee17a303e0183a0c1331905eebb244eabd",
-    "featured": false,
-    "image": "images/certificates/moovi-sap-abap-rap.jpg"
-  },
-  {
     "id": "moovi-sap-btp-essentials",
     "title": "SAP BTP Essentials",
     "issuer": "Moovi",
@@ -99,6 +73,32 @@
     "credentialCode": "d60344c8b38d1c98affd5ab0e632fe42a0d74d98",
     "featured": false,
     "image": "images/certificates/moovi-sap-cap.jpg"
+  },
+  {
+    "id": "moovi-sap-abap-rap",
+    "title": "SAP ABAP RAP",
+    "issuer": "Moovi",
+    "issuedAt": "2025-11-07",
+    "expiresAt": null,
+    "url": "https://moovi.curseduca.pro/verify/7d32e5ee17a303e0183a0c1331905eebb244eabd",
+    "source": "manual",
+    "category": "Curso",
+    "credentialCode": "7d32e5ee17a303e0183a0c1331905eebb244eabd",
+    "featured": false,
+    "image": "images/certificates/moovi-sap-abap-rap.jpg"
+  },
+  {
+    "id": "moovi-gateway-odata",
+    "title": "Gateway e OData",
+    "issuer": "Moovi",
+    "issuedAt": "2025-11-04",
+    "expiresAt": null,
+    "url": "https://moovi.curseduca.pro/verify/8314b9f4dce54ecd1dd45d79e1c3a6dfbd0b8422",
+    "source": "manual",
+    "category": "Curso",
+    "credentialCode": "8314b9f4dce54ecd1dd45d79e1c3a6dfbd0b8422",
+    "featured": false,
+    "image": "images/certificates/moovi-gateway-odata.jpg"
   },
   {
     "id": "moovi-fiori-freestyle",
