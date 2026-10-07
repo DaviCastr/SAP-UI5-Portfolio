@@ -1,7 +1,7 @@
 {
   "login": "DaviCastr",
   "profileUrl": "https://github.com/DaviCastr",
-  "syncedAt": "2026-10-06T18:26:10.670Z",
+  "syncedAt": "2026-10-07T12:19:09.878Z",
   "repoCount": 54,
   "repos": [
     {
@@ -11,9 +11,31 @@
       "language": "TypeScript",
       "stars": 1,
       "forks": 0,
-      "pushedAt": "2026-10-06T18:25:47Z",
+      "pushedAt": "2026-10-06T18:54:46Z",
       "homepage": "https://davicastr.github.io/SAP-UI5-Portfolio",
       "siteUrl": "https://davicastr.github.io/SAP-UI5-Portfolio"
+    },
+    {
+      "name": "SAP-UI5-Three-Clues-Game",
+      "url": "https://github.com/DaviCastr/SAP-UI5-Three-Clues-Game",
+      "description": "Jogo das três pistas",
+      "language": "TypeScript",
+      "stars": 1,
+      "forks": 0,
+      "pushedAt": "2026-10-06T18:54:22Z",
+      "homepage": "https://davicastr.github.io/SAP-UI5-Three-Clues-Game/",
+      "siteUrl": "https://davicastr.github.io/SAP-UI5-Three-Clues-Game/"
+    },
+    {
+      "name": "SAP-UI5-ExpenseManager",
+      "url": "https://github.com/DaviCastr/SAP-UI5-ExpenseManager",
+      "description": "Expensa Manager UI5 Freestyle",
+      "language": "TypeScript",
+      "stars": 1,
+      "forks": 0,
+      "pushedAt": "2026-10-06T18:49:02Z",
+      "homepage": "https://davicastr.github.io/SAP-UI5-ExpenseManager/",
+      "siteUrl": "https://davicastr.github.io/SAP-UI5-ExpenseManager/"
     },
     {
       "name": "SAP-CAP-ExpenseManager",
@@ -23,28 +45,6 @@
       "stars": 1,
       "forks": 0,
       "pushedAt": "2026-10-06T17:41:25Z"
-    },
-    {
-      "name": "SAP-UI5-ExpenseManager",
-      "url": "https://github.com/DaviCastr/SAP-UI5-ExpenseManager",
-      "description": "Expensa Manager UI5 Freestyle",
-      "language": "TypeScript",
-      "stars": 1,
-      "forks": 0,
-      "pushedAt": "2026-10-06T17:20:25Z",
-      "homepage": "https://davicastr.github.io/SAP-UI5-ExpenseManager/",
-      "siteUrl": "https://davicastr.github.io/SAP-UI5-ExpenseManager/"
-    },
-    {
-      "name": "SAP-UI5-Three-Clues-Game",
-      "url": "https://github.com/DaviCastr/SAP-UI5-Three-Clues-Game",
-      "description": "Jogo das três pistas",
-      "language": "TypeScript",
-      "stars": 1,
-      "forks": 0,
-      "pushedAt": "2026-10-06T17:19:57Z",
-      "homepage": "https://davicastr.github.io/SAP-UI5-Three-Clues-Game/",
-      "siteUrl": "https://davicastr.github.io/SAP-UI5-Three-Clues-Game/"
     },
     {
       "name": "SAP-UI5-CustomControl",
