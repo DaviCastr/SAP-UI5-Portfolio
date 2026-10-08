@@ -50,7 +50,7 @@ const formatter = {
         return value ? formatDate(value, LocaleService.getActive()) : "";
     },
 
-    /** "2025-09-01T10:30:00Z" -> "01/09/2025, 10:30" */
+    /** "2026-10-07T13:45:54Z" -> "07/10/2026 às 10:45" (pt) | "Oct 7, 2026 at 10:45 AM" (en), hora local */
     dateTime(value: string | undefined): string {
         if (!value) {
             return "";
@@ -59,9 +59,17 @@ const formatter = {
         if (Number.isNaN(date.getTime())) {
             return value;
         }
-        const locale = LocaleService.getActive();
-        const time = date.toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit" });
-        return `${formatDate(value, locale)}, ${time}`;
+        // Le a data do proprio Date (e nao do texto): o sync grava ISO completo
+        // ("2026-10-07T13:45:54.840Z"), que o formatDate nao reconhece - e a
+        // tela mostrava o texto cru. Fica no horario local de quem visita.
+        if (LocaleService.getActive() === "en") {
+            const day = date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+            const time = date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+            return `${day} at ${time}`;
+        }
+        const day = date.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" });
+        const time = date.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+        return `${day} às ${time}`;
     },
 
     /** true quando a credencial venceu (selo "Vencida"). */

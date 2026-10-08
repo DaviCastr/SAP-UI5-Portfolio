@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import formatter from "../webapp/model/formatter";
 
-const { phone, certImage, summary, certShort, shortUrl, joinDot, count, period } = formatter;
+const { phone, certImage, summary, certShort, shortUrl, joinDot, count, period, dateTime } = formatter;
 
 describe("textos curtos", () => {
     it("tira o prefixo 'SAP Certified -' do titulo", () => {
@@ -89,5 +89,17 @@ describe("summary", () => {
 
     it("aceita valor ausente", () => {
         expect(summary(undefined as unknown as string)).toBe("");
+    });
+});
+
+describe("dateTime", () => {
+    it("formata o ISO completo do sync em data e hora legiveis (pt)", () => {
+        // Hora local de quem roda o teste: so o formato e verificado.
+        expect(dateTime("2026-10-07T13:45:54.840Z")).toMatch(/^\d{2}\/\d{2}\/2026 às \d{2}:\d{2}$/);
+    });
+
+    it("devolve vazio sem valor e o texto original quando nao e data", () => {
+        expect(dateTime(undefined)).toBe("");
+        expect(dateTime("ontem")).toBe("ontem");
     });
 });
