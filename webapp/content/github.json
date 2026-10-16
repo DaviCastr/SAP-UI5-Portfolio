@@ -1,9 +1,20 @@
 {
   "login": "DaviCastr",
   "profileUrl": "https://github.com/DaviCastr",
-  "syncedAt": "2026-10-15T10:34:23.982Z",
-  "repoCount": 55,
+  "syncedAt": "2026-10-16T10:21:02.782Z",
+  "repoCount": 56,
   "repos": [
+    {
+      "name": "SAP-UI5-ExpenseManager",
+      "url": "https://github.com/DaviCastr/SAP-UI5-ExpenseManager",
+      "description": "Expensa Manager UI5 Freestyle",
+      "language": "TypeScript",
+      "stars": 1,
+      "forks": 0,
+      "pushedAt": "2026-10-16T04:10:34Z",
+      "homepage": "https://davicastr.github.io/SAP-UI5-ExpenseManager/",
+      "siteUrl": "https://davicastr.github.io/SAP-UI5-ExpenseManager/"
+    },
     {
       "name": "SAP-CAP-ExpenseManager",
       "url": "https://github.com/DaviCastr/SAP-CAP-ExpenseManager",
@@ -11,7 +22,9 @@
       "language": "TypeScript",
       "stars": 1,
       "forks": 0,
-      "pushedAt": "2026-10-15T02:57:35Z"
+      "pushedAt": "2026-10-16T02:39:05Z",
+      "homepage": "https://davicastr.github.io/SAP-UI5-ExpenseManager/",
+      "siteUrl": "https://davicastr.github.io/SAP-UI5-ExpenseManager/"
     },
     {
       "name": "SAP-UI5-BenditaLook",
@@ -20,9 +33,26 @@
       "language": "TypeScript",
       "stars": 1,
       "forks": 0,
-      "pushedAt": "2026-10-15T01:52:23Z",
-      "homepage": "https://davicastr.github.io/SAP-UI5-BenditaLook/",
-      "siteUrl": "https://davicastr.github.io/SAP-UI5-BenditaLook/"
+      "pushedAt": "2026-10-16T01:18:01Z",
+      "homepage": "https://bendita-look.github.io/Store",
+      "siteUrl": "https://bendita-look.github.io/Store"
+    },
+    {
+      "name": "SAP-CAP-BenditaLook",
+      "url": "https://github.com/DaviCastr/SAP-CAP-BenditaLook",
+      "description": "Bendita Look Store",
+      "language": "TypeScript",
+      "stars": 1,
+      "forks": 0,
+      "pushedAt": "2026-10-16T00:14:32Z"
+    },
+    {
+      "name": "DaviCastr",
+      "url": "https://github.com/DaviCastr/DaviCastr",
+      "description": "Olá eu sou Davi Castro",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-10-15T17:59:54Z"
     },
     {
       "name": "SAP-UI5-Portfolio",
@@ -31,20 +61,9 @@
       "language": "TypeScript",
       "stars": 1,
       "forks": 0,
-      "pushedAt": "2026-10-14T10:51:56Z",
-      "homepage": "https://davicastr.github.io/SAP-UI5-Portfolio",
-      "siteUrl": "https://davicastr.github.io/SAP-UI5-Portfolio"
-    },
-    {
-      "name": "SAP-UI5-ExpenseManager",
-      "url": "https://github.com/DaviCastr/SAP-UI5-ExpenseManager",
-      "description": "Expensa Manager UI5 Freestyle",
-      "language": "TypeScript",
-      "stars": 1,
-      "forks": 0,
-      "pushedAt": "2026-10-09T18:20:10Z",
-      "homepage": "https://davicastr.github.io/SAP-UI5-ExpenseManager/",
-      "siteUrl": "https://davicastr.github.io/SAP-UI5-ExpenseManager/"
+      "pushedAt": "2026-10-15T10:34:26Z",
+      "homepage": "https://davicastr.github.io/SAP-UI5-Portfolio/",
+      "siteUrl": "https://davicastr.github.io/SAP-UI5-Portfolio/"
     },
     {
       "name": "SAP-UI5-Three-Clues-Game",
@@ -418,14 +437,6 @@
       "stars": 0,
       "forks": 0,
       "pushedAt": "2024-10-18T02:37:56Z"
-    },
-    {
-      "name": "DaviCastr",
-      "url": "https://github.com/DaviCastr/DaviCastr",
-      "description": "Olá eu sou Davi Castro",
-      "stars": 0,
-      "forks": 0,
-      "pushedAt": "2024-10-16T15:56:35Z"
     },
     {
       "name": "SAP-ProcessAutomation-SalesOrderWithAgentExcel",
