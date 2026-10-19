@@ -2,6 +2,27 @@
 <html lang="pt-BR" data-theme="light">
     <head>
         <meta charset="utf-8" />
+        <!--
+            O portfolio mudou para https://davicastr.github.io/ (repositorio
+            davicastr.github.io). Este endereco antigo redireciona para la,
+            mantendo a rota (#/projects...) e o ?lang=.
+
+            So redireciona no endereco publicado (davicastr.github.io/SAP-UI5-Portfolio):
+            no `npm start` local o app continua abrindo normalmente. Os arquivos do
+            app seguem no repositorio.
+        -->
+        <script>
+            (function () {
+                var NEW_SITE = "https://davicastr.github.io/";
+                var isOldAddress =
+                    location.hostname === "davicastr.github.io" &&
+                    /^\/SAP-UI5-Portfolio(\/|$)/i.test(location.pathname);
+                if (isOldAddress) {
+                    location.replace(NEW_SITE + location.search + location.hash);
+                }
+            })();
+        </script>
+        <link rel="canonical" href="https://davicastr.github.io/" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <title>Davi Castro | SAP Developer &amp; UI5</title>
@@ -25,7 +46,7 @@
             property="og:description"
             content="Consultor SAP ABAP com atuação em S/4HANA, SAP Fiori, SAPUI5, RAP, CAP, SAP BTP, SAP Build, MDK e mais."
         />
-        <meta property="og:url" content="https://davicastr.github.io/SAP-UI5-Portfolio/" />
+        <meta property="og:url" content="https://davicastr.github.io/" />
         <meta property="og:image" content="images/og-cover.png" />
         <meta property="og:locale" content="pt_BR" />
         <meta property="og:locale:alternate" content="en_US" />
