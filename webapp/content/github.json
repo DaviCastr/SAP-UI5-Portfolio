@@ -1,17 +1,39 @@
 {
   "login": "DaviCastr",
   "profileUrl": "https://github.com/DaviCastr",
-  "syncedAt": "2026-10-18T10:06:20.816Z",
+  "syncedAt": "2026-10-19T11:34:53.944Z",
   "repoCount": 56,
   "repos": [
     {
-      "name": "SAP-UI5-ExpenseManager",
-      "url": "https://github.com/DaviCastr/SAP-UI5-ExpenseManager",
-      "description": "Expensa Manager UI5 Freestyle",
+      "name": "davicastr.github.io",
+      "url": "https://github.com/DaviCastr/davicastr.github.io",
+      "description": "Personal Portfolio",
+      "language": "TypeScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-10-19T04:59:41Z",
+      "homepage": "https://davicastr.github.io/",
+      "siteUrl": "https://davicastr.github.io/"
+    },
+    {
+      "name": "SAP-UI5-BenditaLook",
+      "url": "https://github.com/DaviCastr/SAP-UI5-BenditaLook",
+      "description": "Bendita Look Store",
       "language": "TypeScript",
       "stars": 1,
       "forks": 0,
-      "pushedAt": "2026-10-18T05:55:54Z",
+      "pushedAt": "2026-10-18T18:18:16Z",
+      "homepage": "https://bendita-look.github.io/Store",
+      "siteUrl": "https://bendita-look.github.io/Store"
+    },
+    {
+      "name": "SAP-UI5-ExpenseManager",
+      "url": "https://github.com/DaviCastr/SAP-UI5-ExpenseManager",
+      "description": "Expense Manager UI5 Freestyle",
+      "language": "TypeScript",
+      "stars": 1,
+      "forks": 0,
+      "pushedAt": "2026-10-18T18:00:57Z",
       "homepage": "https://davicastr.github.io/SAP-UI5-ExpenseManager/",
       "siteUrl": "https://davicastr.github.io/SAP-UI5-ExpenseManager/"
     },
@@ -22,20 +44,9 @@
       "language": "TypeScript",
       "stars": 1,
       "forks": 0,
-      "pushedAt": "2026-10-18T05:20:59Z",
+      "pushedAt": "2026-10-18T15:07:14Z",
       "homepage": "https://davicastr.github.io/SAP-UI5-ExpenseManager/",
       "siteUrl": "https://davicastr.github.io/SAP-UI5-ExpenseManager/"
-    },
-    {
-      "name": "SAP-UI5-BenditaLook",
-      "url": "https://github.com/DaviCastr/SAP-UI5-BenditaLook",
-      "description": "Bendita Look Store",
-      "language": "TypeScript",
-      "stars": 1,
-      "forks": 0,
-      "pushedAt": "2026-10-18T05:06:30Z",
-      "homepage": "https://bendita-look.github.io/Store",
-      "siteUrl": "https://bendita-look.github.io/Store"
     },
     {
       "name": "SAP-UI5-Portfolio",
@@ -44,18 +55,9 @@
       "language": "TypeScript",
       "stars": 1,
       "forks": 0,
-      "pushedAt": "2026-10-17T09:54:05Z",
+      "pushedAt": "2026-10-18T10:06:23Z",
       "homepage": "https://davicastr.github.io/SAP-UI5-Portfolio/",
       "siteUrl": "https://davicastr.github.io/SAP-UI5-Portfolio/"
-    },
-    {
-      "name": "SAP-CAP-BenditaLook",
-      "url": "https://github.com/DaviCastr/SAP-CAP-BenditaLook",
-      "description": "Bendita Look Store",
-      "language": "TypeScript",
-      "stars": 1,
-      "forks": 0,
-      "pushedAt": "2026-10-16T00:14:32Z"
     },
     {
       "name": "DaviCastr",
