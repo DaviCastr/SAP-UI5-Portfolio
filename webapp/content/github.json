@@ -1,9 +1,20 @@
 {
   "login": "DaviCastr",
   "profileUrl": "https://github.com/DaviCastr",
-  "syncedAt": "2026-10-23T10:43:13.082Z",
+  "syncedAt": "2026-10-24T09:59:28.714Z",
   "repoCount": 55,
   "repos": [
+    {
+      "name": "SAP-CAP-ExpenseManager",
+      "url": "https://github.com/DaviCastr/SAP-CAP-ExpenseManager",
+      "description": "Projeto pessoal - Gestor de Gasto em CAP com Typescript e MvC",
+      "language": "TypeScript",
+      "stars": 1,
+      "forks": 0,
+      "pushedAt": "2026-10-23T16:01:50Z",
+      "homepage": "https://davicastr.github.io/SAP-UI5-ExpenseManager/",
+      "siteUrl": "https://davicastr.github.io/SAP-UI5-ExpenseManager/"
+    },
     {
       "name": "davicastr.github.io",
       "url": "https://github.com/DaviCastr/davicastr.github.io",
@@ -11,7 +22,7 @@
       "language": "TypeScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2026-10-22T11:15:13Z",
+      "pushedAt": "2026-10-23T11:06:37Z",
       "homepage": "https://davicastr.github.io/",
       "siteUrl": "https://davicastr.github.io/"
     },
@@ -22,20 +33,9 @@
       "language": "TypeScript",
       "stars": 1,
       "forks": 0,
-      "pushedAt": "2026-10-22T10:51:33Z",
+      "pushedAt": "2026-10-23T10:43:16Z",
       "homepage": "https://davicastr.github.io/SAP-UI5-Portfolio/",
       "siteUrl": "https://davicastr.github.io/SAP-UI5-Portfolio/"
-    },
-    {
-      "name": "SAP-CAP-ExpenseManager",
-      "url": "https://github.com/DaviCastr/SAP-CAP-ExpenseManager",
-      "description": "Projeto pessoal - Gestor de Gasto em CAP com Typescript e MvC",
-      "language": "TypeScript",
-      "stars": 1,
-      "forks": 0,
-      "pushedAt": "2026-10-20T02:41:39Z",
-      "homepage": "https://davicastr.github.io/SAP-UI5-ExpenseManager/",
-      "siteUrl": "https://davicastr.github.io/SAP-UI5-ExpenseManager/"
     },
     {
       "name": "DaviCastr",
